@@ -10,6 +10,9 @@ namespace MeioMundo.Ferramentas
         public string Name { get => "Meio Mundo"; }
         public string Description { get => "App"; }
 
+        public PluginType PluginType => PluginType.Window;
+        public Type Type => typeof(TestWindows);
+
         public static string GetInfo() => "It Work";
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using U_System.API;
-using U_System.API.Plugins;
+using U_System.External;
+using U_System.External.Plugin;
 
 namespace MeioMundo.Ferramentas
 {
@@ -16,9 +16,15 @@ namespace MeioMundo.Ferramentas
                 Name = "Codigo de Barras",
                 Type = typeof(UI.Barcode).FullName,
                 Path = "Ferramentas>Codigos de Barras",
-                PluginType = PluginType.Tab
+                PluginTypeBehavior = PluginTypeBehavior.Tab
             }
         };
-          
+        public bool ShowWelcomePage => true;
+        public Module WelcomePage => new Module() {
+            Name = "Welcome",
+            Type = typeof(WelcomePage).FullName,
+            Path = "Ferramentas>Welcome",
+            PluginTypeBehavior = PluginTypeBehavior.Tab
+        };
     }
 }

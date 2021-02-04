@@ -4,17 +4,34 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <FileVersion>21.2.3.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>C:\Users\hugo_\GitHub\U-System\U-System\bin\Debug\Plugins\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Barcode\" />
+    <None Remove="Assets\books.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="U-System.API">
-      <HintPath>..\..\U-System\U-System.API\bin\Release\U-System.API.dll</HintPath>
-      <Private>false</Private>
+    <Folder Include="Barcode\" />
+    <Folder Include="Escola\" />
+    <Folder Include="UX\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="U-System.Core">
+      <HintPath>..\..\U-System\U-System.Core\bin\Debug\net5.0-windows\ref\U-System.Core.dll</HintPath>
     </Reference>
+    <Reference Include="U-System.External">
+      <HintPath>..\..\U-System\U-System.External\bin\Debug\net5.0-windows\ref\U-System.External.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\books.png" />
   </ItemGroup>
 
 </Project>

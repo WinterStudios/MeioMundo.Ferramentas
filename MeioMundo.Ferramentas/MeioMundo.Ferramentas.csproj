@@ -4,7 +4,7 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <FileVersion>21.2.3.0</FileVersion>
+    <FileVersion>21.2.7.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <Folder Include="Barcode\" />
-    <Folder Include="Escola\" />
     <Folder Include="UX\" />
   </ItemGroup>
 

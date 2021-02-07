@@ -17,6 +17,13 @@ namespace MeioMundo.Ferramentas
                 Type = typeof(UI.Barcode).FullName,
                 Path = "Ferramentas>Codigos de Barras",
                 PluginTypeBehavior = PluginTypeBehavior.Tab
+            },
+            new Module() {
+                Name = "Manuais Escolares",
+                Type = typeof(Escola.ManuaisEscolares).FullName,
+                Path = "Ferramentas>Manuais Escolares",
+                PluginTypeBehavior = PluginTypeBehavior.Tab,
+                TabIconLocations = "/MeioMundo.Ferramentas;component/Assets/books.png"
             }
         };
         public bool ShowWelcomePage => true;

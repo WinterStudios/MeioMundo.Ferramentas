@@ -35,8 +35,10 @@ namespace MeioMundo.Ferramentas
             if(tag == "_MANUAL_ESCOLAR")
             {
                 TabItem tab = new TabItem();
-                tab.Header = "Teste dos Manuais Escolares";
+                tab.Header = "Manuais Escolares";
                 tab.Tag = "/MeioMundo.Ferramentas;component/Assets/books.png";
+                Escola.ManuaisEscolares manuais = new Escola.ManuaisEscolares();
+                tab.Content = manuais;
                 U_System.Core.UX.TabsSystem.Add(tab);
             }
         }

@@ -12,8 +12,8 @@ namespace MeioMundo.Ferramentas.Escola
         public static ObservableCollection<Internal.Escola> Escolas { get; set; }
         
         private static string DataLocationFolder { get {
-                string pluginAssemblyDirectory = System.IO.Directory.GetCurrentDirectory().Replace("\\","/");
-                string pluginDataDirectory = pluginAssemblyDirectory.Remove(pluginAssemblyDirectory.LastIndexOf('/'));
+                string pluginAssemblyDirectory = AppDomain.CurrentDomain.BaseDirectory.Replace("\\","/");
+                string pluginDataDirectory = pluginAssemblyDirectory;
                 if (!System.IO.Directory.Exists(pluginDataDirectory + "/Data/MeioMundo.Ferramentas/Escola"))
                     System.IO.Directory.CreateDirectory(pluginDataDirectory + "/Data/MeioMundo.Ferramentas/Escola");
                 return pluginDataDirectory + "/Data/MeioMundo.Ferramentas/Escola/";

@@ -18,9 +18,9 @@ namespace MeioMundo.Ferramentas.Escola.Internal.Modelos
     /// <summary>
     /// Interaction logic for ModeloV2.xaml
     /// </summary>
-    public partial class ModeloV202008 : UserControl
+    public partial class Modelo_v20_08 : UserControl
     {
-        public ModeloV202008()
+        public Modelo_v20_08()
         {
             InitializeComponent();
         }

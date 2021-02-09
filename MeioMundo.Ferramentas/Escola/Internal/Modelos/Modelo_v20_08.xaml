@@ -18,6 +18,8 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackPanel>
@@ -63,6 +65,10 @@
                         <DataGridTextColumn CellStyle="{DynamicResource DataGrid_CellStyle}" Width="3cm" Header="Editora" Binding="{Binding Editora}" />
                     </DataGrid.Columns>
                 </DataGrid>
+            </StackPanel>
+            <Rectangle Grid.Row="1" Height="1cm" Margin="0,0.2cm" Fill="{DynamicResource Color.Brush.Pattern.Right}"/>
+            <StackPanel Grid.Row="2" Orientation="Vertical">
+                
             </StackPanel>
         </Grid>
     </Border>

@@ -4,7 +4,7 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <FileVersion>21.2.7.0</FileVersion>
+    <FileVersion>21.2.9.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -23,9 +23,11 @@
   <ItemGroup>
     <Reference Include="U-System.Core">
       <HintPath>..\..\U-System\U-System.Core\bin\Debug\net5.0-windows\ref\U-System.Core.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="U-System.External">
       <HintPath>..\..\U-System\U-System.External\bin\Debug\net5.0-windows\ref\U-System.External.dll</HintPath>
+      <Private>false</Private>
     </Reference>
   </ItemGroup>
 

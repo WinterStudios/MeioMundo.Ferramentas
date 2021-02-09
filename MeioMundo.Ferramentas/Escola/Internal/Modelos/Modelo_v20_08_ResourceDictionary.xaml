@@ -5,5 +5,13 @@
     <SolidColorBrush x:Key="Color.Background.Light" Color="#FFC8C8C8"/>
     <SolidColorBrush x:Key="Color.Background.Main" Color="#FFFFCB23"/>
 
+    <VisualBrush x:Key="Color.Brush.Pattern.Right" TileMode="Tile" Viewport="0,0,10,10" Viewbox="0,0,10,10" ViewboxUnits="Absolute" ViewportUnits="Absolute">
+        <VisualBrush.Visual>
+            <Grid>
+                <Path Data="M 9.5 -0.5 L 10.5 0.5 L 0.5 10.5 L -0.5 9.5 Z" Fill="Black"/>
+            </Grid>
+        </VisualBrush.Visual>
+    </VisualBrush>
+    
     <Style x:Key="DataGrid_CellStyle" TargetType="DataGridCell"/>
 </ResourceDictionary>

@@ -20,9 +20,17 @@ namespace MeioMundo.Ferramentas.Escola.Internal.Modelos
     /// </summary>
     public partial class Modelo_v20_08 : UserControl
     {
+        public Ensino TipoEnsino { get; set; }
+        public List<Disciplina> DisciplinasGerais { get; set; }
         public Modelo_v20_08()
         {
+            DisciplinasGerais = new List<Disciplina>();
+            
+            
             InitializeComponent();
+            UC_DataGrid_CG.ItemsSource = DisciplinasGerais;
+
+            DisciplinasGerais.Add(new Disciplina { ID = 0, Nome = "Portuges", Livro = new Livro { Nome = " Tes", ISBN = 234323232313232 } });
         }
     }
 }

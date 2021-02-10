@@ -48,5 +48,28 @@ namespace MeioMundo.Ferramentas.Escola
         {
 
         }
+
+        private void Editores_Button_Click(object sender, RoutedEventArgs e)
+        {
+            string tag = ((Button)sender).Tag.ToString();
+
+            if (string.IsNullOrEmpty(tag))
+                return;
+
+            if(tag == "__EDITOR_LIVROS")
+            {
+                Window window = new Window();
+                Editor_Livros editor = new Editor_Livros();
+                window.Content = editor;
+                window.Show();
+            }
+            if(tag == "__EDITOR_ESCOLAS")
+            {
+                Window window = new Window();
+                Editor_Geral editor = new Editor_Geral();
+                window.Content = editor;
+                window.Show();
+            }
+        }
     }
 }

@@ -4,6 +4,6 @@
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public object Disciplinas { get; set; }
+        public Disciplina[] Disciplinas { get; set; }
     }
 }

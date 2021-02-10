@@ -5,10 +5,10 @@
     <SolidColorBrush x:Key="Color.Background.Light" Color="#FFC8C8C8"/>
     <SolidColorBrush x:Key="Color.Background.Main" Color="#FFFFCB23"/>
 
-    <VisualBrush x:Key="Color.Brush.Pattern.Right" TileMode="Tile" Viewport="0,0,10,10" Viewbox="0,0,10,10" ViewboxUnits="Absolute" ViewportUnits="Absolute">
+    <VisualBrush x:Key="Color.Brush.Pattern.Right" TileMode="Tile" Viewport="0,0,5,5" Viewbox="0,0,10,10" ViewboxUnits="Absolute" ViewportUnits="Absolute">
         <VisualBrush.Visual>
-            <Grid>
-                <Path Data="M 9.5 -0.5 L 10.5 0.5 L 0.5 10.5 L -0.5 9.5 Z" Fill="Black"/>
+            <Grid Background="{DynamicResource Color.Background.Main}">
+                <Path Data="M 9.5 0 L 10 0 L 10 0.5 L 0.5 10 L 0 10 L 0 9.5 Z M 0 0.5 L 0.5 0 L 0 0 Z M 4.5 0 L 5.5 0 L 0 5.5 L 0 4.5 Z M 4.5 10 L 10 4.5 L 10 5.5 L 5.4 10 Z M 9.5 10 L 10 9.5 L 10 10 Z" Fill="Black"/>
             </Grid>
         </VisualBrush.Visual>
     </VisualBrush>

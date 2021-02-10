@@ -15,6 +15,8 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="4">
             <Button Content="Editor" Padding="8,4,8,4" Margin="6,6" VerticalAlignment="Bottom"/>
+            <Button Content="Editor de Livros" Padding="8,4,8,4" Margin="6,6" VerticalAlignment="Bottom" Click="Editores_Button_Click" Tag="__EDITOR_LIVROS"/>
+            <Button Content="Editor de Escolas" Padding="8,4,8,4" Margin="6,6" VerticalAlignment="Bottom" Click="Editores_Button_Click" Tag="__EDITOR_ESCOLAS"/>
             <GroupBox Header="Versão">
                 <ComboBox x:Name="UC_ComboBox_Version" Width="80">
                     <ComboBoxItem Content="v.2020/07"/>

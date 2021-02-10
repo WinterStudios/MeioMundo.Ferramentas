@@ -10,7 +10,7 @@ namespace MeioMundo.Ferramentas.Escola
     public class ManuaisSystem
     {
         public static ObservableCollection<Internal.Escola> Escolas { get; set; }
-        
+        public static ObservableCollection<Internal.Livro> Livros { get; set; }
         private static string DataLocationFolder { get {
                 string pluginAssemblyDirectory = AppDomain.CurrentDomain.BaseDirectory.Replace("\\","/");
                 string pluginDataDirectory = pluginAssemblyDirectory;
@@ -21,8 +21,11 @@ namespace MeioMundo.Ferramentas.Escola
 
         public static void Inicialize()
         {
+            LoadLivros();
             LoadEscolas();
         }
+
+        #region Escolas
 
         public static void LoadEscolas()
         {
@@ -35,5 +38,25 @@ namespace MeioMundo.Ferramentas.Escola
 
         }
 
+
+        public static void AddEscola(Internal.Escola escola)
+        {
+
+        }
+
+        #endregion
+
+        #region Livros
+        public static void LoadLivros()
+        {
+            string livrosFile = DataLocationFolder + "Livros.json";
+            if (System.IO.File.Exists(livrosFile))
+            {
+                string json = System.IO.File.ReadAllText(livrosFile);
+                Livros = new ObservableCollection<Internal.Livro>(System.Text.Json.JsonSerializer.Deserialize<Internal.Livro[]>(json).ToList());
+            }
+        }
+
+        #endregion
     }
 }

@@ -17,6 +17,7 @@
                 <x:Type TypeName="internal:UC_EditoresGerais"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <ObjectDataProvider x:Key="GetAnos" MethodName="GetAnos" ObjectType="{x:Type internal:Anos}" />
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -55,19 +56,112 @@
         <Grid x:Name="UC_Grid_Escolas" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition MinHeight="32" Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <ListBox Grid.Row="1">
-
+                <ListBox Grid.Row="1" x:Name="UC_ListBox_Escolas" SelectedIndex="{Binding EscolaSelect.ID}" SelectionChanged="UC_ListBox_Escolas_SelectionChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type internal:Escola}">
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
             </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition MinHeight="32" Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Create" VerticalAlignment="Center" Padding="6 4" Click="Button_Click" Tag="__CREATE_ESCOLA"/>
+                    <Button Content="Save" VerticalAlignment="Center" Margin="4 0" Padding="6 4" Click="Button_Click" Tag="__SAVE_ESCOLA"/>
+                </StackPanel>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="Nome da Escola">
+                        <TextBox Text="{Binding EscolaSelect.Name, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}"/>
+                    </GroupBox>
+                    <GroupBox Grid.Column="1" Header="ID da Escola">
+                        <TextBox Text="{Binding EscolaSelect.ID, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}"/>
+                    </GroupBox>
+                    <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <ListBox x:Name="UC_ListBox_Escolas_Anos">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="{x:Type internal:Ano}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding ID}"/>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition MinWidth="150" Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <GroupBox Header="Ano">
+                                <ComboBox x:Name="UC_ComboBox_Escola_Ano" ItemsSource="{Binding Source={StaticResource GetAnos}}" HorizontalContentAlignment="Stretch">
+                                    <ComboBox.ItemContainerStyle>
+                                        <Style TargetType="{x:Type ComboBoxItem}">
+                                            <Setter Property="IsEnabled" Value="{Binding IsSelect}"/>
+                                        </Style>
+                                    </ComboBox.ItemContainerStyle>
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type internal:AnosDictionary}">
+                                            <Grid x:Name="grid" Background="Transparent">
+                                                <Border>
+                                                    <Grid>
+                                                        
+                                                    </Grid>
+                                                </Border>
+                                                <TextBlock x:Name="text" Text="{Binding Nome}" HorizontalAlignment="Left"/>
+                                            </Grid>
+                                            <DataTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding  IsSelect}" Value="False">
+                                                    <Setter Property="HorizontalAlignment" Value="Center" TargetName="text"/>
+                                                    <Setter Property="Background" TargetName="grid" Value="LightBlue"/>
+                                                </DataTrigger>
+                                            </DataTemplate.Triggers>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </GroupBox>
+                            <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+                                <Button Content="Adcionar Ano" Padding="6 4" Click="Button_Click" Tag="__ESCOLA_ANO_ADD"/>
+                            </StackPanel>
+                            
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+            
         </Grid>
     </Grid>
 </UserControl>
 
+    
     

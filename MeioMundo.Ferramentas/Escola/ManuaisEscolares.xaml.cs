@@ -24,7 +24,7 @@ namespace MeioMundo.Ferramentas.Escola
     public partial class ManuaisEscolares : UserControl, INotifyPropertyChanged
     {
         
-        public Internal.Escola Escola { get => _escola; set { _escola = value; NotifyPropertyChanged(); } }
+        public Internal.Escola Escola { get => _escola; set { _escola = value; ManuaisSystem.Escolas[value.ID] = value; NotifyPropertyChanged(); } }
         private Internal.Escola _escola;
         public ObservableCollection<Internal.Escola> Escolas { get => ManuaisSystem.Escolas; }
         

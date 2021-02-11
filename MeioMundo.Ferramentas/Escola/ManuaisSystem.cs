@@ -21,11 +21,24 @@ namespace MeioMundo.Ferramentas.Escola
 
         public static void Inicialize()
         {
+            Escolas = new ObservableCollection<Internal.Escola>();
+            Livros = new ObservableCollection<Internal.Livro>();
             LoadLivros();
             LoadEscolas();
         }
 
         #region Escolas
+
+        public static Internal.Escola AddEscola()
+        {
+            Internal.Escola escola = new Internal.Escola();
+            escola.Name = "Escola ...";
+            escola.ID = Escolas.Count;
+            escola.Anos = new Internal.Ano[0];
+
+            Escolas.Add(escola);
+            return escola;
+        }
 
         public static void LoadEscolas()
         {
@@ -37,12 +50,20 @@ namespace MeioMundo.Ferramentas.Escola
             }
 
         }
+        public static void SaveEscola()
+        {
+            string escolaFile = DataLocationFolder + "Escolas.json";
+            System.Text.Json.JsonSerializerOptions options = new System.Text.Json.JsonSerializerOptions() { WriteIndented = true };
+            string json = System.Text.Json.JsonSerializer.Serialize(Escolas.ToArray(), options);
+            System.IO.File.WriteAllText(escolaFile, json);
+        }
 
 
         public static void AddEscola(Internal.Escola escola)
         {
 
         }
+
 
         #endregion
 

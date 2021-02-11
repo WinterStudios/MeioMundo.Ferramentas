@@ -34,7 +34,7 @@ namespace MeioMundo.Ferramentas.Escola
             Internal.Escola escola = new Internal.Escola();
             escola.Name = "Escola ...";
             escola.ID = Escolas.Count;
-            escola.Anos = new Internal.Ano[0];
+            escola.Anos = new List<Internal.Ano>();
 
             Escolas.Add(escola);
             return escola;

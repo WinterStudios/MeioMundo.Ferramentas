@@ -77,6 +77,9 @@ namespace MeioMundo.Ferramentas.Escola
             }
             if (tag == "__SAVE_ESCOLA")
                 ManuaisSystem.SaveEscola();
+
+            if (tag == "__ESCOLA_ANO_ADD")
+                AddAnoToEscola();
         }
 
         private void UC_ListBox_Escolas_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -98,6 +101,18 @@ namespace MeioMundo.Ferramentas.Escola
                 anos.Add(dictionary);
             }
             UC_ComboBox_Escola_Ano.ItemsSource = anos;
+        }
+
+        private void AddAnoToEscola()
+        {
+            Internal.Ano ano = new Internal.Ano();
+
+            Internal.AnosDictionary _anoDictionary = (Internal.AnosDictionary)UC_ComboBox_Escola_Ano.SelectedItem;
+            ano.ID = _anoDictionary.ID;
+            ano.Name = _anoDictionary.Nome;
+            ano.Disciplinas = new Internal.Disciplina[0];
+            EscolaSelect.Anos.Add(ano);
+            EscolaSelect.Anos = EscolaSelect.Anos.OrderBy(x => x.ID).ToList();
         }
     }
 }

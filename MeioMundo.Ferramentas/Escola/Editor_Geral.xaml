@@ -100,16 +100,25 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
-                        <ListBox x:Name="UC_ListBox_Escolas_Anos">
+                        <ListBox x:Name="UC_ListBox_Escolas_Anos" ItemsSource="{Binding EscolaSelect.Anos, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate DataType="{x:Type internal:Ano}">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="40"/>
+                                            <ColumnDefinition Width="30"/>
+                                            <ColumnDefinition Width="10"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Text="{Binding ID}"/>
-                                        <TextBlock Text="{Binding Name}"/>
+                                        <Border Grid.Column="0" Background="#96f5ff">
+                                            <Grid>
+                                                <TextBlock Text="{Binding ID}" HorizontalAlignment="Left" Padding="4,0"/>
+                                                <Rectangle Width="10" Margin="2,0" Fill="#80e196ff" HorizontalAlignment="Left" />
+                                            </Grid>
+                                        </Border>
+                                        <Border Grid.Column="2">
+                                            <TextBlock Text="{Binding Name}"/>
+                                        </Border>
+                                        
                                     </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>

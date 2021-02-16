@@ -16,6 +16,6 @@ namespace MeioMundo.Ferramentas.Escola.Internal
     public enum UC_EditoresGerais
     {
         Escola,
-        Ano
+        Disciplina
     }
 }

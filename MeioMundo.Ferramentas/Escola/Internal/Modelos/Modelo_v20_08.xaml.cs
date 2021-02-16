@@ -30,7 +30,7 @@ namespace MeioMundo.Ferramentas.Escola.Internal.Modelos
             InitializeComponent();
             UC_DataGrid_CG.ItemsSource = DisciplinasGerais;
 
-            DisciplinasGerais.Add(new Disciplina { ID = 0, Nome = "Portuges", Livro = new Livro { Nome = " Tes", ISBN = 234323232313232 } });
+            DisciplinasGerais.Add(new Disciplina { ID = 0, Nome = "Portuges" });
         }
     }
 }

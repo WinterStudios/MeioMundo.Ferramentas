@@ -10,6 +10,6 @@ namespace MeioMundo.Ferramentas.Escola.Internal
     {
         public int ID { get; set; }
         public string Nome { get; set; }
-        public List<Livro> Livros { get; set; }
+        public Livro Livro { get; set; }
     }
 }

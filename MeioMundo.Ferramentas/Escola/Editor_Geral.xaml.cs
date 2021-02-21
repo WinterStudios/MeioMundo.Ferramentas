@@ -193,7 +193,7 @@ namespace MeioMundo.Ferramentas.Escola
 
             disciplina.ID = dictionary.ID;
             disciplina.Nome = dictionary.Nome;
-            disciplina.Livros = new List<Internal.Livro>();
+            disciplina.Livro = new Internal.Livro();
 
             AnoSelect.Disciplinas.Add(disciplina);
 

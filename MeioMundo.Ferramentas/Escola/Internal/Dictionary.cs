@@ -120,7 +120,7 @@ namespace MeioMundo.Ferramentas.Escola.Internal
             keys.Add(66, "Geografia A");
             keys.Add(68, "Geografia C");
 
-            keys.Add(80, "Musica");
+            keys.Add(80, "Música");
             keys.Add(81, "Educação Moral e R.C.");
             keys.Add(82, "TIC");
             keys.Add(83, "Artes");

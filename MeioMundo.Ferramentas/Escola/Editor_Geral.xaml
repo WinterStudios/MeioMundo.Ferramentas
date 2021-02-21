@@ -41,18 +41,20 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
                 <GroupBox Header="Escola" Width="250">
-                    <ComboBox ItemsSource="{Binding Escolas, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" DisplayMemberPath="Name"/>
+                    <ComboBox ItemsSource="{Binding Escolas, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" DisplayMemberPath="Name" SelectedValue="{Binding EscolaSelect, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" />
                 </GroupBox>
                 <GroupBox Header="Ano">
-                    <ComboBox>
-
-                    </ComboBox>
+                    <ComboBox ItemsSource="{Binding EscolaSelect.Anos, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" DisplayMemberPath="Name" SelectedValue="{Binding AnoSelect, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}"/>
                 </GroupBox>
             </StackPanel>
-            <DataGrid Grid.Row="1">
+            <DataGrid Grid.Row="1" ItemsSource="{Binding AnoSelect.Disciplinas, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" AutoGenerateColumns="False" CanUserAddRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Disciplina"/>
-                    <DataGridTextColumn Header="Livro"/>
+                    <DataGridTextColumn Header="Disciplina" Binding="{Binding Nome}"/>
+                    <DataGridTextColumn Header="ISBN" Binding="{Binding Livro.ISBN}"/>
+                    <DataGridTextColumn Header="Nome do Livro" Binding="{Binding Livro.Nome}"/>
+                    <DataGridTextColumn Header="Autor do Livro" Binding="{Binding Livro.Autor}"/>
+                    <DataGridTextColumn Header="Editora do Livro" Binding="{Binding Livro.Editora}"/>
+                    <DataGridTextColumn Header="Disciplina Geral do Livro" Binding="{Binding Livro.Disciplina}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

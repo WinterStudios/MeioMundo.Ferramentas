@@ -6,19 +6,15 @@
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:MeioMundo.Ferramentas.Escola"
              xmlns:internal="clr-namespace:MeioMundo.Ferramentas.Escola.Internal"
-             
              d:DataContext="{d:DesignInstance Type=local:Editor_Geral}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="EditoresGeraisEmuns" MethodName="GetValues"
-                            ObjectType="{x:Type System:Enum}">
+        <ObjectDataProvider x:Key="EditoresModesEnum" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="internal:UC_EditoresGerais"/>
+                <x:Type TypeName="internal:Editores"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-        <ObjectDataProvider x:Key="GetAnos" MethodName="GetAnos" ObjectType="{x:Type internal:Anos}" />
-        <internal:StringToCharValueConverter x:Key="StringToCharValueConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -27,7 +23,7 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
             <GroupBox Header="Mode Editor" Width="125">
-                <ComboBox x:Name="UC_ComboBox_EditorMode" SelectedIndex="0" ItemsSource="{Binding Source={StaticResource EditoresGeraisEmuns}}" SelectionChanged="UC_ComboBox_EditorMode_SelectionChanged"/>
+                <ComboBox x:Name="UC_ComboBox_EditorMode" ItemsSource="{Binding Source={StaticResource EditoresModesEnum}}" SelectedItem="{Binding EditorMode, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}"  />
             </GroupBox>
         </StackPanel>
         <Grid x:Name="UC_Grid_Disciplinas" Grid.Row="1" Visibility="Collapsed">
@@ -41,13 +37,13 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
                 <GroupBox Header="Escola" Width="250">
-                    <ComboBox ItemsSource="{Binding Escolas, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" DisplayMemberPath="Name" SelectedValue="{Binding EscolaSelect, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" />
+                    <ComboBox  />
                 </GroupBox>
                 <GroupBox Header="Ano">
-                    <ComboBox ItemsSource="{Binding EscolaSelect.Anos, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" DisplayMemberPath="Name" SelectedValue="{Binding AnoSelect, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}"/>
+                    <ComboBox/>
                 </GroupBox>
             </StackPanel>
-            <DataGrid Grid.Row="1" ItemsSource="{Binding AnoSelect.Disciplinas, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid Grid.Row="1">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Disciplina" Binding="{Binding Nome}"/>
                     <DataGridTextColumn Header="ISBN" Binding="{Binding Livro.ISBN}"/>
@@ -69,9 +65,9 @@
                     <RowDefinition MinHeight="32" Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <ListBox Grid.Row="1" x:Name="UC_ListBox_Escolas" SelectedIndex="{Binding EscolaSelect.ID}" SelectionChanged="UC_ListBox_Escolas_SelectionChanged">
+                <ListBox Grid.Row="1" x:Name="UC_ListBox_Escolas">
                     <ListBox.ItemTemplate>
-                        <DataTemplate DataType="{x:Type internal:Escola}">
+                        <DataTemplate >
                             <TextBlock Text="{Binding Name}"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -96,10 +92,10 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <GroupBox Header="Nome da Escola">
-                        <TextBox Text="{Binding EscolaSelect.Name, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}"/>
+                        <TextBox />
                     </GroupBox>
                     <GroupBox Grid.Column="1" Header="ID da Escola">
-                        <TextBox Text="{Binding EscolaSelect.ID, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}"/>
+                        <TextBox />
                     </GroupBox>
                     <Grid Grid.Row="1" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
@@ -110,9 +106,9 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <ListBox x:Name="UC_ListBox_Escolas_Anos" Grid.Row="1" SelectionChanged="UC_ListBox_Escolas_Anos_SelectionChanged" >
+                        <ListBox x:Name="UC_ListBox_Escolas_Anos" Grid.Row="1" >
                             <ListBox.ItemTemplate>
-                                <DataTemplate DataType="{x:Type internal:Ano}">
+                                <DataTemplate>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="45"/>
@@ -123,24 +119,24 @@
                                             <StackPanel Orientation="Horizontal" Margin="4,0">
                                                 <Grid>
                                                     <Border Padding="2,0" Background="#88ffde05">
-                                                        <TextBlock Text="{Binding ID, Converter={StaticResource StringToCharValueConverter}, ConverterParameter=0}" VerticalAlignment="Center" />
+                                                        <TextBlock VerticalAlignment="Center" />
                                                     </Border>
                                                 </Grid>
                                                 <Grid Margin="4 0">
                                                     <Border Padding="2,0" Background="#88ff2f05">
-                                                        <TextBlock Text="{Binding ID, Converter={StaticResource StringToCharValueConverter}, ConverterParameter=1}" VerticalAlignment="Center" />
+                                                        <TextBlock VerticalAlignment="Center" />
                                                     </Border>
                                                 </Grid>
                                                 <Grid>
                                                     <Border Padding="2 0" Background="#8822ff05">
-                                                        <TextBlock Text="{Binding ID, Converter={StaticResource StringToCharValueConverter}, ConverterParameter=2}" VerticalAlignment="Center" />
+                                                        <TextBlock VerticalAlignment="Center" />
                                                     </Border>
                                                 </Grid>
                                             </StackPanel>
                                             
                                         </Border>
                                         <Border Grid.Column="2">
-                                            <TextBlock Text="{Binding Name}"/>
+                                            <TextBlock />
                                         </Border>
                                         
                                     </Grid>
@@ -153,22 +149,22 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <GroupBox Header="Ano">
-                                <ComboBox x:Name="UC_ComboBox_Escola_Ano" ItemsSource="{Binding Source={StaticResource GetAnos}}" HorizontalContentAlignment="Stretch">
+                                <ComboBox x:Name="UC_ComboBox_Escola_Ano"  HorizontalContentAlignment="Stretch">
                                     <ComboBox.ItemContainerStyle>
                                         <Style TargetType="{x:Type ComboBoxItem}">
                                             <Setter Property="IsEnabled" Value="{Binding IsSelect}"/>
                                         </Style>
                                     </ComboBox.ItemContainerStyle>
                                     <ComboBox.ItemTemplate>
-                                        <DataTemplate DataType="{x:Type internal:AnosDictionary}">
+                                        <DataTemplate >
                                             <Grid x:Name="grid" Background="Transparent">
-                                                <TextBlock x:Name="text" Text="{Binding Nome}" HorizontalAlignment="Left"/>
+                                                <TextBlock x:Name="text" HorizontalAlignment="Left"/>
                                             </Grid>
                                             <DataTemplate.Triggers>
-                                                <DataTrigger Binding="{Binding IsCiclo}" Value="True">
+                                                <!--<DataTrigger Binding="{Binding IsCiclo}" Value="True">
                                                     <Setter Property="HorizontalAlignment" Value="Center" TargetName="text"/>
                                                     <Setter Property="Background" TargetName="grid" Value="LightBlue"/>
-                                                </DataTrigger>
+                                                </DataTrigger>-->
                                             </DataTemplate.Triggers>
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
@@ -203,22 +199,22 @@
                                                 <Border>
                                                     <StackPanel Orientation="Horizontal">
                                                         <Border Padding="2,0" Background="#88ffde05">
-                                                            <TextBlock Text="{Binding ID, Converter={StaticResource StringToCharValueConverter}, ConverterParameter=0}" VerticalAlignment="Center" />
+                                                            <TextBlock VerticalAlignment="Center" />
                                                         </Border>
                                                         <Border Padding="2,0" Background="#88ffde05">
-                                                            <TextBlock Text="{Binding ID, Converter={StaticResource StringToCharValueConverter}, ConverterParameter=1}" VerticalAlignment="Center" />
+                                                            <TextBlock VerticalAlignment="Center" />
                                                         </Border>
                                                     </StackPanel>
                                                 </Border>
-                                                <TextBlock Text="{Binding Nome}" Grid.Column="1"/>
+                                                <TextBlock Grid.Column="1"/>
                                             </Grid>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
                                 </ListBox>
                                 <Rectangle Grid.Column="1" Width="20" />
-                                <ListBox x:Name="UC_ListBox_AllDisciplinas" Grid.Row="1" Grid.Column="2" MouseDoubleClick="UC_LisbBox_AllDisciplinas_PreviewMouseLeftButtonDown">
+                                <ListBox x:Name="UC_ListBox_AllDisciplinas" Grid.Row="1" Grid.Column="2" >
                                     <ListBox.ItemTemplate>
-                                        <DataTemplate DataType="{x:Type internal:DisciplinasDictionary}">
+                                        <DataTemplate >
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="30" />
@@ -227,14 +223,14 @@
                                                 <Border>
                                                     <StackPanel Orientation="Horizontal">
                                                         <Border Padding="2,0" Background="#88ffde05">
-                                                            <TextBlock Text="{Binding ID, Converter={StaticResource StringToCharValueConverter}, ConverterParameter=0}" VerticalAlignment="Center" />
+                                                            <TextBlock VerticalAlignment="Center" />
                                                         </Border>
                                                         <Border Padding="2,0" Background="#88ffde05">
-                                                            <TextBlock Text="{Binding ID, Converter={StaticResource StringToCharValueConverter}, ConverterParameter=1}" VerticalAlignment="Center" />
+                                                            <TextBlock VerticalAlignment="Center" />
                                                         </Border>
                                                     </StackPanel>
                                                 </Border>
-                                                <TextBlock Text="{Binding Nome}" Grid.Column="1"/>
+                                                <TextBlock Grid.Column="1"/>
                                             </Grid>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>

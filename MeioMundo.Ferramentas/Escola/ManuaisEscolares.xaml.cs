@@ -24,12 +24,6 @@ namespace MeioMundo.Ferramentas.Escola
     public partial class ManuaisEscolares : UserControl, INotifyPropertyChanged
     {
         
-        public Internal.Escola Escola { get => _escola; set { _escola = value; ManuaisSystem.Escolas[value.ID] = value; NotifyPropertyChanged(); } }
-        private Internal.Escola _escola;
-        public ObservableCollection<Internal.Escola> Escolas { get => ManuaisSystem.Escolas; }
-        
-        public Internal.Ano Ano { get; set; }
-
         #region Notification Changed
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")

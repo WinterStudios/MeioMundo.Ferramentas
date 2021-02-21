@@ -15,29 +15,9 @@
             <RowDefinition MinHeight="30" Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Column="1" Grid.RowSpan="2">
-            <GroupBox Header="Ano">
-                <ComboBox />
-            </GroupBox>
-            <GroupBox Header="Disciplina">
-                <ComboBox />
-            </GroupBox>
-            <GroupBox Header="ISBN">
-                <TextBox />
-            </GroupBox>
-            <GroupBox Header="Nome">
-                <TextBox />
-            </GroupBox>
-            <GroupBox Header="Autor">
-                <TextBox />
-            </GroupBox>
-            <GroupBox Header="Editor">
-                <TextBox />
-            </GroupBox>
-        </StackPanel>
-        <DataGrid Grid.Row="1" ItemsSource="{Binding Livros, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}" AutoGenerateColumns="False" CanUserAddRows="False">
+        <DataGrid x:Name="UC_DataGrid_Livros" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Source={x:Static local:ManuaisSystem.Livros}}" SelectedItem="{Binding Livro, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ISBN" Width="90" Binding="{Binding ISBN}"/>
+                <DataGridTextColumn Header="ISBN" Width="100" Binding="{Binding ISBN}"/>
                 <DataGridTextColumn Header="Nome" Width="*" Binding="{Binding Nome}"/>
                 <DataGridTextColumn Header="Autor" Width="120" Binding="{Binding Autor}"/>
                 <DataGridTextColumn Header="Editora" Width="120" Binding="{Binding Editora}"/>
@@ -45,5 +25,27 @@
                 <DataGridTextColumn Header="Ano" Width="80" Binding="{Binding Ano}"/>
             </DataGrid.Columns>
         </DataGrid>
+        <GroupBox Header="Livro Editor" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
+            <StackPanel Orientation="Vertical">
+                <GroupBox Header="Ano">
+                    <ComboBox />
+                </GroupBox>
+                <GroupBox Header="Disciplina">
+                    <ComboBox />
+                </GroupBox>
+                <GroupBox Header="ISBN">
+                    <TextBox Text="{Binding Livro.ISBN, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}" />
+                </GroupBox>
+                <GroupBox Header="Nome">
+                    <TextBox Text="{Binding Livro.Nome, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}" />
+                </GroupBox>
+                <GroupBox Header="Autor">
+                    <TextBox Text="{Binding Livro.Autor, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}"/>
+                </GroupBox>
+                <GroupBox Header="Editor">
+                    <TextBox Text="{Binding Livro.Editora, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}"/>
+                </GroupBox>
+            </StackPanel>
+        </GroupBox>
     </Grid>
 </UserControl>

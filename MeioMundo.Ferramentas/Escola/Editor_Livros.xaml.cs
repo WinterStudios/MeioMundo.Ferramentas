@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,12 +21,23 @@ namespace MeioMundo.Ferramentas.Escola
     /// <summary>
     /// Interaction logic for Editor_Livros.xaml
     /// </summary>
-    public partial class Editor_Livros : UserControl
+    public partial class Editor_Livros : UserControl, INotifyPropertyChanged
     {
-        public ObservableCollection<Internal.Livro> Livros { get => ManuaisSystem.Livros; }
+        #region Notification Changed
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+
+        public Internal.Livro Livro { get => livro; set { livro = value; NotifyPropertyChanged(); } }
+        private Internal.Livro livro;
         public Editor_Livros()
         {
             InitializeComponent();
         }
+
+
     }
 }

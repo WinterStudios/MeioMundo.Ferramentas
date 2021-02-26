@@ -25,7 +25,7 @@ namespace MeioMundo.Ferramentas.Escola
 
         public static void Inicialize()
         {
-            //Escolas = new ObservableCollection<Internal.Escola>();
+            Escolas = new List<Internal.Escola>();
             //Livros = new ObservableCollection<Internal.Livro>();
             LoadLivros();
             LoadEscolas();
@@ -50,16 +50,27 @@ namespace MeioMundo.Ferramentas.Escola
             if (System.IO.File.Exists(escolaFile))
             {
                 string json = System.IO.File.ReadAllText(escolaFile);
-                //Escolas = new ObservableCollection<Internal.Escola>(System.Text.Json.JsonSerializer.Deserialize<Internal.Escola[]>(json).ToList());
+                Escolas = System.Text.Json.JsonSerializer.Deserialize<Internal.Escola[]>(json).ToList();
             }
 
         }
+
+        internal static void AddEscola()
+        {
+            Internal.Escola escola = new Internal.Escola();
+            escola.ID = Escolas.Count;
+            escola.Nome = "Escola ...";
+            escola.Anos = new List<Internal.Ano>();
+            Escolas.Add(escola);
+        }
+
+
         public static void SaveEscola()
         {
             string escolaFile = DataLocationFolder + "Escolas.json";
             System.Text.Json.JsonSerializerOptions options = new System.Text.Json.JsonSerializerOptions() { WriteIndented = true };
-            //string json = System.Text.Json.JsonSerializer.Serialize(Escolas.ToArray(), options);
-            //System.IO.File.WriteAllText(escolaFile, json);
+            string json = System.Text.Json.JsonSerializer.Serialize(Escolas.ToArray(), options);
+            System.IO.File.WriteAllText(escolaFile, json);
         }
 
 

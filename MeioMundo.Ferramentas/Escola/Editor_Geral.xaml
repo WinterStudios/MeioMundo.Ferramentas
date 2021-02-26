@@ -15,6 +15,13 @@
                 <x:Type TypeName="internal:Editores"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <ObjectDataProvider x:Key="Editor_GetAnos" MethodName="GetAnosUX" ObjectType="{x:Type internal:EditorExtensions}"/>
+        <ObjectDataProvider x:Key="Editor_GetDisciplinas" MethodName="GetDisciplinasUX" ObjectType="{x:Type internal:EditorExtensions}"/>
+        <ObjectDataProvider x:Key="Editor_GetEscolas" MethodName="GetEscolasUX" ObjectType="{x:Type internal:EditorExtensions}"/>
+        <internal:IsAnoCiclo x:Key="IsAnoCiclo"/>
+        <internal:StringToCharValueConverter x:Key="StringToCharConverter"/>
+        <internal:IntToStringConvert x:Key="IntToStringConvert"/>
+        <internal:IntToBoolConvert x:Key="IntToBoolConvert"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -25,6 +32,7 @@
             <GroupBox Header="Mode Editor" Width="125">
                 <ComboBox x:Name="UC_ComboBox_EditorMode" ItemsSource="{Binding Source={StaticResource EditoresModesEnum}}" SelectedItem="{Binding EditorMode, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}"  />
             </GroupBox>
+            <Button Content="Save" VerticalAlignment="Center" Margin="4 0" Padding="6 4" Click="Button_Click" Tag="__SAVE_ESCOLA"/>
         </StackPanel>
         <Grid x:Name="UC_Grid_Disciplinas" Grid.Row="1" Visibility="Collapsed">
             <Grid.RowDefinitions>
@@ -37,7 +45,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
                 <GroupBox Header="Escola" Width="250">
-                    <ComboBox  />
+                    <ComboBox ItemsSource="{Binding Source={StaticResource Editor_GetEscolas}}" DisplayMemberPath="Nome" SelectedItem="{Binding Escola,RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" />
                 </GroupBox>
                 <GroupBox Header="Ano">
                     <ComboBox/>
@@ -65,25 +73,21 @@
                     <RowDefinition MinHeight="32" Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <ListBox Grid.Row="1" x:Name="UC_ListBox_Escolas">
+                <ListBox Grid.Row="1" x:Name="UC_ListBox_Escolas" SelectedItem="{Binding Escola, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}">
                     <ListBox.ItemTemplate>
-                        <DataTemplate >
-                            <TextBlock Text="{Binding Name}"/>
+                        <DataTemplate DataType="{x:Type internal:Escola}">
+                            <TextBlock Text="{Binding Nome}"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </Grid>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition MinHeight="32" Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="Create" VerticalAlignment="Center" Padding="6 4" Click="Button_Click" Tag="__CREATE_ESCOLA"/>
-                    <Button Content="Save" VerticalAlignment="Center" Margin="4 0" Padding="6 4" Click="Button_Click" Tag="__SAVE_ESCOLA"/>
-                </StackPanel>
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
@@ -91,11 +95,12 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <GroupBox Header="Nome da Escola">
-                        <TextBox />
+                    <Button Grid.Column="0" Content="Create" VerticalAlignment="Center" Padding="6 4" Click="Button_Click" Tag="__CREATE_ESCOLA"/>
+                    <GroupBox Grid.Column="1" Header="Nome da Escola" >
+                        <TextBox Text="{Binding Escola.Nome, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}"/>
                     </GroupBox>
-                    <GroupBox Grid.Column="1" Header="ID da Escola">
-                        <TextBox />
+                    <GroupBox Grid.Column="2" Header="ID da Escola">
+                        <TextBox Text="{Binding Escola.ID, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}"/>
                     </GroupBox>
                     <Grid Grid.Row="1" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
@@ -106,65 +111,34 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <ListBox x:Name="UC_ListBox_Escolas_Anos" Grid.Row="1" >
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="45"/>
-                                            <ColumnDefinition Width="10"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Border Grid.Column="0" Background="#400593ff">
-                                            <StackPanel Orientation="Horizontal" Margin="4,0">
-                                                <Grid>
-                                                    <Border Padding="2,0" Background="#88ffde05">
-                                                        <TextBlock VerticalAlignment="Center" />
-                                                    </Border>
-                                                </Grid>
-                                                <Grid Margin="4 0">
-                                                    <Border Padding="2,0" Background="#88ff2f05">
-                                                        <TextBlock VerticalAlignment="Center" />
-                                                    </Border>
-                                                </Grid>
-                                                <Grid>
-                                                    <Border Padding="2 0" Background="#8822ff05">
-                                                        <TextBlock VerticalAlignment="Center" />
-                                                    </Border>
-                                                </Grid>
-                                            </StackPanel>
-                                            
-                                        </Border>
-                                        <Border Grid.Column="2">
-                                            <TextBlock />
-                                        </Border>
-                                        
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+
                         <Grid Grid.Column="0" Grid.Row="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition MinWidth="150" Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <GroupBox Header="Ano">
-                                <ComboBox x:Name="UC_ComboBox_Escola_Ano"  HorizontalContentAlignment="Stretch">
+                                <ComboBox x:Name="UC_ComboBox_Escola_Ano" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Source={StaticResource Editor_GetAnos}}" >
                                     <ComboBox.ItemContainerStyle>
                                         <Style TargetType="{x:Type ComboBoxItem}">
-                                            <Setter Property="IsEnabled" Value="{Binding IsSelect}"/>
+                                            <Setter Property="IsEnabled" Value="{Binding ID, Converter={StaticResource IsAnoCiclo}, ConverterParameter=IsEnabled}"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsEnable}" Value="True">
+                                                    <Setter Property="IsEnabled" Value="False"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
                                         </Style>
                                     </ComboBox.ItemContainerStyle>
                                     <ComboBox.ItemTemplate>
-                                        <DataTemplate >
+                                        <DataTemplate DataType="{x:Type internal:AnoUX}">
                                             <Grid x:Name="grid" Background="Transparent">
-                                                <TextBlock x:Name="text" HorizontalAlignment="Left"/>
+                                                <TextBlock x:Name="text" Text="{Binding Nome}" HorizontalAlignment="Left"/>
                                             </Grid>
                                             <DataTemplate.Triggers>
-                                                <!--<DataTrigger Binding="{Binding IsCiclo}" Value="True">
+                                                <DataTrigger Binding="{Binding ID, Converter={StaticResource IsAnoCiclo}}" Value="True">
                                                     <Setter Property="HorizontalAlignment" Value="Center" TargetName="text"/>
                                                     <Setter Property="Background" TargetName="grid" Value="LightBlue"/>
-                                                </DataTrigger>-->
+                                                </DataTrigger>
                                             </DataTemplate.Triggers>
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
@@ -172,6 +146,197 @@
                             </GroupBox>
                             <Button Content="Adcionar Ano" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Padding="6 4" Click="Button_Click" Tag="__ESCOLA_ANO_ADD"/>
                         </Grid>
+
+                        <ListBox x:Name="UC_ListBox_Escolas_Anos" Grid.Row="1" ItemsSource="{Binding Escola.Anos, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" SelectedItem="{Binding Ano, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" HorizontalContentAlignment="Stretch">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="{x:Type internal:AnoUX}">
+                                    <Grid x:Name="mainGrid" HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="45"/>
+                                            <ColumnDefinition Width="10"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Border x:Name="borderCiclo" Padding="4,0" Background="White">
+                                                    <TextBlock Text="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=0}" VerticalAlignment="Center" FontWeight="Bold" />
+                                                </Border>
+                                                <Border x:Name="borderCicloAno" Padding="4,0" Background="White">
+                                                    <TextBlock Text="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=1}" VerticalAlignment="Center" FontWeight="Bold" />
+                                                </Border>
+                                                <Border Padding="4 0" Background="Transparent" x:Name="secundario" Visibility="Collapsed">
+                                                    <TextBlock Text="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=2}" VerticalAlignment="Center" FontWeight="Bold" />
+                                                </Border>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Grid.Column="2">
+                                            <TextBlock Text="{Binding ID, Converter={StaticResource IntToStringConvert}, ConverterParameter=AnoID}" />
+                                        </Border>
+                                        <Rectangle x:Name="fillAdicional" Grid.Column="2" />
+                                    </Grid>
+
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter='0'}" Value="4">
+                                            <Setter Property="Visibility" TargetName="secundario" Value="Visible"/>
+                                        </DataTrigger>
+                                        
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=0}" Value="1"/>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=1}" Value="1"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" TargetName="borderCiclo" Value="#00cccc"/>
+                                            <Setter Property="Background" TargetName="mainGrid" Value="#33009999"/>
+                                            <Setter Property="Background" TargetName="borderCicloAno" Value="#40009999"/>
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=0}" Value="1"/>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=1}" Value="2"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" TargetName="borderCiclo" Value="#00cccc"/>
+                                            <Setter Property="Background" TargetName="mainGrid" Value="#4D009999"/>
+                                            <Setter Property="Background" TargetName="borderCicloAno" Value="#59009999"/>
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=0}" Value="1"/>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=1}" Value="3"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" TargetName="borderCiclo" Value="#00cccc"/>
+                                            <Setter Property="Background" TargetName="mainGrid" Value="#66009999"/>
+                                            <Setter Property="Background" TargetName="borderCicloAno" Value="#73009999"/>
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=0}" Value="1"/>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=1}" Value="4"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" TargetName="borderCiclo" Value="#00cccc"/>
+                                            <Setter Property="Background" TargetName="mainGrid" Value="#80009999"/>
+                                            <Setter Property="Background" TargetName="borderCicloAno" Value="#8C009999"/>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=0}" Value="2"/>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=1}" Value="1"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" TargetName="borderCiclo" Value="#cc00aa"/>
+                                            <Setter Property="Background" TargetName="mainGrid" Value="#33cc00aa"/>
+                                            <Setter Property="Background" TargetName="borderCicloAno" Value="#40cc00aa"/>
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=0}" Value="2"/>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=1}" Value="2"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" TargetName="borderCiclo" Value="#cc00aa"/>
+                                            <Setter Property="Background" TargetName="mainGrid" Value="#4Dcc00aa"/>
+                                            <Setter Property="Background" TargetName="borderCicloAno" Value="#59cc00aa"/>
+                                        </MultiDataTrigger>
+
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=0}" Value="3"/>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=1}" Value="1"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" TargetName="borderCiclo" Value="#ccaa00"/>
+                                            <Setter Property="Background" TargetName="mainGrid" Value="#33ccaa00"/>
+                                            <Setter Property="Background" TargetName="borderCicloAno" Value="#40ccaa00"/>
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=0}" Value="3"/>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=1}" Value="2"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" TargetName="borderCiclo" Value="#ccaa00"/>
+                                            <Setter Property="Background" TargetName="mainGrid" Value="#4Dccaa00"/>
+                                            <Setter Property="Background" TargetName="borderCicloAno" Value="#59ccaa00"/>
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=0}" Value="3"/>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=1}" Value="3"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" TargetName="borderCiclo" Value="#ccaa00"/>
+                                            <Setter Property="Background" TargetName="mainGrid" Value="#66ccaa00"/>
+                                            <Setter Property="Background" TargetName="borderCicloAno" Value="#73ccaa00"/>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=0}" Value="4"/>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=1}" Value="0"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" TargetName="borderCiclo" Value="#77b300"/>
+                                            <Setter Property="Background" TargetName="mainGrid" Value="#3377b300"/>
+                                            <Setter Property="Background" TargetName="borderCicloAno" Value="#4077b300"/>
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=0}" Value="4"/>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=1}" Value="1"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" TargetName="borderCiclo" Value="#77b300"/>
+                                            <Setter Property="Background" TargetName="mainGrid" Value="#6677b300"/>
+                                            <Setter Property="Background" TargetName="borderCicloAno" Value="#7377b300"/>
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=0}" Value="4"/>
+                                                <Condition Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=1}" Value="2"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" TargetName="borderCiclo" Value="#77b300"/>
+                                            <Setter Property="Background" TargetName="mainGrid" Value="#9977b300"/>
+                                            <Setter Property="Background" TargetName="borderCicloAno" Value="#A677b300"/>
+                                        </MultiDataTrigger>
+                                        <!--<DataTrigger Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=2}" Value="1">
+                                            <Setter TargetName="fillAdicional" Property="Fill">
+                                                <Setter.Value>
+                                                    <LinearGradientBrush>
+                                                        <GradientStop Color="Transparent" Offset="0"/>
+                                                        <GradientStop Color="#3333ff" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=2}" Value="2">
+                                            <Setter TargetName="fillAdicional" Property="Fill">
+                                                <Setter.Value>
+                                                    <LinearGradientBrush>
+                                                        <GradientStop Color="Transparent" Offset="0"/>
+                                                        <GradientStop Color="#ff3333" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=2}" Value="3">
+                                            <Setter TargetName="fillAdicional" Property="Fill">
+                                                <Setter.Value>
+                                                    <LinearGradientBrush>
+                                                        <GradientStop Color="Transparent" Offset="0"/>
+                                                        <GradientStop Color="#cccc00" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ID, Converter={StaticResource StringToCharConverter}, ConverterParameter=2}" Value="4">
+                                            <Setter TargetName="fillAdicional" Property="Fill">
+                                                <Setter.Value>
+                                                    <LinearGradientBrush>
+                                                        <GradientStop Color="Transparent" Offset="0"/>
+                                                        <GradientStop Color="#cc9c00" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>-->
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        
 
 
                         <GroupBox Header="Disciplinas" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
@@ -212,9 +377,9 @@
                                     </ListBox.ItemTemplate>
                                 </ListBox>
                                 <Rectangle Grid.Column="1" Width="20" />
-                                <ListBox x:Name="UC_ListBox_AllDisciplinas" Grid.Row="1" Grid.Column="2" >
+                                <ListBox x:Name="UC_ListBox_AllDisciplinas" ItemsSource="{Binding Source={StaticResource Editor_GetDisciplinas}}" Grid.Row="1" Grid.Column="2" >
                                     <ListBox.ItemTemplate>
-                                        <DataTemplate >
+                                        <DataTemplate DataType="{x:Type internal:DisciplinasUX}">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="30" />
@@ -222,15 +387,15 @@
                                                 </Grid.ColumnDefinitions>
                                                 <Border>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <Border Padding="2,0" Background="#88ffde05">
-                                                            <TextBlock VerticalAlignment="Center" />
+                                                        <Border Padding="4,0" Background="#88ffde05">
+                                                            <TextBlock Text="{Binding ID,Converter={StaticResource StringToCharConverter},ConverterParameter=0}" VerticalAlignment="Center" />
                                                         </Border>
-                                                        <Border Padding="2,0" Background="#88ffde05">
-                                                            <TextBlock VerticalAlignment="Center" />
+                                                        <Border Padding="4,0" Background="#88ffde05">
+                                                            <TextBlock Text="{Binding ID,Converter={StaticResource StringToCharConverter},ConverterParameter=1}" VerticalAlignment="Center" />
                                                         </Border>
                                                     </StackPanel>
                                                 </Border>
-                                                <TextBlock Grid.Column="1"/>
+                                                <TextBlock Text="{Binding Nome}" Grid.Column="1"/>
                                             </Grid>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>

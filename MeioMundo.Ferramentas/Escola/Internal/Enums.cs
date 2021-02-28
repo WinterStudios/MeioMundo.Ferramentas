@@ -6,16 +6,9 @@ using System.Threading.Tasks;
 
 namespace MeioMundo.Ferramentas.Escola.Internal
 {
-    public enum Ensino
+    public enum Editores
     {
-        Primario,
-        Basico,
-        Secundario
-    }
-
-    public enum UC_EditoresGerais
-    {
-        Escola,
-        Disciplina
+        Escola = 0,
+        Ano = 1,
     }
 }

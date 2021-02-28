@@ -31,45 +31,39 @@ namespace MeioMundo.Ferramentas.Escola
         }
         #endregion
 
-        public Internal.UC_EditoresGerais EditorMode { get; set; }
+
+        public Internal.Editores EditorMode { get => editorMode; 
+            set {
+                if(value == Internal.Editores.Escola)
+                {
+                    UC_Grid_Escolas.Visibility = Visibility.Visible;
+                    UC_Grid_Disciplinas.Visibility = Visibility.Collapsed;
+                }
+                if(value == Internal.Editores.Ano)
+                {
+                    UC_Grid_Disciplinas.Visibility = Visibility.Visible;
+                    UC_Grid_Escolas.Visibility = Visibility.Collapsed;
+                }
+                editorMode = value;
+            } }
+        private Internal.Editores editorMode;
 
 
-        public Internal.Escola?[] Escolas { get => ManuaisSystem.Escolas.ToArray(); }
+        public Internal.Escola Escola { get => escola; set { escola = value; CheckAnoAdd(); NotifyPropertyChanged(); } }
+        private Internal.Escola escola;
 
+        public Internal.Ano Ano { get => ano; set { ano = value; FilterLivros(); NotifyPropertyChanged(); } }
+        private Internal.Ano ano;
 
-        public Internal.Escola? EscolaSelect { get => _escolaSelect; set { _escolaSelect = value; ManuaisSystem.Escolas[_escolaSelect.ID] = value; NotifyPropertyChanged(); } }
-        private Internal.Escola? _escolaSelect;
-
-        public Internal.Ano? AnoSelect { get => _anoSelect; set { _anoSelect = value; NotifyPropertyChanged(); } }
-        private Internal.Ano? _anoSelect;
+        public Internal.Livro[] Livros { get => livros; set { livros = value; NotifyPropertyChanged(); } }
+        private Internal.Livro[] livros;
 
         public Editor_Geral()
         {
-            EditorMode = Internal.UC_EditoresGerais.Escola;
             InitializeComponent();
-            //LoadEscolasAnos();
-
-            UC_ListBox_Escolas.ItemsSource = Escolas; 
-            LoadDisciplinas();
+            UC_ListBox_Escolas.ItemsSource = ManuaisSystem.Escolas;
         }
 
-        private void UC_ComboBox_EditorMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (!IsLoaded)
-                return;
-            EditorMode = (Internal.UC_EditoresGerais)UC_ComboBox_EditorMode.SelectedItem;
-
-            if(EditorMode == Internal.UC_EditoresGerais.Disciplina)
-            {
-                UC_Grid_Disciplinas.Visibility = Visibility.Visible;
-                UC_Grid_Escolas.Visibility = Visibility.Collapsed;
-            }
-            if(EditorMode == Internal.UC_EditoresGerais.Escola)
-            {
-                UC_Grid_Disciplinas.Visibility = Visibility.Collapsed;
-                UC_Grid_Escolas.Visibility = Visibility.Visible;
-            }
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -77,8 +71,8 @@ namespace MeioMundo.Ferramentas.Escola
 
             if(tag == "__CREATE_ESCOLA")
             {
-                EscolaSelect = ManuaisSystem.AddEscola();
-                UC_ListBox_Escolas.ItemsSource = Escolas;
+                ManuaisSystem.AddEscola();
+                UC_ListBox_Escolas.Items.Refresh();
             }
             if (tag == "__SAVE_ESCOLA")
                 ManuaisSystem.SaveEscola();
@@ -86,122 +80,102 @@ namespace MeioMundo.Ferramentas.Escola
             if (tag == "__ESCOLA_ANO_ADD")
                 AddAnoToEscola();
         }
-
-        private void UC_ListBox_Escolas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CheckAnoAdd()
         {
             if (!this.IsLoaded)
                 return;
-            EscolaSelect = (Internal.Escola)UC_ListBox_Escolas.SelectedItem;
-            UC_ListBox_Escolas_Anos.ItemsSource = EscolaSelect.Anos;
-            LoadEscolasAnos();
-        }
-        private void LoadEscolasAnos()
-        {
-            List<Internal.AnosDictionary> anos = new List<Internal.AnosDictionary>();
-            foreach (var item in Internal.Anos.GetAnos())
+            foreach (Internal.AnoUX item in UC_ComboBox_Escola_Ano.Items)
             {
-                Internal.AnosDictionary dictionary = new Internal.AnosDictionary();
-                dictionary.ID = item.Key;
-                dictionary.Nome = item.Value;
-                if (item.Key % 10 == 0)
-                {
-                    dictionary.IsSelect = false;
-                    dictionary.IsCiclo = true;
-                }
-                else
-                    dictionary.IsSelect = true;
-                for (int i = 0; i < EscolaSelect.Anos.Count; i++)
-                {
-                    if (EscolaSelect.Anos[i].ID == item.Key)
-                    {
-                        dictionary.IsSelect = false;
-                        break;
-                    }
-                }
-
-                anos.Add(dictionary);
+                item.IsEnable = false;
             }
-            UC_ComboBox_Escola_Ano.ItemsSource = anos;
+
+            for (int i = 0; i < Escola.Anos.Count; i++)
+            {
+                foreach (Internal.AnoUX item in UC_ComboBox_Escola_Ano.Items)
+                {
+                    if (Escola.Anos[i].ID == item.ID)
+                        item.IsEnable = true;
+                }
+            }
+            UC_ComboBox_Escola_Ano.Items.Refresh();
+
+
+        }
+
+        private void FilterLivros(int disciplinaID = 0)
+        {
+            if (EditorMode != Internal.Editores.Ano)
+                return;
+
+            if (Escola == null || Ano == null)
+                return;
+
+            int ciclo = Ano.ID - (Ano.ID % 10);
+            List<Internal.Livro> _livros = new List<Internal.Livro>();
+            _livros.AddRange(ManuaisSystem.Livros.Where(x => x.Ano == ciclo).OrderBy(x => x.Nome));
+            if (disciplinaID == 0)
+                _livros.AddRange(ManuaisSystem.Livros.Where(x => x.Ano == Ano.ID).OrderBy(x => x.Nome));
+            else
+                _livros.AddRange(ManuaisSystem.Livros.Where(x => x.Ano == Ano.ID && x.Disciplina == disciplinaID).OrderBy(x => x.Nome));
+
+            Livros = _livros.OrderBy(x => x.Nome).ToArray();
         }
 
         private void AddAnoToEscola()
         {
-            Internal.Ano ano = new Internal.Ano();
-
-            Internal.AnosDictionary _anoDictionary = (Internal.AnosDictionary)UC_ComboBox_Escola_Ano.SelectedItem;
-            ano.ID = _anoDictionary.ID;
-            ano.Name = _anoDictionary.Nome;
-            ano.Disciplinas = new List<Internal.Disciplina>();
-            _anoDictionary.IsSelect = false;
-            EscolaSelect.Anos.Add(ano);
-            EscolaSelect.Anos = EscolaSelect.Anos.OrderBy(x => x.ID).ToList();
-            UC_ListBox_Escolas_Anos.ItemsSource = EscolaSelect.Anos;
-        }
-
-        private void LoadDisciplinas() 
-        {
-            List<Internal.DisciplinasDictionary> disciplinas = new List<Internal.DisciplinasDictionary>();
-            foreach (var item in Internal.Disciplinas.GetDisciplinas())
-            {
-                Internal.DisciplinasDictionary dictionary = new Internal.DisciplinasDictionary();
-                dictionary.ID = item.Key;
-                dictionary.Nome = item.Value;
-                //if (item.Key % 10 == 0)
-                //{
-                //    dictionary.IsSelect = false;
-                //    dictionary.IsCiclo = true;
-                //}
-                //else
-                //    dictionary.IsSelect = true;
-                //for (int i = 0; i < EscolaSelect.Anos.Count; i++)
-                //{
-                //    if (EscolaSelect.Anos[i].ID == item.Key)
-                //    {
-                //        dictionary.IsSelect = false;
-                //        break;
-                //    }
-                //}
-
-                disciplinas.Add(dictionary);
-            }
-            UC_ListBox_AllDisciplinas.ItemsSource = disciplinas;
-        }
-
-        private void UC_ListBox_Escolas_Anos_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (!this.IsLoaded || UC_ListBox_Escolas_Anos.SelectedIndex < 0)
+            if (Escola == null || UC_ComboBox_Escola_Ano.SelectedItem == null)
                 return;
+            
+            Internal.AnoUX anoUX = (Internal.AnoUX)UC_ComboBox_Escola_Ano.SelectedItem;
 
-            AnoSelect = (Internal.Ano)UC_ListBox_Escolas_Anos.SelectedItem;
-            UC_ListBox_EscolaAnoDisciplinas.ItemsSource = AnoSelect.Disciplinas;
+            Internal.Ano ano = new Internal.Ano();
+            ano.ID = anoUX.ID;
+            ano.Disciplinas = new List<Internal.Disciplina>();
 
+            Escola.Anos.Add(ano);
+
+            //anoUX.IsEnable = true;
+            UC_ComboBox_Escola_Ano.Items.Refresh();
+            if(UC_ComboBox_Escola_Ano.SelectedIndex < UC_ComboBox_Escola_Ano.Items.Count)
+            {
+                UC_ComboBox_Escola_Ano.SelectedIndex++;
+                if (((Internal.AnoUX)UC_ComboBox_Escola_Ano.SelectedItem).ID % 10 == 0)
+                    UC_ComboBox_Escola_Ano.SelectedIndex++;
+            }
+                
+            UC_ListBox_Escolas_Anos.Items.Refresh();
         }
 
-        private void UC_LisbBox_AllDisciplinas_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void UC_ListBox_AllDisciplinas_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            
+            int disciplinaID = ((Internal.DisciplinasUX)UC_ListBox_AllDisciplinas.SelectedItem).ID;
 
-            ListBox parent = (ListBox)sender;
-            Internal.DisciplinasDictionary dictionary = (Internal.DisciplinasDictionary)parent.SelectedItem;
-            AddDisciplinaToAno(dictionary);
-
-            
-        }
-        private void AddDisciplinaToAno(Internal.DisciplinasDictionary dictionary = null)
-        {
             Internal.Disciplina disciplina = new Internal.Disciplina();
+            disciplina.ID = disciplinaID;
 
-            disciplina.ID = dictionary.ID;
-            disciplina.Nome = dictionary.Nome;
-            disciplina.Livro = new Internal.Livro();
-
-            AnoSelect.Disciplinas.Add(disciplina);
-
+            Ano.Disciplinas.Add(disciplina);
             UC_ListBox_EscolaAnoDisciplinas.Items.Refresh();
+        }
 
-            //EscolaSelect.Anos
-            //EscolaSelect.Anos = EscolaSelect.Anos.OrderBy(x => x.ID).ToList();
-            //UC_ListBox_Escolas_Anos.ItemsSource = EscolaSelect.Anos;
+
+        private void UC_Grid_Disciplina_DataGrid_DisciplinaEditor_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            Internal.Disciplina _disciplina = (Internal.Disciplina)UC_Grid_Disciplina_DataGrid_DisciplinaEditor.SelectedItem;
+
+            if (_disciplina != null)
+                FilterLivros(_disciplina.ID);
+            else
+                FilterLivros();
+        }
+
+        private void UC_Grid_Disciplina_ListBox_Livros_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Internal.Livro _livro = (Internal.Livro)UC_Grid_Disciplina_ListBox_Livros.SelectedItem;
+
+            Internal.Disciplina _disciplina = (Internal.Disciplina)UC_Grid_Disciplina_DataGrid_DisciplinaEditor.SelectedItem;
+
+            _disciplina.Livro_ISBN = _livro.ISBN;
+            UC_Grid_Disciplina_DataGrid_DisciplinaEditor.Items.Refresh();
         }
     }
 }

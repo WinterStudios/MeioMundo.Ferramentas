@@ -9,7 +9,7 @@ namespace MeioMundo.Ferramentas.Escola.Internal
     public class Escola
     {
         public int ID { get; set; }
-        public string Name { get; set; }
+        public string Nome { get; set; }
         public List<Ano> Anos { get; set; }
     }
 }

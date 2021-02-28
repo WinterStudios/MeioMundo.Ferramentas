@@ -18,10 +18,17 @@
         <ObjectDataProvider x:Key="Editor_GetAnos" MethodName="GetAnosUX" ObjectType="{x:Type internal:EditorExtensions}"/>
         <ObjectDataProvider x:Key="Editor_GetDisciplinas" MethodName="GetDisciplinasUX" ObjectType="{x:Type internal:EditorExtensions}"/>
         <ObjectDataProvider x:Key="Editor_GetEscolas" MethodName="GetEscolasUX" ObjectType="{x:Type internal:EditorExtensions}"/>
+        <ObjectDataProvider x:Key="Editor_GetLivros" MethodName="GetLivrosUX" ObjectType="{x:Type internal:EditorExtensions}">
+            <ObjectDataProvider.MethodParameters>
+                <System:Int32></System:Int32>
+                <System:Int32></System:Int32>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
         <internal:IsAnoCiclo x:Key="IsAnoCiclo"/>
         <internal:StringToCharValueConverter x:Key="StringToCharConverter"/>
         <internal:IntToStringConvert x:Key="IntToStringConvert"/>
         <internal:IntToBoolConvert x:Key="IntToBoolConvert"/>
+        <internal:LongToStringConvert x:Key="LongToStringConvert"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -45,22 +52,39 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
                 <GroupBox Header="Escola" Width="250">
-                    <ComboBox ItemsSource="{Binding Source={StaticResource Editor_GetEscolas}}" DisplayMemberPath="Nome" SelectedItem="{Binding Escola,RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" />
+                    <ComboBox x:Name="UC_Grid_Disciplinas_ComboBox_EscolaSelect" ItemsSource="{Binding Source={StaticResource Editor_GetEscolas}}" DisplayMemberPath="Nome" SelectedItem="{Binding Escola,RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" />
                 </GroupBox>
-                <GroupBox Header="Ano">
-                    <ComboBox/>
+                <GroupBox Header="Ano" Width="200">
+                    <ComboBox x:Name="UC_Grid_Disciplinas_ComboBox_EscolaAnoSelect" ItemsSource="{Binding Escola.Anos, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" SelectedItem="{Binding Ano, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ID,Converter={StaticResource IntToStringConvert}, ConverterParameter=AnoID}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </GroupBox>
             </StackPanel>
-            <DataGrid Grid.Row="1">
+            <DataGrid x:Name="UC_Grid_Disciplina_DataGrid_DisciplinaEditor" Grid.Row="1" ItemsSource="{Binding Ano.Disciplinas, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" AutoGenerateColumns="False" CanUserAddRows="False" SelectedCellsChanged="UC_Grid_Disciplina_DataGrid_DisciplinaEditor_SelectedCellsChanged" SelectionMode="Single" >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Disciplina" Binding="{Binding Nome}"/>
-                    <DataGridTextColumn Header="ISBN" Binding="{Binding Livro.ISBN}"/>
-                    <DataGridTextColumn Header="Nome do Livro" Binding="{Binding Livro.Nome}"/>
-                    <DataGridTextColumn Header="Autor do Livro" Binding="{Binding Livro.Autor}"/>
-                    <DataGridTextColumn Header="Editora do Livro" Binding="{Binding Livro.Editora}"/>
-                    <DataGridTextColumn Header="Disciplina Geral do Livro" Binding="{Binding Livro.Disciplina}"/>
+                    <DataGridTextColumn Header="Disciplina" Binding="{Binding ID, Converter={StaticResource IntToStringConvert}, ConverterParameter=DisciplinaID}" Width="180"/>
+                    <DataGridTextColumn Header="ISBN" Binding="{Binding Livro_ISBN}" Width="100"/>
+                    <DataGridTextColumn Header="Nome do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Nome}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Autor do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Autor}" IsReadOnly="True" Width="150"/>
+                    <DataGridTextColumn Header="Editora do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Editora}" IsReadOnly="True" Width="150"/>
+                    <DataGridTextColumn Header="Disc. Geral" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Disc.Geral}" IsReadOnly="True" Width="140"/>
                 </DataGrid.Columns>
             </DataGrid>
+            <Grid Grid.Column="1" Grid.Row="1">
+                <ListBox x:Name="UC_Grid_Disciplina_ListBox_Livros" ItemsSource="{Binding Livros, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" MouseDoubleClick="UC_Grid_Disciplina_ListBox_Livros_MouseDoubleClick">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type internal:Livro}">
+                            <Grid>
+                                <TextBlock Text="{Binding Nome}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
         </Grid>
 
         <Grid x:Name="UC_Grid_Escolas" Grid.Row="1">
@@ -102,7 +126,7 @@
                     <GroupBox Grid.Column="2" Header="ID da Escola">
                         <TextBox Text="{Binding Escola.ID, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}"/>
                     </GroupBox>
-                    <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                    <Grid Grid.Row="1" Grid.ColumnSpan="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="2*"/>
@@ -353,31 +377,7 @@
                                 <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal">
                                     <TextBlock Text="Ano: [Escola.Anos[0]]"/>
                                 </StackPanel>
-                                <ListBox x:Name="UC_ListBox_EscolaAnoDisciplinas" Grid.Row="1" Grid.Column="0">
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="30" />
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-                                                <Border>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <Border Padding="2,0" Background="#88ffde05">
-                                                            <TextBlock VerticalAlignment="Center" />
-                                                        </Border>
-                                                        <Border Padding="2,0" Background="#88ffde05">
-                                                            <TextBlock VerticalAlignment="Center" />
-                                                        </Border>
-                                                    </StackPanel>
-                                                </Border>
-                                                <TextBlock Grid.Column="1"/>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                                <Rectangle Grid.Column="1" Width="20" />
-                                <ListBox x:Name="UC_ListBox_AllDisciplinas" ItemsSource="{Binding Source={StaticResource Editor_GetDisciplinas}}" Grid.Row="1" Grid.Column="2" >
+                                <ListBox x:Name="UC_ListBox_EscolaAnoDisciplinas" ItemsSource="{Binding Ano.Disciplinas,RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" Grid.Row="1" Grid.Column="0">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate DataType="{x:Type internal:DisciplinasUX}">
                                             <Grid>
@@ -388,10 +388,34 @@
                                                 <Border>
                                                     <StackPanel Orientation="Horizontal">
                                                         <Border Padding="4,0" Background="#88ffde05">
-                                                            <TextBlock Text="{Binding ID,Converter={StaticResource StringToCharConverter},ConverterParameter=0}" VerticalAlignment="Center" />
+                                                            <TextBlock VerticalAlignment="Center" Text="{Binding ID, Converter={StaticResource StringToCharConverter},ConverterParameter=0}" FontWeight="Bold"/>
                                                         </Border>
                                                         <Border Padding="4,0" Background="#88ffde05">
-                                                            <TextBlock Text="{Binding ID,Converter={StaticResource StringToCharConverter},ConverterParameter=1}" VerticalAlignment="Center" />
+                                                            <TextBlock VerticalAlignment="Center" Text="{Binding ID, Converter={StaticResource StringToCharConverter},ConverterParameter=1}" FontWeight="Bold"/>
+                                                        </Border>
+                                                    </StackPanel>
+                                                </Border>
+                                                <TextBlock Grid.Column="1" Text="{Binding ID, Converter={StaticResource IntToStringConvert}, ConverterParameter=DisciplinaID}"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <Rectangle Grid.Column="1" Width="20" />
+                                <ListBox x:Name="UC_ListBox_AllDisciplinas" ItemsSource="{Binding Source={StaticResource Editor_GetDisciplinas}}" Grid.Row="1" Grid.Column="2"  MouseDoubleClick="UC_ListBox_AllDisciplinas_MouseDoubleClick">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type internal:DisciplinasUX}">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="30" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Border>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Border Padding="4,0" Background="#88ffde05">
+                                                            <TextBlock Text="{Binding ID,Converter={StaticResource StringToCharConverter},ConverterParameter=0}" VerticalAlignment="Center" FontWeight="Bold" />
+                                                        </Border>
+                                                        <Border Padding="4,0" Background="#88ffde05">
+                                                            <TextBlock Text="{Binding ID,Converter={StaticResource StringToCharConverter},ConverterParameter=1}" VerticalAlignment="Center" FontWeight="Bold" />
                                                         </Border>
                                                     </StackPanel>
                                                 </Border>

@@ -5,6 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Windows.Controls;
+
+using MeioMundo.Ferramentas.Escola.Internal;
+using MeioMundo.Ferramentas.Escola.Modelos;
+
+
 namespace MeioMundo.Ferramentas.Escola
 {
     public class ManuaisSystem
@@ -14,6 +20,26 @@ namespace MeioMundo.Ferramentas.Escola
 
         public static List<Internal.Escola> Escolas { get; set; }
         public static List<Internal.Livro> Livros { get; set; }
+
+        
+
+        public enum Modelos
+        {
+            v_2020_07 = 0
+        }
+
+        public static UserControl GetModelo(Modelos modelo, string nomeEscola, Internal.Ano ano)
+        {
+            if(modelo == Modelos.v_2020_07)
+            {
+                Modelo_2020_07 _modelo = new Modelo_2020_07();
+                _modelo.Escola = nomeEscola;
+                _modelo.Ano = ano;
+                _modelo.Run();
+                return _modelo;
+            }
+            return null;
+        }
 
         private static string DataLocationFolder { get {
                 string pluginAssemblyDirectory = AppDomain.CurrentDomain.BaseDirectory.Replace("\\","/");

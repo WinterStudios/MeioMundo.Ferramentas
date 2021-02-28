@@ -32,15 +32,38 @@ namespace MeioMundo.Ferramentas.Escola
         }
         #endregion
 
+        public Internal.Escola Escola { get => escola; set { escola = value; LoadPreviewModelo(); } }
+        private Internal.Escola escola;
+
+        public Internal.Ano Ano { get => ano; set { ano = value; LoadPreviewModelo(); } }
+        private Internal.Ano ano;
         public ManuaisEscolares()
         {
             ManuaisSystem.Inicialize();
             InitializeComponent();
+            LoadDefault();
         }
 
-        private void UC_ComboBox_Escolas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LoadDefault()
         {
+            if (ManuaisSystem.Escolas.Count > 0)
+            {
+                UC_ComboBox_Escolas.SelectedIndex = 0;
+                Escola = (Internal.Escola)UC_ComboBox_Escolas.SelectedItem;
+                if(Escola.Anos.Count > 0)
+                    Ano = Escola.Anos[0];
+                LoadPreviewModelo();
+            }
+        }
 
+        private void LoadPreviewModelo()
+        {
+            UC_Viewbox_PreviewModelo.Child = null;
+
+            if(Ano == null)
+                UC_Viewbox_PreviewModelo.Child = ManuaisSystem.GetModelo(ManuaisSystem.Modelos.v_2020_07, Escola.Nome, Escola.Anos[0]);
+            else
+                UC_Viewbox_PreviewModelo.Child = ManuaisSystem.GetModelo(ManuaisSystem.Modelos.v_2020_07, Escola.Nome, Ano);
         }
 
         private void Editores_Button_Click(object sender, RoutedEventArgs e)

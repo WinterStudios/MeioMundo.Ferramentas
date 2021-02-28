@@ -42,6 +42,12 @@ namespace MeioMundo.Ferramentas.Escola.Internal
         {
             return ManuaisSystem.Escolas.ToArray();
         }
+
+        public static object[] GetLivrosUX(int anoID, int disciplinaID)
+        {
+
+            return new object[2];
+        }
     }
 
     public class AnoUX
@@ -113,13 +119,27 @@ namespace MeioMundo.Ferramentas.Escola.Internal
                 {
                     nome = Anos.__Anos.First(x => x.Key == id).Value;
                 }
+                if (id == 0)
+                    return "";
+                if (parameter != null && parameter.ToString() == "DisciplinaID")
+                    nome = Disciplinas.__Disciplinas.First(x => x.Key == id).Value;
             }
             return nome;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            int id = -1;
+            string nome = "";
+            if (int.TryParse(value.ToString(), out id))
+            {
+                if (parameter != null && parameter.ToString() == "DisciplinaID")
+                {
+                    if (Disciplinas.__Disciplinas.ContainsKey(id))
+                        return id;
+                }
+            }
+            return null;
         }
     }
 
@@ -140,6 +160,37 @@ namespace MeioMundo.Ferramentas.Escola.Internal
             }
                 
             return 0;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class LongToStringConvert : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            long _long = -1;
+            if(long.TryParse(value.ToString(), out _long))
+                if (parameter != null && _long != 0)
+                {
+                    if (parameter.ToString() == "Livro_ISBN")
+                        if (_long != 0)
+                            return _long.ToString("### ### ### ###-#");
+                        else
+                            return "";
+                    if (parameter.ToString() == "Livro_Nome")
+                        return ManuaisSystem.Livros.First(x => x.ISBN == _long).Nome;
+                    if (parameter.ToString() == "Livro_Autor")
+                        return ManuaisSystem.Livros.First(x => x.ISBN == _long).Autor;
+                    if (parameter.ToString() == "Livro_Editora")
+                        return ManuaisSystem.Livros.First(x => x.ISBN == _long).Editora;
+                    if (parameter.ToString() == "Livro_Disc.Geral")
+                        return ManuaisSystem.Livros.First(x => x.ISBN == _long).Disciplina;
+                }
+            return "";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

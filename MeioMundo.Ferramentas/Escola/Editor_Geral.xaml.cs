@@ -52,9 +52,11 @@ namespace MeioMundo.Ferramentas.Escola
         public Internal.Escola Escola { get => escola; set { escola = value; CheckAnoAdd(); NotifyPropertyChanged(); } }
         private Internal.Escola escola;
 
-        public Internal.Ano Ano { get => ano; set { ano = value; NotifyPropertyChanged(); } }
+        public Internal.Ano Ano { get => ano; set { ano = value; FilterLivros(); NotifyPropertyChanged(); } }
         private Internal.Ano ano;
 
+        public Internal.Livro[] Livros { get => livros; set { livros = value; NotifyPropertyChanged(); } }
+        private Internal.Livro[] livros;
 
         public Editor_Geral()
         {
@@ -99,6 +101,26 @@ namespace MeioMundo.Ferramentas.Escola
 
 
         }
+
+        private void FilterLivros(int disciplinaID = 0)
+        {
+            if (EditorMode != Internal.Editores.Ano)
+                return;
+
+            if (Escola == null || Ano == null)
+                return;
+
+            int ciclo = Ano.ID - (Ano.ID % 10);
+            List<Internal.Livro> _livros = new List<Internal.Livro>();
+            _livros.AddRange(ManuaisSystem.Livros.Where(x => x.Ano == ciclo).OrderBy(x => x.Nome));
+            if (disciplinaID == 0)
+                _livros.AddRange(ManuaisSystem.Livros.Where(x => x.Ano == Ano.ID).OrderBy(x => x.Nome));
+            else
+                _livros.AddRange(ManuaisSystem.Livros.Where(x => x.Ano == Ano.ID && x.Disciplina == disciplinaID).OrderBy(x => x.Nome));
+
+            Livros = _livros.OrderBy(x => x.Nome).ToArray();
+        }
+
         private void AddAnoToEscola()
         {
             if (Escola == null || UC_ComboBox_Escola_Ano.SelectedItem == null)
@@ -108,7 +130,7 @@ namespace MeioMundo.Ferramentas.Escola
 
             Internal.Ano ano = new Internal.Ano();
             ano.ID = anoUX.ID;
-            ano.Disciplinas = new Internal.Disciplina[0];
+            ano.Disciplinas = new List<Internal.Disciplina>();
 
             Escola.Anos.Add(ano);
 
@@ -122,6 +144,38 @@ namespace MeioMundo.Ferramentas.Escola
             }
                 
             UC_ListBox_Escolas_Anos.Items.Refresh();
+        }
+
+        private void UC_ListBox_AllDisciplinas_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            int disciplinaID = ((Internal.DisciplinasUX)UC_ListBox_AllDisciplinas.SelectedItem).ID;
+
+            Internal.Disciplina disciplina = new Internal.Disciplina();
+            disciplina.ID = disciplinaID;
+
+            Ano.Disciplinas.Add(disciplina);
+            UC_ListBox_EscolaAnoDisciplinas.Items.Refresh();
+        }
+
+
+        private void UC_Grid_Disciplina_DataGrid_DisciplinaEditor_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            Internal.Disciplina _disciplina = (Internal.Disciplina)UC_Grid_Disciplina_DataGrid_DisciplinaEditor.SelectedItem;
+
+            if (_disciplina != null)
+                FilterLivros(_disciplina.ID);
+            else
+                FilterLivros();
+        }
+
+        private void UC_Grid_Disciplina_ListBox_Livros_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Internal.Livro _livro = (Internal.Livro)UC_Grid_Disciplina_ListBox_Livros.SelectedItem;
+
+            Internal.Disciplina _disciplina = (Internal.Disciplina)UC_Grid_Disciplina_DataGrid_DisciplinaEditor.SelectedItem;
+
+            _disciplina.Livro_ISBN = _livro.ISBN;
+            UC_Grid_Disciplina_DataGrid_DisciplinaEditor.Items.Refresh();
         }
     }
 }

@@ -20,6 +20,7 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
     /// </summary>
     public partial class Modelo_2020_07_Escolha : UserControl
     {
+        public bool __COMP_ESP;
         public Modelo_2020_07_Escolha()
         {
             InitializeComponent();

@@ -67,11 +67,42 @@
                 </Grid>
             </Border>
 
-            <Rectangle Margin="0, 1cm,0,0" />
+            <!--<Rectangle Margin="0,0.5cm" />-->
 
-            <Border>
+            <Border Margin="0,0.25cm,0,0">
                 <Grid>
-                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5cm"/>
+                        <RowDefinition Height="1.5cm"/>
+                        <RowDefinition Height="0.5cm"/>
+                        <RowDefinition Height="0.5cm"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3.75cm"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="1cm"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.5cm"/>
+                            <RowDefinition Height="1.5cm"/>
+                            <RowDefinition Height="0.5cm"/>
+                            <RowDefinition Height="0.5cm"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource Border_Fill}">
+                            <TextBlock Text="Componente Geral" Style="{DynamicResource TextBlock_Main}"/>
+                        </Border>
+                    </Grid>
+                    <Border Grid.Row="2" Grid.Column="0" Style="{DynamicResource Border_Fill}">
+                        <TextBlock Text="Manuais Escolares" Style="{DynamicResource TextBlock_Main}"/>
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="0" Style="{DynamicResource Border_Fill}">
+                        <TextBlock Text="Caderno de Atividades" Style="{DynamicResource TextBlock_Main}"/>
+                    </Border>
                 </Grid>
             </Border>
             

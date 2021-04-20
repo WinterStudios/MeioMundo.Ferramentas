@@ -24,6 +24,13 @@ namespace MeioMundo.Ferramentas
                 Path = "Ferramentas>Manuais Escolares",
                 PluginTypeBehavior = PluginTypeBehavior.Tab,
                 TabIconLocations = "/MeioMundo.Ferramentas;component/Assets/books.png"
+            },
+            new Module() {
+                Name = "Site",
+                Type = typeof(Site.Core).FullName,
+                Path = "Ferramentas>Site",
+                PluginTypeBehavior = PluginTypeBehavior.Tab,
+                TabIconLocations = "/MeioMundo.Ferramentas;component/Assets/globe.png"
             }
         };
         public bool ShowWelcomePage => true;

@@ -32,6 +32,7 @@ namespace MeioMundo.Ferramentas.Escola
         {
             if(modelo == Modelos.v_2020_07)
             {
+                GC.Collect();
                 Modelo_2020_07 _modelo = new Modelo_2020_07();
                 _modelo.Escola = nomeEscola;
                 _modelo.Ano = ano;

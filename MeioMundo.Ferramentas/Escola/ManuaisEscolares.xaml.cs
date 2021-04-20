@@ -59,7 +59,7 @@ namespace MeioMundo.Ferramentas.Escola
         private void LoadPreviewModelo()
         {
             UC_Viewbox_PreviewModelo.Child = null;
-
+            
             if(Ano == null)
                 UC_Viewbox_PreviewModelo.Child = ManuaisSystem.GetModelo(ManuaisSystem.Modelos.v_2020_07, Escola.Nome, Escola.Anos[0]);
             else

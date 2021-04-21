@@ -15,7 +15,32 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Horizontal">
-            <Button Content="Sync Sage" Padding="8,4"/>
+            <Button Content="Sync Sage" Padding="8,4" Click="Button_Click" Tag="Sage"/>
         </StackPanel>
+        
+        <DataGrid x:Name="UC_StockManager" Grid.Row="1" ItemsSource="{Binding Produtos, RelativeSource={RelativeSource AncestorType=local:StockManager}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding REF}" Header="REF" MinWidth="110"/>
+                <DataGridTextColumn Binding="{Binding Nome}" Header="Nome" MinWidth="200" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Preco_S_IVA, StringFormat=C, ConverterCulture=pt-PT}" Header="Preço s/IVA" MinWidth="70" Width="Auto">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Right" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding IVA}" Header="IVA" MinWidth="40" Width="Auto"/>
+                <DataGridTextColumn Binding="{Binding Preco_C_IVA, StringFormat=C, ConverterCulture=pt-PT}" Header="Preço c/IVA" MinWidth="70" Width="Auto">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Right" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding StockSite}" Header="Qtd Web" MinWidth="60" Width="Auto"/>
+                <DataGridTextColumn Binding="{Binding StockSage}" Header="Qtd Sage" MinWidth="60" Width="Auto"/>
+                <DataGridTextColumn Binding="{Binding StockFinal}" Header="Total" MinWidth="60" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

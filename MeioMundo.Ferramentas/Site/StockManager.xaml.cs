@@ -55,13 +55,21 @@ namespace MeioMundo.Ferramentas.Site
             string fileExtension = System.IO.Path.GetExtension(fileLocation);
             if (fileExtension.ToUpper() == ".TXT" && source == SourceLocation.Sage)
             {
-                StreamReader reader = new StreamReader(fileLocation);
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                Encoding encoding = Encoding.GetEncoding(1252);
+
+                StreamReader reader = new StreamReader(fileLocation, encoding ,true);
                 string line;
+
+                //Index Colluns
                 int index = 0;
                 int RefIndex = 0;
                 int ProdutoIndex = 0;
                 int PvpIndex = 0;
                 int IvaIndex = 0;
+                int StockIndex = 0;
+
+
                 while ((line = await reader.ReadLineAsync()) != null)
                 {
                     string[] cols = line.Split(',');
@@ -71,16 +79,23 @@ namespace MeioMundo.Ferramentas.Site
                         ProdutoIndex = cols.ToList().FindIndex(0, cols.Length, x => x == "PRODUTO");
                         PvpIndex = cols.ToList().FindIndex(0, cols.Length, x => x == "PVP");
                         IvaIndex = cols.ToList().FindIndex(0, cols.Length, x => x == "IMPOSTO");
+                        StockIndex = cols.ToList().FindIndex(0, cols.Length, x => x == "DISPONÍVEL");
                     }
-                    Produto p = new Produto();
-                    p.REF = cols[RefIndex].Replace("\"", "");
-                    p.Nome = cols[ProdutoIndex].Replace("\"", "");
-                    float preco = float.NaN;
-                    if (float.TryParse(cols[PvpIndex].Replace('.',','), out preco))
-                        p.Preco_C_IVA = preco;
-                    p.IVA = cols[IvaIndex];
-
-                    Produtos.Add(p);
+                    else
+                    {
+                        Produto p = new Produto();
+                        p.REF = cols[RefIndex].Replace("\"", "");
+                        p.Nome = cols[ProdutoIndex].Replace("\"", "");
+                        float preco = float.NaN;
+                        if (float.TryParse(cols[PvpIndex].Replace('.', ','), out preco))
+                            p.Preco_C_IVA = preco;
+                        p.IVA = cols[IvaIndex];
+                        int stockSage = 0;
+                        if (int.TryParse(cols[StockIndex], out stockSage))
+                            p.StockSage = stockSage;
+                        Produtos.Add(p);
+                    }
+                    
                     index++;
                     
                 }

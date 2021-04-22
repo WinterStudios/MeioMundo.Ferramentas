@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using MeioMundo.Ferramentas.Site.Models;
+using System.Text.RegularExpressions;
 
 namespace MeioMundo.Ferramentas.Site
 {
@@ -46,6 +47,8 @@ namespace MeioMundo.Ferramentas.Site
             {
                 if(Tag == "Sage")
                     LoadFile(dialog.FileName, SourceLocation.Sage);
+                if (Tag == "Web")
+                    LoadFile(dialog.FileName, SourceLocation.WebSite);
             }
                 
             
@@ -100,6 +103,33 @@ namespace MeioMundo.Ferramentas.Site
                     
                 }
                 
+            }
+
+            if (fileExtension.ToUpper() == ".CSV" && source == SourceLocation.WebSite)
+            {
+
+                StreamReader reader = new StreamReader(fileLocation,Encoding.UTF8);
+                string line;
+
+                //Index Colluns
+                int index = 0;
+                int RefIndex = 0;
+                int ProdutoIndex = 0;
+                int PvpIndex = 0;
+                int IvaIndex = 0;
+                int StockIndex = 0;
+
+                while ((line = await reader.ReadLineAsync()) != null)
+                {
+                    Regex CSVParser = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
+
+                    //Separating columns to array
+                    string newLine = line.Replace(@"\", "");
+                    string[] cols = CSVParser.Split(newLine);
+
+
+
+                }
             }
         }
     }

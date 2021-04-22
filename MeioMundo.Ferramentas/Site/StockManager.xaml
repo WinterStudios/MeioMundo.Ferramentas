@@ -14,8 +14,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" >
             <Button Content="Sync Sage" Padding="8,4" Click="Button_Click" Tag="Sage"/>
+            <Button Content="Sync Site" Padding="8,4" Click="Button_Click" Tag="Web"/>
         </StackPanel>
         
         <DataGrid x:Name="UC_StockManager" Grid.Row="1" ItemsSource="{Binding Produtos, RelativeSource={RelativeSource AncestorType=local:StockManager}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" HeadersVisibility="Column">

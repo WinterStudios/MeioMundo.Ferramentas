@@ -21,8 +21,18 @@
                     <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/MeioMundo.Ferramentas;component/Assets/books.png" Margin="64,64"/>
                 <TextBlock Text="Manuais Escolares" Grid.Row="1" FontSize="24pt" HorizontalAlignment="Center"/>
             </Grid>
-                </Button>
-        <Button Grid.Column="2" Click="Button_Click" Tag="_MANUAL_ESCOLAR" Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" >
+        </Button>
+        <Button Grid.Column="1" Click="Button_Click" Tag="_MANUAL_ESCOLAR" Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/MeioMundo.Ferramentas;component/Assets/global.png" Margin="64,64" />
+                <TextBlock Text="Gestor WebSite" Grid.Row="1" FontSize="24pt" HorizontalAlignment="Center"/>
+            </Grid>
+        </Button>
+        <Button Grid.Column="2" Click="Button_Click" Tag="_CORREIO" Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>

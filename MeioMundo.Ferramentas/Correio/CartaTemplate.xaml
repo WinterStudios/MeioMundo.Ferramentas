@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="MeioMundo.Ferramentas.Correio.CartaTemplate"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MeioMundo.Ferramentas.Correio"
+             mc:Ignorable="d" 
+             Width="22.0cm" Height="11.0cm">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="Remetente.Foreground" Color="#007BE1"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4.0cm" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="1.5cm" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2.0cm"/>
+            <ColumnDefinition Width="13.0cm"/>
+            <ColumnDefinition Width="1.5cm"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="0.75cm,0.75cm,0,0" VerticalAlignment="Top">
+            <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="/MeioMundo.Ferramentas;component/Assets/carta-logo.png" Width="5cm" />
+            <StackPanel Margin="0,2.75cm,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Vertical">
+                <TextBlock Text="MEIO MUNDO - LIVRARIA E PAPELARIA, LDA" Foreground="{DynamicResource Remetente.Foreground}" />
+                <TextBlock Text="Rua Prof. Antonio R. Garcia Vasconcelos, Lote 40/41" Foreground="{DynamicResource Remetente.Foreground}" />
+                <TextBlock Text="3400-132 Oliveira do Hospital" Foreground="{DynamicResource Remetente.Foreground}" />
+            </StackPanel>
+            <StackPanel Margin="0,4.25cm,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Vertical">
+                <DockPanel LastChildFill="True">
+                    <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-phone.png" Width="0.5cm" HorizontalAlignment="Left"/>
+                    <TextBlock Text="238601375" Foreground="{DynamicResource Remetente.Foreground}" Margin="0.2cm,0,0,0"/>
+                </DockPanel>
+                <DockPanel LastChildFill="True">
+                    <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-mail.png" Width="0.5cm" HorizontalAlignment="Left"/>
+                    <TextBlock Text="238601375" Foreground="{DynamicResource Remetente.Foreground}" Margin="0.2cm,0,0,0"/>
+                </DockPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

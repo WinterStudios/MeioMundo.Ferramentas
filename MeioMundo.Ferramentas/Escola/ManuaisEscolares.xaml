@@ -36,10 +36,21 @@
                 <ComboBox x:Name="UC_ComboBox_Anos" Width="80" ItemsSource="{Binding Escola.Anos, RelativeSource={RelativeSource AncestorType=local:ManuaisEscolares}}" SelectedItem="{Binding Ano, RelativeSource={RelativeSource AncestorType=local:ManuaisEscolares}}"/>
             </GroupBox>
         </StackPanel>
-        <ScrollViewer Grid.Row="2" >
-            <Viewbox x:Name="UC_Viewbox_PreviewModelo" Stretch="UniformToFill" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True"/>
-        </ScrollViewer>
         
+        <ScrollViewer Grid.Row="2">
+            <Grid>
+                <Border Padding="0" Margin="32" BorderThickness="8" BorderBrush="Gray">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="24" ShadowDepth="0" Color="Gray" />
+                    </Border.Effect>
+                </Border>
+                <Border Margin="32" Background="White">
+                    <Viewbox x:Name="UC_Viewbox_PreviewModelo" Stretch="UniformToFill" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True"/>
+                </Border>
+                
+            </Grid>
+        </ScrollViewer>
+        <Rectangle Grid.Row="2" Fill="Gray" Height="1" VerticalAlignment="Top" />
 
     </Grid>
 </UserControl>

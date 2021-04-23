@@ -41,6 +41,15 @@ namespace MeioMundo.Ferramentas
                 tab.Content = manuais;
                 U_System.Core.UX.TabsSystem.Add(tab);
             }
+            if(tag == "_CORREIO")
+            {
+                TabItem tab = new TabItem();
+                tab.Header = "Manuais Escolares";
+                tab.Tag = "/MeioMundo.Ferramentas;component/Assets/carta-logo.png";
+                Correio.Main main = new Correio.Main();
+                tab.Content = main;
+                U_System.Core.UX.TabsSystem.Add(tab);
+            }
         }
     }
 }

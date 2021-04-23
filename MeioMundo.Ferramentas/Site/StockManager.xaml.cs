@@ -28,6 +28,10 @@ namespace MeioMundo.Ferramentas.Site
     public partial class StockManager : UserControl
     {
         public ObservableCollection<Site.Models.Produto> Produtos { get; set; }
+
+
+        public bool WebSiteLoad { get; set; }
+        public bool SageLoad { get; set; }
         public StockManager()
         {
             InitializeComponent();
@@ -39,9 +43,12 @@ namespace MeioMundo.Ferramentas.Site
         {
             string Tag = ((Button)sender).Tag.ToString();
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "Sage Files|*.xls;*.txt|" +
-                            "Text File (*.txt)|*.txt|" +
-                            "All Files |*.*";
+            if(Tag == "Sage")
+                dialog.Filter = "Sage Files|*.xls;*.txt|" +
+                                "All Files |*.*";
+            if (Tag == "Web")
+                dialog.Filter = "Website Files|*.csv;*.txt|" +
+                                "All Files |*.*";
 
             if (dialog.ShowDialog() == true)
             {
@@ -100,7 +107,7 @@ namespace MeioMundo.Ferramentas.Site
                     }
                     
                     index++;
-                    
+                    UC_StatusBar_ListObjects.Text = string.Format("Produtos: {0}", Produtos.Count);
                 }
                 
             }
@@ -126,11 +133,31 @@ namespace MeioMundo.Ferramentas.Site
                     //Separating columns to array
                     string newLine = line.Replace(@"\", "");
                     string[] cols = CSVParser.Split(newLine);
+                    for (int i = 0; i < cols.Length; i++)
+                    {
+                        if (cols[i].Contains('\"'))
+                            cols[i] = cols[i].Replace("\"", "");
+                    }
+                    if(index == 0)
+                    {
+                        RefIndex = cols.ToList().FindIndex(x => x == "REF");
+                        ProdutoIndex = cols.ToList().FindIndex(x => x == "Nome");
+                        PvpIndex = cols.ToList().FindIndex(x => x == "Preço normal");
+                        IvaIndex = cols.ToList().FindIndex(x => x == "Classe de imposto");
+                    }
+                    else
+                    {
+                        Produto p = new Produto();
+                        p.REF = cols[RefIndex];
 
+                        Produtos.Add(p);
+                    }
 
-
+                    index++;
+                    UC_StatusBar_ListObjects.Text = string.Format("Produtos: {0}", Produtos.Count);
                 }
             }
+            
         }
     }
 }

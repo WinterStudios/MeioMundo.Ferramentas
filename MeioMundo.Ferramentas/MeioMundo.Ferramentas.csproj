@@ -12,17 +12,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\books-ico.png" />
-    <None Remove="Assets\books.png" />
-    <None Remove="Assets\boxes.png" />
-    <None Remove="Assets\globe.png" />
-    <None Remove="Assets\menu.png" />
-    <None Remove="Assets\settings.png" />
+    <Compile Remove="Barcode\**" />
+    <Compile Remove="UX\**" />
+    <EmbeddedResource Remove="Barcode\**" />
+    <EmbeddedResource Remove="UX\**" />
+    <None Remove="Barcode\**" />
+    <None Remove="UX\**" />
+    <Page Remove="Barcode\**" />
+    <Page Remove="UX\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Barcode\" />
-    <Folder Include="UX\" />
+    <None Remove="Assets\books-ico.png" />
+    <None Remove="Assets\books.png" />
+    <None Remove="Assets\boxes.png" />
+    <None Remove="Assets\email.png" />
+    <None Remove="Assets\globe.png" />
+    <None Remove="Assets\menu.png" />
+    <None Remove="Assets\settings.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,6 +47,7 @@
     <Resource Include="Assets\books-ico.png" />
     <Resource Include="Assets\books.png" />
     <Resource Include="Assets\boxes.png" />
+    <Resource Include="Assets\email.png" />
     <Resource Include="Assets\globe.png" />
     <Resource Include="Assets\menu.png" />
     <Resource Include="Assets\settings.png" />

@@ -10,6 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -43,5 +44,10 @@
                 <DataGridTextColumn Binding="{Binding StockFinal}" Header="Total" MinWidth="60" Width="Auto"/>
             </DataGrid.Columns>
         </DataGrid>
+        <StatusBar Grid.Row="2">
+            <StatusBarItem>
+                <TextBlock x:Name="UC_StatusBar_ListObjects"/>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </UserControl>

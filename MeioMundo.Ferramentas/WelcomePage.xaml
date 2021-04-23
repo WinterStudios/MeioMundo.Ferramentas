@@ -12,18 +12,25 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Border>
+        <Button Click="Button_Click" Tag="_MANUAL_ESCOLAR" Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/MeioMundo.Ferramentas;component/Assets/books.png" Margin="64,64"/>
+                <TextBlock Text="Manuais Escolares" Grid.Row="1" FontSize="24pt" HorizontalAlignment="Center"/>
+            </Grid>
+                </Button>
+        <Button Grid.Column="2" Click="Button_Click" Tag="_MANUAL_ESCOLAR" Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <StackPanel Orientation="Vertical" Grid.Row="1">
-                    <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/MeioMundo.Ferramentas;component/Assets/books.png" Width="128" />
-                    <Button Content="Manuais Escolares" Margin="0,24,0,0" Click="Button_Click" Tag="_MANUAL_ESCOLAR" />
-                </StackPanel>
+                <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/MeioMundo.Ferramentas;component/Assets/email.png" Margin="64,64" />
+                <TextBlock Text="Correios" Grid.Row="1" FontSize="24pt" HorizontalAlignment="Center"/>
             </Grid>
-        </Border>
+        </Button>
     </Grid>
 </UserControl>

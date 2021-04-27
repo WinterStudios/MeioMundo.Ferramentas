@@ -88,5 +88,14 @@ namespace MeioMundo.Ferramentas.Escola
                 window.Show();
             }
         }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            scaleTransform.ScaleX = scaleTransform.ScaleY = e.NewValue;
+        }
+        private void ZoomToFit()
+        {
+            scaleTransform.ScaleX = scaleTransform.ScaleY = 0;
+        }
     }
 }

@@ -16,6 +16,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="4">
             <Button Content="Editor" Padding="8,4,8,4" Margin="6,6" VerticalAlignment="Bottom"/>
@@ -36,21 +37,35 @@
                 <ComboBox x:Name="UC_ComboBox_Anos" Width="80" ItemsSource="{Binding Escola.Anos, RelativeSource={RelativeSource AncestorType=local:ManuaisEscolares}}" SelectedItem="{Binding Ano, RelativeSource={RelativeSource AncestorType=local:ManuaisEscolares}}"/>
             </GroupBox>
         </StackPanel>
-        
-        <ScrollViewer Grid.Row="2">
-            <Grid>
-                <Border Padding="0" Margin="32" BorderThickness="8" BorderBrush="Gray">
-                    <Border.Effect>
-                        <DropShadowEffect BlurRadius="24" ShadowDepth="0" Color="Gray" />
-                    </Border.Effect>
-                </Border>
-                <Border Margin="32" Background="White">
-                    <Viewbox x:Name="UC_Viewbox_PreviewModelo" Stretch="UniformToFill" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True"/>
-                </Border>
-                
+
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+            <Grid >
+                <Grid.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform x:Name="scaleTransform" CenterX="0.5" ScaleX="0.5" ScaleY="0.5"/>
+                    </TransformGroup>
+                </Grid.LayoutTransform>
+                <Viewbox>
+                    <Grid>
+                        <Border Padding="0" Margin="32" BorderThickness="8" BorderBrush="Gray">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="24" ShadowDepth="0" Color="Gray" />
+                            </Border.Effect>
+                        </Border>
+                        <Border Margin="32" Background="White">
+                            <Viewbox x:Name="UC_Viewbox_PreviewModelo" Stretch="UniformToFill" />
+                        </Border>
+
+                    </Grid>
+                </Viewbox>
             </Grid>
         </ScrollViewer>
         <Rectangle Grid.Row="2" Fill="Gray" Height="1" VerticalAlignment="Top" />
-
+        <Rectangle Grid.Row="2" Fill="Gray" Height="1" VerticalAlignment="Bottom" />
+        <StatusBar Grid.Row="3" HorizontalContentAlignment="Right">
+            <StatusBarItem>
+                <Slider Width="200" Value="1" Minimum="0.1" Maximum="8" ValueChanged="Slider_ValueChanged"/>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </UserControl>

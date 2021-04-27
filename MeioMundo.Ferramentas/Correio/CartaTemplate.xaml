@@ -22,7 +22,7 @@
             <ColumnDefinition Width="1.5cm"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="0.75cm,0.75cm,0,0" VerticalAlignment="Top">
-            <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="/MeioMundo.Ferramentas;component/Assets/carta-logo.png" Width="5cm" />
+            <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="/MeioMundo.Ferramentas;component/Assets/carta-logo.png" Width="5cm" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality" />
             <StackPanel Margin="0,2.75cm,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Vertical">
                 <TextBlock Text="MEIO MUNDO - LIVRARIA E PAPELARIA, LDA" Foreground="{DynamicResource Remetente.Foreground}" />
                 <TextBlock Text="Rua Prof. Antonio R. Garcia Vasconcelos, Lote 40/41" Foreground="{DynamicResource Remetente.Foreground}" />
@@ -30,13 +30,25 @@
             </StackPanel>
             <StackPanel Margin="0,4.25cm,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Vertical">
                 <DockPanel LastChildFill="True">
-                    <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-phone.png" Width="0.5cm" HorizontalAlignment="Left"/>
+                    <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-phone.png" Width="0.5cm" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality"/>
                     <TextBlock Text="238601375" Foreground="{DynamicResource Remetente.Foreground}" Margin="0.2cm,0,0,0"/>
                 </DockPanel>
                 <DockPanel LastChildFill="True">
-                    <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-mail.png" Width="0.5cm" HorizontalAlignment="Left"/>
+                    <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-mail.png" Width="0.5cm" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality"/>
                     <TextBlock Text="238601375" Foreground="{DynamicResource Remetente.Foreground}" Margin="0.2cm,0,0,0"/>
                 </DockPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2">
+            <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-registada.png" Height="2.5cm" HorizontalAlignment="Right" Margin="0,0,0.5cm,0" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
+
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="2" Margin="2cm,1cm,0,0">
+            <StackPanel>
+                <TextBlock Text="Porto Editora" FontSize="12pt"/>
+                <TextBlock Text="Rua da Restauração, 365" FontSize="12pt"/>
+                <TextBlock Text="" FontSize="12pt"/>
+                <TextBlock Text="4099-023 Porto" FontSize="12pt"/>
             </StackPanel>
         </Grid>
     </Grid>

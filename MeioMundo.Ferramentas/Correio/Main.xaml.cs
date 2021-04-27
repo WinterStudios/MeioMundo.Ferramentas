@@ -23,7 +23,13 @@ namespace MeioMundo.Ferramentas.Correio
         public Main()
         {
             InitializeComponent();
-            UC_Viewbox_PreviewModelo.Child = new CartaTemplate();
+            //UC_Viewbox_PreviewModelo.Child = new CartaTemplate();
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string text = ((TextBox)sender).Text;
+            carta.ResgistoCode = text;            
         }
     }
 }

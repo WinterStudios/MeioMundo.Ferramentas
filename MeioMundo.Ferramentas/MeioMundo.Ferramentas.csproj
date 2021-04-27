@@ -12,13 +12,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Barcode\**" />
     <Compile Remove="UX\**" />
-    <EmbeddedResource Remove="Barcode\**" />
     <EmbeddedResource Remove="UX\**" />
-    <None Remove="Barcode\**" />
     <None Remove="UX\**" />
-    <Page Remove="Barcode\**" />
     <Page Remove="UX\**" />
   </ItemGroup>
 

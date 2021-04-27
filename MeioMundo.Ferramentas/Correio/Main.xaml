@@ -32,8 +32,9 @@
                         </Border>
                         <Border Margin="32" Background="White">
                             <Viewbox x:Name="UC_Viewbox_PreviewModelo" Stretch="UniformToFill" >
-                                <local:CartaTemplate />
+                                <local:CartaTemplate x:Name="carta" />    
                             </Viewbox>
+                            
                         </Border>
 
                     </Grid>
@@ -41,8 +42,25 @@
             </Grid>
         </ScrollViewer>
         <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
             <GroupBox Header="Forenecedor">
-                
+
+            </GroupBox>
+            <GroupBox Grid.Row="1" Header="Resgisto">
+                <StackPanel Orientation="Vertical" Margin="0,5,0,0">
+                    <ComboBox SelectedIndex="2">
+                        <ComboBoxItem Content="Normal"/>
+                        <ComboBoxItem Content="Verde"/>
+                        <ComboBoxItem Content="Resgitado"/>
+                    </ComboBox>
+                    <DockPanel LastChildFill="True" Margin="0,10,0,0">
+                        <TextBlock Text="Cod." Margin="0,0,5,0" VerticalAlignment="Center"/>
+                        <TextBox Height="20" VerticalAlignment="Center" TextChanged="TextBox_TextChanged" />
+                    </DockPanel>
+                </StackPanel>
             </GroupBox>
         </Grid>
     </Grid>

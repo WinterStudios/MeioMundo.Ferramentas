@@ -8,6 +8,7 @@ namespace MeioMundo.Ferramentas
 {
     public class EntryPoint : IPlugin
     {
+        public static string DataLocation { get; private set; }
         public string Name => "Meio Mundo - Ferramentas";
         public string Description => "Ferramentas para a Meio Mundo";
         public SemVersion Version => throw new NotImplementedException();
@@ -40,5 +41,12 @@ namespace MeioMundo.Ferramentas
             Path = "Ferramentas>Welcome",
             PluginTypeBehavior = PluginTypeBehavior.Tab
         };
+
+        public string DataStorage { get => DataLocation; set => DataLocation = value; }
+
+        public void initialization()
+        {
+            Internal.FornecedoresSystem.Inicialize();
+        }
     }
 }

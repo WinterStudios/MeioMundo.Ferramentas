@@ -11,5 +11,11 @@ namespace MeioMundo.Ferramentas.Internal
         public int ID { get; set; }
         public string Nome { get; set; }
         public Morada[] Moradas { get; set; }
+
+
+        public override string ToString()
+        {
+            return string.Format("ID: {0} - Nome: {1}",ID,Nome);
+        }
     }
 }

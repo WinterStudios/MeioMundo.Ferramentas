@@ -36,7 +36,27 @@ namespace MeioMundo.Ferramentas.Internal
             StreamReader moradasReader = new StreamReader(moradasFileOutput);
 
         }
+        private static async Task ReadFornecedorAsync(StreamReader reader)
+        {
+            int Index = 0;
+            int ID_Index = 0;
 
+
+            string line = string.Empty;
+            while((line = await reader.ReadLineAsync()) != null)
+            {
+                if(Index == 0)
+                {
+
+                }
+                else
+                {
+
+                }
+                Index++;
+            }
+        }        
 
     }
 }
+

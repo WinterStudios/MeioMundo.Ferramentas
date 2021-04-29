@@ -31,6 +31,18 @@ namespace MeioMundo.Ferramentas.Correio
         public ImageSource ResgistoSource { get => resgistoSource; set { resgistoSource = value; NotifyPropertyChanged(); } }
         private ImageSource resgistoSource;
 
+        public ImageSource SeloSource { get => seloSource; set { seloSource = value; NotifyPropertyChanged(); } }
+        private ImageSource seloSource;
+
+
+        public string Morada_Rua { get => _morada_rua; set { _morada_rua = value; NotifyPropertyChanged(); } }
+        private string _morada_rua;
+        public string Morada_Localidade { get => _morada_localidade; set { _morada_localidade = value; NotifyPropertyChanged(); } }
+        private string _morada_localidade;
+        public string Morada_CodigoPostal { get => _morada_codigopostal; set { _morada_codigopostal = value; NotifyPropertyChanged(); } }
+        private string _morada_codigopostal;
+        public string Morada_Pais { get => _morada_pais; set { _morada_pais = value; NotifyPropertyChanged(); } }
+        private string _morada_pais;
 
         #region Notification Changed
         public event PropertyChangedEventHandler PropertyChanged;
@@ -52,6 +64,28 @@ namespace MeioMundo.Ferramentas.Correio
             
             code.Source = Barcode.Barcode.CreateBarcode(s, Barcode.BarcodeEncoding.Code39).ToImage((int)Math.Round(code.Width), (int)Math.Round(code.Height));
 
+        }
+
+        internal void UpdateSelo(TypeRegister type)
+        {
+            BitmapImage image = null;
+            switch (type)
+            {
+                case TypeRegister.Normal:
+                    break;
+                case TypeRegister.Azul:
+                    image = new BitmapImage(new Uri("pack://application:,,,/MeioMundo.Ferramentas;component/Assets/correio-azul.png"));
+                    break;
+                case TypeRegister.Verde:
+                    image = new BitmapImage(new Uri("pack://application:,,,/MeioMundo.Ferramentas;component/Assets/correio-verde.png"));
+                    break;
+                case TypeRegister.Registado:
+                    image = new BitmapImage(new Uri("pack://application:,,,/MeioMundo.Ferramentas;component/Assets/correio-registado.png"));
+                    break;
+                default:
+                    break;
+            }
+            SeloSource = image;
         }
     }
 }

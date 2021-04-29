@@ -20,10 +20,9 @@ namespace MeioMundo.Ferramentas.Internal
         public static void Inicialize()
         {
             Fornecedores = new List<Fornecedor>();
-            string lo = EntryPoint.DataLocation;
+            Load();
         }
-
-
+ 
         public static async Task LoadFromFile()
         {
             string fornedorFileOutput = string.Empty;
@@ -146,6 +145,20 @@ namespace MeioMundo.Ferramentas.Internal
             string json = JsonSerializer.Serialize(Fornecedores, serializerOptions);
 
             await File.WriteAllTextAsync(fileLocation, json);
+        }
+        private static async Task Load()
+        {
+            string fileLocation = string.Format("{0}Fornecedores.json", EntryPoint.Info.PluginStorageData);
+            if (File.Exists(fileLocation))
+            {
+                JsonSerializerOptions serializerOptions = new JsonSerializerOptions()
+                {
+                    WriteIndented = true
+                };
+                FileStream stream = new FileStream(fileLocation, FileMode.Open);
+
+                Fornecedores = (await JsonSerializer.DeserializeAsync<Fornecedor[]>(stream, serializerOptions)).ToList();
+            }
         }
     }
 }

@@ -4,12 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MeioMundo.Ferramentas.Correio"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="GetTypeOfRegistors" MethodName="GetRegistoTypes" ObjectType="{x:Type local:Main}"/>
+        <ObjectDataProvider x:Key="TiposDeRegisto" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:TypeRegister"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </UserControl.Resources>
-    
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -45,19 +50,48 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <GroupBox Header="Forenecedor">
 
             </GroupBox>
-            <GroupBox Grid.Row="1" Header="Resgisto">
+            <GroupBox Header="Dados" Grid.Row="1">
+                <Grid>
+                    <StackPanel>
+                        <DockPanel LastChildFill="True" Margin="6">
+                            <TextBlock Text="Rua" Width="100"/>
+                            <TextBox MaxLines="2" Height="36" AcceptsReturn="True" TextChanged="TextBox_TextChanged" Tag="Morada_Rua"/>
+                        </DockPanel>
+                        <DockPanel LastChildFill="True" Margin="6">
+                            <TextBlock Text="Localidade" Width="100"/>
+                            <TextBox  TextChanged="TextBox_TextChanged" Tag="Morada_Localidade"/>
+                        </DockPanel>
+                        <DockPanel LastChildFill="True" Margin="6">
+                            <TextBlock Text="Codigo Postal" Width="100"/>
+                            <TextBox  TextChanged="TextBox_TextChanged" Tag="Morada_CodigoPostal"/>
+                        </DockPanel>
+                        <DockPanel LastChildFill="True" Margin="6">
+                            <TextBlock Text="Pais" Width="100"/>
+                            <TextBox  TextChanged="TextBox_TextChanged" Tag="Morada_Pais"/>
+                        </DockPanel>
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Row="2" Header="Resgisto">
                 <StackPanel Orientation="Vertical" Margin="0,5,0,0">
-                    <!--<ComboBox SelectedIndex="2" ItemsSource="{Binding Source={StaticResource GetTypeOfRegistors}}" />-->
+                    <ComboBox x:Name="combox_registorsTypes" ItemsSource="{Binding Source={StaticResource TiposDeRegisto}}" SelectedItem="{Binding RegisterType, RelativeSource={RelativeSource AncestorType=local:Main}}" SelectionChanged="combox_registorsTypes_SelectionChanged"/>
                     <DockPanel LastChildFill="True" Margin="0,10,0,0">
                         <TextBlock Text="Cod." Margin="0,0,5,0" VerticalAlignment="Center"/>
-                        <TextBox Height="20" VerticalAlignment="Center" TextChanged="TextBox_TextChanged" />
+                        <TextBox Height="20" VerticalAlignment="Center" TextChanged="TextBox_TextChanged" Tag="Registo"/>
                     </DockPanel>
                 </StackPanel>
             </GroupBox>
+            <Button Grid.Row="3" Click="Button_Click" Tag="PrintEnvelope" Padding="12,6">
+                <StackPanel>
+                    <TextBlock Text="Imprimir ..."/>
+                </StackPanel>
+            </Button>
         </Grid>
     </Grid>
 </UserControl>

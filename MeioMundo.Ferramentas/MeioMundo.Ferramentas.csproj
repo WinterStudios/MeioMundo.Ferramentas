@@ -4,7 +4,7 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <FileVersion>21.4.28.0</FileVersion>
+    <FileVersion>21.4.29.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -25,8 +25,10 @@
     <None Remove="Assets\carta-logo.png" />
     <None Remove="Assets\carta-mail.png" />
     <None Remove="Assets\carta-phone.png" />
-    <None Remove="Assets\carta-registada.png" />
     <None Remove="Assets\carta-selo.png" />
+    <None Remove="Assets\correio-azul.png" />
+    <None Remove="Assets\correio-registado.png" />
+    <None Remove="Assets\correio-verde.png" />
     <None Remove="Assets\email.png" />
     <None Remove="Assets\global.png" />
     <None Remove="Assets\globe.png" />
@@ -52,8 +54,10 @@
     <Resource Include="Assets\carta-logo.png" />
     <Resource Include="Assets\carta-mail.png" />
     <Resource Include="Assets\carta-phone.png" />
-    <Resource Include="Assets\carta-registada.png" />
+    <Resource Include="Assets\correio-registado.png" />
     <Resource Include="Assets\carta-selo.png" />
+    <Resource Include="Assets\correio-azul.png" />
+    <Resource Include="Assets\correio-verde.png" />
     <Resource Include="Assets\email.png" />
     <Resource Include="Assets\global.png" />
     <Resource Include="Assets\globe.png" />

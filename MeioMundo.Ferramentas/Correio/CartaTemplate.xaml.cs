@@ -31,6 +31,7 @@ namespace MeioMundo.Ferramentas.Correio
         public ImageSource ResgistoSource { get => resgistoSource; set { resgistoSource = value; NotifyPropertyChanged(); } }
         private ImageSource resgistoSource;
 
+
         #region Notification Changed
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")

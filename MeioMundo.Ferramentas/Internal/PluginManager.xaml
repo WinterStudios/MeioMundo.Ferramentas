@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="MeioMundo.Ferramentas.Internal.PluginManager"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MeioMundo.Ferramentas.Internal"
+             xmlns:main ="clr-namespace:MeioMundo.Ferramentas.Correio"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="46"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Content="Fornecedores" Click="Nav_Button_Click" Tag="0" BorderBrush="Transparent" Background="Transparent" Padding="12,6"/>
+                <Button Content="Fornecedores" Click="Nav_Button_Click" Tag="1" BorderBrush="Transparent" Background="Transparent" Padding="12,6"/>
+            </StackPanel>
+        </Grid>
+        <local:CustomScrollViewer x:Name="scroll" Grid.Row="1" VerticalScrollBarVisibility="Auto" CanContentScroll="False" HorizontalScrollBarVisibility="Hidden" VirtualizingPanel.IsContainerVirtualizable="True">
+            <Border x:Name="panel" HorizontalAlignment="Stretch">
+                <Viewbox Height="{Binding ElementName=scroll,Path=Height}">
+                    <StackPanel Orientation="Horizontal">
+                        <local:FornecedoresManager Width="{Binding ElementName=scroll, Path=ViewportWidth}" Height="{Binding ElementName=scroll, Path=ViewportHeight}" VerticalAlignment="Top"/>
+                        <main:Main Height="{Binding ElementName=scroll, Path=ActualHeight}" Width="{Binding ElementName=scroll, Path=ViewportWidth}" VerticalAlignment="Top"/>
+                    </StackPanel>
+                </Viewbox>
+            </Border>
+            
+        </local:CustomScrollViewer>
+    </Grid>
+</UserControl>

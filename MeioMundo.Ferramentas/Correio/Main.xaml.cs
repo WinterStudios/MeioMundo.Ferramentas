@@ -20,10 +20,14 @@ namespace MeioMundo.Ferramentas.Correio
     /// </summary>
     public partial class Main : UserControl
     {
+        public static string[] GetRegistoTypes() => Enum.GetNames(typeof(TypeRegister));
+
         public Main()
         {
             InitializeComponent();
             //UC_Viewbox_PreviewModelo.Child = new CartaTemplate();
+
+            var d = Internal.FornecedorSystem.Fornecedores;
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

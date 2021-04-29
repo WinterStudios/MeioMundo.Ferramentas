@@ -32,6 +32,13 @@ namespace MeioMundo.Ferramentas
                 Path = "Ferramentas>Site",
                 PluginTypeBehavior = PluginTypeBehavior.Tab,
                 TabIconLocations = "/MeioMundo.Ferramentas;component/Assets/globe.png"
+            },
+            new Module()
+            {
+                Name = "Plugin Manager",
+                Type = typeof(Internal.PluginManager).FullName,
+                Path = "Ferramentas>Plugin Manager",
+                PluginTypeBehavior = PluginTypeBehavior.Tab
             }
         };
         public bool ShowWelcomePage => true;
@@ -43,10 +50,11 @@ namespace MeioMundo.Ferramentas
         };
 
         public string DataStorage { get => DataLocation; set => DataLocation = value; }
-
+        public PluginInfo PluginInformation { get => Info; set => Info = value; }
+        public static PluginInfo Info { get; set; }
         public void initialization()
         {
-            Internal.FornecedoresSystem.Inicialize();
+            Internal.FornecedorSystem.Inicialize();
         }
     }
 }

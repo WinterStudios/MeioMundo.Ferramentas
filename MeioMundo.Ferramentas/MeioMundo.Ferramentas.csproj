@@ -30,11 +30,15 @@
     <None Remove="Assets\correio-intrucoesdeimpressao.png" />
     <None Remove="Assets\correio-registado.png" />
     <None Remove="Assets\correio-verde.png" />
+    <None Remove="Assets\down-arrow.png" />
     <None Remove="Assets\email.png" />
     <None Remove="Assets\global.png" />
     <None Remove="Assets\globe.png" />
     <None Remove="Assets\menu.png" />
+    <None Remove="Assets\more.png" />
+    <None Remove="Assets\search.png" />
     <None Remove="Assets\settings.png" />
+    <None Remove="Assets\up-arrow.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,11 +64,15 @@
     <Resource Include="Assets\carta-selo.png" />
     <Resource Include="Assets\correio-azul.png" />
     <Resource Include="Assets\correio-verde.png" />
+    <Resource Include="Assets\down-arrow.png" />
     <Resource Include="Assets\email.png" />
     <Resource Include="Assets\global.png" />
     <Resource Include="Assets\globe.png" />
     <Resource Include="Assets\menu.png" />
+    <Resource Include="Assets\more.png" />
+    <Resource Include="Assets\search.png" />
     <Resource Include="Assets\settings.png" />
+    <Resource Include="Assets\up-arrow.png" />
   </ItemGroup>
 
 </Project>

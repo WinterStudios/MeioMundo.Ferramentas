@@ -9,11 +9,13 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="TiposDeRegisto" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="local:TypeRegister"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/MeioMundo.Ferramentas;component/Resources/ResourceDictionary_Correio.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+        
     </UserControl.Resources>
     
     <Grid>
@@ -21,7 +23,7 @@
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+        <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
             <Grid >
                 <Grid.LayoutTransform>
                     <TransformGroup>
@@ -46,58 +48,118 @@
                 </Viewbox>
             </Grid>
         </ScrollViewer>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <GroupBox Header="Forenecedor">
+        <ScrollViewer  Grid.Column="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <GroupBox Header="Forenecedor">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" VerticalContentAlignment="Center"/>
+                            <StackPanel Grid.Column="1" Margin="10,0,0,0" Orientation="Horizontal" VerticalAlignment="Top">
+                                <TextBox Width="40" VerticalContentAlignment="Center" Margin="0,0,10,0" />
+                                <Button Width="24" Height="24" Style="{DynamicResource BTN_MM_C_IMG}" Padding="6">
+                                    <Button.Content>
+                                        <Image Source="/MeioMundo.Ferramentas;component/Assets/search.png"/>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                                <TextBox Height="24" IsReadOnly="True"/>
+                                <TextBox Height="24" IsReadOnly="True"/>
+                                <TextBox Height="24" IsReadOnly="True"/>
+                                <TextBox Height="24" IsReadOnly="True"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <Button Width="24" Height="24" Style="{DynamicResource BTN_MM_C_IMG}">
+                                    <Button.Content>
+                                        <Border Padding="4">
+                                            <Image Source="/MeioMundo.Ferramentas;component/Assets/up-arrow.png"/>
+                                        </Border>
+                                    </Button.Content>
+                                </Button>
+                                <Button Width="24" Height="24" Style="{DynamicResource BTN_MM_C_IMG}">
+                                    <Button.Content>
+                                        <Border Padding="4">
+                                            <Image Source="/MeioMundo.Ferramentas;component/Assets/more.png"/>
+                                        </Border>
+                                    </Button.Content>
+                                </Button>
+                                <Button Width="24" Height="24" Style="{DynamicResource BTN_MM_C_IMG}">
+                                    <Button.Content>
+                                        <Border Padding="4">
+                                            <Image Source="/MeioMundo.Ferramentas;component/Assets/down-arrow.png"/>
+                                        </Border>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
 
-            </GroupBox>
-            <GroupBox Header="Dados" Grid.Row="1">
-                <Grid>
-                    <StackPanel>
-                        <DockPanel LastChildFill="True" Margin="6">
-                            <TextBlock Text="Rua" Width="100"/>
-                            <TextBox MaxLines="2" Height="36" AcceptsReturn="True" TextChanged="TextBox_TextChanged" Tag="Morada_Rua"/>
-                        </DockPanel>
-                        <DockPanel LastChildFill="True" Margin="6">
-                            <TextBlock Text="Localidade" Width="100"/>
-                            <TextBox  TextChanged="TextBox_TextChanged" Tag="Morada_Localidade"/>
-                        </DockPanel>
-                        <DockPanel LastChildFill="True" Margin="6">
-                            <TextBlock Text="Codigo Postal" Width="100"/>
-                            <TextBox  TextChanged="TextBox_TextChanged" Tag="Morada_CodigoPostal"/>
-                        </DockPanel>
-                        <DockPanel LastChildFill="True" Margin="6">
-                            <TextBlock Text="Pais" Width="100"/>
-                            <TextBox  TextChanged="TextBox_TextChanged" Tag="Morada_Pais"/>
+                        </Grid>
+
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Dados" Grid.Row="1">
+                    <Grid>
+                        <StackPanel>
+                            <DockPanel LastChildFill="True" Margin="6">
+                                <TextBlock Text="Rua" Width="100"/>
+                                <TextBox MaxLines="2" Height="36" AcceptsReturn="True" TextChanged="TextBox_TextChanged" Tag="Morada_Rua"/>
+                            </DockPanel>
+                            <DockPanel LastChildFill="True" Margin="6">
+                                <TextBlock Text="Localidade" Width="100"/>
+                                <TextBox  TextChanged="TextBox_TextChanged" Tag="Morada_Localidade"/>
+                            </DockPanel>
+                            <DockPanel LastChildFill="True" Margin="6">
+                                <TextBlock Text="Codigo Postal" Width="100"/>
+                                <TextBox  TextChanged="TextBox_TextChanged" Tag="Morada_CodigoPostal"/>
+                            </DockPanel>
+                            <DockPanel LastChildFill="True" Margin="6">
+                                <TextBlock Text="Pais" Width="100"/>
+                                <TextBox  TextChanged="TextBox_TextChanged" Tag="Morada_Pais"/>
+                            </DockPanel>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Grid.Row="2" Header="Resgisto">
+                    <StackPanel Orientation="Vertical" Margin="0,5,0,0">
+                        <ComboBox x:Name="combox_registorsTypes" ItemsSource="{Binding Source={StaticResource TiposDeRegisto}}" SelectedItem="{Binding RegisterType, RelativeSource={RelativeSource AncestorType=local:Main}}" SelectionChanged="combox_registorsTypes_SelectionChanged"/>
+                        <DockPanel LastChildFill="True" Margin="0,10,0,0">
+                            <TextBlock Text="Cod." Margin="0,0,5,0" VerticalAlignment="Center"/>
+                            <TextBox Height="20" VerticalAlignment="Center" TextChanged="TextBox_TextChanged" Tag="Registo"/>
                         </DockPanel>
                     </StackPanel>
-                </Grid>
-            </GroupBox>
-            <GroupBox Grid.Row="2" Header="Resgisto">
-                <StackPanel Orientation="Vertical" Margin="0,5,0,0">
-                    <ComboBox x:Name="combox_registorsTypes" ItemsSource="{Binding Source={StaticResource TiposDeRegisto}}" SelectedItem="{Binding RegisterType, RelativeSource={RelativeSource AncestorType=local:Main}}" SelectionChanged="combox_registorsTypes_SelectionChanged"/>
-                    <DockPanel LastChildFill="True" Margin="0,10,0,0">
-                        <TextBlock Text="Cod." Margin="0,0,5,0" VerticalAlignment="Center"/>
-                        <TextBox Height="20" VerticalAlignment="Center" TextChanged="TextBox_TextChanged" Tag="Registo"/>
-                    </DockPanel>
-                </StackPanel>
-            </GroupBox>
-            <GroupBox Header="Opções adicionais" Grid.Row="3">
-                <Grid>
-                    <CheckBox Content="Imprimir Logo Tipo" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" IsChecked="True"/>
-                </Grid>
-            </GroupBox>
-            <Button Grid.Row="4" Click="Button_Click" Tag="PrintEnvelope" Padding="12,6">
-                <StackPanel>
-                    <TextBlock Text="Imprimir ..."/>
-                </StackPanel>
-            </Button>
-        </Grid>
+                </GroupBox>
+                <GroupBox Header="Opções adicionais" Grid.Row="3">
+                    <Grid>
+                        <CheckBox Content="Imprimir Logo Tipo" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" IsChecked="True"/>
+                    </Grid>
+                </GroupBox>
+                <Button Grid.Row="4" Click="Button_Click" Tag="PrintEnvelope" Padding="12,6">
+                    <StackPanel>
+                        <TextBlock Text="Imprimir ..."/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </ScrollViewer>
+        
     </Grid>
 </UserControl>

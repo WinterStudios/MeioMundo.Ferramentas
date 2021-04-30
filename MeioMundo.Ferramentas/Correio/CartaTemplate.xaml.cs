@@ -44,6 +44,10 @@ namespace MeioMundo.Ferramentas.Correio
         public string Morada_Pais { get => _morada_pais; set { _morada_pais = value; NotifyPropertyChanged(); } }
         private string _morada_pais;
 
+        public Visibility GridLogoVisiblity { get => _gridLogoVisiblity; set { _gridLogoVisiblity = value; NotifyPropertyChanged(); } }
+        private Visibility _gridLogoVisiblity;
+
+
         #region Notification Changed
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -54,7 +58,6 @@ namespace MeioMundo.Ferramentas.Correio
         public CartaTemplate()
         {
             InitializeComponent();
-            ResgistoSource = Barcode.Barcode.CreateBarcode("FR19832323PT", Barcode.BarcodeEncoding.Code39).ToImage((int)Math.Round(code.Width), (int)Math.Round(code.Height));
             code.Source = ResgistoSource;
         }
 

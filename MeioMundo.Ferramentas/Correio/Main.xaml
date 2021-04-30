@@ -52,6 +52,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <GroupBox Header="Forenecedor">
 
@@ -87,7 +88,12 @@
                     </DockPanel>
                 </StackPanel>
             </GroupBox>
-            <Button Grid.Row="3" Click="Button_Click" Tag="PrintEnvelope" Padding="12,6">
+            <GroupBox Header="Opções adicionais" Grid.Row="3">
+                <Grid>
+                    <CheckBox Content="Imprimir Logo Tipo" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" IsChecked="True"/>
+                </Grid>
+            </GroupBox>
+            <Button Grid.Row="4" Click="Button_Click" Tag="PrintEnvelope" Padding="12,6">
                 <StackPanel>
                     <TextBlock Text="Imprimir ..."/>
                 </StackPanel>

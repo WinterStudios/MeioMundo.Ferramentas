@@ -48,7 +48,7 @@
                 </Viewbox>
             </Grid>
         </ScrollViewer>
-        <ScrollViewer  Grid.Column="1">
+        <ScrollViewer  Grid.Column="1" VerticalScrollBarVisibility="Auto">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -122,19 +122,19 @@
                         <StackPanel>
                             <DockPanel LastChildFill="True" Margin="6">
                                 <TextBlock Text="Rua" Width="100"/>
-                                <TextBox MaxLines="2" Height="36" AcceptsReturn="True" TextChanged="TextBox_TextChanged" Tag="Morada_Rua"/>
+                                <TextBox MaxLines="2" Height="32pt" AcceptsReturn="True" TextChanged="TextBox_TextChanged" Tag="Morada_Rua"/>
                             </DockPanel>
                             <DockPanel LastChildFill="True" Margin="6">
                                 <TextBlock Text="Localidade" Width="100"/>
-                                <TextBox  TextChanged="TextBox_TextChanged" Tag="Morada_Localidade"/>
+                                <TextBox  TextChanged="TextBox_TextChanged" Tag="Morada_Localidade" Height="24" VerticalContentAlignment="Center"/>
                             </DockPanel>
                             <DockPanel LastChildFill="True" Margin="6">
                                 <TextBlock Text="Codigo Postal" Width="100"/>
-                                <TextBox  TextChanged="TextBox_TextChanged" Tag="Morada_CodigoPostal"/>
+                                <TextBox  TextChanged="TextBox_TextChanged" Tag="Morada_CodigoPostal" Height="24" VerticalContentAlignment="Center"/>
                             </DockPanel>
                             <DockPanel LastChildFill="True" Margin="6">
                                 <TextBlock Text="Pais" Width="100"/>
-                                <TextBox  TextChanged="TextBox_TextChanged" Tag="Morada_Pais"/>
+                                <TextBox  TextChanged="TextBox_TextChanged" Tag="Morada_Pais" Height="24" VerticalContentAlignment="Center"/>
                             </DockPanel>
                         </StackPanel>
                     </Grid>

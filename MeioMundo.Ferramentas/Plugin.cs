@@ -17,7 +17,10 @@ namespace MeioMundo.Ferramentas
                 Name = "Codigo de Barras",
                 Type = typeof(UI.Barcode).FullName,
                 Path = "Ferramentas>Codigos de Barras",
-                PluginTypeBehavior = PluginTypeBehavior.Tab
+                PluginTypeBehavior = PluginTypeBehavior.Tab,
+                TabIconLocations = "/MeioMundo.Ferramentas;component/Assets/barcode.png",
+                Icon = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/barcode.png",
+                Shortcut = "Ctrl + B"
             },
             new Module() {
                 Name = "Manuais Escolares",
@@ -32,6 +35,14 @@ namespace MeioMundo.Ferramentas
                 Path = "Ferramentas>Site",
                 PluginTypeBehavior = PluginTypeBehavior.Tab,
                 TabIconLocations = "/MeioMundo.Ferramentas;component/Assets/globe.png"
+            },
+            new Module() {
+                Name = "Correio",
+                Type = typeof(Correio.Main).FullName,
+                Path = "Ferramentas>Correio",
+                Icon = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/envelope.png",
+                PluginTypeBehavior = PluginTypeBehavior.Tab,
+                TabIconLocations = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/envelope.png"
             },
             new Module()
             {

@@ -4,7 +4,7 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <FileVersion>21.4.30.0</FileVersion>
+    <FileVersion>21.5.1.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Assets\barcode.png" />
     <None Remove="Assets\books-ico.png" />
     <None Remove="Assets\books.png" />
     <None Remove="Assets\boxes.png" />
@@ -32,6 +33,7 @@
     <None Remove="Assets\correio-verde.png" />
     <None Remove="Assets\down-arrow.png" />
     <None Remove="Assets\email.png" />
+    <None Remove="Assets\envelope.png" />
     <None Remove="Assets\global.png" />
     <None Remove="Assets\globe.png" />
     <None Remove="Assets\menu.png" />
@@ -53,6 +55,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\barcode.png" />
     <Resource Include="Assets\books-ico.png" />
     <Resource Include="Assets\books.png" />
     <Resource Include="Assets\boxes.png" />
@@ -66,6 +69,7 @@
     <Resource Include="Assets\correio-verde.png" />
     <Resource Include="Assets\down-arrow.png" />
     <Resource Include="Assets\email.png" />
+    <Resource Include="Assets\envelope.png" />
     <Resource Include="Assets\global.png" />
     <Resource Include="Assets\globe.png" />
     <Resource Include="Assets\menu.png" />

@@ -36,6 +36,11 @@
     <None Remove="Assets\envelope.png" />
     <None Remove="Assets\global.png" />
     <None Remove="Assets\globe.png" />
+    <None Remove="Assets\Icons\barcode.png" />
+    <None Remove="Assets\Icons\book %281%29.png" />
+    <None Remove="Assets\Icons\book.png" />
+    <None Remove="Assets\Icons\envelope.png" />
+    <None Remove="Assets\Icons\plugin.png" />
     <None Remove="Assets\menu.png" />
     <None Remove="Assets\more.png" />
     <None Remove="Assets\search.png" />
@@ -55,7 +60,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\barcode.png" />
     <Resource Include="Assets\books-ico.png" />
     <Resource Include="Assets\books.png" />
     <Resource Include="Assets\boxes.png" />
@@ -69,9 +73,13 @@
     <Resource Include="Assets\correio-verde.png" />
     <Resource Include="Assets\down-arrow.png" />
     <Resource Include="Assets\email.png" />
-    <Resource Include="Assets\envelope.png" />
     <Resource Include="Assets\global.png" />
     <Resource Include="Assets\globe.png" />
+    <Resource Include="Assets\Icons\barcode.png" />
+    <Resource Include="Assets\Icons\book (1).png" />
+    <Resource Include="Assets\Icons\book.png" />
+    <Resource Include="Assets\Icons\envelope.png" />
+    <Resource Include="Assets\Icons\plugin.png" />
     <Resource Include="Assets\menu.png" />
     <Resource Include="Assets\more.png" />
     <Resource Include="Assets\search.png" />

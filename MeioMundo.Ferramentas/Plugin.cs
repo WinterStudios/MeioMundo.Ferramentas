@@ -19,7 +19,7 @@ namespace MeioMundo.Ferramentas
                 Path = "Ferramentas>Codigos de Barras",
                 PluginTypeBehavior = PluginTypeBehavior.Tab,
                 TabIconLocations = "/MeioMundo.Ferramentas;component/Assets/barcode.png",
-                Icon = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/barcode.png",
+                Icon = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/Icons/barcode.png",
                 Shortcut = "Ctrl + B"
             },
             new Module() {
@@ -27,29 +27,31 @@ namespace MeioMundo.Ferramentas
                 Type = typeof(Escola.ManuaisEscolares).FullName,
                 Path = "Ferramentas>Manuais Escolares",
                 PluginTypeBehavior = PluginTypeBehavior.Tab,
-                TabIconLocations = "/MeioMundo.Ferramentas;component/Assets/books.png"
+                TabIconLocations = "/MeioMundo.Ferramentas;component/Assets/books.png",
+                Icon = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/Icons/book.png",
             },
             new Module() {
                 Name = "Site",
                 Type = typeof(Site.Core).FullName,
                 Path = "Ferramentas>Site",
                 PluginTypeBehavior = PluginTypeBehavior.Tab,
-                TabIconLocations = "/MeioMundo.Ferramentas;component/Assets/globe.png"
+                TabIconLocations = "/MeioMundo.Ferramentas;component/Assets/globe.png",
+                Icon = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/Icons/barcode.png",
             },
             new Module() {
                 Name = "Correio",
                 Type = typeof(Correio.Main).FullName,
                 Path = "Ferramentas>Correio",
-                Icon = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/envelope.png",
+                Icon = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/Icons/envelope.png",
                 PluginTypeBehavior = PluginTypeBehavior.Tab,
-                TabIconLocations = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/envelope.png"
             },
             new Module()
             {
                 Name = "Plugin Manager",
                 Type = typeof(Internal.PluginManager).FullName,
                 Path = "Ferramentas>Plugin Manager",
-                PluginTypeBehavior = PluginTypeBehavior.Tab
+                PluginTypeBehavior = PluginTypeBehavior.Tab,
+                Icon = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/Icons/plugin.png"
             }
         };
         public bool ShowWelcomePage => true;

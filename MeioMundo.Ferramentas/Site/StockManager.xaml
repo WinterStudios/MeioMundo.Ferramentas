@@ -16,8 +16,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" >
-            <Button Content="Sync Sage" Padding="8,4" Click="Button_Click" Tag="Sage"/>
-            <Button Content="Sync Site" Padding="8,4" Click="Button_Click" Tag="Web"/>
+            <Button Content="Carregar Ficheiros" Padding="8,4" Click="Button_Click"/>
         </StackPanel>
         
         <DataGrid x:Name="UC_StockManager" Grid.Row="1" ItemsSource="{Binding Produtos, RelativeSource={RelativeSource AncestorType=local:StockManager}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" HeadersVisibility="Column">
@@ -47,6 +46,9 @@
         <StatusBar Grid.Row="2">
             <StatusBarItem>
                 <TextBlock x:Name="UC_StatusBar_ListObjects"/>
+            </StatusBarItem>
+            <StatusBarItem>
+                <ProgressBar x:Name="UC_StatusBar_Progress" Maximum="1" Minimum="0" Width="200" Height="10" Value="0" Foreground="#FF11D9D5" />
             </StatusBarItem>
         </StatusBar>
     </Grid>

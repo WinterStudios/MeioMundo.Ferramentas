@@ -22,7 +22,7 @@
                 <TextBlock Text="Manuais Escolares" Grid.Row="1" FontSize="24pt" HorizontalAlignment="Center"/>
             </Grid>
         </Button>
-        <Button Grid.Column="1" Click="Button_Click" Tag="_MANUAL_ESCOLAR" Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" >
+        <Button Grid.Column="1" Click="Button_Click" Tag="_WEBSITE_MANAGER" Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>

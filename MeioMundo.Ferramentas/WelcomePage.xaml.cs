@@ -50,6 +50,15 @@ namespace MeioMundo.Ferramentas
                 tab.Content = main;
                 U_System.Core.UX.TabsSystem.Add(tab);
             }
+            if (tag == "_WEBSITE_MANAGER")
+            {
+                TabItem tab = new TabItem();
+                tab.Header = "Website Manager";
+                tab.Tag = "/MeioMundo.Ferramentas;component/Assets/carta-logo.png";
+                Site.Core main = new Site.Core();
+                tab.Content = main;
+                U_System.Core.UX.TabsSystem.Add(tab);
+            }
         }
     }
 }

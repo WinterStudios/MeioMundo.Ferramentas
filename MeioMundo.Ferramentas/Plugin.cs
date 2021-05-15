@@ -65,6 +65,8 @@ namespace MeioMundo.Ferramentas
         public string DataStorage { get => DataLocation; set => DataLocation = value; }
         public PluginInfo PluginInformation { get => Info; set => Info = value; }
         public static PluginInfo Info { get; set; }
+        public string[] PluginDependicy { get; set; }
+
         public void initialization()
         {
             Internal.FornecedorSystem.Inicialize();

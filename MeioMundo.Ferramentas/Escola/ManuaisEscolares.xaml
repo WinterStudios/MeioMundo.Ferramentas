@@ -47,9 +47,9 @@
                 </Grid.LayoutTransform>
                 <Viewbox>
                     <Grid>
-                        <Border Padding="0" Margin="32" BorderThickness="8" BorderBrush="Gray">
+                        <Border Padding="0" Margin="32" BorderThickness="8" BorderBrush="#FFCDCDCD">
                             <Border.Effect>
-                                <DropShadowEffect BlurRadius="24" ShadowDepth="0" Color="Gray" />
+                                <DropShadowEffect BlurRadius="24" ShadowDepth="0" Color="#FFEDEDED" />
                             </Border.Effect>
                         </Border>
                         <Border Margin="32" Background="White">

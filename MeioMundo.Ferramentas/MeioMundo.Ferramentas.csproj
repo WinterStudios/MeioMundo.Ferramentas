@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
      <PackageCopyToOutput>true</PackageCopyToOutput>
@@ -61,7 +61,7 @@
       <Private>false</Private>
     </Reference>
     <Reference Include="U-System.External">
-      <HintPath>..\..\U-System\U-System.External\bin\Debug\net5.0-windows\ref\U-System.External.dll</HintPath>
+      <HintPath>..\..\U-System\U-System\bin\Debug\U-System.External.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

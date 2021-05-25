@@ -24,18 +24,18 @@
         <Grid x:Name="gridLogo" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="0.75cm,0.75cm,0,0" VerticalAlignment="Top" Visibility="{Binding GridLogoVisiblity, RelativeSource={RelativeSource AncestorType=local:CartaTemplate}, Mode=OneWay}">
             <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="/MeioMundo.Ferramentas;component/Assets/carta-logo.png" Width="5cm" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality" />
             <StackPanel Margin="0,2.75cm,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Vertical">
-                <TextBlock Text="MEIO MUNDO - LIVRARIA E PAPELARIA, LDA" Foreground="{DynamicResource Remetente.Foreground}" />
-                <TextBlock Text="Rua Prof. Antonio R. Garcia Vasconcelos, Lote 40/41" Foreground="{DynamicResource Remetente.Foreground}" />
-                <TextBlock Text="3400-132 Oliveira do Hospital" Foreground="{DynamicResource Remetente.Foreground}" />
+                <TextBlock Text="MEIO MUNDO - LIVRARIA E PAPELARIA, LDA" Foreground="{DynamicResource Remetente.Foreground}" Margin="0,0,0,5" />
+                <TextBlock Text="Rua Prof. Antonio R. Garcia Vasconcelos, Lote 40/41" Foreground="{DynamicResource Remetente.Foreground}" FontWeight="Light" />
+                <TextBlock Text="3400-132 Oliveira do Hospital" Foreground="{DynamicResource Remetente.Foreground}" FontWeight="Light" />
             </StackPanel>
-            <StackPanel Margin="0,4.25cm,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Vertical">
+            <StackPanel Margin="0,4.5cm,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Vertical">
                 <DockPanel LastChildFill="True">
                     <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-phone.png" Width="0.5cm" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality"/>
-                    <TextBlock Text="238601375" Foreground="{DynamicResource Remetente.Foreground}" Margin="0.2cm,0,0,0"/>
+                    <TextBlock Text="238601375" Foreground="{DynamicResource Remetente.Foreground}" Margin="0.2cm,0,0,0" FontWeight="Light" FontSize="10"/>
                 </DockPanel>
                 <DockPanel LastChildFill="True">
                     <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-mail.png" Width="0.5cm" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality"/>
-                    <TextBlock Text="238601375" Foreground="{DynamicResource Remetente.Foreground}" Margin="0.2cm,0,0,0"/>
+                    <TextBlock Text="geral@papelariameiomundo.com" Foreground="{DynamicResource Remetente.Foreground}" Margin="0.2cm,0,0,0" VerticalAlignment="Center" FontWeight="Light" FontSize="10"/>
                 </DockPanel>
             </StackPanel>
         </Grid>
@@ -44,10 +44,10 @@
         </Grid>
         <Grid Grid.Row="1" Grid.Column="2" Margin="2cm,1cm,0,0">
             <StackPanel>
-                <TextBlock Text="{Binding Morada_Rua, RelativeSource={RelativeSource AncestorType=local:CartaTemplate}, Mode=OneWay}" FontSize="11pt" Height="36pt"/>
-                <TextBlock Text="{Binding Morada_Localidade, RelativeSource={RelativeSource AncestorType=local:CartaTemplate}, Mode=OneWay}" FontSize="11pt" Height="18pt"/>
-                <TextBlock Text="{Binding Morada_CodigoPostal, RelativeSource={RelativeSource AncestorType=local:CartaTemplate}, Mode=OneWay}" FontSize="11pt" Height="18pt"/>
-                <TextBlock Text="{Binding Morada_Pais, RelativeSource={RelativeSource AncestorType=local:CartaTemplate}, Mode=OneWay}" FontSize="11pt" Height="18pt"/>
+                <TextBlock Text="{Binding Morada_Rua, RelativeSource={RelativeSource AncestorType=local:CartaTemplate}, Mode=OneWay}" FontSize="11pt" Margin="0,0,0,10" Foreground="Black"/>
+                <TextBlock Text="{Binding Morada_Localidade, RelativeSource={RelativeSource AncestorType=local:CartaTemplate}, Mode=OneWay}" FontSize="11pt" Margin="0,0,0,10" Foreground="Black"/>
+                <TextBlock Text="{Binding Morada_CodigoPostal, RelativeSource={RelativeSource AncestorType=local:CartaTemplate}, Mode=OneWay}" FontSize="11pt" Margin="0,0,0,10" Foreground="Black"/>
+                <TextBlock Text="{Binding Morada_Pais, RelativeSource={RelativeSource AncestorType=local:CartaTemplate}, Mode=OneWay}" FontSize="11pt" Foreground="Black" />
             </StackPanel>
         </Grid>
         <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Margin="2cm,3cm,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">

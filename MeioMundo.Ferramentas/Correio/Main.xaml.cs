@@ -26,13 +26,16 @@ namespace MeioMundo.Ferramentas.Correio
         private TypeRegister _registerType;
 
 
+        public ImageBrush SearchIcon { get => null; }
+        private ImageBrush searchIcon;
+
         public Main()
         {
             InitializeComponent();
             //UC_Viewbox_PreviewModelo.Child = new CartaTemplate();
             //combox_registorsTypes.ItemsSource = Enum.GetValues(typeof(TypeRegister)).Cast<TypeRegister>();
             //combox_registorsTypes.SelectedIndex = 0;
-            var d = Internal.FornecedorSystem.Fornecedores;
+            
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -50,7 +53,8 @@ namespace MeioMundo.Ferramentas.Correio
                 carta.Morada_Pais = text;
 
             if (tag == "Registo")
-                carta.ResgistoCode = text;            
+                carta.ResgistoCode = text;
+            carta.UpdateLayout();
         }
 
         private void combox_registorsTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -102,6 +106,18 @@ namespace MeioMundo.Ferramentas.Correio
                 {
                     printDialog.PrintVisual(carta, "My First Print Job");
                 }
+            }
+
+            if(tag == "SelectFornAddress")
+            {
+                FornecedorSelect fornecedorAddress = new FornecedorSelect();
+
+                Window window = new Window();
+
+                window.Content = fornecedorAddress;
+                window.SizeToContent = SizeToContent.WidthAndHeight;
+
+                window.Show();
             }
         }
 

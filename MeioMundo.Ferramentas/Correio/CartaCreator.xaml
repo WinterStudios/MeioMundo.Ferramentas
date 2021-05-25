@@ -1,0 +1,35 @@
+﻿<UserControl xmlns:Internal="clr-namespace:MeioMundo.Ferramentas.Correio.Internal"  x:Class="MeioMundo.Ferramentas.Correio.CartaCreator"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MeioMundo.Ferramentas.Correio"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+            <Grid >
+                <Grid.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform x:Name="scaleTransform" CenterX="0.5" ScaleX="0.9" ScaleY="0.9"/>
+                    </TransformGroup>
+                </Grid.LayoutTransform>
+                <Viewbox>
+                    <Grid>
+                        <Border Padding="0" Margin="32" BorderThickness="8" BorderBrush="#FFCDCDCD">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="24" ShadowDepth="0" Color="#FFEDEDED" />
+                            </Border.Effect>
+                        </Border>
+                        <Border Margin="32" Background="White">
+                            <Viewbox Stretch="UniformToFill">
+                                <Internal:CartaBodyTemplate/>
+                            </Viewbox>
+                        </Border>
+
+                    </Grid>
+                </Viewbox>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

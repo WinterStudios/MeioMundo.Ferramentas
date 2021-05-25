@@ -71,7 +71,7 @@
                             <TextBox Grid.Column="0" VerticalContentAlignment="Center"/>
                             <StackPanel Grid.Column="1" Margin="10,0,0,0" Orientation="Horizontal" VerticalAlignment="Top">
                                 <TextBox Width="40" VerticalContentAlignment="Center" Margin="0,0,10,0" />
-                                <Button Width="24" Height="24" Style="{DynamicResource BTN_MM_C_IMG}" Padding="6">
+                                <Button Width="24" Height="24" Style="{DynamicResource BTN_MM_C_IMG}" Padding="6" Click="Button_Click" Tag="SelectFornAddress">
                                     <Button.Content>
                                         <Image Source="/MeioMundo.Ferramentas;component/Assets/search.png"/>
                                     </Button.Content>
@@ -126,15 +126,15 @@
                             </DockPanel>
                             <DockPanel LastChildFill="True" Margin="6">
                                 <TextBlock Text="Localidade" Width="100"/>
-                                <TextBox  TextChanged="TextBox_TextChanged" Tag="Morada_Localidade" Height="24" VerticalContentAlignment="Center"/>
+                                <TextBox MaxLines="2" Height="32pt" TextChanged="TextBox_TextChanged" AcceptsReturn="True" Tag="Morada_Localidade"/>
                             </DockPanel>
                             <DockPanel LastChildFill="True" Margin="6">
                                 <TextBlock Text="Codigo Postal" Width="100"/>
-                                <TextBox  TextChanged="TextBox_TextChanged" Tag="Morada_CodigoPostal" Height="24" VerticalContentAlignment="Center"/>
+                                <TextBox MaxLines="2" Height="32pt" AcceptsReturn="True" TextChanged="TextBox_TextChanged" Tag="Morada_CodigoPostal"/>
                             </DockPanel>
                             <DockPanel LastChildFill="True" Margin="6">
                                 <TextBlock Text="Pais" Width="100"/>
-                                <TextBox  TextChanged="TextBox_TextChanged" Tag="Morada_Pais" Height="24" VerticalContentAlignment="Center"/>
+                                <TextBox MaxLines="2" Height="32pt" AcceptsReturn="True" TextChanged="TextBox_TextChanged" Tag="Morada_Pais"/>
                             </DockPanel>
                         </StackPanel>
                     </Grid>

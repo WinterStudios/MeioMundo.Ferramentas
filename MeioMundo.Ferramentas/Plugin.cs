@@ -52,6 +52,14 @@ namespace MeioMundo.Ferramentas
                 Path = "Ferramentas>Plugin Manager",
                 PluginTypeBehavior = PluginTypeBehavior.Tab,
                 Icon = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/Icons/plugin.png"
+            },
+            new Module()
+            {
+                Name = "Creador de Carta",
+                Type = typeof(Correio.CartaCreator).FullName,
+                Path = "Ferramentas>Criar uma Carta",
+                PluginTypeBehavior = PluginTypeBehavior.Tab,
+                Icon = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/Icons/plugin.png"
             }
         };
         public bool ShowWelcomePage => true;

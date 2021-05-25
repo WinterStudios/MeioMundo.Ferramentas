@@ -25,8 +25,13 @@ namespace MeioMundo.Ferramentas.Correio.Internal
         public CartaBodyTemplate()
         {
             InitializeComponent();
-            leftSideText.Text = string.Format("{0}, {1}, {2}, NIF:{3}",
-                MeioMundoInformation.DominaçãoSocial.ToUpper(), MeioMundoInformationMorada.Rua, MeioMundoInformationMorada.CodigoPostal, MeioMundoInformation.NIF);
+            //leftSideText.Text = string.Format("{0}, {1}, {2}, NIF:{3}",
+            //    MeioMundoInformation.DominaçãoSocial, MeioMundoInformationMorada.Rua, MeioMundoInformationMorada.CodigoPostal, MeioMundoInformation.NIF).ToUpper();
+        }
+
+        private void richtextbox_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

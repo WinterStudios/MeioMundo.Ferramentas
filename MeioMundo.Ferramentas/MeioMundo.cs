@@ -12,7 +12,7 @@ namespace MeioMundo.Ferramentas
     {
         public static string DominaçãoSocial { get => "Meio Mundo - Livraria e Papelaria, Lda"; }        
         public static double CapitalSocial { get => 5000; }
-        public static string NIF { get => "500000000"; }
+        public static string NIF { get => "506849210"; }
         public static string Telefone { get => "238601375"; }
         public static string Email { get => "geral@papelariameiomundo.com"; }
         public static string WebPage { get => "papelariameiomundo.com"; }

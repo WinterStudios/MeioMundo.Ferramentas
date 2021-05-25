@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:MeioMundo.Ferramentas.Correio.Internal"
              xmlns:internal="clr-namespace:MeioMundo.Ferramentas.Internal"
              xmlns:main="clr-namespace:MeioMundo.Ferramentas"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime.Extensions"
              mc:Ignorable="d" 
              Height="29.7cm" Width="21cm"
              Background="White"
@@ -14,22 +15,36 @@
 
     <UserControl.Resources>
         <internal:ConvertDoubleToDoubleNegative x:Key="ConvertDoubleToNegative"/>
+        <internal:StringToUpperConverter x:Key="StringToUpperConverter"/>
+        
         <SolidColorBrush x:Key="Remetente.Foreground" Color="#007BE1"/>
         <Style x:Key="EmpresaSide" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Segui UI"/>
+            <Setter Property="FontSize" Value="8pt"/>
+        </Style>
+        <Style x:Key="EmpresaSideMorada" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segui UI"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="9pt"/>
         </Style>
 
     </UserControl.Resources>
 
     <Border Padding="0.5cm">
         <Grid>
-            <Border HorizontalAlignment="Left" VerticalAlignment="Stretch">
-                <Grid RenderTransformOrigin="0.5,0">
-                    <Grid.RenderTransform>
-                        <RotateTransform Angle="-90"/>
-                    </Grid.RenderTransform>
-                    <TextBlock x:Name="leftSideText" HorizontalAlignment="Center" FontSize="8pt" FontWeight="Light" FontFamily="Calibri"/>
-                </Grid>
+            <Border HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                <Border.LayoutTransform>
+                    <RotateTransform Angle="-90"/>
+                </Border.LayoutTransform>
+                <TextBlock x:Name="leftSideText" FontSize="7pt" FontWeight="Light" FontFamily="Calibri">
+                    <Run Text="{Binding Source={x:Static main:MeioMundoInformation.DominaçãoSocial}, Mode=OneTime, Converter={StaticResource StringToUpperConverter}}"/>
+                    <Run Text=", "/>
+                    <Run Text="{Binding Source={x:Static main:MeioMundoInformationMorada.Rua}, Mode=OneTime, Converter={StaticResource StringToUpperConverter}}"/>
+                    <Run Text=", "/>
+                    <Run Text="{Binding Source={x:Static main:MeioMundoInformationMorada.CodigoPostal}, Mode=OneTime, Converter={StaticResource StringToUpperConverter}}"/>
+                    <Run Text=", NIF:"/>
+                    <Run Text="{Binding Source={x:Static main:MeioMundoInformation.NIF}, Mode=OneTime, Converter={StaticResource StringToUpperConverter}}"/>
+                </TextBlock>
             </Border>
 
             <Grid Margin="0.75cm">
@@ -41,28 +56,51 @@
                 <!--Zona da Cabeça de Carta | o primeiro terço da primeira folha-->
                 <Grid Grid.Row="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="4.0cm" />
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="1.5cm" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="2.0cm"/>
-                        <ColumnDefinition Width="11.0cm"/>
-                        <ColumnDefinition Width="1.5cm"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
-                        <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="/MeioMundo.Ferramentas;component/Assets/carta-logo.png" Width="5cm" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality" />
-                        <TextBlock Style="{DynamicResource EmpresaSide}" Text="{Binding Source={x:Static main:MeioMundoInformation.DominaçãoSocial}}"/>
-                        <TextBlock Style="{DynamicResource EmpresaSide}" Text="{Binding Source={x:Static main:MeioMundoInformationMorada.Rua}}"/>
-                        <TextBlock Style="{DynamicResource EmpresaSide}" Text="{Binding Source={x:Static main:MeioMundoInformationMorada.CodigoPostal}}"/>
-                        <TextBlock Style="{DynamicResource EmpresaSide}" Text="{Binding Source={x:Static main:MeioMundoInformationMorada.Pais}}"/>
-                        <TextBlock Style="{DynamicResource EmpresaSide}" Text="{Binding Source={x:Static main:MeioMundoInformation.NIF}}"/>
-                        <TextBlock Style="{DynamicResource EmpresaSide}" Text="{Binding Source={x:Static main:MeioMundoInformation.CapitalSocial}}"/>
-                        <TextBlock Style="{DynamicResource EmpresaSide}" Text="{Binding Source={x:Static main:MeioMundoInformation.Telefone}}"/>
-                        <TextBlock Style="{DynamicResource EmpresaSide}" Text="{Binding Source={x:Static main:MeioMundoInformation.Email}}"/>
-                        <TextBlock Style="{DynamicResource EmpresaSide}" Text="{Binding Source={x:Static main:MeioMundoInformation.WebPage}}"/>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top"  Grid.ColumnSpan="2" Grid.RowSpan="2">
+                        <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="/MeioMundo.Ferramentas;component/Assets/carta-logo.png" Width="5cm" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock/>
+                        <StackPanel>
+                            <TextBlock Style="{DynamicResource EmpresaSideMorada}" Text="{Binding Source={x:Static main:MeioMundoInformation.DominaçãoSocial}, Converter={StaticResource StringToUpperConverter}}"/>
+                            <TextBlock Style="{DynamicResource EmpresaSideMorada}" Text="{Binding Source={x:Static main:MeioMundoInformationMorada.Rua}, Converter={StaticResource StringToUpperConverter}}"/>
+                            <TextBlock Style="{DynamicResource EmpresaSideMorada}" Text="{Binding Source={x:Static main:MeioMundoInformationMorada.CodigoPostal}, Converter={StaticResource StringToUpperConverter}}"/>
+                            <TextBlock Style="{DynamicResource EmpresaSideMorada}" Text="{Binding Source={x:Static main:MeioMundoInformationMorada.Pais}, Converter={StaticResource StringToUpperConverter}}"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,0.2cm">
+                            <TextBlock Style="{DynamicResource EmpresaSide}" >
+                                <Run Text="NIF: "/>
+                                <Run Text="{Binding Source={x:Static main:MeioMundoInformation.NIF}, Mode=OneTime}"/>
+                            </TextBlock>
+                            <TextBlock Style="{DynamicResource EmpresaSide}">
+                                <Run Text="Capital Social: "/>
+                                <Run Text="{Binding Source={x:Static main:MeioMundoInformation.CapitalSocial}, Mode=OneTime}"/>
+                            </TextBlock>
+                            <TextBlock Style="{DynamicResource EmpresaSide}" Text="Registada na C.R.C Oliveira do Hospital" />
+                        </StackPanel>
+                        <StackPanel>
+                            <DockPanel LastChildFill="True">
+                                <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-phone.png" Width="0.4cm" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality" Margin="0,0,0.2cm,0"/>
+                                <TextBlock Style="{DynamicResource EmpresaSide}" Text="{Binding Source={x:Static main:MeioMundoInformation.Telefone}, Mode=OneTime}" VerticalAlignment="Center"/>
+                            </DockPanel>
+                            <DockPanel LastChildFill="True">
+                                <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-mail.png" Width="0.4cm" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality" Margin="0,0,0.2cm,0"/>
+                                <TextBlock Style="{DynamicResource EmpresaSide}" Text="{Binding Source={x:Static main:MeioMundoInformation.Email}, Mode=OneTime}" VerticalAlignment="Center"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-web.png" Width="0.4cm" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality" Margin="0,0,0.2cm,0"/>
+                                <TextBlock Style="{DynamicResource EmpresaSide}" Text="{Binding Source={x:Static main:MeioMundoInformation.WebPage}, Mode=OneTime}" VerticalAlignment="Center"/>
+                            </DockPanel>
+                            
+                        </StackPanel>
+                        
                     </StackPanel>
+                    <TextBlock Grid.Row="2" Text="Ex. Senhor" VerticalAlignment="Bottom" Margin="1.27cm,0,0,0" FontWeight="Bold" />
                 </Grid>
                 <Grid Grid.Row="2">
                     <Border x:Name="richboxTools">
@@ -74,15 +112,32 @@
                         </StackPanel>
                     </Border>
 
-                    <RichTextBox>
+                    <RichTextBox x:Name="richtextbox" Visibility="Visible" AcceptsReturn="True" AcceptsTab="True" TextBlock.TextAlignment="Justify" TextBlock.FontFamily="Calibri" Margin="0,0.5cm,0,0" VerticalAlignment="Top" MinHeight="3cm" SelectionChanged="richtextbox_SelectionChanged">
                         <FlowDocument>
                             <Paragraph>
-                                <Bold>Example Text</Bold>
+                                <Run>Insira aqui o seu texto... </Run>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Run>
                             </Paragraph>
                         </FlowDocument>
+                        <RichTextBox.Style>
+                            <Style TargetType="RichTextBox">
+                                <Style.Triggers>
+                                    <Trigger Property="IsFocused" Value="False">
+                                        <Setter Property="BorderBrush" Value="Transparent"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RichTextBox.Style>
                     </RichTextBox>
                 </Grid>
             </Grid>
+            <Border Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" BorderThickness="0" BorderBrush="Black" >
+                <StackPanel Orientation="Horizontal" >
+                    <TextBlock Text="Pagina 1 de 1" FontSize="7pt" FontWeight="Light" FontFamily="Calibri"/>
+                </StackPanel>
+            </Border>
         </Grid>
     </Border>
 

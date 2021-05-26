@@ -6,30 +6,119 @@
              xmlns:local="clr-namespace:MeioMundo.Ferramentas.Correio"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/MeioMundo.Ferramentas;component/Resources/ToolBarStyle.xaml"/>
+                <ResourceDictionary Source="/MeioMundo.Ferramentas;component/Resources/TabControlStyle.xaml"/>
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
     <Grid>
-        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TabControl>
+            <TabItem Header="Base">
+                <Grid>
+                    
+                </Grid>
+            </TabItem>
+            <TabItem Header="Inserir">
+                <StackPanel Orientation="Horizontal">
+                    <ToolBar Header="Páginas" Style="{DynamicResource ToolBarOffice}">
+                        <Button>
+                            <DockPanel>
+                                <Image Width="32"/>
+                                <TextBlock Text="Página em Branco"/>
+                            </DockPanel>
+                        </Button>
+                        <Button>
+                            <DockPanel>
+                                <Image Width="32"/>
+                                <TextBlock Text="Quebra de Página"/>
+                            </DockPanel>
+                        </Button>
+                    </ToolBar>
+                    <ToolBarPanel Style="{DynamicResource ToolBarPanelStyle1}">
+
+                    </ToolBarPanel>
+                    <Separator/>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Estrutura">
+                
+            </TabItem>
+            <TabItem Header="Esquema">
+
+            </TabItem>
+            <TabItem Header="Correio">
+
+            </TabItem>
+            <TabItem Header="Ver">
+
+            </TabItem>
+            <TabItem Header="Ajuda">
+
+            </TabItem>
+        </TabControl>
+
+        <ScrollViewer x:Name="viewBox" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <Grid>
                 <Grid.LayoutTransform>
                     <TransformGroup>
-                        <ScaleTransform x:Name="scaleTransform" CenterX="0.5" ScaleX="1.5" ScaleY="1.5"/>
+                        <ScaleTransform x:Name="scaleTransform" CenterX="0.5" CenterY="0.5" />
                     </TransformGroup>
                 </Grid.LayoutTransform>
-                <Viewbox>
-                    <Grid>
-                        <Border Padding="0" Margin="32" BorderThickness="8" BorderBrush="#FFCDCDCD">
-                            <Border.Effect>
-                                <DropShadowEffect BlurRadius="24" ShadowDepth="0" Color="#FFEDEDED" />
-                            </Border.Effect>
-                        </Border>
-                        <Border Margin="32" Background="White">
-                            <Viewbox Stretch="UniformToFill">
-                                <Internal:CartaBodyTemplate/>
-                            </Viewbox>
-                        </Border>
+                <Viewbox x:Name="viewContent" Stretch="None">
+                    <ListView x:Name="Pages" ItemsSource="{Binding XPath=Paginas}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Border Padding="0" Margin="10" BorderThickness="8" BorderBrush="#FFCDCDCD">
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="24" ShadowDepth="0" Color="#FFEDEDED" />
+                                        </Border.Effect>
+                                    </Border>
+                                    <Border Margin="10" Background="White">
+                                        <Viewbox Stretch="UniformToFill">
+                                            <ContentPresenter/>
+                                        </Viewbox>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
 
-                    </Grid>
                 </Viewbox>
             </Grid>
         </ScrollViewer>
+
+        <Border Grid.Row="2" Height="24" Background="#FF0056BD">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="-"/>
+                        <Slider x:Name="zoomSlider" Width="125" Minimum="10" Maximum="200" ValueChanged="zoomSlider_ValueChanged" />
+                        <TextBlock Text="+"/>
+                        <TextBlock Width="35"  Margin="15,0,0,0">
+                            <Run Text="{Binding RelativeSource={RelativeSource AncestorType=local:CartaCreator}, Path=Zoom, Mode=TwoWay, StringFormat=00 ,UpdateSourceTrigger=PropertyChanged}"/>
+                            <Run Text="%"/>
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+        
+        
     </Grid>
 </UserControl>

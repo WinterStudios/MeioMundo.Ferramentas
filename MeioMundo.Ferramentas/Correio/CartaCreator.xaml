@@ -14,25 +14,48 @@
                 <ResourceDictionary Source="/MeioMundo.Ferramentas;component/Resources/Icons.xaml" />
                 <ResourceDictionary Source="/MeioMundo.Ferramentas;component/Correio/Internal/Buttons.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="Default.ComboBox" TargetType="ComboBox">
+                <Setter Property="OverridesDefaultStyle" Value="False"/>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="120"/>
+            <RowDefinition Height="128"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <TabControl>
             <TabItem Header="Base">
-                <Grid>
-                    <StackPanel>
+                <DockPanel>
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" >
                         <ToolBar Header="Área de Transferência" Style="{DynamicResource ToolBarOffice}">
+                            <Button Style="{DynamicResource BTN.CUT}" />
+                            <Button Style="{DynamicResource BTN.COPY}" />
                             <Button Style="{DynamicResource BTN.PASTE}" />
                         </ToolBar>
+                        <Rectangle Margin="4,8" Width="0.5" Fill="#AAAAAA"/>
+                        <ToolBar Header="Tipo de Letra" Style="{DynamicResource ToolBarOffice}">
+                            <ComboBox Width="100" Style="{x:Null}">
+                                <ComboBoxItem>
+                                    <TextBlock Text="Arial" FontFamily="Arial"/>
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    <TextBlock Text="Calibri" FontFamily="Calibri"/>
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    <TextBlock Text="Segui UI" FontFamily="Segui"/>
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    <TextBlock Text="Times New Roman" FontFamily="Times New Roman"/>
+                                </ComboBoxItem>
+                            </ComboBox>
+                            
+                        </ToolBar>
                     </StackPanel>
-                </Grid>
+                </DockPanel>
             </TabItem>
             <TabItem Header="Inserir">
                 <StackPanel Orientation="Horizontal">

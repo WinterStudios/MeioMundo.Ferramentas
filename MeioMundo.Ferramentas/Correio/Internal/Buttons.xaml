@@ -4,13 +4,35 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/MeioMundo.Ferramentas;component/Resources/Icons.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
-    <Style x:Key="BTN.PASTE" TargetType="Button">
+    <Style x:Key="BTN.CUT" TargetType="Button">
+        <Setter Property="Height" Value="26"/>
         <Setter Property="Content">
             <Setter.Value>
                 <DockPanel>
-                    <Image Source="{DynamicResource Image.Paste}" Height="20" Width="20" RenderOptions.EdgeMode="Aliased"/>
-                    <TextBlock Text="Colar"/>
+                    <Image Source="{DynamicResource Image.Cut}" Height="20" Width="20" Margin="4,0" Stretch="Fill" RenderOptions.EdgeMode="Unspecified" RenderOptions.BitmapScalingMode="HighQuality" />
+                    <TextBlock Margin="4" Text="Cortar" VerticalAlignment="Center"/>
+                </DockPanel>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="BTN.COPY" TargetType="Button">
+        <Setter Property="Height" Value="26"/>
+        <Setter Property="Content">
+            <Setter.Value>
+                <DockPanel>
+                    <Image Source="{DynamicResource Image.Paste}" Height="20" Width="20" Margin="4,0" Stretch="Fill" RenderOptions.EdgeMode="Unspecified" RenderOptions.BitmapScalingMode="HighQuality" />
+                    <TextBlock Margin="4" Text="Copiar" VerticalAlignment="Center"/>
+                </DockPanel>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="BTN.PASTE" TargetType="Button">
+        <Setter Property="Height" Value="26"/>
+        <Setter Property="Content">
+            <Setter.Value>
+                <DockPanel>
+                    <Image Source="{DynamicResource Image.Paste}" Height="20" Width="20" Margin="4,0" Stretch="Fill" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+                    <TextBlock Margin="4" Text="Colar" VerticalAlignment="Center"/>
                 </DockPanel>
             </Setter.Value>
         </Setter>

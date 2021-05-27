@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/MeioMundo.Ferramentas;component/Resources/Icons.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
+    <Style x:Key="BTN.PASTE" TargetType="Button">
+        <Setter Property="Content">
+            <Setter.Value>
+                <DockPanel>
+                    <Image Source="{DynamicResource Image.Paste}" Height="20" Width="20" RenderOptions.EdgeMode="Aliased"/>
+                    <TextBlock Text="Colar"/>
+                </DockPanel>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

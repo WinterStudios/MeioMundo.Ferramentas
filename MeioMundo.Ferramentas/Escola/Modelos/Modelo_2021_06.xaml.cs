@@ -19,14 +19,14 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
     /// <summary>
     /// Interaction logic for Modelo_2020_07.xaml
     /// </summary>
-    public partial class Modelo_2020_07 : UserControl, ModeloInfo
+    public partial class Modelo_2021_06 : UserControl, ModeloInfo
     {
-        public Modelo_2020_07()
+        public Modelo_2021_06()
         {
             InitializeComponent();
         }
 
-        public string Version => "v.2020.07";
+        public string Version => "v.2021.06";
         public string Escola { get; set; }
         public Ano Ano { get; set; }
         public UserControl __UserControl => this;
@@ -103,22 +103,6 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
         {
             if (_Ciclo == Ciclo.Primaria)
             {
-                for (int i = 0; i < 4; i++)
-                {
-                    Rectangle rectangle = new Rectangle();
-                    rectangle.Fill = (VisualBrush)this.FindResource("Color.Brush.Pattern.Right");
-                    rectangle.Height = (double)new LengthConverter().ConvertFrom("0,2cm");
-                    double margin = (double)new LengthConverter().ConvertFrom("0,2cm");
-                    rectangle.Margin = new Thickness(0, margin, 0, margin);
-                    UC_StackPanel_Matriculas.Children.Add(rectangle);
-                    Modelo_2020_07_Escolha escolha = new Modelo_2020_07_Escolha();
-                    UC_StackPanel_Matriculas.Children.Add(escolha);
-                    escolha.__CICLO = Ciclo.Primaria;
-                }
-
-            }
-            else
-            {
                 for (int i = 0; i < 3; i++)
                 {
                     Rectangle rectangle = new Rectangle();
@@ -127,7 +111,31 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
                     double margin = (double)new LengthConverter().ConvertFrom("0,2cm");
                     rectangle.Margin = new Thickness(0, margin, 0, margin);
                     UC_StackPanel_Matriculas.Children.Add(rectangle);
-                    Modelo_2020_07_Escolha escolha = new Modelo_2020_07_Escolha();
+                    Modelo_2021_06_Box escolha = new Modelo_2021_06_Box();
+
+                    string[] disc = new string[Ano.Disciplinas.Count];
+                    for (int z = 0; z < Ano.Disciplinas.Count; z++)
+                    {
+                        disc[z] = Ano.Disciplinas[z].Nome;
+                    }
+
+                    escolha.UC_ListBox_Discplinas_CG.ItemsSource = disc;
+                    UC_StackPanel_Matriculas.Children.Add(escolha);
+                    escolha.__CICLO = Ciclo.Primaria;
+                }
+
+            }
+            else
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    Rectangle rectangle = new Rectangle();
+                    rectangle.Fill = (VisualBrush)this.FindResource("Color.Brush.Pattern.Right");
+                    rectangle.Height = (double)new LengthConverter().ConvertFrom("0,2cm");
+                    double margin = (double)new LengthConverter().ConvertFrom("0,2cm");
+                    rectangle.Margin = new Thickness(0, margin, 0, margin);
+                    UC_StackPanel_Matriculas.Children.Add(rectangle);
+                    Modelo_2021_06_Box escolha = new Modelo_2021_06_Box();
                     UC_StackPanel_Matriculas.Children.Add(escolha);
                     if (_Ciclo == Ciclo.Basico)
                         escolha.__CICLO = Ciclo.Basico;

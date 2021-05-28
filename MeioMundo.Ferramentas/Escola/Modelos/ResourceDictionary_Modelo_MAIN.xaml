@@ -2,9 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:MeioMundo.Ferramentas.Escola.Modelos">
 
-    <SolidColorBrush x:Key="MODELO.CORE.BRUSH.Main" Color="#FFFFCB23"/>
+    <SolidColorBrush x:Key="MODELO.CORE.BRUSH.Main" Color="#FF4CB0CB"/>
     <SolidColorBrush x:Key="MODELO.CORE.BRUSH.Background.Light" Color="#FFC8C8C8"/>
-    <SolidColorBrush x:Key="MODELO.CORE.BRUSH.Border.Light" Color="#FFA6A6A6"/>
+    <SolidColorBrush x:Key="MODELO.CORE.BRUSH.Border.Light" Color="#FF4CB0CB"/>
 
     <Style x:Key="MODELO.CORE.TEXTBLOCK.LIGHT" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily" Value="Calibri Light"/>
@@ -29,4 +29,10 @@
         <Setter Property="Stroke" Value="{DynamicResource Color.Background.Main}"/>
         <Setter Property="StrokeThickness" Value="1pt"/>
     </Style>
+
+
+
+    <SolidColorBrush x:Key="MODELO.2021.BRUSH.Main" Color="#FF4CB0CB"/>
+    <SolidColorBrush x:Key="MODELO.2021.BRUSH.Background.Light" Color="#FFC8C8C8"/>
+    <SolidColorBrush x:Key="MODELO.2021.BRUSH.Border.Light" Color="#FF4CB0CB"/>
 </ResourceDictionary>

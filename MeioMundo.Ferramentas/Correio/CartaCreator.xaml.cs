@@ -84,5 +84,17 @@ namespace MeioMundo.Ferramentas.Correio
             else
                 Zoom = Math.Round(e.NewValue, 0);
         }
+
+        private void Print(object sender, RoutedEventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+            //System.Printing.PageMediaSize envelopeDL = new System.Printing.PageMediaSize(System.Printing.PageMediaSizeName.ISODLEnvelope);
+            //printDialog.PrintTicket.PageMediaSize = envelopeDL;
+            //printDialog.PrintTicket.PageOrientation = System.Printing.PageOrientation.Landscape;
+            if (printDialog.ShowDialog() == true)
+            {
+                printDialog.PrintVisual(carta, "My First Print Job");
+            }
+        }
     }
 }

@@ -23,9 +23,9 @@
             <Button Content="Editor de Livros" Padding="8,4,8,4" Margin="6,6" VerticalAlignment="Bottom" Click="Editores_Button_Click" Tag="__EDITOR_LIVROS"/>
             <Button Content="Editor de Escolas" Padding="8,4,8,4" Margin="6,6" VerticalAlignment="Bottom" Click="Editores_Button_Click" Tag="__EDITOR_ESCOLAS"/>
             <GroupBox Header="Versão">
-                <ComboBox x:Name="UC_ComboBox_Version" Width="80">
+                <ComboBox x:Name="UC_ComboBox_Version" Width="80" SelectionChanged="UC_ComboBox_Version_SelectionChanged">
                     <ComboBoxItem Content="v.2020/07"/>
-                    <ComboBoxItem Content="v.2020/08"/>
+                    <ComboBoxItem Content="v.2021/06"/>
                 </ComboBox>
             </GroupBox>
         </StackPanel>

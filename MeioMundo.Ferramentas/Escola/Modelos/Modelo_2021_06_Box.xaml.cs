@@ -15,17 +15,16 @@ using System.Windows.Shapes;
 
 using MeioMundo.Ferramentas.Escola.Internal;
 
-
 namespace MeioMundo.Ferramentas.Escola.Modelos
 {
     /// <summary>
     /// Interaction logic for Modelo_2020_07_Escolha.xaml
     /// </summary>
-    public partial class Modelo_2020_07_Escolha : UserControl
+    public partial class Modelo_2021_06_Box : UserControl
     {
         public Ciclo __CICLO { get => __ciclo; set { __ciclo = value; UI_UPDATE_CICLO(value); } }
         private Ciclo __ciclo;
-        public Modelo_2020_07_Escolha()
+        public Modelo_2021_06_Box()
         {
             InitializeComponent();
             __CICLO = Ciclo.Secundario;
@@ -45,9 +44,11 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
 
             UC_BORDER_COMP_GERAL.Visibility = Visibility.Visible;
 
-            Grid.SetColumnSpan(UC_BORDER_COMP_GERAL, 3);
+            UC_BORDER_NOTES.Visibility = Visibility.Visible;
+
+            //Grid.SetColumnSpan(UC_BORDER_COMP_GERAL, 3);
             
-            UC_ROW_HEIGHT_PRIMARIA.Height = new GridLength((double)new LengthConverter().ConvertFrom("1,2cm"));
+            //UC_ROW_HEIGHT_PRIMARIA.Height = new GridLength((double)new LengthConverter().ConvertFrom("1,2cm"));
         }
         private void __ENSINO_BASICO()
         {
@@ -55,6 +56,8 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
             UC_BORDER_SPACE.Visibility = Visibility.Collapsed;
 
             UC_BORDER_COMP_GERAL.Visibility = Visibility.Visible;
+
+            UC_BORDER_NOTES.Visibility = Visibility.Collapsed;
 
             Grid.SetColumnSpan(UC_BORDER_COMP_GERAL, 3);
         }
@@ -64,6 +67,8 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
             UC_BORDER_SPACE.Visibility = Visibility.Visible;
 
             UC_BORDER_COMP_GERAL.Visibility = Visibility.Visible;
+
+            UC_BORDER_NOTES.Visibility = Visibility.Collapsed;
         }
     }
 }

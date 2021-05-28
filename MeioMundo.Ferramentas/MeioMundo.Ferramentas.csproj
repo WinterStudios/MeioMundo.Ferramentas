@@ -54,7 +54,6 @@
     <None Remove="Assets\search.png" />
     <None Remove="Assets\settings.png" />
     <None Remove="Assets\up-arrow.png" />
-    <None Remove="Resources\Icons\cut.svg" />
     <None Remove="Resources\Icons\paste.png" />
   </ItemGroup>
 
@@ -96,8 +95,16 @@
     <Resource Include="Assets\search.png" />
     <Resource Include="Assets\settings.png" />
     <Resource Include="Assets\up-arrow.png" />
-    <Resource Include="Resources\Icons\cut.svg" />
     <Resource Include="Resources\Icons\paste.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Escola\Modelos\Modelo_2021_06_Box.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Escola\Modelos\Modelo_2021_06.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
   </ItemGroup>
 
 </Project>

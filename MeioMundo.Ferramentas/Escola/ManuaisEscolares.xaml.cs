@@ -61,9 +61,9 @@ namespace MeioMundo.Ferramentas.Escola
             UC_Viewbox_PreviewModelo.Child = null;
             
             if(Ano == null)
-                UC_Viewbox_PreviewModelo.Child = ManuaisSystem.GetModelo(ManuaisSystem.Modelos.v_2020_07, Escola.Nome, Escola.Anos[0]);
+                UC_Viewbox_PreviewModelo.Child = ManuaisSystem.GetModelo((ManuaisSystem.Modelos)UC_ComboBox_Version.SelectedIndex, Escola.Nome, Escola.Anos[0]);
             else
-                UC_Viewbox_PreviewModelo.Child = ManuaisSystem.GetModelo(ManuaisSystem.Modelos.v_2020_07, Escola.Nome, Ano);
+                UC_Viewbox_PreviewModelo.Child = ManuaisSystem.GetModelo((ManuaisSystem.Modelos)UC_ComboBox_Version.SelectedIndex, Escola.Nome, Ano);
         }
 
         private void Editores_Button_Click(object sender, RoutedEventArgs e)
@@ -96,6 +96,11 @@ namespace MeioMundo.Ferramentas.Escola
         private void ZoomToFit()
         {
             scaleTransform.ScaleX = scaleTransform.ScaleY = 0;
+        }
+
+        private void UC_ComboBox_Version_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UC_Viewbox_PreviewModelo.Child = ManuaisSystem.GetModelo((ManuaisSystem.Modelos)UC_ComboBox_Version.SelectedIndex, Escola.Nome, Ano);
         }
     }
 }

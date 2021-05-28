@@ -25,6 +25,7 @@ namespace MeioMundo.Ferramentas.Correio.Internal
         public CartaBodyTemplate()
         {
             InitializeComponent();
+            dateTimeToday.Text = DateTime.Today.ToLongDateString();
             //leftSideText.Text = string.Format("{0}, {1}, {2}, NIF:{3}",
             //    MeioMundoInformation.DominaçãoSocial, MeioMundoInformationMorada.Rua, MeioMundoInformationMorada.CodigoPostal, MeioMundoInformation.NIF).ToUpper();
         }

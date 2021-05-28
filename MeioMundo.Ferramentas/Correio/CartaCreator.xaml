@@ -54,6 +54,7 @@
                             </ComboBox>
                             
                         </ToolBar>
+                        <Button Content="Imprimir" Click="Print"/>
                     </StackPanel>
                 </DockPanel>
             </TabItem>
@@ -104,7 +105,7 @@
                     </TransformGroup>
                 </Grid.LayoutTransform>
                 <Viewbox x:Name="viewContent" Stretch="None">
-                    <ListView x:Name="Pages" ItemsSource="{Binding XPath=Paginas}">
+                    <ListView x:Name="Pages" ItemsSource="{Binding XPath=Paginas}" >
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -121,6 +122,20 @@
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Focusable" Value="False"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="{x:Null}" />
+                                        <Setter Property="BorderBrush" Value="{x:Null}" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListViewItem>
+                            <Internal:CartaBodyTemplate x:Name="carta"/>
+                        </ListViewItem>
                     </ListView>
 
                 </Viewbox>

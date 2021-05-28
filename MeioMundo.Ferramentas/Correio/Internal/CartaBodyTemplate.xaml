@@ -7,6 +7,7 @@
              xmlns:internal="clr-namespace:MeioMundo.Ferramentas.Internal"
              xmlns:main="clr-namespace:MeioMundo.Ferramentas"
              xmlns:system="clr-namespace:System;assembly=System.Runtime.Extensions"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              Height="29.7cm" Width="21cm"
              Background="White"
@@ -25,7 +26,7 @@
         <Style x:Key="EmpresaSideMorada" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Segui UI"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="FontSize" Value="9pt"/>
+            <Setter Property="FontSize" Value="8pt"/>
         </Style>
 
     </UserControl.Resources>
@@ -52,12 +53,13 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
-
+                <Rectangle Width="1cm" Height="0.5pt" Fill="Black" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="-1.5cm,0"/>
                 <!--Zona da Cabeça de Carta | o primeiro terço da primeira folha-->
                 <Grid Grid.Row="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>
@@ -100,7 +102,29 @@
                         </StackPanel>
                         
                     </StackPanel>
-                    <TextBlock Grid.Row="2" Text="Ex. Senhor" VerticalAlignment="Bottom" Margin="1.27cm,0,0,0" FontWeight="Bold" />
+                    <Border Grid.Row="1" Grid.Column="1" BorderThickness="0.5pt" BorderBrush="LightGray" Margin="1cm,0,1cm,1.5cm">
+                        <RichTextBox AcceptsReturn="True" FontSize="11pt" TextBlock.LineHeight="2.65pt" FontFamily="Calibri">
+                            <FlowDocument>
+                                <Paragraph>
+                                    <Run>Morada</Run>
+                                </Paragraph>
+                            </FlowDocument>
+                            <RichTextBox.Style>
+                                <Style TargetType="RichTextBox">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsFocused" Value="False">
+                                            <Setter Property="BorderBrush" Value="Transparent"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </RichTextBox.Style>
+                        </RichTextBox>
+                    </Border>
+                    <DockPanel Grid.Row="3" Grid.ColumnSpan="2" LastChildFill="True" VerticalAlignment="Bottom">
+                        <TextBlock FontFamily="Calibri" Text="Assunto:" VerticalAlignment="Bottom" Margin="1.27cm,0,0,0" FontWeight="Bold" />
+                        <TextBox FontFamily="Calibri" Text="Assunto a por aqui" BorderThickness="0" />
+                    </DockPanel>
+                    
                 </Grid>
                 <Grid Grid.Row="2">
                     <Border x:Name="richboxTools">
@@ -133,10 +157,19 @@
                     </RichTextBox>
                 </Grid>
             </Grid>
-            <Border Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" BorderThickness="0" BorderBrush="Black" >
-                <StackPanel Orientation="Horizontal" >
-                    <TextBlock Text="Pagina 1 de 1" FontSize="7pt" FontWeight="Light" FontFamily="Calibri"/>
-                </StackPanel>
+            <Border Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="0" BorderBrush="Black" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding Source={x:Static main:MeioMundoInformation.DominaçãoSocial}}" FontSize="7pt" FontWeight="Light" FontFamily="Calibri"/>
+                        <TextBlock x:Name="dateTimeToday"  FontSize="7pt" FontWeight="Light" FontFamily="Calibri"/>
+                    </StackPanel>
+                    <TextBlock Grid.Column="2" Text="Pagina 1 de 1" FontSize="7pt" FontWeight="Light" FontFamily="Calibri" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                </Grid>
             </Border>
         </Grid>
     </Border>

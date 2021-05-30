@@ -2,6 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:ui="clr-namespace:MeioMundo.Ferramentas.ExtensionsControls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MeioMundo.Ferramentas.Correio"
              mc:Ignorable="d" 
@@ -28,8 +29,8 @@
         </Grid.RowDefinitions>
 
         <TabControl>
-            <TabItem Header="Base">
-                <DockPanel>
+            <TabItem Header="Base" >
+                <DockPanel Focusable="False">
                     <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" >
                         <ToolBar Header="Área de Transferência" Style="{DynamicResource ToolBarOffice}">
                             <Button Style="{DynamicResource BTN.CUT}" />
@@ -38,21 +39,28 @@
                         </ToolBar>
                         <Rectangle Margin="4,8" Width="0.5" Fill="#AAAAAA"/>
                         <ToolBar Header="Tipo de Letra" Style="{DynamicResource ToolBarOffice}">
-                            <ComboBox Width="100" Style="{x:Null}">
-                                <ComboBoxItem>
-                                    <TextBlock Text="Arial" FontFamily="Arial"/>
-                                </ComboBoxItem>
-                                <ComboBoxItem>
-                                    <TextBlock Text="Calibri" FontFamily="Calibri"/>
-                                </ComboBoxItem>
-                                <ComboBoxItem>
-                                    <TextBlock Text="Segui UI" FontFamily="Segui"/>
-                                </ComboBoxItem>
-                                <ComboBoxItem>
-                                    <TextBlock Text="Times New Roman" FontFamily="Times New Roman"/>
-                                </ComboBoxItem>
-                            </ComboBox>
-                            
+                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="4,0,4,4">
+                                <ComboBox Width="120" Style="{x:Null}">
+                                    <ComboBoxItem>
+                                        <TextBlock Text="Arial" FontFamily="Arial"/>
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        <TextBlock Text="Calibri" FontFamily="Calibri"/>
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        <TextBlock Text="Segoi UI" FontFamily="Segoi UI"/>
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        <TextBlock Text="Times New Roman" FontFamily="Times New Roman"/>
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <ComboBox Margin="4,0" Width="60" />
+                            </StackPanel>
+                            <DockPanel VerticalAlignment="Center" LastChildFill="False" Margin="4,4,4,0">
+                                <Button Style="{DynamicResource BTN.BOLD_TEXT}"/>
+                                <Button Style="{DynamicResource BTN.ITALIC_TEXT}"/>
+                                <Button Style="{DynamicResource BTN.SUB_TEXT}"/>
+                            </DockPanel>
                         </ToolBar>
                         <Button Content="Imprimir" Click="Print"/>
                     </StackPanel>
@@ -61,7 +69,7 @@
             <TabItem Header="Inserir">
                 <StackPanel Orientation="Horizontal">
                     <ToolBar Header="Páginas" Style="{DynamicResource ToolBarOffice}">
-                        <Button>
+                        <Button Click="ToolBar_Insirir_Button_Click" Tag="Pagina.New">
                             <DockPanel>
                                 <Image Width="32"/>
                                 <TextBlock Text="Página em Branco"/>
@@ -97,46 +105,57 @@
             </TabItem>
         </TabControl>
 
-        <ScrollViewer x:Name="viewBox" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <Grid>
+        <ScrollViewer x:Name="viewBox" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" SizeChanged="Pages_SizeChanged" >
+            <Grid x:Name="viewBoxGrid" >
                 <Grid.LayoutTransform>
                     <TransformGroup>
                         <ScaleTransform x:Name="scaleTransform" CenterX="0.5" CenterY="0.5" />
                     </TransformGroup>
                 </Grid.LayoutTransform>
                 <Viewbox x:Name="viewContent" Stretch="None">
-                    <ListView x:Name="Pages" ItemsSource="{Binding XPath=Paginas}" >
-                        <ListView.ItemTemplate>
+                    <ui:ItemsControlExt x:Name="Pages" ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=local:CartaCreator}, Path=Paginas, Mode=OneWay}" >
+                        <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
                                     <Border Padding="0" Margin="10" BorderThickness="8" BorderBrush="#FFCDCDCD">
                                         <Border.Effect>
-                                            <DropShadowEffect BlurRadius="24" ShadowDepth="0" Color="#FFEDEDED" />
+                                            <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="#FFEDEDED" />
                                         </Border.Effect>
                                     </Border>
                                     <Border Margin="10" Background="White">
-                                        <Viewbox Stretch="UniformToFill">
-                                            <ContentPresenter/>
-                                        </Viewbox>
+                                        <ContentControl Content="{Binding }" />
                                     </Border>
                                 </Grid>
                             </DataTemplate>
-                        </ListView.ItemTemplate>
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="Focusable" Value="False"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="Background" Value="{x:Null}" />
-                                        <Setter Property="BorderBrush" Value="{x:Null}" />
-                                    </Trigger>
-                                </Style.Triggers>
+                        </ItemsControl.ItemTemplate>
+                        <!--<ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl >
+                                    <Border Margin="20" Background="Red">
+                                        <ContentPresenter Margin="40" Content="{TemplateBinding Content}" />
+                                    </Border>
+                                </ContentControl>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>-->
+                        <!--<ItemsControl.Template>
+                            <ControlTemplate TargetType="ItemsControl">
+                                <Border Margin="10">
+                                    <ItemsPresenter />
+                                </Border>
+                            </ControlTemplate>
+                        </ItemsControl.Template>-->
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <!--<ItemsControl.ItemContainerStyle>
+                            <Style TargetType="UserControl">
+                                <Setter Property="FrameworkElement.Margin" Value="10"/>
                             </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListViewItem>
-                            <Internal:CartaBodyTemplate x:Name="carta"/>
-                        </ListViewItem>
-                    </ListView>
+                        </ItemsControl.ItemContainerStyle>-->
+                    </ui:ItemsControlExt>
 
                 </Viewbox>
             </Grid>

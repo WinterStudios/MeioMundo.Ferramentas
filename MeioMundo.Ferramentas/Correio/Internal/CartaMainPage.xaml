@@ -4,9 +4,50 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MeioMundo.Ferramentas.Correio.Internal"
+             xmlns:internal="clr-namespace:MeioMundo.Ferramentas.Internal"
+             xmlns:main="clr-namespace:MeioMundo.Ferramentas"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime.Extensions"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             Height="29.7cm" Width="21cm"
+             Background="White"
+             Foreground="Black">
+    <UserControl.Resources>
+        <internal:ConvertDoubleToDoubleNegative x:Key="ConvertDoubleToNegative"/>
+        <internal:StringToUpperConverter x:Key="StringToUpperConverter"/>
+    </UserControl.Resources>
     <Grid>
-            
+        <Border Padding="0.5cm">
+            <Grid>
+                <Border HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                    <Border.LayoutTransform>
+                        <RotateTransform Angle="-90"/>
+                    </Border.LayoutTransform>
+                    <TextBlock x:Name="leftSideText" FontSize="7pt" FontWeight="Light" FontFamily="Calibri">
+                    <Run Text="{Binding Source={x:Static main:MeioMundoInformation.DominaçãoSocial}, Mode=OneTime, Converter={StaticResource StringToUpperConverter}}"/>
+                    <Run Text=", "/>
+                    <Run Text="{Binding Source={x:Static main:MeioMundoInformationMorada.Rua}, Mode=OneTime, Converter={StaticResource StringToUpperConverter}}"/>
+                    <Run Text=", "/>
+                    <Run Text="{Binding Source={x:Static main:MeioMundoInformationMorada.CodigoPostal}, Mode=OneTime, Converter={StaticResource StringToUpperConverter}}"/>
+                    <Run Text=", NIF:"/>
+                    <Run Text="{Binding Source={x:Static main:MeioMundoInformation.NIF}, Mode=OneTime, Converter={StaticResource StringToUpperConverter}}"/>
+                    </TextBlock>
+                </Border>
+                <Border Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="0" BorderBrush="Black" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding Source={x:Static main:MeioMundoInformation.DominaçãoSocial}}" FontSize="7pt" FontWeight="Light" FontFamily="Calibri"/>
+                            <TextBlock x:Name="dateTimeToday"  FontSize="7pt" FontWeight="Light" FontFamily="Calibri"/>
+                        </StackPanel>
+                        <TextBlock x:Name="pageNumber" Text="{Binding XPath=DataContenxt}" Grid.Column="2" FontSize="7pt" FontWeight="Light" FontFamily="Calibri" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

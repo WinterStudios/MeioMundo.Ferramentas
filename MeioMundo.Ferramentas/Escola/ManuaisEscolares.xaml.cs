@@ -87,6 +87,17 @@ namespace MeioMundo.Ferramentas.Escola
                 window.Content = editor;
                 window.Show();
             }
+            if(tag == "__PRINT")
+            {
+                PrintDialog printDialog = new PrintDialog();
+                System.Printing.PageMediaSize a4 = new System.Printing.PageMediaSize(System.Printing.PageMediaSizeName.ISOA4);
+                printDialog.PrintTicket.PageMediaSize = a4;
+                printDialog.PrintTicket.PageOrientation = System.Printing.PageOrientation.Landscape;
+                if (printDialog.ShowDialog() == true)
+                {
+                    printDialog.PrintVisual(UC_Viewbox_PreviewModelo, "My First Print Job");
+                }
+            }
         }
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

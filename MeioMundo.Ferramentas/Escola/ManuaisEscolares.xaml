@@ -28,6 +28,7 @@
                     <ComboBoxItem Content="v.2021/06"/>
                 </ComboBox>
             </GroupBox>
+            <Button Content="Imprimir" Padding="8,4,8,4" Margin="6,6" VerticalAlignment="Bottom" Click="Editores_Button_Click" Tag="__PRINT"/>
         </StackPanel>
         <StackPanel Background="#05000000" Grid.Row="1" Orientation="Horizontal">
             <GroupBox Header="Escola">
@@ -38,7 +39,7 @@
             </GroupBox>
         </StackPanel>
 
-        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" >
             <Grid >
                 <Grid.LayoutTransform>
                     <TransformGroup>
@@ -53,7 +54,7 @@
                             </Border.Effect>
                         </Border>
                         <Border Margin="32" Background="White">
-                            <Viewbox x:Name="UC_Viewbox_PreviewModelo" Stretch="UniformToFill" />
+                            <Viewbox x:Name="UC_Viewbox_PreviewModelo" Stretch="None" RenderOptions.EdgeMode="Unspecified" />
                         </Border>
 
                     </Grid>

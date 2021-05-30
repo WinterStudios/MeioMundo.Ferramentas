@@ -108,22 +108,27 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
                     Rectangle rectangle = new Rectangle();
                     rectangle.Fill = (VisualBrush)this.FindResource("Color.Brush.Pattern.Right");
                     rectangle.Height = (double)new LengthConverter().ConvertFrom("0,2cm");
-                    double margin = (double)new LengthConverter().ConvertFrom("0,2cm");
+                    double margin = (double)new LengthConverter().ConvertFrom("0,4cm");
                     rectangle.Margin = new Thickness(0, margin, 0, margin);
                     UC_StackPanel_Matriculas.Children.Add(rectangle);
-                    Modelo_2021_06_Box escolha = new Modelo_2021_06_Box();
+                    Modelo_2021_06_Escolha_Primaria escolha = new Modelo_2021_06_Escolha_Primaria();
 
-                    string[] disc = new string[Ano.Disciplinas.Count];
-                    for (int z = 0; z < Ano.Disciplinas.Count; z++)
+                    Disciplina[] disc = new Disciplina[5];
+                    for (int z = 0; z < 5; z++)
                     {
-                        disc[z] = Ano.Disciplinas[z].Nome;
+                        if (z < Ano.Disciplinas.Count)
+                            disc[z] = Ano.Disciplinas[z];
+                        else
+                        {
+                            disc[z] = new Disciplina();
+                        }
+                            
                     }
 
                     escolha.UC_ListBox_Discplinas_CG.ItemsSource = disc;
                     UC_StackPanel_Matriculas.Children.Add(escolha);
                     escolha.__CICLO = Ciclo.Primaria;
                 }
-
             }
             else
             {

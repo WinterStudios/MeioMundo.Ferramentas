@@ -10,7 +10,8 @@ namespace MeioMundo.Ferramentas.Escola.Internal
     {
         public int ID { get; set; }
         public long Livro_ISBN { get; set; }
-
+        public bool C1 { get; set; }
+        public bool C2 { get; set; }
         public string Nome { get => Disciplinas.__Disciplinas[ID]; }
     }
 }

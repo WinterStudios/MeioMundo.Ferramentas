@@ -7,7 +7,8 @@
     <SolidColorBrush x:Key="MODELO.CORE.BRUSH.Border.Light" Color="#FF4CB0CB"/>
 
     <Style x:Key="MODELO.CORE.TEXTBLOCK.LIGHT" TargetType="{x:Type TextBlock}">
-        <Setter Property="FontFamily" Value="Calibri Light"/>
+        <Setter Property="FontFamily" Value="Calibri"/>
+        <Setter Property="FontWeight" Value="Normal"/>
         <Setter Property="FontSize" Value="9pt"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -32,7 +33,28 @@
 
 
 
-    <SolidColorBrush x:Key="MODELO.2021.BRUSH.Main" Color="#FF4CB0CB"/>
+    <SolidColorBrush x:Key="MODELO.2021.BRUSH.Main" Color="#1790ca"/>
     <SolidColorBrush x:Key="MODELO.2021.BRUSH.Background.Light" Color="#FFC8C8C8"/>
-    <SolidColorBrush x:Key="MODELO.2021.BRUSH.Border.Light" Color="#FF4CB0CB"/>
+    <SolidColorBrush x:Key="MODELO.2021.BRUSH.Border.Light" Color="#16252c"/>
+
+    <Style x:Key="MODELO.2021.ListView.Disc" TargetType="ListView">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Focusable" Value="False"/>
+    </Style>
+    <Style x:Key="MODELO.2021.BORDER.LINES" TargetType="{x:Type Border}">
+        <Setter Property="BorderThickness" Value="0.25pt"/>
+        <Setter Property="Margin" Value="-0.125pt"/>
+        <Setter Property="Margin" Value="-0pt"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MODELO.2021.BRUSH.Border.Light}"/>
+    </Style>
+    <Style x:Key="MODELO.2021.BORDER.FILL" TargetType="{x:Type Border}">
+        <Setter Property="BorderThickness" Value="0.25pt"/>
+        <Setter Property="Margin" Value="-0.125pt"/>
+        <Setter Property="Margin" Value="-0.pt"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MODELO.2021.BRUSH.Border.Light}"/>
+        <Setter Property="Background" Value="{DynamicResource MODELO.2021.BRUSH.Main}"/>
+    </Style>
 </ResourceDictionary>

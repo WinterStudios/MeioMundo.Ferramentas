@@ -23,6 +23,7 @@ namespace MeioMundo.Ferramentas.Correio.Internal
         public CartaMainPage()
         {
             InitializeComponent();
+            dateTimeToday.Text = DateTime.Today.ToLongDateString();
         }
     }
 }

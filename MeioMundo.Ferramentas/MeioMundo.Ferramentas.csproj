@@ -45,10 +45,15 @@
     <None Remove="Assets\global.png" />
     <None Remove="Assets\globe.png" />
     <None Remove="Assets\Icons\barcode.png" />
+    <None Remove="Assets\Icons\bold-text.png" />
     <None Remove="Assets\Icons\book %281%29.png" />
     <None Remove="Assets\Icons\book.png" />
     <None Remove="Assets\Icons\envelope.png" />
+    <None Remove="Assets\Icons\italics.png" />
     <None Remove="Assets\Icons\plugin.png" />
+    <None Remove="Assets\Icons\Text\text_bold.png" />
+    <None Remove="Assets\Icons\Text\text_italic.png" />
+    <None Remove="Assets\Icons\Text\text_underline.png" />
     <None Remove="Assets\menu.png" />
     <None Remove="Assets\more.png" />
     <None Remove="Assets\search.png" />
@@ -90,6 +95,9 @@
     <Resource Include="Assets\Icons\book.png" />
     <Resource Include="Assets\Icons\envelope.png" />
     <Resource Include="Assets\Icons\plugin.png" />
+    <Resource Include="Assets\Icons\Text\text_bold.png" />
+    <Resource Include="Assets\Icons\Text\text_italic.png" />
+    <Resource Include="Assets\Icons\Text\text_underline.png" />
     <Resource Include="Assets\menu.png" />
     <Resource Include="Assets\more.png" />
     <Resource Include="Assets\search.png" />
@@ -99,6 +107,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Escola\Modelos\Modelo_2021_06_Escolha_Primaria.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
     <Page Update="Escola\Modelos\Modelo_2021_06_Box.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>

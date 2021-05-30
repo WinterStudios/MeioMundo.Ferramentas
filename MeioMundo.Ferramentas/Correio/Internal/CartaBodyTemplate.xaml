@@ -53,7 +53,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
-                <Rectangle Width="1cm" Height="0.5pt" Fill="Black" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="-1.5cm,0"/>
+                <Rectangle Width="0.75cm" Height="0.5pt" Fill="Black" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,-1.25cm,0"/>
                 <!--Zona da Cabeça de Carta | o primeiro terço da primeira folha-->
                 <Grid Grid.Row="0">
                     <Grid.RowDefinitions>
@@ -120,12 +120,8 @@
                             </RichTextBox.Style>
                         </RichTextBox>
                     </Border>
-                    <DockPanel Grid.Row="3" Grid.ColumnSpan="2" LastChildFill="True" VerticalAlignment="Bottom">
-                        <TextBlock FontFamily="Calibri" Text="Assunto:" VerticalAlignment="Bottom" Margin="1.27cm,0,0,0" FontWeight="Bold" />
-                        <TextBox FontFamily="Calibri" Text="Assunto a por aqui" BorderThickness="0" />
-                    </DockPanel>
-                    
                 </Grid>
+
                 <Grid Grid.Row="2">
                     <Border x:Name="richboxTools">
                         <Border.RenderTransform>
@@ -135,26 +131,40 @@
 
                         </StackPanel>
                     </Border>
-
-                    <RichTextBox x:Name="richtextbox" Visibility="Visible" AcceptsReturn="True" AcceptsTab="True" TextBlock.TextAlignment="Justify" TextBlock.FontFamily="Calibri" Margin="0,0.5cm,0,0" VerticalAlignment="Top" MinHeight="3cm" SelectionChanged="richtextbox_SelectionChanged">
-                        <FlowDocument>
-                            <Paragraph TextIndent="1.27cm">
-                                <Run>Insira aqui o seu texto...</Run>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Run>
-                            </Paragraph>
-                        </FlowDocument>
-                        <RichTextBox.Style>
-                            <Style TargetType="RichTextBox">
-                                <Style.Triggers>
-                                    <Trigger Property="IsFocused" Value="False">
-                                        <Setter Property="BorderBrush" Value="Transparent"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </RichTextBox.Style>
-                    </RichTextBox>
+                    <StackPanel>
+                        <Grid VerticalAlignment="Top" Margin="0,-20,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="0" FontFamily="Calibri" Text="Assunto:" VerticalAlignment="Center" Margin="1.42cm,1pt,0,0" FontWeight="Bold" />
+                            <TextBox Grid.Column="1" Grid.RowSpan="2" FontFamily="Calibri" FontWeight="Bold" Text="Assunto a por aqui" VerticalAlignment="Center" BorderBrush="Transparent" AcceptsReturn="True" BorderThickness="1pt"/>
+                        </Grid>
+                        <RichTextBox x:Name="richtextbox" Visibility="Visible" FontSize="11pt" AcceptsReturn="True" AcceptsTab="True" TextBlock.TextAlignment="Justify" TextBlock.FontFamily="Calibri" Margin="0,0.5cm,0,0" VerticalAlignment="Top" MinHeight="3cm" SelectionChanged="richtextbox_SelectionChanged">
+                            <FlowDocument>
+                                <Paragraph TextIndent="1.27cm">
+                                    <Run>Insira aqui o seu texto...</Run>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Run>
+                                </Paragraph>
+                            </FlowDocument>
+                            <RichTextBox.Style>
+                                <Style TargetType="RichTextBox">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsFocused" Value="False">
+                                            <Setter Property="BorderBrush" Value="Transparent"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </RichTextBox.Style>
+                        </RichTextBox>
+                    </StackPanel>
+                    
                 </Grid>
             </Grid>
             <Border Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="0" BorderBrush="Black" >
@@ -168,7 +178,7 @@
                         <TextBlock Text="{Binding Source={x:Static main:MeioMundoInformation.DominaçãoSocial}}" FontSize="7pt" FontWeight="Light" FontFamily="Calibri"/>
                         <TextBlock x:Name="dateTimeToday"  FontSize="7pt" FontWeight="Light" FontFamily="Calibri"/>
                     </StackPanel>
-                    <TextBlock Grid.Column="2" Text="Pagina 1 de 1" FontSize="7pt" FontWeight="Light" FontFamily="Calibri" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                    <TextBlock x:Name="pageNumber" Grid.Column="2" Text="Pagina 1 de 1" FontSize="7pt" FontWeight="Light" FontFamily="Calibri" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
                 </Grid>
             </Border>
         </Grid>

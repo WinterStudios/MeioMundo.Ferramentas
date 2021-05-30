@@ -64,6 +64,7 @@ namespace MeioMundo.Ferramentas.Escola.Internal
             get
             {
                 Dictionary<int, string> keys = new Dictionary<int, string>();
+                keys.Add(0, "");
 
                 keys.Add(10, "Português");
                 keys.Add(11, "Inglês");

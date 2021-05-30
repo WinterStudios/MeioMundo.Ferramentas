@@ -10,6 +10,7 @@
              Width="21.0cm" Height="29.7cm"
              Padding="0.5cm"
              Foreground="Black"
+             RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Unspecified"
              >
 
     <UserControl.Resources>

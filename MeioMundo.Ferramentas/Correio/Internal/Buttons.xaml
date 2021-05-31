@@ -5,33 +5,38 @@
         <ResourceDictionary Source="/MeioMundo.Ferramentas;component/Resources/Icons.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <Style x:Key="BTN.CUT" TargetType="Button">
-        <Setter Property="Height" Value="26"/>
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant"/>
+        <Setter Property="Height" Value="28"/>
         <Setter Property="Content">
             <Setter.Value>
                 <DockPanel>
-                    <Image Source="{DynamicResource Image.Cut}" Height="20" Width="20" Margin="4,0" Stretch="Fill" RenderOptions.EdgeMode="Unspecified" RenderOptions.BitmapScalingMode="HighQuality" />
+                    <Image Source="/MeioMundo.Ferramentas;component/Assets/Icons/cut.png" Height="20" Width="20" Margin="4,0" Stretch="Fill" />
                     <TextBlock Margin="4" Text="Cortar" VerticalAlignment="Center"/>
                 </DockPanel>
             </Setter.Value>
         </Setter>
     </Style>
     <Style x:Key="BTN.COPY" TargetType="Button">
-        <Setter Property="Height" Value="26"/>
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
+        <Setter Property="Height" Value="28"/>
         <Setter Property="Content">
             <Setter.Value>
-                <DockPanel>
-                    <Image Source="{DynamicResource Image.Paste}" Height="20" Width="20" Margin="4,0" Stretch="Fill" RenderOptions.EdgeMode="Unspecified" RenderOptions.BitmapScalingMode="HighQuality" />
+                <DockPanel LastChildFill="True">
+                    <Border Margin="4,0" Padding="0">
+                        <Image Source="/MeioMundo.Ferramentas;component/Assets/Icons/copy.png" Stretch="UniformToFill"/>
+                    </Border>
                     <TextBlock Margin="4" Text="Copiar" VerticalAlignment="Center"/>
                 </DockPanel>
             </Setter.Value>
         </Setter>
     </Style>
     <Style x:Key="BTN.PASTE" TargetType="Button">
-        <Setter Property="Height" Value="26"/>
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
+        <Setter Property="Height" Value="28"/>
         <Setter Property="Content">
             <Setter.Value>
                 <DockPanel>
-                    <Image Source="{DynamicResource Image.Paste}" Height="20" Width="20" Margin="4,0" Stretch="Fill" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+                    <Image Source="{DynamicResource Image.Paste}" Margin="4,0" Stretch="Fill"/>
                     <TextBlock Margin="4" Text="Colar" VerticalAlignment="Center"/>
                 </DockPanel>
             </Setter.Value>
@@ -44,14 +49,29 @@
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="RenderOptions.EdgeMode" Value="Aliased"/>
-        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant"/>
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
         <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True"> 
+            <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="BorderThickness" Value="0"/>
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="BTN.BOLD_TEXT" TargetType="{x:Type Button}" BasedOn="{StaticResource BTN.TEXT}">
+    
+    <Style x:Key="BTN.DOC_INFO" TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="24"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="RenderOptions.EdgeMode" Value="Aliased"/>
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderThickness" Value="0"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="BTN.TEXT_BOLD" TargetType="{x:Type Button}" BasedOn="{StaticResource BTN.TEXT}">
         <Setter Property="Content">
             <Setter.Value>
                 <Border VerticalAlignment="Center" HorizontalAlignment="Center" Padding="4">
@@ -60,7 +80,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="BTN.ITALIC_TEXT" TargetType="{x:Type Button}" BasedOn="{StaticResource BTN.TEXT}">
+    <Style x:Key="BTN.TEXT_ITALIC" TargetType="{x:Type Button}" BasedOn="{StaticResource BTN.TEXT}">
         <Setter Property="Content">
             <Setter.Value>
                 <Border VerticalAlignment="Center" HorizontalAlignment="Center" Padding="4">
@@ -69,12 +89,65 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="BTN.SUB_TEXT" TargetType="{x:Type Button}" BasedOn="{StaticResource BTN.TEXT}">
+    <Style x:Key="BTN.TEXT_UNDERLINE" TargetType="{x:Type Button}" BasedOn="{StaticResource BTN.TEXT}">
         <Setter Property="Content">
             <Setter.Value>
                 <Border VerticalAlignment="Center" HorizontalAlignment="Center" Padding="4">
                     <Image Source="/MeioMundo.Ferramentas;component/Assets/Icons/Text/text_underline.png"/>
                 </Border>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="BTN.TEXT_STRIKETHOUGH" TargetType="{x:Type Button}" BasedOn="{StaticResource BTN.TEXT}">
+        <Setter Property="Content">
+            <Setter.Value>
+                <Border VerticalAlignment="Center" HorizontalAlignment="Center" Padding="1">
+                    <Image Source="/MeioMundo.Ferramentas;component/Assets/Icons/Text/text_strikethough.png"/>
+                </Border>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="BTN.TEXT_SUBSCRIPT" TargetType="{x:Type Button}" BasedOn="{StaticResource BTN.TEXT}">
+        <Setter Property="Content">
+            <Setter.Value>
+                <Border VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2">
+                    <Image Source="/MeioMundo.Ferramentas;component/Assets/Icons/Text/text_subscript.png"/>
+                </Border>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="BTN.TEXT_SUPERSCRIPT" TargetType="{x:Type Button}" BasedOn="{StaticResource BTN.TEXT}">
+        <Setter Property="Content">
+            <Setter.Value>
+                <Border VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2">
+                    <Image Source="/MeioMundo.Ferramentas;component/Assets/Icons/Text/text_superscript.png"/>
+                </Border>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    
+    <Style x:Key="BTN.DOC_NEWPAGE" TargetType="{x:Type Button}" BasedOn="{StaticResource BTN.DOC_INFO}">
+        <Setter Property="Content">
+            <Setter.Value>
+                <DockPanel LastChildFill="True">
+                    <Border VerticalAlignment="Center" HorizontalAlignment="Center" Margin="3">
+                        <Image Source="/MeioMundo.Ferramentas;component/Assets/Icons/newFile.png"/>
+                    </Border>
+                    <TextBlock Text="Pagina em Branco" Margin="4,0" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                </DockPanel>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="BTN.DOC_PAGEBREAK" TargetType="{x:Type Button}" BasedOn="{StaticResource BTN.DOC_INFO}">
+        <Setter Property="Content">
+            <Setter.Value>
+                <DockPanel LastChildFill="True">
+                    <Border VerticalAlignment="Center" HorizontalAlignment="Center" Margin="3">
+                        <Image Source="/MeioMundo.Ferramentas;component/Assets/Icons/page_break.png"/>
+                    </Border>
+                    <TextBlock Text="Quebra de Pagina" Margin="4,0" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                </DockPanel>
             </Setter.Value>
         </Setter>
     </Style>

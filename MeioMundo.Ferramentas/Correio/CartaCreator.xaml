@@ -18,26 +18,31 @@
             <Style x:Key="Default.ComboBox" TargetType="ComboBox">
                 <Setter Property="OverridesDefaultStyle" Value="False"/>
             </Style>
+            <Style x:Key="TOOLBAR.SEPARETOR" TargetType="{x:Type Rectangle}">
+                <Setter Property="Margin" Value="8,2"/>
+                <Setter Property="Width" Value="1"/>
+                <Setter Property="Fill" Value="#FFAAAAAA"/>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="128"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <TabControl>
             <TabItem Header="Base" >
-                <DockPanel Focusable="False">
+                <DockPanel>
                     <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" >
                         <ToolBar Header="Área de Transferência" Style="{DynamicResource ToolBarOffice}">
                             <Button Style="{DynamicResource BTN.CUT}" />
                             <Button Style="{DynamicResource BTN.COPY}" />
                             <Button Style="{DynamicResource BTN.PASTE}" />
                         </ToolBar>
-                        <Rectangle Margin="4,8" Width="0.5" Fill="#AAAAAA"/>
+                        <Rectangle Style="{DynamicResource TOOLBAR.SEPARETOR}"/>
                         <ToolBar Header="Tipo de Letra" Style="{DynamicResource ToolBarOffice}">
                             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="4,0,4,4">
                                 <ComboBox Width="120" Style="{x:Null}">
@@ -57,11 +62,19 @@
                                 <ComboBox Margin="4,0" Width="60" />
                             </StackPanel>
                             <DockPanel VerticalAlignment="Center" LastChildFill="False" Margin="4,4,4,0">
-                                <Button Style="{DynamicResource BTN.BOLD_TEXT}"/>
-                                <Button Style="{DynamicResource BTN.ITALIC_TEXT}"/>
-                                <Button Style="{DynamicResource BTN.SUB_TEXT}"/>
+                                <Button Style="{DynamicResource BTN.TEXT_BOLD}"/>
+                                <Button Style="{DynamicResource BTN.TEXT_ITALIC}"/>
+                                <Button Style="{DynamicResource BTN.TEXT_UNDERLINE}"/>
+                                <Button Style="{DynamicResource BTN.TEXT_STRIKETHOUGH}"/>
+                                <Button Style="{DynamicResource BTN.TEXT_SUBSCRIPT}"/>
+                                <Button Style="{DynamicResource BTN.TEXT_SUPERSCRIPT}"/>
+                                
+                                <Rectangle Style="{DynamicResource TOOLBAR.SEPARETOR}"/>
+                                
+                                <Button />
                             </DockPanel>
                         </ToolBar>
+                        <Rectangle Style="{DynamicResource TOOLBAR.SEPARETOR}"/>
                         <Button Content="Imprimir" Click="Print"/>
                     </StackPanel>
                 </DockPanel>
@@ -69,19 +82,13 @@
             <TabItem Header="Inserir">
                 <StackPanel Orientation="Horizontal">
                     <ToolBar Header="Páginas" Style="{DynamicResource ToolBarOffice}">
-                        <Button Click="ToolBar_Insirir_Button_Click" Tag="Pagina.New">
-                            <DockPanel>
-                                <Image Width="32"/>
-                                <TextBlock Text="Página em Branco"/>
-                            </DockPanel>
-                        </Button>
-                        <Button>
-                            <DockPanel>
-                                <Image Width="32"/>
-                                <TextBlock Text="Quebra de Página"/>
-                            </DockPanel>
-                        </Button>
+                        <StackPanel>
+                            <Button Click="ToolBar_Insirir_Button_Click" Tag="Pagina.New" Style="{DynamicResource BTN.DOC_NEWPAGE}"/>
+                            <Button Style="{DynamicResource BTN.DOC_PAGEBREAK}"/>
+                        </StackPanel>
+                        
                     </ToolBar>
+                    <Rectangle Style="{DynamicResource TOOLBAR.SEPARETOR}"/>
                     <ToolBarPanel Style="{DynamicResource ToolBarPanelStyle1}">
 
                     </ToolBarPanel>

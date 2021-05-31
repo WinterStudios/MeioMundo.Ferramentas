@@ -179,7 +179,8 @@ namespace MeioMundo.Ferramentas.Correio
         }
         private void UpdateZoomPagesLayout()
         {
-            if (Pages.Items.Count > 0)
+            double d = (double)(new LengthConverter().ConvertFrom("21cm"));
+            if (Pages.Items.Count > 0 && viewBoxGrid.ActualWidth > viewBox.ViewportWidth * (Zoom / 100))
             {
                 Pages.MaxWidth = viewBox.ViewportWidth / (Zoom / 100);
             }

@@ -36,6 +36,7 @@
     <SolidColorBrush x:Key="MODELO.2021.BRUSH.Main" Color="#FF60C2D1"/>
     <SolidColorBrush x:Key="MODELO.2021.BRUSH.Background.Light" Color="#FFC8C8C8"/>
     <SolidColorBrush x:Key="MODELO.2021.BRUSH.Border.Light" Color="#3b7680"/>
+    <SolidColorBrush x:Key="MODELO.2021.SEPARATOR.Border.Light" Color="#3b7680"/>
 
     <Style x:Key="MODELO.2021.ListView.Disc" TargetType="ListView">
         <Setter Property="BorderThickness" Value="0"/>

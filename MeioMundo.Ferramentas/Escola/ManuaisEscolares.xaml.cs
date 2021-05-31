@@ -92,7 +92,7 @@ namespace MeioMundo.Ferramentas.Escola
                 PrintDialog printDialog = new PrintDialog();
                 System.Printing.PageMediaSize a4 = new System.Printing.PageMediaSize(System.Printing.PageMediaSizeName.ISOA4);
                 printDialog.PrintTicket.PageMediaSize = a4;
-                printDialog.PrintTicket.PageOrientation = System.Printing.PageOrientation.Landscape;
+                
                 if (printDialog.ShowDialog() == true)
                 {
                     printDialog.PrintVisual(UC_Viewbox_PreviewModelo, "My First Print Job");

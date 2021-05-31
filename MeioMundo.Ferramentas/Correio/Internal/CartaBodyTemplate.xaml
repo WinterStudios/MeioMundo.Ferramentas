@@ -131,8 +131,8 @@
 
                         </StackPanel>
                     </Border>
-                    <StackPanel>
-                        <Grid VerticalAlignment="Top" Margin="0,-20,0,0">
+                    <StackPanel Margin="1.5cm,0">
+                        <Grid VerticalAlignment="Top" Margin="0,0,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
@@ -141,10 +141,13 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Column="0" FontFamily="Calibri" Text="Assunto:" VerticalAlignment="Center" Margin="1.42cm,1pt,0,0" FontWeight="Bold" />
+                            <TextBlock Grid.Column="0" FontFamily="Calibri" Text="Assunto:" VerticalAlignment="Center" Margin="0,1pt,0,0" FontWeight="Bold" />
                             <TextBox Grid.Column="1" Grid.RowSpan="2" FontFamily="Calibri" FontWeight="Bold" Text="Assunto a por aqui" VerticalAlignment="Center" BorderBrush="Transparent" AcceptsReturn="True" BorderThickness="1pt"/>
                         </Grid>
-                        <RichTextBox x:Name="richtextbox" Visibility="Visible" FontSize="11pt" AcceptsReturn="True" AcceptsTab="True" TextBlock.TextAlignment="Justify" TextBlock.FontFamily="Calibri" Margin="0,0.5cm,0,0" VerticalAlignment="Top" MinHeight="3cm" SelectionChanged="richtextbox_SelectionChanged">
+                        <RichTextBox x:Name="richtextbox" Visibility="Visible" FontSize="11pt" AcceptsReturn="True" AcceptsTab="True" TextBlock.TextAlignment="Justify" TextBlock.FontFamily="Calibri"
+                                     Margin="0cm,0.5cm,0cm,0" VerticalAlignment="Top"
+                                     MinHeight="3cm" SelectionChanged="richtextbox_SelectionChanged"
+                                     >
                             <FlowDocument>
                                 <Paragraph TextIndent="1.27cm">
                                     <Run>Insira aqui o seu texto...</Run>
@@ -155,6 +158,7 @@
                             </FlowDocument>
                             <RichTextBox.Style>
                                 <Style TargetType="RichTextBox">
+                                    <Setter Property="TextBlock.LineHeight" Value="5pt"/>
                                     <Style.Triggers>
                                         <Trigger Property="IsFocused" Value="False">
                                             <Setter Property="BorderBrush" Value="Transparent"/>
@@ -162,6 +166,11 @@
                                     </Style.Triggers>
                                 </Style>
                             </RichTextBox.Style>
+                            <RichTextBox.Resources>
+                                <Style TargetType="{x:Type Paragraph}">
+                                    <Setter Property="Margin" Value="0,0pt"/>
+                                </Style>
+                            </RichTextBox.Resources>
                         </RichTextBox>
                     </StackPanel>
                     

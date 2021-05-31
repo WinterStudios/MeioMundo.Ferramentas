@@ -57,8 +57,8 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.7cm"/>
-                        <RowDefinition Height="0.5cm"/>
+                        <RowDefinition Height="0.75cm"/>
+                        <RowDefinition Height="0.75cm"/>
                     </Grid.RowDefinitions>
                     <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource MODELO.2021.BORDER.FILL}">
                         <TextBlock Text="Nome (Completo)" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}"/>
@@ -85,7 +85,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.75cm"/>
-                        <RowDefinition x:Name="UC_ROW_HEIGHT_PRIMARIA" Height="2.5cm"/>
+                        <RowDefinition x:Name="UC_ROW_HEIGHT_PRIMARIA" Height="2.0cm"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -190,7 +190,7 @@
 
             
             <StackPanel>
-                <Border Height="0.5cm" BorderThickness=".25pt,.25pt,.25pt,0" Style="{DynamicResource MODELO.2021.BORDER.LINES}">
+                <Border Height="0.75cm" BorderThickness=".25pt,.25pt,.25pt,0" Style="{DynamicResource MODELO.2021.BORDER.LINES}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2.75cm"/>
@@ -234,7 +234,7 @@
 
                     </Grid>
                 </Border>
-                <Border Height="0.5cm" BorderThickness=".25pt,0,.25pt,.25pt" Style="{DynamicResource MODELO.2021.BORDER.LINES}">
+                <Border Height="0.75cm" BorderThickness=".25pt,0,.25pt,.25pt" Style="{DynamicResource MODELO.2021.BORDER.LINES}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2.75cm"/>

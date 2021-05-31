@@ -37,6 +37,10 @@ namespace MeioMundo.Ferramentas.Correio
         public ObservableCollection<UserControl> Paginas { get; set; }
         //private List<UserControl> _paginas;
 
+        public static bool IsText_Bold { get => _IsText_Bold; set { _IsText_Bold = value; } }
+        private static bool _IsText_Bold;
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
@@ -183,6 +187,72 @@ namespace MeioMundo.Ferramentas.Correio
             if (Pages.Items.Count > 0 && viewBoxGrid.ActualWidth > viewBox.ViewportWidth * (Zoom / 100))
             {
                 Pages.MaxWidth = viewBox.ViewportWidth / (Zoom / 100);
+            }
+        }
+
+        private void BTN_CLICK_TEXT(object sender, RoutedEventArgs e)
+        {
+            string tag = ((Button)sender).Tag.ToString();
+            bool textSelect = false;
+            RichTextBox textBox = null;
+            for (int i = 0; i < Paginas.Count; i++)
+            {
+                if(Paginas[i].GetType() == typeof(CartaBodyTemplate) && ((CartaBodyTemplate)Paginas[i]).richtextbox.IsFocused == true)
+                {
+                    textSelect = true;
+                    textBox = ((CartaBodyTemplate)Paginas[i]).richtextbox;
+                }
+            }
+
+            if(textSelect && textBox != null)
+            {
+                if(tag == "TEXT_BOLD")
+                {
+                    object isBold = textBox.Selection.GetPropertyValue(FontWeightProperty);
+                    Type isBoldType = isBold.GetType();
+
+                    if (isBoldType == typeof(FontWeight) && (FontWeight)isBold != FontWeights.Bold)
+                        textBox.Selection.ApplyPropertyValue(FontWeightProperty, FontWeights.Bold);
+                    if (isBoldType == typeof(FontWeight) && (FontWeight)isBold == FontWeights.Bold)
+                        textBox.Selection.ApplyPropertyValue(FontWeightProperty, FontWeights.Normal);
+
+                    if (isBoldType != typeof(FontWeight))
+                        textBox.Selection.ApplyPropertyValue(FontWeightProperty, FontWeights.Bold);
+
+                }
+                if (tag == "TEXT_ITALIC")
+                {
+                    object isItalic = textBox.Selection.GetPropertyValue(FontStyleProperty);
+                    Type isItalicType = isItalic.GetType();
+
+                    if (isItalicType == typeof(FontStyle) && (FontStyle)isItalic != FontStyles.Italic)
+                        textBox.Selection.ApplyPropertyValue(FontStyleProperty, FontStyles.Italic);
+                    if (isItalicType == typeof(FontStyle) && (FontStyle)isItalic == FontStyles.Italic)
+                        textBox.Selection.ApplyPropertyValue(FontStyleProperty, FontStyles.Normal);
+
+                    if (isItalicType != typeof(FontStyle))
+                        textBox.Selection.ApplyPropertyValue(FontStyleProperty, FontStyles.Italic);
+
+                }
+
+            }
+            //TextRange text = new TextRange()
+        }
+
+        private void TYPE_FONT_SELECT_CHANGED(object sender, SelectionChangedEventArgs e)
+        {
+            string tag = ((ComboBox)sender).Tag.ToString();
+
+            for (int i = 0; i < Paginas.Count; i++)
+            {
+                if (Paginas[i].GetType() == typeof(CartaBodyTemplate))
+                {
+                    if (tag == "FONT_TYPE")
+                    {
+                        string fontFamily = ((TextBlock)((ComboBoxItem)(((ComboBox)e.OriginalSource).SelectedItem)).Content).Text;
+                        ((CartaBodyTemplate)Paginas[i]).richtextbox.Document.SetCurrentValue(FontFamilyProperty, new FontFamily(fontFamily));
+                    }
+                }
             }
         }
     }

@@ -144,7 +144,7 @@
                             <TextBlock Grid.Column="0" FontFamily="Calibri" Text="Assunto:" VerticalAlignment="Center" Margin="0,1pt,0,0" FontWeight="Bold" />
                             <TextBox Grid.Column="1" Grid.RowSpan="2" FontFamily="Calibri" FontWeight="Bold" Text="Assunto a por aqui" VerticalAlignment="Center" BorderBrush="Transparent" AcceptsReturn="True" BorderThickness="1pt"/>
                         </Grid>
-                        <RichTextBox x:Name="richtextbox" Visibility="Visible" FontSize="11pt" AcceptsReturn="True" AcceptsTab="True" TextBlock.TextAlignment="Justify" TextBlock.FontFamily="Calibri"
+                        <RichTextBox x:Name="richtextbox" Visibility="Visible" FontSize="11pt" AcceptsReturn="True" AcceptsTab="True" TextBlock.TextAlignment="Justify"
                                      Margin="0cm,0.5cm,0cm,0" VerticalAlignment="Top"
                                      MinHeight="3cm" SelectionChanged="richtextbox_SelectionChanged"
                                      >
@@ -158,7 +158,6 @@
                             </FlowDocument>
                             <RichTextBox.Style>
                                 <Style TargetType="RichTextBox">
-                                    <Setter Property="TextBlock.LineHeight" Value="5pt"/>
                                     <Style.Triggers>
                                         <Trigger Property="IsFocused" Value="False">
                                             <Setter Property="BorderBrush" Value="Transparent"/>
@@ -169,6 +168,8 @@
                             <RichTextBox.Resources>
                                 <Style TargetType="{x:Type Paragraph}">
                                     <Setter Property="Margin" Value="0,0pt"/>
+                                    <Setter Property="TextIndent" Value="1.27cm"/>
+                                    <Setter Property="LineHeight" Value="19pt"/>
                                 </Style>
                             </RichTextBox.Resources>
                         </RichTextBox>

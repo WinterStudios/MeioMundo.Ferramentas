@@ -45,12 +45,12 @@
                         <Rectangle Style="{DynamicResource TOOLBAR.SEPARETOR}"/>
                         <ToolBar Header="Tipo de Letra" Style="{DynamicResource ToolBarOffice}">
                             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="4,0,4,4">
-                                <ComboBox Width="120" Style="{x:Null}">
+                                <ComboBox Width="120" Style="{x:Null}" SelectedIndex="1" VerticalContentAlignment="Center" SelectionChanged="TYPE_FONT_SELECT_CHANGED" Tag="FONT_TYPE">
                                     <ComboBoxItem>
                                         <TextBlock Text="Arial" FontFamily="Arial"/>
                                     </ComboBoxItem>
                                     <ComboBoxItem>
-                                        <TextBlock Text="Calibri" FontFamily="Calibri"/>
+                                        <TextBlock Text="Calibri (Corpo)" FontFamily="Calibri"/>
                                     </ComboBoxItem>
                                     <ComboBoxItem>
                                         <TextBlock Text="Segoi UI" FontFamily="Segoi UI"/>
@@ -59,20 +59,26 @@
                                         <TextBlock Text="Times New Roman" FontFamily="Times New Roman"/>
                                     </ComboBoxItem>
                                 </ComboBox>
-                                <ComboBox Margin="4,0" Width="60" />
+                                <ComboBox Margin="4,0" Width="60" SelectedIndex="0" IsEnabled="False" VerticalContentAlignment="Center" >
+                                    <ComboBoxItem Content="11pt"/>
+                                </ComboBox>
                             </StackPanel>
                             <DockPanel VerticalAlignment="Center" LastChildFill="False" Margin="4,4,4,0">
-                                <Button Style="{DynamicResource BTN.TEXT_BOLD}"/>
-                                <Button Style="{DynamicResource BTN.TEXT_ITALIC}"/>
-                                <Button Style="{DynamicResource BTN.TEXT_UNDERLINE}"/>
-                                <Button Style="{DynamicResource BTN.TEXT_STRIKETHOUGH}"/>
-                                <Button Style="{DynamicResource BTN.TEXT_SUBSCRIPT}"/>
-                                <Button Style="{DynamicResource BTN.TEXT_SUPERSCRIPT}"/>
+                                <Button Tag="TEXT_BOLD" Style="{DynamicResource BTN.TEXT_BOLD}" Click="BTN_CLICK_TEXT"/>
+                                <Button Tag="TEXT_ITALIC" Style="{DynamicResource BTN.TEXT_ITALIC}" Click="BTN_CLICK_TEXT"/>
+                                <Button IsEnabled="false" Style="{DynamicResource BTN.TEXT_UNDERLINE}"/>
+                                <Button IsEnabled="false" Style="{DynamicResource BTN.TEXT_STRIKETHOUGH}"/>
+                                <Button IsEnabled="false" Style="{DynamicResource BTN.TEXT_SUBSCRIPT}"/>
+                                <Button IsEnabled="false" Style="{DynamicResource BTN.TEXT_SUPERSCRIPT}"/>
                                 
                                 <Rectangle Style="{DynamicResource TOOLBAR.SEPARETOR}"/>
                                 
                                 <Button />
                             </DockPanel>
+                        </ToolBar>
+                        <Rectangle Style="{DynamicResource TOOLBAR.SEPARETOR}"/>
+                        <ToolBar Header="Paragrafo" Style="{DynamicResource ToolBarOffice}">
+                            
                         </ToolBar>
                         <Rectangle Style="{DynamicResource TOOLBAR.SEPARETOR}"/>
                         <Button Content="Imprimir" Click="Print"/>

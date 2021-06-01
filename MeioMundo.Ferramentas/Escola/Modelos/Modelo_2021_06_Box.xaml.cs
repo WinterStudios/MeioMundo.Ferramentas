@@ -36,6 +36,8 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
                 __ENSINO_BASICO();
             if (ciclo == Ciclo.Primaria)
                 __ENSINO_PRIMARIO();
+            if (ciclo == Ciclo.Secundario)
+                __ENSINO_SECUNDARIO();
         }
         private void __ENSINO_PRIMARIO()
         {
@@ -44,7 +46,6 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
 
             UC_BORDER_COMP_GERAL.Visibility = Visibility.Visible;
 
-            UC_BORDER_NOTES.Visibility = Visibility.Visible;
 
             //Grid.SetColumnSpan(UC_BORDER_COMP_GERAL, 3);
             
@@ -57,8 +58,6 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
 
             UC_BORDER_COMP_GERAL.Visibility = Visibility.Visible;
 
-            UC_BORDER_NOTES.Visibility = Visibility.Collapsed;
-
             Grid.SetColumnSpan(UC_BORDER_COMP_GERAL, 3);
         }
         private void __ENSINO_SECUNDARIO()
@@ -66,9 +65,10 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
             UC_BORDER_COMP_ESPEC.Visibility = Visibility.Visible;
             UC_BORDER_SPACE.Visibility = Visibility.Visible;
 
+            Grid.SetColumnSpan(UC_BORDER_COMP_GERAL, 1);
+
             UC_BORDER_COMP_GERAL.Visibility = Visibility.Visible;
 
-            UC_BORDER_NOTES.Visibility = Visibility.Collapsed;
         }
     }
 }

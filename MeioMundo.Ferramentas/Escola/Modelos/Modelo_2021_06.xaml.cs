@@ -70,14 +70,18 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
         /// </summary>
         public void LoadDisciplinas()
         {
-            List<Internal.Disciplina> __Disc_CG = new List<Disciplina>(Ano.Disciplinas);
-
+            List<Internal.Disciplina> __Disc_CG = new List<Disciplina>(Ano.Disciplinas.Where(x => x.Disc_Espe == false));
+            List<Internal.Disciplina> __Disc_CE = new List<Disciplina>(Ano.Disciplinas.Where(x => x.Disc_Espe == true));
             for (int i = __Disc_CG.Count; i < _DisciplinasGerais; i++)
             {
                 __Disc_CG.Add(new Disciplina());
             }
-
+            for (int i = __Disc_CE.Count; i < 6; i++)
+            {
+                __Disc_CE.Add(new Disciplina());
+            }
             UC_DISC_COMP_GERAL.ItemsSource = __Disc_CG;
+            UC_DISC_COMP_ESPEC.ItemsSource = __Disc_CE;
         }
 
         public void SetUI(Ciclo ciclo)
@@ -141,10 +145,45 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
                     rectangle.Margin = new Thickness(0, margin, 0, margin);
                     UC_StackPanel_Matriculas.Children.Add(rectangle);
                     Modelo_2021_06_Box escolha = new Modelo_2021_06_Box();
-                    UC_StackPanel_Matriculas.Children.Add(escolha);
-                    if (_Ciclo == Ciclo.Basico)
-                        escolha.__CICLO = Ciclo.Basico;
-                    
+
+                    if(_Ciclo == Ciclo.Basico)
+                    {
+                        int discLenghtDG = 17;
+                        Disciplina[] discG = new Disciplina[discLenghtDG];
+                        for (int z = 0; z < discLenghtDG; z++)
+                        {
+                            if (z < Ano.Disciplinas.Count)
+                                discG[z] = Ano.Disciplinas[z];
+                            else
+                            {
+                                discG[z] = new Disciplina();
+                            }
+
+                        }
+                        escolha.UC_ListBox_Discplinas_CG.ItemsSource = discG;
+                        UC_StackPanel_Matriculas.Children.Add(escolha);
+                            escolha.__CICLO = Ciclo.Basico;
+                    }
+                    else
+                    {
+                        int discLenghtDG = 9;
+                        int discLenghtCE = 7;
+                        List<Disciplina> discG = Ano.Disciplinas.Where(x => x.Disc_Espe == false).ToList();
+                        List<Disciplina> discE = Ano.Disciplinas.Where(x => x.Disc_Espe == true).ToList();
+                        for (int z = discG.Count; z < discLenghtDG; z++)
+                        {
+                            discG.Add(new Disciplina());
+                        }
+                        for (int z = discE.Count; z < discLenghtCE; z++)
+                        {
+                            discE.Add(new Disciplina());
+                        }
+                        escolha.UC_ListBox_Discplinas_CG.ItemsSource = discG;
+                        escolha.UC_ListBox_Discplinas_CE.ItemsSource = discE;
+                        UC_StackPanel_Matriculas.Children.Add(escolha);
+                        escolha.__CICLO = Ciclo.Secundario;
+                    }
+
                 }
             }
         }

@@ -19,7 +19,7 @@
         <SolidColorBrush x:Key="Color.Background.Main" Color="#FF60C2D1"/>
         <VisualBrush x:Key="Color.Brush.Pattern.Right" TileMode="Tile" Viewport="0,0,5,5" Viewbox="0,0,10,10" ViewboxUnits="Absolute" ViewportUnits="Absolute">
             <VisualBrush.Visual>
-                <Grid Background="{DynamicResource Color.Background.Main}">
+                <Grid Background="Black">
                     <Path Data="M 9.5 0 L 10 0 L 10 0.5 L 0.5 10 L 0 10 L 0 9.5 Z M 0 0.5 L 0.5 0 L 0 0 Z M 4.5 0 L 5.5 0 L 0 5.5 L 0 4.5 Z M 4.5 10 L 10 4.5 L 10 5.5 L 5.4 10 Z M 9.5 10 L 10 9.5 L 10 10 Z" Fill="Black"/>
                 </Grid>
             </VisualBrush.Visual>
@@ -117,8 +117,14 @@
                     <Border Height="0.4cm" Background="{DynamicResource Color.Background.Main}">
                         <TextBlock Text="Componente Especifica" Foreground="Black" HorizontalAlignment="Center" FontFamily="Segui" FontWeight="Normal" VerticalAlignment="Center"/>
                     </Border>
-                    <DataGrid>
-
+                    <DataGrid x:Name="UC_DISC_COMP_ESPEC" Style="{DynamicResource DataGrid_Componetes}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Disciplina" Binding="{Binding ID, Converter={StaticResource IntToStringConvert}, ConverterParameter=DisciplinaID}" Width="3cm"/>
+                            <DataGridTextColumn Header="ISBN" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_ISBN}" Width="2.5cm"/>
+                            <DataGridTextColumn Header="Nome do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Nome}" Width="*" />
+                            <DataGridTextColumn Header="Autor do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Autor}" Width="3cm"/>
+                            <DataGridTextColumn Header="Editora do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Editora}" Width="3cm"/>
+                        </DataGrid.Columns>
                     </DataGrid>
 
                 </StackPanel>
@@ -129,7 +135,17 @@
                 </StackPanel>
             </Viewbox>
             <Border VerticalAlignment="Bottom" Grid.Row="2">
-                <TextBlock Text="v" FontSize="5pt" />
+                <DockPanel LastChildFill="True">
+                    <DockPanel.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontFamily" Value="Calibri"/>
+                            <Setter Property="FontSize" Value="7pt"/>
+                            <Setter Property="FontWeight" Value="ExtraLight"/>
+                        </Style>
+                    </DockPanel.Resources>
+                    <TextBlock Text="v2021.06"/>
+                    <TextBlock Text="Ano lectivo: 2021/2022" HorizontalAlignment="Right" />
+                </DockPanel>
             </Border>
             <Rectangle Grid.Row="2" Height="0.2cm" Fill="{DynamicResource Color.Brush.Pattern.Right}" Margin="0, 0.2cm" Visibility="Collapsed"/>
         </Grid>

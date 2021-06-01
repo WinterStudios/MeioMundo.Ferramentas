@@ -71,7 +71,9 @@
                     <DataGridTextColumn Header="Nome do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Nome}" Width="*" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Autor do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Autor}" IsReadOnly="True" Width="150"/>
                     <DataGridTextColumn Header="Editora do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Editora}" IsReadOnly="True" Width="150"/>
-                    <DataGridTextColumn Header="Disc. Geral" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Disc.Geral}" IsReadOnly="True" Width="140"/>
+                    <DataGridTextColumn Header="Disc. ID" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Disc.Geral}" IsReadOnly="True" Width="60"/>
+                    <DataGridCheckBoxColumn Header="OP Bas.3." Binding="{Binding OP_Basica_3}" Width="Auto"/>
+                    <DataGridCheckBoxColumn Header="Disc. E" Binding="{Binding Disc_Espe}" Width="Auto"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Grid Grid.Column="1" Grid.Row="1">

@@ -48,34 +48,58 @@
     
     <Grid>
         <StackPanel>
-            <Border Style="{DynamicResource MODELO.2021.BORDER.LINES}">
+            <Border>
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2.75cm"/>
-                        <ColumnDefinition Width="12cm"/>
-                        <ColumnDefinition Width="2cm"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.75cm"/>
-                        <RowDefinition Height="0.75cm"/>
+                        <RowDefinition Height="1.5cm"/>
                     </Grid.RowDefinitions>
-                    <Border Grid.Column="0" Grid.Row="0" Style="{DynamicResource MODELO.2021.BORDER.FILL}">
-                        <TextBlock Text="Nome (Completo)" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.75cm"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource MODELO.2021.BORDER.LINES}">
+                        <DockPanel LastChildFill="True">
+                            <Border Width="2.75cm" Style="{DynamicResource MODELO.2021.BORDER.FILL}">
+                                <TextBlock Text="Nome (Completo)" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}"/>
+                            </Border>
+                            <Border Width="12cm" Style="{DynamicResource MODELO.2021.BORDER.LINES}"/>
+                            <Border Width="2cm" Style="{DynamicResource MODELO.2021.BORDER.FILL}">
+                                <TextBlock Text="Nº Cliente" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}"/>
+                            </Border>
+                            <Border Style="{DynamicResource MODELO.2021.BORDER.LINES}" />
+                        </DockPanel>
                     </Border>
-                    <Border Grid.Row="0" Grid.Column="1" Style="{DynamicResource MODELO.2021.BORDER.LINES}"/>
-                    <Border Grid.Row="0" Grid.Column="2" Style="{DynamicResource MODELO.2021.BORDER.FILL}">
-                        <TextBlock Text="Nº Cliente" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}"/>
+                    
+                    <Border Grid.Row="1" VerticalAlignment="Top" Height="0.75cm" Style="{DynamicResource MODELO.2021.BORDER.FILL}">
+                        <TextBlock Text="Morada" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}"/>
                     </Border>
-                    <Border Grid.Row="0" Grid.Column="3" Style="{DynamicResource MODELO.2021.BORDER.LINES}" />
-                    <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource MODELO.2021.BORDER.FILL}">
-                        <TextBlock Text="Morada" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}" />
+                    <Border Grid.Column="1" Grid.Row="1" >
+                        <DockPanel>
+                            <Border Width="12cm" Style="{DynamicResource MODELO.2021.BORDER.LINES}" />
+                            <Border Grid.Row="1" Grid.Column="2" Style="{DynamicResource MODELO.2021.BORDER.LINES}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2cm"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.75cm"/>
+                                        <RowDefinition Height="0.75cm"/>
+                                    </Grid.RowDefinitions>
+                                    <Border Style="{DynamicResource MODELO.2021.BORDER.FILL}">
+                                        <TextBlock Text="Codigo Postal" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}"/>
+                                    </Border>
+                                    <Border Grid.Row="1" Style="{DynamicResource MODELO.2021.BORDER.FILL}">
+                                        <TextBlock Text="NIF" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}"/>
+                                    </Border>
+                                    <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource MODELO.2021.BORDER.LINES}"/>
+                                    <Border Grid.Column="1" Grid.Row="1" Style="{DynamicResource MODELO.2021.BORDER.LINES}"/>
+                                </Grid>
+                            </Border>
+                        </DockPanel>
                     </Border>
-                    <Border Grid.Row="1" Grid.Column="1" Style="{DynamicResource MODELO.2021.BORDER.LINES}" />
-                    <Border Grid.Row="1" Grid.Column="2" Style="{DynamicResource MODELO.2021.BORDER.FILL}">
-                        <TextBlock Text="Contacto" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}"/>
-                    </Border>
-                    <Border Grid.Row="1" Grid.Column="3" Style="{DynamicResource MODELO.2021.BORDER.LINES}" />
+                    
                 </Grid>
             </Border>
 
@@ -85,13 +109,24 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.75cm"/>
-                        <RowDefinition x:Name="UC_ROW_HEIGHT_PRIMARIA" Height="2.0cm"/>
+                        <RowDefinition x:Name="UC_ROW_HEIGHT_PRIMARIA" Height="1.25cm"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3.75cm"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+
+                    <Border HorizontalAlignment="Left" Grid.RowSpan="3" Width="3.5cm" Style="{DynamicResource MODELO.2021.BORDER.LINES}" VerticalAlignment="Top">
+                        <StackPanel>
+                            <Border Style="{DynamicResource MODELO.2021.BORDER.FILL}" Height="0.5cm">
+                                <TextBlock Text="Fatura" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}"/>
+                            </Border>
+                            <Border Style="{DynamicResource MODELO.2021.BORDER.LINES}"  Height="1cm"/>
+                        </StackPanel>
+                    </Border>
+                    
+                    
                     <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -103,13 +138,13 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="1.5cm"/>
                         </Grid.RowDefinitions>
-                        
+
                         <Border x:Name="UC_BORDER_COMP_GERAL" Grid.Row="0" Grid.Column="0" BorderThickness=".5pt,.5pt,.5pt,.25pt"  Style="{DynamicResource MODELO.2021.BORDER.FILL}">
                             <TextBlock Text="Componente Geral" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}"/>
                         </Border>
-                                               
-                        <Border x:Name="UC_BORDER_SPACE" Grid.Row="2" Grid.Column="1" Grid.RowSpan="2">  
-                            
+
+                        <Border x:Name="UC_BORDER_SPACE" Grid.Row="2" Grid.Column="1" Grid.RowSpan="2">
+
                         </Border>
                         <Border x:Name="UC_BORDER_COMP_ESPEC" Grid.Row="0" Grid.Column="2" Style="{DynamicResource MODELO.2021.BORDER.FILL}">
                             <TextBlock Text="Componente Especifica" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}"/>
@@ -118,7 +153,7 @@
                             <TextBlock Text="Notas" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}"/>
                         </Border>
                         <Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" BorderBrush="{DynamicResource MODELO.2021.BRUSH.Border.Light}" BorderThickness=".5pt,0,.5pt,.5pt"/>
-                       
+
                         <Border Grid.Row="1" Grid.RowSpan="1" Style="{DynamicResource MODELO.2021.BORDER.LINES}">
                             <ItemsControl x:Name="UC_ListBox_Discplinas_CG" SnapsToDevicePixels="True">
                                 <ItemsControl.ItemsPanel>
@@ -131,7 +166,7 @@
                                         <Border Width="2cm" Style="{DynamicResource MODELO.2021.BORDER.LINES}">
                                             <Grid>
                                                 <Border>
-                                                    <TextBlock Text="{Binding Nome}" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" FontSize="10pt">
+                                                    <TextBlock Text="{Binding Nome}" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" FontSize="9pt">
                                                         <TextBlock.LayoutTransform>
                                                             <RotateTransform Angle="-0"/>
                                                         </TextBlock.LayoutTransform>
@@ -143,10 +178,10 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </Border>
-                        
+
 
                     </Grid>
-                    
+
                     <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -189,6 +224,7 @@
             </Border>
 
             
+            
             <StackPanel>
                 <Border Height="0.75cm" BorderThickness=".25pt,.25pt,.25pt,0" Style="{DynamicResource MODELO.2021.BORDER.LINES}">
                     <Grid>
@@ -210,28 +246,27 @@
                                     <ColumnDefinition Width="1cm"/>
                                     <ColumnDefinition Width="1cm"/>
                                     <ColumnDefinition Width="1cm"/>
+                                    <ColumnDefinition Width="7cm"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Border Grid.Column="0" Style="{DynamicResource MODELO.2021.BORDER.LINES}">
                                     <TextBlock Text="Sim" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}" />
                                 </Border>
-                                <Border Grid.Column="1" Style="{DynamicResource MODELO.2021.BORDER.LINES}">
-                                    <Ellipse Style="{DynamicResource MODELO.V20.07.Elipse.Border}"/>
-                                </Border>
+                                <Border Grid.Column="1" Style="{DynamicResource MODELO.2021.BORDER.LINES}"/>
                                 <Border Grid.Column="2" Style="{DynamicResource MODELO.2021.BORDER.LINES}">
                                     <TextBlock Text="Não" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}" />
                                 </Border>
-                                <Border Grid.Column="3" Style="{DynamicResource MODELO.2021.BORDER.LINES}">
-                                    <Ellipse Style="{DynamicResource MODELO.V20.07.Elipse.Border}"/>
-                                </Border>
-                                <Border Grid.Column="4" Style="{DynamicResource MODELO.2021.BORDER.FILL}">
-                                    <TextBlock Text="NIF" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}" />
-                                </Border>
+                                <Border Grid.Column="3" Style="{DynamicResource MODELO.2021.BORDER.LINES}"/>
+                                <Border Grid.Column="4" Grid.ColumnSpan="2" Style="{DynamicResource MODELO.2021.BORDER.LINES}"/>
+                                <DockPanel Grid.Column="6" Grid.ColumnSpan="3">
+                                    <Border Style="{DynamicResource MODELO.2021.BORDER.FILL}" Width="2cm">
+                                        <TextBlock Text="Contacto" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}"/>
+                                    </Border>
+                                    <Border Style="{DynamicResource MODELO.2021.BORDER.LINES}"/>
+                                </DockPanel>
 
-                                <Border Grid.Column="5" Grid.ColumnSpan="3" Style="{DynamicResource MODELO.2021.BORDER.LINES}"/>
                             </Grid>
                         </Border>
-
                     </Grid>
                 </Border>
                 <Border Height="0.75cm" BorderThickness=".25pt,0,.25pt,.25pt" Style="{DynamicResource MODELO.2021.BORDER.LINES}">
@@ -262,7 +297,17 @@
                                     <TextBlock Text="Não" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}" />
                                 </Border>
                                 <Border Grid.Column="3" Style="{DynamicResource MODELO.2021.BORDER.LINES}"/>
-                                <Border Grid.Column="4" Style="{DynamicResource MODELO.2021.BORDER.LINES}"/>
+                                <DockPanel  Grid.Column="4" >
+                                    <Border Style="{DynamicResource MODELO.2021.BORDER.FILL}" Width="2.5cm">
+                                        <TextBlock Text="Representate" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}" />
+                                    </Border>
+                                    <Border Style="{DynamicResource MODELO.2021.BORDER.LINES}" Width="8cm"/>
+                                    <Border Style="{DynamicResource MODELO.2021.BORDER.FILL}" Width="1cm">
+                                        <TextBlock Text="Data" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}"/>
+                                    </Border>
+                                    <Border Style="{DynamicResource MODELO.2021.BORDER.LINES}"/>
+                                </DockPanel>
+                                
                             </Grid>
                         </Border>
                     </Grid>

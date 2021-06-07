@@ -177,5 +177,19 @@ namespace MeioMundo.Ferramentas.Escola
             _disciplina.Livro_ISBN = _livro.ISBN;
             UC_Grid_Disciplina_DataGrid_DisciplinaEditor.Items.Refresh();
         }
+
+        private void UC_ListBox_EscolaAnoDisciplinas_Remove_BTN(object sender, RoutedEventArgs e)
+        {
+            Internal.Disciplina _disciplina = (Internal.Disciplina)((Button)sender).DataContext;
+            Ano.Disciplinas.Remove(_disciplina);
+            UC_ListBox_EscolaAnoDisciplinas.Items.Refresh();
+        }
+
+        private void UC_ListBox_Escolas_Anos_Remove_BTN(object sender, RoutedEventArgs e)
+        {
+            Internal.Ano _ano = (Internal.Ano)((Button)sender).DataContext;
+            Escola.Anos.Remove(_ano);
+            UC_ListBox_Escolas_Anos.Items.Refresh();
+        }
     }
 }

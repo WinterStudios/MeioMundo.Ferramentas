@@ -159,6 +159,9 @@
                                             <DataTrigger Binding="{Binding OP_Basica_3}" Value="True">
                                                 <Setter Property="Background" TargetName="border" Value="{DynamicResource MODELO.2021.BRUSH.BACKGROUND.DISC.OP}"/>
                                             </DataTrigger>
+                                            <DataTrigger Binding="{Binding ID}" Value="0">
+                                                <Setter Property="Background" TargetName="border" Value="{DynamicResource Color.Brush.Pattern.Right}"/>
+                                            </DataTrigger>
                                         </DataTemplate.Triggers>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -173,7 +176,7 @@
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type internal:Disciplina}">
-                                        <Border Width="1cm" Style="{DynamicResource MODELO.2021.BORDER.LINES}">
+                                        <Border Width="1.014cm" Style="{DynamicResource MODELO.2021.BORDER.LINES}">
                                             <Grid>
                                                 <Border x:Name="border">
                                                     <TextBlock Text="{Binding Nome}" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" FontSize="7pt">
@@ -187,6 +190,9 @@
                                         <DataTemplate.Triggers>
                                             <DataTrigger Binding="{Binding OP_Basica_3}" Value="True">
                                                 <Setter Property="Background" TargetName="border" Value="{DynamicResource MODELO.2021.BRUSH.BACKGROUND.DISC.OP}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ID}" Value="0">
+                                                <Setter Property="Background" TargetName="border" Value="{DynamicResource Color.Brush.Pattern.Right}"/>
                                             </DataTrigger>
                                         </DataTemplate.Triggers>
                                     </DataTemplate>
@@ -231,6 +237,9 @@
                                                 <DataTrigger Binding="{Binding OP_Basica_3}" Value="True">
                                                     <Setter Property="Background" TargetName="border" Value="{DynamicResource MODELO.2021.BRUSH.BACKGROUND.DISC.OP}"/>
                                                 </DataTrigger>
+                                                <DataTrigger Binding="{Binding ID}" Value="0">
+                                                    <Setter Property="Background" TargetName="border" Value="{DynamicResource Color.Brush.Pattern.Right}"/>
+                                                </DataTrigger>
                                             </DataTemplate.Triggers>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
@@ -253,6 +262,9 @@
                                             <DataTemplate.Triggers>
                                                 <DataTrigger Binding="{Binding OP_Basica_3}" Value="True">
                                                     <Setter Property="Background" TargetName="border" Value="{DynamicResource MODELO.2021.BRUSH.BACKGROUND.DISC.OP}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding ID}" Value="0">
+                                                    <Setter Property="Background" TargetName="border" Value="{DynamicResource Color.Brush.Pattern.Right}"/>
                                                 </DataTrigger>
                                             </DataTemplate.Triggers>
                                         </DataTemplate>

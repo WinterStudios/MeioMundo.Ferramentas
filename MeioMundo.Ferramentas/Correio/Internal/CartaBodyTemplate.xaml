@@ -146,9 +146,9 @@
                         </Grid>
                         <RichTextBox x:Name="richtextbox" Visibility="Visible" FontSize="11pt" AcceptsReturn="True" AcceptsTab="True" TextBlock.TextAlignment="Justify"
                                      Margin="0cm,0.5cm,0cm,0" VerticalAlignment="Top"
-                                     MinHeight="3cm" SelectionChanged="richtextbox_SelectionChanged"
-                                     SpellCheck.IsEnabled="True" xml:lang="pt-PT"
-                                     >
+                                     MinHeight="3cm" SelectionChanged="richtextbox_SelectionChanged" xml:lang="pt-PT" >
+                            
+
                             <FlowDocument>
                                 <Paragraph TextIndent="1.27cm">
                                     <Run>Insira aqui o seu texto...</Run>
@@ -159,6 +159,8 @@
                             </FlowDocument>
                             <RichTextBox.Style>
                                 <Style TargetType="RichTextBox">
+                                    <Setter Property="SpellCheck.IsEnabled" Value="False"/>
+                                    <Setter Property="SpellCheck.SpellingReform" Value="Postreform"/>
                                     <Style.Triggers>
                                         <Trigger Property="IsFocused" Value="False">
                                             <Setter Property="BorderBrush" Value="Transparent"/>

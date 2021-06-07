@@ -14,13 +14,20 @@
              >
 
     <UserControl.Resources>
-        <SolidColorBrush x:Key="Color.Background.Light" Color="#2060C2D1"/>
+        <SolidColorBrush x:Key="Color.Background.Light" Color="#FFB2CDD1"/>
         <SolidColorBrush x:Key="Color.Border.Light" Color="#FF4CB0CB"/>
         <SolidColorBrush x:Key="Color.Background.Main" Color="#FF60C2D1"/>
         <VisualBrush x:Key="Color.Brush.Pattern.Right" TileMode="Tile" Viewport="0,0,5,5" Viewbox="0,0,10,10" ViewboxUnits="Absolute" ViewportUnits="Absolute">
             <VisualBrush.Visual>
                 <Grid Background="Black">
                     <Path Data="M 9.5 0 L 10 0 L 10 0.5 L 0.5 10 L 0 10 L 0 9.5 Z M 0 0.5 L 0.5 0 L 0 0 Z M 4.5 0 L 5.5 0 L 0 5.5 L 0 4.5 Z M 4.5 10 L 10 4.5 L 10 5.5 L 5.4 10 Z M 9.5 10 L 10 9.5 L 10 10 Z" Fill="Black"/>
+                </Grid>
+            </VisualBrush.Visual>
+        </VisualBrush>
+        <VisualBrush x:Key="Brush.Triangle.End" TileMode="Tile" Viewport="0,0,10,10" Viewbox="0,0,10,10" ViewboxUnits="RelativeToBoundingBox" ViewportUnits="RelativeToBoundingBox">
+            <VisualBrush.Visual>
+                <Grid>
+                    <Path Data="M 0 0 L 10 10 L 0 10 Z" Fill="{DynamicResource Color.Background.Light}"/>
                 </Grid>
             </VisualBrush.Visual>
         </VisualBrush>
@@ -84,17 +91,20 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Vertical">
-                <Border BorderBrush="#000" Background="{DynamicResource Color.Background.Light}" Height="0.8cm">
+                <Border BorderBrush="#000" Height="0.8cm" HorizontalAlignment="Left" RenderOptions.EdgeMode="Aliased">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel Margin="6 4" Orientation="Horizontal">
-                            <TextBlock x:Name="UC_TextBox_Ano" FontSize="14pt" FontFamily="Segui" VerticalAlignment="Center" Text="[M:Escola.Ano]" />
-                            <Rectangle VerticalAlignment="Center" Height="1pt" Width="4pt" Fill="Black" Margin="6 0"/>
-                            <TextBlock x:Name="UC_TextBox_Escola" FontSize="14pt" FontFamily="Segui" VerticalAlignment="Center" FontWeight="Bold" Text="[M:Escola]" />
-                        </StackPanel>
+                        <Border Padding="6 4" Background="{DynamicResource Color.Background.Light}" >
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock x:Name="UC_TextBox_Ano" FontSize="14pt" FontFamily="Segui" VerticalAlignment="Center" Text="[M:Escola.Ano]" />
+                                <Rectangle VerticalAlignment="Center" Height="1pt" Width="4pt" Fill="Black" Margin="6 0"/>
+                                <TextBlock x:Name="UC_TextBox_Escola" FontSize="14pt" FontFamily="Segui" VerticalAlignment="Center" FontWeight="Bold" Text="[M:Escola]" />
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Column="1" Width="0.4cm" Background="{DynamicResource Brush.Triangle.End}" />
                         <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" Visibility="Collapsed">
                             <TextBlock Text="Ano Letivo " Foreground="Black" FontSize="14pt" VerticalAlignment="Center" FontWeight="Normal"/>
                             <TextBlock Text="2020/2021" Foreground="Black" FontSize="14pt" VerticalAlignment="Center" FontWeight="Bold"/>

@@ -77,6 +77,8 @@ namespace MeioMundo.Ferramentas
 
         public void initialization()
         {
+            AppContext.SetSwitch(@"Switch.System.Windows.Controls.DoNotAugmentWordBreakingUsingSpeller", true);
+
             Internal.FornecedorSystem.Inicialize();
         }
     }

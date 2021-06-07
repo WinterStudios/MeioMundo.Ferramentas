@@ -26,6 +26,7 @@
                 <ComboBox x:Name="UC_ComboBox_Version" Width="80" SelectionChanged="UC_ComboBox_Version_SelectionChanged">
                     <ComboBoxItem Content="v.2020/07"/>
                     <ComboBoxItem Content="v.2021/06"/>
+                    <ComboBoxItem Content="v.2021/06-Outros"/>
                 </ComboBox>
             </GroupBox>
             <Button Content="Imprimir" Padding="8,4,8,4" Margin="6,6" VerticalAlignment="Bottom" Click="Editores_Button_Click" Tag="__PRINT"/>

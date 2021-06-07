@@ -26,7 +26,8 @@ namespace MeioMundo.Ferramentas.Escola
         public enum Modelos
         {
             v_2020_07 = 0,
-            v_2021_06 = 1
+            v_2021_06 = 1,
+            v_2021_06_Outro = 2
         }
 
         public static UserControl GetModelo(Modelos modelo, string nomeEscola, Internal.Ano ano)
@@ -44,6 +45,15 @@ namespace MeioMundo.Ferramentas.Escola
             {
                 GC.Collect();
                 Modelo_2021_06 _modelo = new Modelo_2021_06();
+                _modelo.Escola = nomeEscola;
+                _modelo.Ano = ano;
+                _modelo.Run();
+                return _modelo;
+            }
+            if(modelo == Modelos.v_2021_06_Outro)
+            {
+                GC.Collect();
+                Modelo_2021_06_Outro _modelo = new Modelo_2021_06_Outro();
                 _modelo.Escola = nomeEscola;
                 _modelo.Ano = ano;
                 _modelo.Run();

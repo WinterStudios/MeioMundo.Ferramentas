@@ -125,9 +125,6 @@ namespace MeioMundo.Ferramentas.Correio
 
                     // Add visual, measure/arrange page.
 
-
-                    
-
                     fixedPage.Width = pageSize.Width;
                     fixedPage.Height = pageSize.Height;
 

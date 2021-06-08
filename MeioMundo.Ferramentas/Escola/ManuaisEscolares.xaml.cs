@@ -92,7 +92,7 @@ namespace MeioMundo.Ferramentas.Escola
                 window.Content = editor;
                 window.Show();
             }
-            if(tag == "__PRINT")
+            if(tag == "__PRINT_SINGLE")
             {
                 PrintDialog printDialog = new PrintDialog();
                 System.Printing.PageMediaSize a4 = new System.Printing.PageMediaSize(System.Printing.PageMediaSizeName.ISOA4);
@@ -103,6 +103,11 @@ namespace MeioMundo.Ferramentas.Escola
                 {
                     printDialog.PrintVisual(UC_Viewbox_PreviewModelo, "My First Print Job");
                 }
+
+            }
+            if(tag == "__PRINT_MULTIPLE") 
+            {
+                ManuaisSystem.PrintModelos(ManuaisSystem.Modelos.v_2021_06);
             }
         }
 

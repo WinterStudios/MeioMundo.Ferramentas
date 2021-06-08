@@ -72,6 +72,7 @@
                     <DataGridTextColumn Header="Autor do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Autor}" IsReadOnly="True" Width="150"/>
                     <DataGridTextColumn Header="Editora do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Editora}" IsReadOnly="True" Width="150"/>
                     <DataGridTextColumn Header="Disc. ID" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Disc.Geral}" IsReadOnly="True" Width="60"/>
+                    <DataGridTextColumn Header="OBS:" Binding="{Binding OP_Nome}" Width="Auto"/>
                     <DataGridCheckBoxColumn Header="OP Bas.3." Binding="{Binding OP_Basica_3}" Width="Auto"/>
                     <DataGridCheckBoxColumn Header="Disc. E" Binding="{Binding Disc_Espe}" Width="Auto"/>
                 </DataGrid.Columns>
@@ -396,7 +397,10 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal">
-                                    <TextBlock Text="Ano: [Escola.Anos[0]]"/>
+                                    <TextBlock>
+                                        <Run Text="Ano: "/>
+                                        <Run Text="{Binding Ano.ID, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}, Mode=OneWay}"/>
+                                    </TextBlock>
                                 </StackPanel>
                                 <ListBox x:Name="UC_ListBox_EscolaAnoDisciplinas" ItemsSource="{Binding Ano.Disciplinas,RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch">
                                     <ListBox.ItemTemplate>

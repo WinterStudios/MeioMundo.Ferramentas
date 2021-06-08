@@ -91,23 +91,23 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Vertical">
-                <Border BorderBrush="#000" Height="0.8cm" HorizontalAlignment="Left" RenderOptions.EdgeMode="Aliased">
-                    <Grid>
+                <Border BorderBrush="#000" Height="0.8cm" HorizontalAlignment="Stretch" RenderOptions.EdgeMode="Aliased">
+                    <Grid Background="{DynamicResource Color.Background.Light}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Border Padding="6 4" Background="{DynamicResource Color.Background.Light}" >
+                        <DockPanel Margin=".25cm,0" VerticalAlignment="Center" LastChildFill="True">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock x:Name="UC_TextBox_Ano" FontSize="14pt" FontFamily="Segui" VerticalAlignment="Center" Text="[M:Escola.Ano]" />
                                 <Rectangle VerticalAlignment="Center" Height="1pt" Width="4pt" Fill="Black" Margin="6 0"/>
                                 <TextBlock x:Name="UC_TextBox_Escola" FontSize="14pt" FontFamily="Segui" VerticalAlignment="Center" FontWeight="Bold" Text="[M:Escola]" />
                             </StackPanel>
-                        </Border>
-                        <Border Grid.Column="1" Width="0.4cm" Background="{DynamicResource Brush.Triangle.End}" />
-                        <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" Visibility="Collapsed">
+                        </DockPanel>
+                        
+                        <StackPanel Grid.Column="1" HorizontalAlignment="Right" Margin=".25cm,0" Orientation="Horizontal" Visibility="Visible">
                             <TextBlock Text="Ano Letivo " Foreground="Black" FontSize="14pt" VerticalAlignment="Center" FontWeight="Normal"/>
-                            <TextBlock Text="2020/2021" Foreground="Black" FontSize="14pt" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Text="2021/2022" Foreground="Black" FontSize="14pt" VerticalAlignment="Center" FontWeight="Bold"/>
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -116,7 +116,7 @@
                 </Border>
                 <DataGrid x:Name="UC_DISC_COMP_GERAL" Style="{DynamicResource DataGrid_Componetes}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Disciplina" Binding="{Binding ID, Converter={StaticResource IntToStringConvert}, ConverterParameter=DisciplinaID}" Width="3cm"/>
+                        <DataGridTextColumn Header="Disciplina" Binding="{Binding FullNome}" Width="3cm"/>
                         <DataGridTextColumn Header="ISBN" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_ISBN}" Width="2.5cm"/>
                         <DataGridTextColumn Header="Nome do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Nome}" Width="*" />
                         <DataGridTextColumn Header="Autor do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Autor}" Width="3cm"/>
@@ -153,8 +153,8 @@
                             <Setter Property="FontWeight" Value="ExtraLight"/>
                         </Style>
                     </DockPanel.Resources>
-                    <TextBlock Text="v2021.06"/>
-                    <TextBlock Text="Ano lectivo: 2021/2022" HorizontalAlignment="Right" />
+                    <TextBlock Text="v2021.06" VerticalAlignment="Bottom"/>
+                    <Rectangle HorizontalAlignment="Right" Stroke="Black" Width="0.75cm" Height=".75cm" StrokeThickness="0.5pt"/>
                 </DockPanel>
             </Border>
             <Rectangle Grid.Row="2" Height="0.2cm" Fill="{DynamicResource Color.Brush.Pattern.Right}" Margin="0, 0.2cm" Visibility="Collapsed"/>

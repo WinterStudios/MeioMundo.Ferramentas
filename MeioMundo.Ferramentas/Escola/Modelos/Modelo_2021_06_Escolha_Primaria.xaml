@@ -299,7 +299,7 @@
                                 <Border Grid.Column="3" Style="{DynamicResource MODELO.2021.BORDER.LINES}"/>
                                 <DockPanel  Grid.Column="4" >
                                     <Border Style="{DynamicResource MODELO.2021.BORDER.FILL}" Width="2.5cm">
-                                        <TextBlock Text="Representate" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}" />
+                                        <TextBlock Text="Representante" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}" />
                                     </Border>
                                     <Border Style="{DynamicResource MODELO.2021.BORDER.LINES}" Width="8cm"/>
                                     <Border Style="{DynamicResource MODELO.2021.BORDER.FILL}" Width="1cm">

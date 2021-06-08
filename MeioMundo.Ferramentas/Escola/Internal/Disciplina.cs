@@ -14,6 +14,8 @@ namespace MeioMundo.Ferramentas.Escola.Internal
         public long Livro_ISBN { get; set; }
         public bool OP_Basica_3 { get; set; }
         public bool Disc_Espe { get; set; }
+        public string OP_Nome { get; set; }
         public string Nome { get => Disciplinas.__Disciplinas[ID]; }
+        public string FullNome { get => string.Format("{0} {1}", Nome, OP_Nome); }
     }
 }

@@ -112,7 +112,7 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
                     Rectangle rectangle = new Rectangle();
                     rectangle.Fill = (VisualBrush)this.FindResource("Color.Brush.Pattern.Right");
                     rectangle.Height = (double)new LengthConverter().ConvertFrom("0,2cm");
-                    double margin = (double)new LengthConverter().ConvertFrom("0,4cm");
+                    double margin = (double)new LengthConverter().ConvertFrom("0,35cm");
                     rectangle.Margin = new Thickness(0, margin, 0, margin);
                     UC_StackPanel_Matriculas.Children.Add(rectangle);
                     Modelo_2021_06_Escolha_Primaria escolha = new Modelo_2021_06_Escolha_Primaria();

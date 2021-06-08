@@ -147,7 +147,9 @@
                                         <Border Width="1.014cm" Style="{DynamicResource MODELO.2021.BORDER.LINES}">
                                             <Grid>
                                                 <Border x:Name="border">
-                                                    <TextBlock Text="{Binding Nome}" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" FontSize="7pt">
+                                                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" FontSize="7pt">
+                                                        <Run Text="{Binding Nome, Mode=OneWay}"/>
+                                                        <Run Text="{Binding OP_Nome, Mode=OneWay }"/>
                                                         <TextBlock.LayoutTransform>
                                                             <RotateTransform Angle="-90"/>
                                                         </TextBlock.LayoutTransform>
@@ -245,7 +247,7 @@
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
                             </Border>
-                            <Border Grid.Column="2" Style="{DynamicResource MODELO.2021.BORDER.PATTERN}" />
+                            <Border Grid.Column="2" Style="{DynamicResource MODELO.2021.BORDER.PATTERN}" Visibility="Collapsed" />
                             <Border Grid.Column="3" Style="{DynamicResource MODELO.2021.BORDER.LINES}">
                                 <ItemsControl ItemsSource="{Binding ElementName=UC_ListBox_Discplinas_CE, Path=ItemsSource}">
                                     <ItemsControl.ItemsPanel>
@@ -352,7 +354,7 @@
                                 <Border Grid.Column="3" Style="{DynamicResource MODELO.2021.BORDER.LINES}"/>
                                 <DockPanel  Grid.Column="4" >
                                     <Border Style="{DynamicResource MODELO.2021.BORDER.FILL}" Width="2.5cm">
-                                        <TextBlock Text="Representate" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}" />
+                                        <TextBlock Text="Representante" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}" />
                                     </Border>
                                     <Border Style="{DynamicResource MODELO.2021.BORDER.LINES}" Width="8cm"/>
                                     <Border Style="{DynamicResource MODELO.2021.BORDER.FILL}" Width="1cm">

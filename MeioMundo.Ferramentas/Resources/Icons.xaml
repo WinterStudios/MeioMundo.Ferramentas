@@ -33,4 +33,19 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+
+    <SolidColorBrush x:Key="main" Color="#000"/>
+    <Style x:Key="Button.Icon" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Height" Value="24"/>
+        <Setter Property="Width" Value="24"/>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    <ContentControl x:Key="Btn.Icon.Add">
+        <Border Margin="2" Padding="4" BorderThickness="1" BorderBrush="DarkViolet">
+            <Image Source="/MeioMundo.Ferramentas;component/Resources/Icons/plus.png" />
+        </Border>
+    </ContentControl>
+
 </ResourceDictionary>

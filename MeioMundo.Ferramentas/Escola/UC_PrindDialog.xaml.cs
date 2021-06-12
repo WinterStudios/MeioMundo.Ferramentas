@@ -25,17 +25,31 @@ namespace MeioMundo.Ferramentas.Escola
     public partial class UC_PrindDialog : UserControl
     {
         public ObservableCollection<PagEncomendasEscolares> Pags { get; set; }
-        public ObservableCollection<Internal.Escola> Escolas { get; set; }
+
+        public PagEncomendasEscolares Encomenda { get; set; }
         public UC_PrindDialog()
         {
+            Encomenda = new PagEncomendasEscolares() { Copies = 1 };
             InitializeComponent();
             DataContext = Pags;
             Pags = new ObservableCollection<PagEncomendasEscolares>();
-            Escolas = new ObservableCollection<Internal.Escola>(ManuaisSystem.Escolas.ToList());
-            gridPrint.AddingNewItem += GridPrint_AddingNewItem;
+            UC_ComboBox_PrintSelect_Escola_ToAdd.ItemsSource = ManuaisSystem.GetEscolas();
         }
 
-        private void GridPrint_AddingNewItem(object sender, AddingNewItemEventArgs e)
+        private void UC_ComboBox_PrintSelect_Escola_ToAdd_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+
+            string tag = comboBox.Tag.ToString();
+
+            if(tag == "__Escla_Select")
+            {
+               Internal.Escola escola = (Internal.Escola)UC_ComboBox_PrintSelect_Escola_ToAdd.SelectedItem;
+                UC_ComboBox_PrintSelect_Escola_Ano_ToAdd.ItemsSource = escola.Anos;
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
 
         }

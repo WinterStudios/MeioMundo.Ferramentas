@@ -8,15 +8,64 @@
              d:Width="480" d:Height="240" DataContext="{x:Type local:PagEncomendasEscolares}"
              >
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="GetEscolas" MethodName="GetEscolas" ObjectType="{x:Type local:ManuaisSystem}"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/MeioMundo.Ferramentas;component/Resources/Icons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <ObjectDataProvider x:Key="GetEscolas" MethodName="GetEscolas" ObjectType="{x:Type local:ManuaisSystem}"/>
+        </ResourceDictionary>
+        
+
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Border>
-            <DataGrid CanUserAddRows="True" x:Name="gridPrint" CanUserDeleteRows="True" AutoGenerateColumns="False" ItemsSource="{Binding Pags, RelativeSource={RelativeSource AncestorType=local:UC_PrindDialog}}"
+        <Border Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="24" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Border Grid.Column="0">
+                    <TextBlock Text="Escola"/>
+                </Border>
+                <Border Grid.Column="1">
+                    <TextBlock Text="Ano"/>
+                </Border>
+                <Border Grid.Column="2">
+                    <TextBlock Text="Copias"/>
+                </Border>
+
+                <Border Grid.Row="1" Grid.Column="0">
+                    <ComboBox x:Name="UC_ComboBox_PrintSelect_Escola_ToAdd" SelectionChanged="UC_ComboBox_PrintSelect_Escola_ToAdd_SelectionChanged" 
+                              Tag="__Escla_Select" DisplayMemberPath="Nome"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="1">
+                    <ComboBox x:Name="UC_ComboBox_PrintSelect_Escola_Ano_ToAdd"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="2">
+                    <DockPanel>
+                        <Button Width="24" />
+                        <TextBox Width="30" Text="1"/>
+                        <Button Width="24" />
+                    </DockPanel>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="3">
+                    <Button Style="{DynamicResource Button.Icon}" Content="{DynamicResource Btn.Icon.Add}" Click="Button_Click" Tag="__Escola_Add"/>
+                </Border>
+            </Grid>
+        </Border>
+        <Border Grid.Row="1">
+            <DataGrid  CanUserAddRows="True" x:Name="gridPrint" CanUserDeleteRows="True" AutoGenerateColumns="False" ItemsSource="{Binding Pags, RelativeSource={RelativeSource AncestorType=local:UC_PrindDialog}}"
                       >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Width="50" IsReadOnly="True"/>

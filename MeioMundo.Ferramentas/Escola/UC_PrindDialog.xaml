@@ -3,16 +3,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MeioMundo.Ferramentas.Escola"
+             xmlns:local="clr-namespace:MeioMundo.Ferramentas.Escola" d:DataContext="{d:DesignInstance Type=local:PagEncomendasEscolares}"
              mc:Ignorable="d" 
-             d:DesignHeight="720" d:DesignWidth="480">
+             d:Width="480" d:Height="240" DataContext="{x:Type local:PagEncomendasEscolares}"
+             >
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="GetEscolas" MethodName="GetEscolas" ObjectType="{x:Type local:ManuaisSystem}"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Border>
-            <DataGrid></DataGrid>
+            <DataGrid CanUserAddRows="True" x:Name="gridPrint" CanUserDeleteRows="True" AutoGenerateColumns="False" ItemsSource="{Binding Pags, RelativeSource={RelativeSource AncestorType=local:UC_PrindDialog}}"
+                      >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Width="50" IsReadOnly="True"/>
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.Header>
+                            <Grid>
+                                <TextBlock Text="Escola"/>
+                            </Grid>
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox ItemsSource="{Binding Source={StaticResource GetEscolas}}" x:Name="ComboBox1" DisplayMemberPath="Nome" SelectedItem="{Binding Escola, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <ComboBox Grid.Column="1" ItemsSource="{Binding SelectedItem.Anos, ElementName=ComboBox1}" SelectedItem="{Binding SelectAno}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Copias" Width="50"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </Border>
     </Grid>
 </UserControl>

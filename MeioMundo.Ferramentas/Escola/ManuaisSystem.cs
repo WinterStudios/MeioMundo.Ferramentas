@@ -85,45 +85,48 @@ namespace MeioMundo.Ferramentas.Escola
             Window window = new Window();
 
             UC_PrindDialog uc_prindDialog= new UC_PrindDialog();
-            window.Content = window;
+            window.Content = uc_prindDialog;
+            window.Height = 480;
+            window.Width = 400;
+
             window.ShowDialog();
             
             //window.
 
 
-            PrintDialog printDialog = new PrintDialog();
+            //PrintDialog printDialog = new PrintDialog();
             //System.Printing.PageMediaSize envelopeDL = new System.Printing.PageMediaSize(System.Printing.PageMediaSizeName.ISODLEnvelope);
             //printDialog.PrintTicket.PageMediaSize = envelopeDL;
             //printDialog.PrintTicket.PageOrientation = System.Printing.PageOrientation.Landscape;
 
-            if (printDialog.ShowDialog() == true)
-            {
-                UserControl control = GetModelo(Modelos.v_2021_06, "Oliveira do Hospital", Escolas[0].Anos[0]);
+            //if (printDialog.ShowDialog() == true)
+            //{
+            //    UserControl control = GetModelo(Modelos.v_2021_06, "Oliveira do Hospital", Escolas[0].Anos[0]);
 
-                var document = new FixedDocument();                
-                Size pageSize = new Size(control.Width, control.Height);
+            //    var document = new FixedDocument();                
+            //    Size pageSize = new Size(control.Width, control.Height);
 
-                var fixedPage = new FixedPage();
+            //    var fixedPage = new FixedPage();
 
-                // Add visual, measure/arrange page.
+            //    // Add visual, measure/arrange page.
 
-                fixedPage.Width = pageSize.Width;
-                fixedPage.Height = pageSize.Height;
+            //    fixedPage.Width = pageSize.Width;
+            //    fixedPage.Height = pageSize.Height;
 
-                document.DocumentPaginator.PageSize = pageSize;
+            //    document.DocumentPaginator.PageSize = pageSize;
 
-                fixedPage.Children.Add((UIElement)control);
-                fixedPage.Measure(pageSize);
-                fixedPage.Arrange(new Rect(new Point(), pageSize));
-                fixedPage.UpdateLayout();
+            //    fixedPage.Children.Add((UIElement)control);
+            //    fixedPage.Measure(pageSize);
+            //    fixedPage.Arrange(new Rect(new Point(), pageSize));
+            //    fixedPage.UpdateLayout();
 
-                // Add page to document
-                var pageContent = new PageContent();
-                ((IAddChild)pageContent).AddChild(fixedPage);
-                document.Pages.Add(pageContent);
+            //    // Add page to document
+            //    var pageContent = new PageContent();
+            //    ((IAddChild)pageContent).AddChild(fixedPage);
+            //    document.Pages.Add(pageContent);
                 
-                printDialog.PrintDocument(document.DocumentPaginator, "TEst");
-            }
+            //    printDialog.PrintDocument(document.DocumentPaginator, "TEst");
+            //}
         }
 
         #region Escolas
@@ -138,6 +141,8 @@ namespace MeioMundo.Ferramentas.Escola
         //    Escolas.Add(escola);
         //    return escola;
         //}
+
+        public static Internal.Escola[] GetEscolas() => Escolas.ToArray();
 
         public static void LoadEscolas()
         {

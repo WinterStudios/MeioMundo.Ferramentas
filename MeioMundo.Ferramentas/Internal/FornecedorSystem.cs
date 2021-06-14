@@ -10,6 +10,7 @@ using Microsoft.Win32;
 using U_System.External;
 using U_System.External.Plugin;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace MeioMundo.Ferramentas.Internal
 {
@@ -69,7 +70,7 @@ namespace MeioMundo.Ferramentas.Internal
             string line = string.Empty;
             Regex Spliter = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
 
-
+            TextInfo textInfo = new CultureInfo("pt-PT", false).TextInfo;
             while ((line = await reader.ReadLineAsync()) != null)
             {
                 if (!string.IsNullOrEmpty(line))
@@ -84,9 +85,13 @@ namespace MeioMundo.Ferramentas.Internal
                     else
                     {
                         fornecedor.ID = int.Parse(_values[_INDEX_ID]);
-                        fornecedor.Nome = _values[_INDEX_FORNECEDOR_NOME].Replace("\"", "");
+                        fornecedor.Nome = textInfo.ToTitleCase(_values[_INDEX_FORNECEDOR_NOME].Replace("\"", "").ToLower());
                         fornecedor.Contribuinte = _values[_INDEX_CONTRIBUINTE].Replace("\"", "");
                         fornecedor.Moradas = moradas.Where(x => x.FornecedorID == fornecedor.ID).ToArray();
+                        for (int i = 0; i < fornecedor.Moradas.Length; i++)
+                        {
+                            fornecedor.Moradas[i].FornecedorNome = fornecedor.Nome;
+                        }
                     }
 
                     Fornecedores.Add(fornecedor);
@@ -101,14 +106,17 @@ namespace MeioMundo.Ferramentas.Internal
 
             int INDEX = 0;
             int INDEX_FORNCEDOR_ID = 0;
+            int INDEX_MORADA_TIPO = 4;
             int INDEX_MORADA = 5;
             int INDEX_LOCALIDADE = 6;
             int INDEX_ZIPCODE = 7;
+            int INDEX_CONCELHO = 8;
+            int INDEX_DISTRITO = 9;
             int INDEX_COUNTRY = 10;
 
             Regex Spliter = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
             string line = string.Empty;
-
+            TextInfo textInfo = new CultureInfo("pt-PT", false).TextInfo;
             while ((line = await reader.ReadLineAsync()) != null)
             {
                 if (!string.IsNullOrWhiteSpace(line))
@@ -121,20 +129,33 @@ namespace MeioMundo.Ferramentas.Internal
                     Morada morada = new Morada();
                     morada.FornecedorID = int.Parse(values[INDEX_FORNCEDOR_ID]);
                     if(values[INDEX_MORADA] != "#NULL#")
-                        morada.Rua = values[INDEX_MORADA];
+                        morada.Rua = textInfo.ToTitleCase(values[INDEX_MORADA].ToLower());
                     if(values[INDEX_LOCALIDADE] != "#NULL#")
-                        morada.Localidade = values[INDEX_LOCALIDADE];
+                        morada.Localidade = textInfo.ToTitleCase(values[INDEX_LOCALIDADE].ToLower());
                     if(values[INDEX_ZIPCODE] != "#NULL#")
                         morada.ZipCode = values[INDEX_ZIPCODE];
                     if(values[INDEX_COUNTRY] != "#NULL#")
-                        morada.Country = values[INDEX_COUNTRY];
+                        morada.Country = textInfo.ToTitleCase(values[INDEX_COUNTRY].ToLower());
+                    if (values[INDEX_CONCELHO] != "#NULL#")
+                        morada.Concelho = textInfo.ToTitleCase(values[INDEX_CONCELHO].ToLower());
+                    if (values[INDEX_DISTRITO] != "#NULL#")
+                        morada.Distrito = textInfo.ToTitleCase(values[INDEX_DISTRITO].ToLower());
+                    if (values[INDEX_MORADA_TIPO] != "#NULL#")
+                    {
+                        string v = values[INDEX_MORADA_TIPO];
+                        if (v == "Devoluções")
+                            morada.TipoMorada = TipoMorada.Devoluções;
+                    }
+                    else
+                        morada.TipoMorada = TipoMorada.Normal;
+
                     moradas.Add(morada);
                 }
             }
             return moradas.ToArray();
         }
 
-        private static async Task Save()
+        public static async Task Save()
         {
             string fileLocation = string.Format("{0}Fornecedores.json", EntryPoint.Info.PluginStorageData );
 

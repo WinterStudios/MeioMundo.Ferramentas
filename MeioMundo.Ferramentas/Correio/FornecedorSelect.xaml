@@ -7,40 +7,56 @@
              xmlns:internal="clr-namespace:MeioMundo.Ferramentas.Internal"
              
              mc:Ignorable="d" 
-             Width="480"
-             Height="720"
+             Width="720"
+             Height="600"
              >
 
     <UserControl.Resources>
         
     </UserControl.Resources>
     <Grid>
-        <internal:CustomScrollViewer x:Name="scroll" VerticalScrollBarVisibility="Disabled" VerticalContentAlignment="Stretch">
-            <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Viewbox Height="{Binding ElementName=scroll, Path=Height}">
-                    <StackPanel Orientation="Horizontal">
-                        <DataGrid Width="{Binding ElementName=scroll, Path=ViewportWidth}" Height="{Binding ElementName=scroll, Path=ViewportHeight}" ItemsSource="{Binding Source={x:Static internal:FornecedorSystem.Fornecedores}}" AutoGenerateColumns="False" SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=local:FornecedorSelect}, Path=Fornecedor}" >
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID" Width="50" Binding="{Binding ID}"/>
-                                <DataGridTextColumn Header="Nome" Width="*" Binding="{Binding Nome}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                        <ListView ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=local:FornecedorSelect}, Path=Fornecedor.Moradas}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Border>
-                                        <Grid>
-                                            <TextBlock Text="{Binding Rua}"/>
-                                        </Grid>
-                                    </Border>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </StackPanel>
-                </Viewbox>
-            </Border>
-            
-            
-        </internal:CustomScrollViewer>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border>
+            <DataGrid x:Name="UC_DataGrid_Fornecedores" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding Source={x:Static internal:FornecedorSystem.Fornecedores}}" AutoGenerateColumns="False" SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=local:FornecedorSelect}, Path=Fornecedor}" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Width="50" Binding="{Binding ID}"/>
+                    <DataGridTextColumn Header="Nome" Width="*" Binding="{Binding Nome}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <ListView Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=local:FornecedorSelect}, Path=Fornecedor.Moradas}" HorizontalContentAlignment="Stretch"
+                  SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=local:FornecedorSelect},Path=Morada}">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type internal:Morada}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border Background="Black" HorizontalAlignment="Left" Padding="10,2">
+                            <TextBlock Text="{Binding _TipoMorada}" FontWeight="Bold" Foreground="White"/>
+                        </Border>
+                        <Border Grid.Row="1" BorderThickness=".5pt" BorderBrush="Black" CornerRadius="0" Padding="8">
+                            <StackPanel>
+                                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=local:FornecedorSelect}, Path=Fornecedor.Nome}"/>
+                                <TextBlock Text="{Binding Rua}"/>
+                                <TextBlock Text="{Binding Localidade}"/>
+                                <TextBlock Text="{Binding ZipCode}"/>
+                                <TextBlock Text="{Binding Country}"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Grid.Row="1" Content="Selecionar" Click="Button_Click" Tag="__RESULT"/>
     </Grid>
 </UserControl>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,10 +21,10 @@ namespace MeioMundo.Ferramentas.Internal
     /// </summary>
     public partial class FornecedoresManager : UserControl
     {
-        public List<Fornecedor> Fornecedors { get; set; }
+        public ObservableCollection<Fornecedor> Fornecedors { get; set; }
         public FornecedoresManager()
         {
-            Fornecedors = FornecedorSystem.Fornecedores;
+            Fornecedors = new ObservableCollection<Fornecedor>(FornecedorSystem.Fornecedores);
             InitializeComponent();
         }
 
@@ -36,6 +37,12 @@ namespace MeioMundo.Ferramentas.Internal
                 await FornecedorSystem.LoadFromFile();
                 grid.Items.Refresh();
             }
+        }
+
+        private async void grid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            FornecedorSystem.Fornecedores = Fornecedors.ToList();
+            await FornecedorSystem.Save();
         }
     }
 }

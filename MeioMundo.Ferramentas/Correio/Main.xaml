@@ -84,10 +84,10 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0" Margin="0,0,10,0">
-                                <TextBox Height="24" IsReadOnly="True"/>
-                                <TextBox Height="24" IsReadOnly="True"/>
-                                <TextBox Height="24" IsReadOnly="True"/>
-                                <TextBox Height="24" IsReadOnly="True"/>
+                                <TextBox Foreground="Black" Text="{Binding RelativeSource={RelativeSource AncestorType=local:Main}, Path=FornecedorMorada.FornecedorNome}" Height="24" IsReadOnly="True"/>
+                                <TextBox Text="{Binding RelativeSource={RelativeSource AncestorType=local:Main}, Path=FornecedorMorada.Rua}" Height="24" IsReadOnly="True"/>
+                                <TextBox Text="{Binding RelativeSource={RelativeSource AncestorType=local:Main}, Path=FornecedorMorada.Localidade}" Height="24" IsReadOnly="True"/>
+                                <TextBox Text="{Binding RelativeSource={RelativeSource AncestorType=local:Main}, Path=FornecedorMorada.ZipCode}" Height="24" IsReadOnly="True"/>
                             </StackPanel>
                             <StackPanel Grid.Column="1">
                                 <Button Width="24" Height="24" Style="{DynamicResource BTN_MM_C_IMG}">

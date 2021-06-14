@@ -1,7 +1,10 @@
-﻿using System;
+﻿using MeioMundo.Ferramentas.Internal;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing.Printing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,15 +22,27 @@ namespace MeioMundo.Ferramentas.Correio
     /// <summary>
     /// Interaction logic for Main.xaml
     /// </summary>
-    public partial class Main : UserControl
+    public partial class Main : UserControl, INotifyPropertyChanged
     {
 
+        #region Notification Changed
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+        public Morada FornecedorMorada { get => fornecedorMorada; set { fornecedorMorada = value; NotifyPropertyChanged(); } }
+        private Morada fornecedorMorada;
+    
         public TypeRegister RegisterType { get => _registerType; set { _registerType = value; } }
         private TypeRegister _registerType;
 
 
         public ImageBrush SearchIcon { get => null; }
         private ImageBrush searchIcon;
+
+
 
         public Main()
         {
@@ -117,7 +132,11 @@ namespace MeioMundo.Ferramentas.Correio
                 window.Content = fornecedorAddress;
                 window.SizeToContent = SizeToContent.WidthAndHeight;
 
-                window.Show();
+                if(window.ShowDialog() == true)
+                {
+                    FornecedorMorada = fornecedorAddress.Morada;
+                }
+
             }
         }
 

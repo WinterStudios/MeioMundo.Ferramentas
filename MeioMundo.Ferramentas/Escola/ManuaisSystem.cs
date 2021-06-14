@@ -80,53 +80,45 @@ namespace MeioMundo.Ferramentas.Escola
             LoadEscolas();
         }
 
-        public static void PrintModelos(Modelos modelo)
+        public static void PrintModelos(Modelos modelo, PagEncomendasEscolares[] pags)
         {
-            Window window = new Window();
-
-            UC_PrindDialog uc_prindDialog= new UC_PrindDialog();
-            window.Content = uc_prindDialog;
-            window.Height = 480;
-            window.Width = 400;
-
-            window.ShowDialog();
             
-            //window.
 
+            PrintDialog printDialog = new PrintDialog();
+            System.Printing.PageMediaSize a4 = new System.Printing.PageMediaSize(System.Printing.PageMediaSizeName.ISOA4);
+            printDialog.PrintTicket.PageMediaSize = a4;
 
-            //PrintDialog printDialog = new PrintDialog();
-            //System.Printing.PageMediaSize envelopeDL = new System.Printing.PageMediaSize(System.Printing.PageMediaSizeName.ISODLEnvelope);
-            //printDialog.PrintTicket.PageMediaSize = envelopeDL;
-            //printDialog.PrintTicket.PageOrientation = System.Printing.PageOrientation.Landscape;
+            if (printDialog.ShowDialog() == true)
+            {
+                var document = new FixedDocument(); 
+                document.DocumentPaginator.PageSize = new Size(
+                    (double)new LengthConverter().ConvertFromString("21cm"), 
+                    (double)new LengthConverter().ConvertFromString("29,7cm")
+                    );
+                for (int i = 0; i < pags.Length; i++)
+                {
+                    for (int copies = 0; copies < pags[i].Copies; copies++)
+                    {
+                        // Add visual, measure/arrange page.
+                        UserControl control = GetModelo(modelo, pags[i].Escola.Nome, pags[i].SelectAno);
+                        Size pageSize = new Size(control.Width, control.Height);
 
-            //if (printDialog.ShowDialog() == true)
-            //{
-            //    UserControl control = GetModelo(Modelos.v_2021_06, "Oliveira do Hospital", Escolas[0].Anos[0]);
+                        FixedPage fixedPage = new FixedPage();
+                        fixedPage.Width = pageSize.Width;
+                        fixedPage.Height = pageSize.Height;
 
-            //    var document = new FixedDocument();                
-            //    Size pageSize = new Size(control.Width, control.Height);
-
-            //    var fixedPage = new FixedPage();
-
-            //    // Add visual, measure/arrange page.
-
-            //    fixedPage.Width = pageSize.Width;
-            //    fixedPage.Height = pageSize.Height;
-
-            //    document.DocumentPaginator.PageSize = pageSize;
-
-            //    fixedPage.Children.Add((UIElement)control);
-            //    fixedPage.Measure(pageSize);
-            //    fixedPage.Arrange(new Rect(new Point(), pageSize));
-            //    fixedPage.UpdateLayout();
-
-            //    // Add page to document
-            //    var pageContent = new PageContent();
-            //    ((IAddChild)pageContent).AddChild(fixedPage);
-            //    document.Pages.Add(pageContent);
-                
-            //    printDialog.PrintDocument(document.DocumentPaginator, "TEst");
-            //}
+                        fixedPage.Children.Add((UIElement)control);
+                        fixedPage.Measure(pageSize);
+                        fixedPage.Arrange(new Rect(new Point(), pageSize));
+                        fixedPage.UpdateLayout();
+                        // Add page to document
+                        var pageContent = new PageContent();
+                        ((IAddChild)pageContent).AddChild(fixedPage);
+                        document.Pages.Add(pageContent);
+                    }
+                }
+                printDialog.PrintDocument(document.DocumentPaginator, "Mod.2021 - Encomendas Escolares");
+            }
         }
 
         #region Escolas
@@ -187,6 +179,20 @@ namespace MeioMundo.Ferramentas.Escola
                 string json = System.IO.File.ReadAllText(livrosFile);
                 Livros = System.Text.Json.JsonSerializer.Deserialize<Internal.Livro[]>(json).ToList();
             }
+        }
+
+        #endregion
+
+
+        #region Xaml Extensions Methours Helpers
+        public static int[] GetCopies()
+        {
+            int[] _c = new int[]
+            {
+                1,2,3,4,5,6,7,8,9,
+                10,15,20,25
+            };
+            return _c;
         }
 
         #endregion

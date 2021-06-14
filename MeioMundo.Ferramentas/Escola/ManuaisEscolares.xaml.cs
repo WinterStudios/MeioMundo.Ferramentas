@@ -107,7 +107,14 @@ namespace MeioMundo.Ferramentas.Escola
             }
             if(tag == "__PRINT_MULTIPLE") 
             {
-                ManuaisSystem.PrintModelos(ManuaisSystem.Modelos.v_2021_06);
+                Window window = new Window();
+
+                UC_PrindDialog uc_prindDialog = new UC_PrindDialog();
+                window.Content = uc_prindDialog;
+                window.Height = 480;
+                window.Width = 400;
+
+                window.ShowDialog();
             }
         }
 

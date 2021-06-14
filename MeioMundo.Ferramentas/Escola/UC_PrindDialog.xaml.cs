@@ -22,16 +22,25 @@ namespace MeioMundo.Ferramentas.Escola
     /// <summary>
     /// Interaction logic for UC_PrindDialog.xaml
     /// </summary>
-    public partial class UC_PrindDialog : UserControl
+    public partial class UC_PrindDialog : UserControl, INotifyPropertyChanged
     {
+        
+        #region Notification Changed
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+
         public ObservableCollection<PagEncomendasEscolares> Pags { get; set; }
 
-        public PagEncomendasEscolares Encomenda { get; set; }
+        public PagEncomendasEscolares Encomenda { get => encomenda; set { encomenda = value; NotifyPropertyChanged(); } }
+        private PagEncomendasEscolares encomenda;
         public UC_PrindDialog()
         {
             Encomenda = new PagEncomendasEscolares() { Copies = 1 };
             InitializeComponent();
-            DataContext = Pags;
             Pags = new ObservableCollection<PagEncomendasEscolares>();
             UC_ComboBox_PrintSelect_Escola_ToAdd.ItemsSource = ManuaisSystem.GetEscolas();
         }
@@ -44,14 +53,35 @@ namespace MeioMundo.Ferramentas.Escola
 
             if(tag == "__Escla_Select")
             {
-               Internal.Escola escola = (Internal.Escola)UC_ComboBox_PrintSelect_Escola_ToAdd.SelectedItem;
-                UC_ComboBox_PrintSelect_Escola_Ano_ToAdd.ItemsSource = escola.Anos;
+                Internal.Escola escola = (Internal.Escola)UC_ComboBox_PrintSelect_Escola_ToAdd.SelectedItem;
+                if (escola != null)
+                    UC_ComboBox_PrintSelect_Escola_Ano_ToAdd.ItemsSource = escola.Anos;
             }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            string tag = ((Button)sender).Tag.ToString();
+            if(tag == "__Escola_Add")
+            {
+                PagEncomendasEscolares encomendaEscolar = Pags.SingleOrDefault(x => x.Escola.ID == Encomenda.Escola.ID && x.SelectAno.ID == Encomenda.SelectAno.ID);
+                if (encomendaEscolar != null)
+                {
+                    encomendaEscolar.Copies++;
+                }
+                else
+                Pags.Add(new PagEncomendasEscolares() { 
+                    Escola = Encomenda.Escola,
+                    SelectAno = Encomenda.SelectAno, 
+                    Copies = Encomenda.Copies, 
+                    ID = Pags.Count 
+                });
+                //Encomenda = new PagEncomendasEscolares();
+            }
+            if(tag == "__PRINT")
+            {
+                ManuaisSystem.PrintModelos(ManuaisSystem.Modelos.v_2021_06, Pags.ToArray()); 
+            }
         }
     }
 
@@ -69,7 +99,9 @@ namespace MeioMundo.Ferramentas.Escola
         public int ID { get; set; }
         public Internal.Escola Escola { get => escola; set { escola = value; NotifyPropertyChanged(); } }
         private Internal.Escola escola;
-        public Internal.Ano SelectAno { get; set; }
-        public int Copies { get; set; }
+        public Internal.Ano SelectAno { get => selectAno; set { selectAno = value; NotifyPropertyChanged(); } }
+        private Internal.Ano selectAno;
+        public int Copies { get => copies; set { copies = value; NotifyPropertyChanged(); } }
+        private int copies;
     }
 }

@@ -62,8 +62,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top"  Grid.ColumnSpan="2" Grid.RowSpan="2">
                         <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="/MeioMundo.Ferramentas;component/Assets/carta-logo.png" Width="5cm" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
@@ -98,38 +97,79 @@
                                 <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-web.png" Width="0.4cm" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality" Margin="0,0,0.2cm,0"/>
                                 <TextBlock Style="{DynamicResource EmpresaSide}" Text="{Binding Source={x:Static main:MeioMundoInformation.WebPage}, Mode=OneTime}" VerticalAlignment="Center"/>
                             </DockPanel>
-                            
+
                         </StackPanel>
-                        
+
                     </StackPanel>
-                    <Border Grid.Row="1" Grid.Column="1" BorderThickness="0.5pt" BorderBrush="LightGray" Margin="1cm,0,1cm,1.5cm">
-                        <RichTextBox AcceptsReturn="True" FontSize="11pt" TextBlock.LineHeight="2.65pt" FontFamily="Calibri">
-                            <FlowDocument>
-                                <Paragraph>
-                                    <Run>Morada</Run>
-                                </Paragraph>
-                            </FlowDocument>
-                            <RichTextBox.Style>
-                                <Style TargetType="RichTextBox">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsFocused" Value="False">
-                                            <Setter Property="BorderBrush" Value="Transparent"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </RichTextBox.Style>
-                        </RichTextBox>
+                    <Border x:Name="mainBorder" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Left" Margin="9cm,2.5cm,1cm,.9cm" Padding="0.1cm">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-.3pt,0,0,0" BorderThickness="0">
+                                <Button x:Name="fornSearch" Height="24px" Width="24px" Tag="__SelectForn" Click="Button_Click" Padding="4px">
+                                    <Button.Content>
+                                        <Image Source="/MeioMundo.Ferramentas;component/Assets/Icons/search.png" />
+                                    </Button.Content>
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Visibility" Value="Hidden"/>
+                                            <Setter Property="BorderThickness" Value=".4pt"/>
+                                            <Setter Property="Background" Value="Transparent"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=mainBorder, Path=IsMouseOver}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding ElementName=fornMorada, Path=IsFocused}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                    <Setter Property="BorderBrush" Value="LightBlue"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </Border>
+
+                            <Border x:Name="subBorder" Grid.Row="1">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="Exmo.(s) Senhor(es)" FontFamily="Calibri" FontSize="12pt" Margin="4pt,0,0,0"/>
+                                    <RichTextBox AcceptsReturn="True" x:Name="fornMorada" FontSize="12pt" TextBlock.LineHeight="2.65pt" FontFamily="Calibri" Background="White"
+                                         BorderThickness="0" BorderBrush="Transparent" Margin="0,5pt,0,0">
+                                        <RichTextBox.Style>
+                                            <Style TargetType="RichTextBox">
+                                                <Setter Property="Margin" Value="0"/>
+                                                <Setter Property="Padding" Value="0"/>
+                                            </Style>
+                                        </RichTextBox.Style>
+                                    </RichTextBox>
+                                </StackPanel>
+                                <Border.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="BorderBrush" Value="Transparent"/>
+                                        <Setter Property="BorderThickness" Value=".40pt"/>
+                                        <Setter Property="Margin" Value="-.2pt"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="BorderBrush" Value="Gray"/>
+                                            </Trigger>
+                                            <DataTrigger Binding="{Binding ElementName=fornMorada, Path=IsFocused}" Value="True">
+                                                <Setter Property="BorderBrush" Value="LightBlue"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                            </Border>
+                        </Grid>
                     </Border>
                 </Grid>
 
                 <Grid Grid.Row="2">
+                    <TextBlock x:Name="dateTimeToday" FontSize="10pt" FontWeight="Normal" FontFamily="Calibri" Margin="1.5cm,-0.55cm,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                     <Border x:Name="richboxTools">
                         <Border.RenderTransform>
                             <TranslateTransform X="{Binding ElementName=richboxTools, Path=ActualHeight, Converter={StaticResource ConvertDoubleToNegative}}" />
                         </Border.RenderTransform>
-                        <StackPanel>
-
-                        </StackPanel>
                     </Border>
                     <StackPanel Margin="1.5cm,0">
                         <Grid VerticalAlignment="Top" Margin="0,0,0,0">
@@ -141,12 +181,13 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Column="0" FontFamily="Calibri" Text="Assunto:" VerticalAlignment="Center" Margin="0,1pt,0,0" FontWeight="Bold" />
-                            <TextBox Grid.Column="1" Grid.RowSpan="2" FontFamily="Calibri" FontWeight="Bold" Text="Assunto a por aqui" VerticalAlignment="Center" BorderBrush="Transparent" AcceptsReturn="True" BorderThickness="1pt"/>
+                            <TextBlock Grid.Column="0" FontFamily="Calibri" Text="Assunto:" VerticalAlignment="Center" Margin="0,1pt,0,0" FontWeight="Bold" FontSize="11pt"/>
+                            <TextBox Grid.Column="1" Grid.RowSpan="2" FontFamily="Calibri" FontWeight="Bold" FontSize="11pt"
+                                     Text="Assunto a por aqui" VerticalAlignment="Center" BorderBrush="Transparent" AcceptsReturn="True" BorderThickness="1pt"/>
                         </Grid>
                         <RichTextBox x:Name="richtextbox" Visibility="Visible" FontSize="11pt" AcceptsReturn="True" AcceptsTab="True" TextBlock.TextAlignment="Justify"
                                      Margin="0cm,0.5cm,0cm,0" VerticalAlignment="Top"
-                                     MinHeight="3cm" SelectionChanged="richtextbox_SelectionChanged" xml:lang="pt-PT" >
+                                     MinHeight="3cm" SelectionChanged="richtextbox_SelectionChanged" xml:lang="pt-PT" SpellCheck.IsEnabled="True" >
                             
 
                             <FlowDocument>
@@ -189,7 +230,6 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="{Binding Source={x:Static main:MeioMundoInformation.DominaçãoSocial}}" FontSize="7pt" FontWeight="Light" FontFamily="Calibri"/>
-                        <TextBlock x:Name="dateTimeToday"  FontSize="7pt" FontWeight="Light" FontFamily="Calibri"/>
                     </StackPanel>
                     <TextBlock x:Name="pageNumber" Grid.Column="2" Text="Pagina 1 de 1" FontSize="7pt" FontWeight="Light" FontFamily="Calibri" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
                 </Grid>

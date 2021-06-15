@@ -55,6 +55,7 @@
     <None Remove="Assets\Icons\newFile.png" />
     <None Remove="Assets\Icons\page_break.png" />
     <None Remove="Assets\Icons\plugin.png" />
+    <None Remove="Assets\Icons\search.png" />
     <None Remove="Assets\Icons\Text\text_bold.png" />
     <None Remove="Assets\Icons\Text\text_italic.png" />
     <None Remove="Assets\Icons\Text\text_strikethough.png" />
@@ -107,6 +108,7 @@
     <Resource Include="Assets\Icons\newFile.png" />
     <Resource Include="Assets\Icons\page_break.png" />
     <Resource Include="Assets\Icons\plugin.png" />
+    <Resource Include="Assets\Icons\search.png" />
     <Resource Include="Assets\Icons\Text\text_bold.png" />
     <Resource Include="Assets\Icons\Text\text_italic.png" />
     <Resource Include="Assets\Icons\Text\text_strikethough.png" />

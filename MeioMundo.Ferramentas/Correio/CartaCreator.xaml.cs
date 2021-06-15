@@ -119,6 +119,8 @@ namespace MeioMundo.Ferramentas.Correio
                 var listparent = new DependencyObject[Paginas.Count];
                 for (int i = 0; i < Paginas.Count; i++)
                 {
+                    if (Paginas[i].GetType() == typeof(CartaBodyTemplate))
+                        ((CartaBodyTemplate)Paginas[i]).richtextbox.SpellCheck.IsEnabled = false;
                     Size pageSize = new Size(Paginas[i].RenderSize.Width, Paginas[i].RenderSize.Height); // A4 page, at 96 dpi
                     // Create FixedPage
                     var fixedPage = new FixedPage();
@@ -150,6 +152,8 @@ namespace MeioMundo.Ferramentas.Correio
                 {
                     ((FrameworkElement)Paginas[z]).DisconnectIt();
                     Paginas[z].AddToParent(listparent[z]);
+                    if (Paginas[z].GetType() == typeof(CartaBodyTemplate))
+                        ((CartaBodyTemplate)Paginas[z]).richtextbox.SpellCheck.IsEnabled = true;
                 }
             }
         }

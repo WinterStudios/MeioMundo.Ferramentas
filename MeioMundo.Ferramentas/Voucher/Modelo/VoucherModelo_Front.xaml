@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="MeioMundo.Ferramentas.Voucher.Modelo.VoucherModelo_Front"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MeioMundo.Ferramentas.Voucher.Modelo"
+             mc:Ignorable="d" 
+             
+             Width="21cm" Height="9.9cm"
+             >
+
+    <Border>
+        <Grid>
+            <Image Source="/MeioMundo.Ferramentas;component/Voucher/Modelo/Voucher_New.png" />
+        </Grid>
+    </Border>
+</UserControl>

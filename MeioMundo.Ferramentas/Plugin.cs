@@ -60,6 +60,14 @@ namespace MeioMundo.Ferramentas
                 Path = "Ferramentas>Criar uma Carta",
                 PluginTypeBehavior = PluginTypeBehavior.Tab,
                 Icon = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/Icons/plugin.png"
+            },
+            new Module()
+            {
+                Name = "Voucher",
+                Type = typeof(Voucher.VoucherManager).FullName,
+                Path = "Ferramentas>Voucher",
+                PluginTypeBehavior = PluginTypeBehavior.Tab,
+                Icon = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/Icons/plugin.png"
             }
         };
         public bool ShowWelcomePage => true;

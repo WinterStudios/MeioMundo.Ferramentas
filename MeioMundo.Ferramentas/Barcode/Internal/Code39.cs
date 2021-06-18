@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,11 +12,12 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
 {
     public class Code39
     {
-        internal static DrawingVisual Draw(string code, float resolution, out int width, out int height)
+        internal static DrawingVisual Draw(string code, double resolution, bool showText = true)
         {
             
+            code = code.ToUpper();   
             string codeToPrint = string.Format("*{0}*", code);
-            int charHeight = 32;
+            int charHeight = 4;
             int charWidth = 14;
             
 
@@ -26,30 +28,39 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
             Brush brush = Brushes.White;
             Pen pen = new Pen(brush, 1);
 
-            width = (int)Math.Round((float)code.Length * (float)charWidth * resolution);
+            //width = (int)Math.Round((float)code.Length * (float)charWidth * resolution);
             int _charHeight = (int)Math.Round(charHeight * resolution / 2);
-            drawingSpace.DrawRectangle(brush, pen, new Rect(0, 0, (float)code.Length * (float)charWidth * resolution, _charHeight));
+            drawingSpace.DrawRectangle(brush, null, new Rect(0, 0, (double)codeToPrint.Length * (double)charWidth * resolution, _charHeight * resolution));
 
+            Brush b = Brushes.Black;
 
-            for (int i = 0; i < code.Length; i++)
+            for (int i = 0; i < codeToPrint.Length; i++)
             {
-                char c = code[i];
+                char c = codeToPrint[i];
                 byte[] _c = Chars.ToChar(c);
-
+                if (c == '-')
+                    b = Brushes.Black;
+                else
+                    b = Brushes.Black;
                 for (int z = 0; z < _c.Length; z++)
                 {
                     if(_c[z] == 1)
-                        drawingSpace.DrawRectangle(Brushes.Black, null, new Rect(((float)i * (float)charWidth * resolution) + ((float)z * (float)resolution), 0, 1 * (float)resolution, _charHeight));
+                        drawingSpace.DrawRectangle(b, null, new Rect(((float)i * (float)charWidth * resolution) + ((float)z * (float)resolution), 0, 1 * (float)resolution, _charHeight * resolution));
                 }
             }
 
-            FormattedText text = new FormattedText(code, System.Globalization.CultureInfo.CurrentCulture, FlowDirection.LeftToRight, new Typeface("Segui UI"), 12f * resolution, Brushes.Black);
-            height =  (int)Math.Round(text.Height) + _charHeight;
-            
-            drawingSpace.DrawText(text, new Point((int)Math.Round((float)charWidth * resolution), _charHeight));
+            //height = _charHeight;
+            if (showText)
+            {
+                // Add Pixel Density for .Net 6
+                FormattedText textToFormat = new FormattedText(code, CultureInfo.GetCultureInfo("pt-PT"), FlowDirection.LeftToRight, new Typeface("Segoe UI"), 10d * resolution, Brushes.Black, 300);
+                //height = (int)Math.Round(textToFormat.Height) + _charHeight;
+                double textSpace = textToFormat.WidthIncludingTrailingWhitespace;
+                double star = ((double)codeToPrint.Length * (double)charWidth * resolution - textSpace) / 2;
+                drawingSpace.DrawText(textToFormat, new Point((int)Math.Round((float)star), _charHeight * resolution));
+            }
             
             drawingSpace.Close();
-
 
             return visual;
         }
@@ -58,6 +69,7 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
         {
             /// <value>*</value>
             public static byte[] _asterisk => new byte[] { 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1 };
+            public static byte[] _less => new byte[] { 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1 };
             public static byte[] _0 => new byte[] { 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1 };
             public static byte[] _1 => new byte[] { 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1 };
             public static byte[] _2 => new byte[] { 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1 };
@@ -97,14 +109,17 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
 
 
 
+
             public static byte[] ToChar(char c)
             {
-                c = c.ToString().ToUpper().ToCharArray()[0];
+                //c = c.ToString().ToUpper().ToCharArray();
                 byte[] data = new byte[] { };
                 switch (c)
                 {
                     case '*':
                         return _asterisk;
+                    case '-':
+                        return _less;
                     case '0':
                         return _0;
                     case '1':

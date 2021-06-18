@@ -69,6 +69,8 @@
                 </RichTextBox>
             </StackPanel>
         </Border>
-        
+
+        <Image x:Name="UC_Image_GiftCode" HorizontalAlignment="Left" Stretch="Uniform" VerticalAlignment="Bottom" Width="5cm" Margin="1cm" RenderOptions.BitmapScalingMode="HighQuality"/>
+        <Image x:Name="UC_Image_GiftCode_Cliente" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
     </Grid>
 </UserControl>

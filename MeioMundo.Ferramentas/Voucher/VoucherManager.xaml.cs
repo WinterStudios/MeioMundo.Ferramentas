@@ -20,10 +20,25 @@ namespace MeioMundo.Ferramentas.Voucher
     /// </summary>
     public partial class VoucherManager : UserControl
     {
+        public int GitfCar_Value { get => _giftCar_Value; set => _giftCar_Value = value; }
+        public int _giftCar_Value;
         public VoucherManager()
         {
             InitializeComponent();
-            VoucherSystem.PrintTest(75);
+            UC_ComboBox_GiftCard_Value.ItemsSource = new int[]
+            {
+                5,10,15,20,25,30,40,50,75
+            };
+            
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string tag = ((Button)sender).Tag.ToString();
+            if(tag == "__Print_Gifts")
+            {
+                VoucherSystem.PrintTest(GitfCar_Value);
+            }
         }
     }
 }

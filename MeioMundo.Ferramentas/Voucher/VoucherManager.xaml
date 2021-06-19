@@ -8,7 +8,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Border>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DockPanel>
+            <GroupBox Header="Valor">
+                <ComboBox x:Name="UC_ComboBox_GiftCard_Value" IsEditable="True"/>
+            </GroupBox>
+            <Button Content="Imprimir" Click="Button_Click" Tag="__Print_Gifts"/>
+        </DockPanel>
+        <Border Grid.Row="1">
             <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" >
                 <Grid>
                     <Grid.LayoutTransform>

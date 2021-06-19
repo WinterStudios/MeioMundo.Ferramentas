@@ -15,7 +15,7 @@
         <Grid>
             <Image Source="/MeioMundo.Ferramentas;component/Voucher/Modelo/Voucher_New.png" />
             <TextBlock Foreground="{DynamicResource ValueColor}" Margin="0,0,1cm,1cm" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Run Text="10" FontSize="100pt" FontFamily="Segoe UI" FontWeight="Bold"/>
+                <Run Text="{Binding GiftValue, RelativeSource={RelativeSource AncestorType=local:VoucherModelo_Front}}" FontSize="100pt" FontFamily="Segoe UI" FontWeight="Bold"/>
                 <Run Text="€" FontSize="50pt" FontFamily="Segoe UI" FontWeight="Bold"/>
             </TextBlock>
         </Grid>

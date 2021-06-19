@@ -20,6 +20,8 @@ namespace MeioMundo.Ferramentas.Voucher.Modelo
     /// </summary>
     public partial class VoucherModelo_Front : UserControl
     {
+        public int GiftValue { get => _giftValue; set => _giftValue = value; }
+        private int _giftValue;
         public VoucherModelo_Front()
         {
             InitializeComponent();

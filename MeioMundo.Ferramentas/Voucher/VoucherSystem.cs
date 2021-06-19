@@ -15,9 +15,18 @@ namespace MeioMundo.Ferramentas.Voucher
     {
         public static void PrintTest(int value)
         {
-            //Window window = new Window();
-            Viewbox viewbox = new Viewbox();
-            //window.Content = viewbox;
+
+            UserControl[] controls = new UserControl[2];
+            {
+                controls[0] = GetFront(value);
+                controls[1] = GetBack(value, 0);
+            }
+
+            MeioMundo.Ferramentas.Internal.PrintSystem.Print(controls);
+        }
+
+        private static UserControl GetFront(int price)
+        {
             UserControl control = new UserControl();
             control.Width = (double)new LengthConverter().ConvertFromString("21cm");
             control.Height = (double)new LengthConverter().ConvertFromString("29,7cm");
@@ -26,7 +35,7 @@ namespace MeioMundo.Ferramentas.Voucher
             //viewbox.Child = control;
 
             Border border = new Border() { Padding = new Thickness((double)new LengthConverter().ConvertFromString("0,5cm")) };
-            
+
             control.Content = border;
 
             StackPanel stackPanel = new StackPanel() { Orientation = Orientation.Vertical };
@@ -39,36 +48,34 @@ namespace MeioMundo.Ferramentas.Voucher
                 viewboxVoucher.Child = front;
                 stackPanel.Children.Add(viewboxVoucher);
             }
-            
-
-            PrintDialog printDialog = new PrintDialog();
-            System.Printing.PageMediaSize a4 = new System.Printing.PageMediaSize(System.Printing.PageMediaSizeName.ISOA4);
-            printDialog.PrintTicket.PageMediaSize = a4;
-
-            if (printDialog.ShowDialog() == true)
-            {
-                var document = new FixedDocument();
-                document.DocumentPaginator.PageSize = new Size(
-                    (double)new LengthConverter().ConvertFromString("21cm"),
-                    (double)new LengthConverter().ConvertFromString("29,7cm")
-                    );
-
-                Size pageSize = new Size(control.Width, control.Height);
-
-                FixedPage fixedPage = new FixedPage();
-                fixedPage.Width = pageSize.Width;
-                fixedPage.Height = pageSize.Height;
-
-                fixedPage.Children.Add((UIElement)control);
-                fixedPage.Measure(pageSize);
-                fixedPage.Arrange(new Rect(new Point(), pageSize));
-                fixedPage.UpdateLayout();
-                // Add page to document
-                var pageContent = new PageContent();
-                ((IAddChild)pageContent).AddChild(fixedPage);
-                document.Pages.Add(pageContent);
-                printDialog.PrintDocument(document.DocumentPaginator, "Mod.2021 - Encomendas Escolares");
-            }
+            return control;
         }
+        private static UserControl GetBack(int prinxe, int serialNumber)
+        {
+            UserControl control = new UserControl();
+            control.Width = (double)new LengthConverter().ConvertFromString("21cm");
+            control.Height = (double)new LengthConverter().ConvertFromString("29,7cm");
+            control.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+
+            //viewbox.Child = control;
+
+            Border border = new Border() { Padding = new Thickness((double)new LengthConverter().ConvertFromString("0,5cm")) };
+
+            control.Content = border;
+
+            StackPanel stackPanel = new StackPanel() { Orientation = Orientation.Vertical };
+            border.Child = stackPanel;
+            int rep = 3;
+            for (int i = 0; i < rep; i++)
+            {
+                Viewbox viewboxVoucher = new Viewbox();
+                Modelo.VoucherModelo_Back back = new Modelo.VoucherModelo_Back();
+                viewboxVoucher.Child = back;
+                stackPanel.Children.Add(viewboxVoucher);
+            }
+            return control;
+        }
+
+
     }
 }

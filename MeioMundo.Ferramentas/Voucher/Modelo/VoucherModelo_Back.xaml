@@ -6,9 +6,14 @@
              xmlns:local="clr-namespace:MeioMundo.Ferramentas.Voucher.Modelo"
              mc:Ignorable="d" 
              
-             Background="White"
+             Background="{DynamicResource backgroundLineiearGradiant}"
              Width="21cm" Height="9.9cm">
+    
     <UserControl.Resources>
+        <LinearGradientBrush x:Key="backgroundLineiearGradiant" StartPoint="0,0" EndPoint="1,1" ColorInterpolationMode="ScRgbLinearInterpolation">
+            <GradientStop Color="#EBF1F5" Offset="0"/>
+            <GradientStop Color="#FFFFFF" Offset="1"/>
+        </LinearGradientBrush>
         <Style x:Key="Header" TargetType="TextBlock">
             <Setter Property="Foreground" Value="#0070C0"/>
             <Setter Property="FontSize" Value="8pt"/>
@@ -37,7 +42,7 @@
                 <TextBlock Text="Como resgatar o seu Gift Card" Style="{DynamicResource Header}"/>
                 <TextBlock Text="Para usar o seu Gift Card, dirija-se á Papelaria Meio Mundo e escolha os produtos que deseja. No Ato de pagamento apresente o seu Gift Card para que seja feito o desconto na fatura." Style="{DynamicResource Normal}"/>
                 <TextBlock Text="Termos e condições:" Style="{DynamicResource Header}"/>
-                <RichTextBox BorderThickness="0" IsReadOnly="True" Focusable="False">
+                <RichTextBox BorderThickness="0" IsReadOnly="True" Focusable="False" Background="Transparent">
                     <FlowDocument FontFamily="Segoe UI">
                         <List MarkerStyle="Decimal" Margin="0">
                             <List.Style>

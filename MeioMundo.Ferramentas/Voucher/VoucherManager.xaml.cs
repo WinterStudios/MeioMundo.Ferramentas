@@ -23,6 +23,7 @@ namespace MeioMundo.Ferramentas.Voucher
         public VoucherManager()
         {
             InitializeComponent();
+            VoucherSystem.PrintTest(75);
         }
     }
 }

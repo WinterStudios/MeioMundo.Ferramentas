@@ -23,9 +23,12 @@ namespace MeioMundo.Ferramentas.Voucher.Modelo
         public VoucherModelo_Back()
         {
             InitializeComponent();
-            UC_Image_GiftCode.Source = Barcode.Barcode.CreateBarcodeToImage("MM-GIFTCARD-75", Barcode.BarcodeEncoding.Code39);
-            //UC_Image_GiftCode.Source = Barcode.Barcode.CreateBarcodeToImage("-", Barcode.BarcodeEncoding.Code39);
-
+        }
+        public VoucherModelo_Back(int value, int serialNumber)
+        {
+            InitializeComponent();
+            UC_Image_GiftCode.Source = Barcode.Barcode.CreateBarcodeToImage(string.Format("MM-GIFTCARD-{0}", value), Barcode.BarcodeEncoding.Code39);
+            UC_Image_GiftCode_Cliente.Source = Barcode.Barcode.CreateBarcodeToImage(string.Format("GC-{0}", value), Barcode.BarcodeEncoding.Code39);
         }
     }
 }

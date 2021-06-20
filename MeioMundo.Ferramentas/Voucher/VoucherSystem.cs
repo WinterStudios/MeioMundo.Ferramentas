@@ -50,7 +50,7 @@ namespace MeioMundo.Ferramentas.Voucher
             }
             return control;
         }
-        private static UserControl GetBack(int prinxe, int serialNumber)
+        private static UserControl GetBack(int price, int serialNumber)
         {
             UserControl control = new UserControl();
             control.Width = (double)new LengthConverter().ConvertFromString("21cm");
@@ -75,7 +75,20 @@ namespace MeioMundo.Ferramentas.Voucher
             }
             return control;
         }
+        internal static UIElement GetVoucherPreview(int price, int serialNumber)
+        {
+            StackPanel stack = new StackPanel();
 
+            Modelo.VoucherModelo_Front front = new Modelo.VoucherModelo_Front();
+            front.GiftValue = price;
+            Modelo.VoucherModelo_Back back = new Modelo.VoucherModelo_Back(price, serialNumber);
+
+            stack.Orientation = Orientation.Vertical;
+            stack.Children.Add(front);
+            stack.Children.Add(back);
+
+            return (UIElement)stack;
+        }
 
     }
 }

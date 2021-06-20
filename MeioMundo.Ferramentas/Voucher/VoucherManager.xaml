@@ -23,15 +23,12 @@
                 <Grid>
                     <Grid.LayoutTransform>
                         <TransformGroup>
-                            <ScaleTransform x:Name="scaleTransform" CenterX="0.5" ScaleX="0.5" ScaleY="0.5"/>
+                            <ScaleTransform x:Name="scaleTransform" CenterX="0.5" ScaleX="1" ScaleY="1"/>
                         </TransformGroup>
                     </Grid.LayoutTransform>
                     <Viewbox>
-                        <Grid>
-                            <StackPanel Orientation="Vertical">
-                                <localModelo:VoucherModelo_Front/>
-                                <localModelo:VoucherModelo_Back/>
-                            </StackPanel>
+                        <Grid x:Name="UC_VoucherPreview_Grid">
+                            
                         </Grid>
                     </Viewbox>
                 </Grid>

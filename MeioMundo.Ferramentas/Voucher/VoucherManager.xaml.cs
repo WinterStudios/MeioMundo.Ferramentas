@@ -22,6 +22,8 @@ namespace MeioMundo.Ferramentas.Voucher
     {
         public int GitfCar_Value { get => _giftCar_Value; set => _giftCar_Value = value; }
         public int _giftCar_Value;
+        public UIElement PreviewGiftCard { get => _previewGiftCard; set => _previewGiftCard = value; }
+        private UIElement _previewGiftCard;
         public VoucherManager()
         {
             InitializeComponent();

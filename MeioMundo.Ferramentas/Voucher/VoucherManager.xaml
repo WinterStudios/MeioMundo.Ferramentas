@@ -9,9 +9,13 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" MinHeight="80"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="*" MinWidth="250"/>
+        </Grid.ColumnDefinitions>
         <DockPanel>
             <GroupBox Header="Valor">
                 <ComboBox x:Name="UC_ComboBox_GiftCard_Value" IsEditable="True"/>
@@ -34,6 +38,13 @@
                 </Grid>
             </ScrollViewer>
         </Border>
+
+
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+            <GroupBox Header="Gift Card">
+                
+            </GroupBox>
+        </StackPanel>
     </Grid>
 </UserControl>
 

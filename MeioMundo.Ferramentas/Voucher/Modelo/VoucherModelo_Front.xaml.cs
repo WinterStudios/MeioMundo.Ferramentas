@@ -26,5 +26,10 @@ namespace MeioMundo.Ferramentas.Voucher.Modelo
         {
             InitializeComponent();
         }
+        public VoucherModelo_Front(int value)
+        {
+            InitializeComponent();
+            textValue.Text = value.ToString();
+        }
     }
 }

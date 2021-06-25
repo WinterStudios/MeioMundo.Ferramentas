@@ -38,7 +38,7 @@ namespace MeioMundo.Ferramentas.Voucher
 
         private void VoucherManager_Loaded(object sender, RoutedEventArgs e)
         {
-            UC_VoucherPreview_Grid.Children.Add(VoucherSystem.GetVoucherPreview((int)UC_ComboBox_GiftCard_Value.SelectedItem, 30));
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -46,8 +46,14 @@ namespace MeioMundo.Ferramentas.Voucher
             string tag = ((Button)sender).Tag.ToString();
             if(tag == "__Print_Gifts")
             {
-                VoucherSystem.PrintTest(GitfCar_Value);
+                VoucherSystem.PrintTest((int)UC_ComboBox_GiftCard_Value.SelectedValue);
             }
+        }
+
+        private void UC_ComboBox_GiftCard_Value_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            PreviewGiftCard = VoucherSystem.GetVoucherPreview((int)UC_ComboBox_GiftCard_Value.SelectedValue, 30);
+            UC_VoucherPreview_Border.Child = PreviewGiftCard;
         }
     }
 }

@@ -14,10 +14,11 @@
     <Border>
         <Grid>
             <Image Source="/MeioMundo.Ferramentas;component/Voucher/Modelo/Voucher_New.png" />
-            <TextBlock Foreground="{DynamicResource ValueColor}" Margin="0,0,1cm,1cm" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Run Text="{Binding GiftValue, RelativeSource={RelativeSource AncestorType=local:VoucherModelo_Front}}" FontSize="100pt" FontFamily="Segoe UI" FontWeight="Bold"/>
-                <Run Text="€" FontSize="50pt" FontFamily="Segoe UI" FontWeight="Bold"/>
-            </TextBlock>
+            <StackPanel Margin="0,0,1cm,1cm" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal">
+                <TextBlock x:Name="textValue" Foreground="{DynamicResource ValueColor}" FontSize="100pt" FontFamily="Segoe UI" FontWeight="Bold" VerticalAlignment="Bottom"/>
+                <TextBlock VerticalAlignment="Bottom" Foreground="{DynamicResource ValueColor}" Text="€" FontSize="50pt" FontFamily="Segoe UI" FontWeight="Bold" Margin="0,0,0,0.4cm" />
+            </StackPanel>
+            
         </Grid>
     </Border>
 </UserControl>

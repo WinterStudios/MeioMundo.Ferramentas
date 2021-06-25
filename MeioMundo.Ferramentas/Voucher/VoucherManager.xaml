@@ -17,10 +17,8 @@
             <ColumnDefinition Width="*" MinWidth="250"/>
         </Grid.ColumnDefinitions>
         <DockPanel>
-            <GroupBox Header="Valor">
-                <ComboBox x:Name="UC_ComboBox_GiftCard_Value" IsEditable="True"/>
-            </GroupBox>
-            <Button Content="Imprimir" Click="Button_Click" Tag="__Print_Gifts"/>
+            
+                
         </DockPanel>
         <Border Grid.Row="1">
             <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" >
@@ -31,9 +29,9 @@
                         </TransformGroup>
                     </Grid.LayoutTransform>
                     <Viewbox>
-                        <Grid x:Name="UC_VoucherPreview_Grid">
+                        <Border x:Name="UC_VoucherPreview_Border">
                             
-                        </Grid>
+                        </Border>
                     </Viewbox>
                 </Grid>
             </ScrollViewer>
@@ -42,7 +40,23 @@
 
         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
             <GroupBox Header="Gift Card">
-                
+                <StackPanel Orientation="Vertical">
+                    <ComboBox x:Name="UC_ComboBox_GiftCard_Value" IsEditable="True" SelectionChanged="UC_ComboBox_GiftCard_Value_SelectionChanged"/>
+                    <Button Content="Imprimir" Click="Button_Click" Tag="__Print_Gifts"/>
+                    <GroupBox Header="Serie">
+                        <TextBox Text="UC_TextBox_VoucherSerie"/>
+                    </GroupBox>
+                    <GroupBox Header="Base de Dados">
+                        <DataGrid x:Name="UC_DataGrid_GiftCards">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Valor" Width="40"/>
+                                <DataGridTextColumn Header="Qtd. Disp" Width="*"/>
+                                <DataGridTextColumn Header="Qtd. Vend" Width="*"/>
+                                <DataGridTextColumn Header="Qtd. Usados" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                </StackPanel>
             </GroupBox>
         </StackPanel>
     </Grid>

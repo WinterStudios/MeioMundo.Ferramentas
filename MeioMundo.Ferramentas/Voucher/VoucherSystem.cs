@@ -1,6 +1,8 @@
-﻿using System;
+﻿using MeioMundo.Ferramentas.Voucher.Modelo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,7 +23,7 @@ namespace MeioMundo.Ferramentas.Voucher
                 controls[0] = GetFront(value);
                 controls[1] = GetBack(value, 0);
             }
-
+            
             MeioMundo.Ferramentas.Internal.PrintSystem.Print(controls);
         }
 
@@ -44,8 +46,9 @@ namespace MeioMundo.Ferramentas.Voucher
             for (int i = 0; i < rep; i++)
             {
                 Viewbox viewboxVoucher = new Viewbox();
-                Modelo.VoucherModelo_Front front = new Modelo.VoucherModelo_Front();
+                Modelo.VoucherModelo_Front front = new Modelo.VoucherModelo_Front(price);
                 viewboxVoucher.Child = front;
+                
                 stackPanel.Children.Add(viewboxVoucher);
             }
             return control;
@@ -71,6 +74,7 @@ namespace MeioMundo.Ferramentas.Voucher
                 Viewbox viewboxVoucher = new Viewbox();
                 Modelo.VoucherModelo_Back back = new Modelo.VoucherModelo_Back();
                 viewboxVoucher.Child = back;
+
                 stackPanel.Children.Add(viewboxVoucher);
             }
             return control;
@@ -79,16 +83,19 @@ namespace MeioMundo.Ferramentas.Voucher
         {
             StackPanel stack = new StackPanel();
 
-            Modelo.VoucherModelo_Front front = new Modelo.VoucherModelo_Front();
-            front.GiftValue = price;
+            Modelo.VoucherModelo_Front front = new Modelo.VoucherModelo_Front(price);
+            
             Modelo.VoucherModelo_Back back = new Modelo.VoucherModelo_Back(price, serialNumber);
-
+            
             stack.Orientation = Orientation.Vertical;
             stack.Children.Add(front);
             stack.Children.Add(back);
 
             return (UIElement)stack;
         }
+        internal static void SetGiftCardExit()
+        {
 
+        }
     }
 }

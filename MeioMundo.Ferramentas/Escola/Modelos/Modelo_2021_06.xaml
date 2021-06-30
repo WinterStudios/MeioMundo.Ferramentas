@@ -118,7 +118,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Disciplina" Binding="{Binding FullNome}" Width="3cm"/>
                         <DataGridTextColumn Header="ISBN" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_ISBN}" Width="2.5cm"/>
-                        <DataGridTextColumn Header="Nome do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Nome}" Width="*" />
+                        <DataGridTextColumn Header="Nome do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Nome}" Width="8.47cm" />
                         <DataGridTextColumn Header="Autor do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Autor}" Width="3cm"/>
                         <DataGridTextColumn Header="Editora do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Editora}" Width="3cm"/>
                     </DataGrid.Columns>

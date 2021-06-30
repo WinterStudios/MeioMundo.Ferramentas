@@ -13,7 +13,13 @@
     </UserControl.Resources>
     <Border>
         <Grid>
-            <Image Source="/MeioMundo.Ferramentas;component/Voucher/Modelo/Voucher_New.png" />
+            <Image>
+                <Image.Source>
+                    <BitmapImage UriSource="/MeioMundo.Ferramentas;component/Voucher/Modelo/Voucher_New.png" CacheOption="OnLoad" >
+                        
+                    </BitmapImage>
+                </Image.Source>
+            </Image>
             <StackPanel Margin="0,0,1cm,1cm" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal">
                 <TextBlock x:Name="textValue" Foreground="{DynamicResource ValueColor}" FontSize="100pt" FontFamily="Segoe UI" FontWeight="Bold" VerticalAlignment="Bottom"/>
                 <TextBlock VerticalAlignment="Bottom" Foreground="{DynamicResource ValueColor}" Text="€" FontSize="50pt" FontFamily="Segoe UI" FontWeight="Bold" Margin="0,0,0,0.4cm" />

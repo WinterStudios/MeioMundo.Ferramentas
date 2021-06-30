@@ -40,9 +40,10 @@
         <Border Margin="1cm">
             <StackPanel>
                 <TextBlock Text="Como resgatar o seu Gift Card" Style="{DynamicResource Header}"/>
-                <TextBlock Text="Para usar o seu Gift Card, dirija-se á Papelaria Meio Mundo e escolha os produtos que deseja. No Ato de pagamento apresente o seu Gift Card para que seja feito o desconto na fatura." Style="{DynamicResource Normal}"/>
+                <TextBlock Text="Para usar o seu Gift Card, dirija-se à Papelaria Meio Mundo e escolha os produtos que deseja." Style="{DynamicResource Normal}"/>
+                <TextBlock Text="No ato de pagamento apresente o seu Gift Card para que seja feito o desconto na fatura." Style="{DynamicResource Normal}"/>
                 <TextBlock Text="Termos e condições:" Style="{DynamicResource Header}"/>
-                <RichTextBox BorderThickness="0" IsReadOnly="True" Focusable="False" Background="Transparent">
+                <RichTextBox BorderThickness="0" IsReadOnly="True" Focusable="False" Background="Transparent" TextChanged="RichTextBox_TextChanged">
                     <FlowDocument FontFamily="Segoe UI">
                         <List MarkerStyle="Decimal" Margin="0">
                             <List.Style>
@@ -55,19 +56,19 @@
                                 </Style>
                             </List.Style>
                             <ListItem>
-                                <Paragraph>O Gift Card é valido até: 3 meses após a compra deste mesmo.</Paragraph>
+                                <Paragraph>O Gift Card é válido até 3 meses após a compra do mesmo.</Paragraph>
                             </ListItem>
                             <ListItem>
                                 <Paragraph>O Gift Card é transacionável (pode ser dado a uma outra pessoa como um presente).</Paragraph>
                             </ListItem>
                             <ListItem>
-                                <Paragraph>Este Gift Card é o equivalente a uma "nota de crédito".</Paragraph>
+                                <Paragraph>Este Gift Card é equivalente a uma "nota de crédito".</Paragraph>
                             </ListItem>
                             <ListItem>
-                                <Paragraph>O uso do Gift Card esta sujeito aos termos e condições presentes na loja física e na loja online.</Paragraph>
+                                <Paragraph>O uso do Gift Card está sujeito aos termos e condições presentes na loja física.</Paragraph>
                             </ListItem>
                             <ListItem>
-                                <Paragraph>A Meio Mundo não pode ser responsabilizada por Gift Card que, depois de ativados, sejam roubados, perdidos, desativados ou danificados. Trate o Gift Card como se fossem dinheiro.</Paragraph>
+                                <Paragraph>A Meio Mundo não se responsabiliza pelo Gift Card que, depois de ativo, seja roubado, perdido, desativado ou danificado. Trate o seu Gift Card como se fosse dinheiro.</Paragraph>
                             </ListItem>
                         </List>
                     </FlowDocument>
@@ -75,7 +76,7 @@
             </StackPanel>
         </Border>
 
-        <Image x:Name="UC_Image_GiftCode" HorizontalAlignment="Left" Stretch="Uniform" VerticalAlignment="Bottom" Height="0.5cm" Margin="1cm" RenderOptions.BitmapScalingMode="HighQuality"/>
-        <Image x:Name="UC_Image_GiftCode_Cliente" HorizontalAlignment="Right" Stretch="Uniform" VerticalAlignment="Bottom"  Height="0.5cm" Margin="1cm" RenderOptions.BitmapScalingMode="HighQuality" />
+        <Image x:Name="UC_Image_GiftCode" HorizontalAlignment="Left" Stretch="Uniform" VerticalAlignment="Bottom" Height="0.6cm" Margin="1cm" RenderOptions.BitmapScalingMode="HighQuality"/>
+        <Image x:Name="UC_Image_GiftCode_Cliente" HorizontalAlignment="Right" Stretch="Uniform" VerticalAlignment="Bottom"  Height="0.6cm" Margin="1cm" RenderOptions.BitmapScalingMode="HighQuality" />
     </Grid>
 </UserControl>

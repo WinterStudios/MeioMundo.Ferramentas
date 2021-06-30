@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -46,14 +47,28 @@ namespace MeioMundo.Ferramentas.Voucher
             string tag = ((Button)sender).Tag.ToString();
             if(tag == "__Print_Gifts")
             {
-                VoucherSystem.PrintTest((int)UC_ComboBox_GiftCard_Value.SelectedValue);
+                try
+                {
+                    VoucherSystem.PrintTest((int)UC_ComboBox_GiftCard_Value.SelectedValue, VoucherSystem.GetLastSerialNumber() + 1);
+                }
+                catch { }
+                
             }
         }
 
         private void UC_ComboBox_GiftCard_Value_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (!this.IsLoaded)
+                return;
             PreviewGiftCard = VoucherSystem.GetVoucherPreview((int)UC_ComboBox_GiftCard_Value.SelectedValue, 30);
             UC_VoucherPreview_Border.Child = PreviewGiftCard;
+            GC.Collect();
+        }
+
+        private void UC_TextBox_VoucherSerie_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            e.Handled = Regex.IsMatch(e.Text, "[^0-9]+");
         }
     }
 }

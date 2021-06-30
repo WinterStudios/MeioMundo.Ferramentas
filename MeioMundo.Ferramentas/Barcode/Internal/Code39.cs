@@ -69,7 +69,13 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
         {
             /// <value>*</value>
             public static byte[] _asterisk => new byte[] { 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1 };
-            public static byte[] _less => new byte[] { 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1 };
+            public static byte[] _less => new byte[] { 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1 }; // Leitor le:"'"
+            public static byte[] _space => new byte[] { 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0 };
+            public static byte[] _dolar => new byte[] { 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1 };
+            public static byte[] _percent => new byte[] { 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1 };
+            public static byte[] _plus => new byte[] { 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1 };     // Leitor le: "»"
+            public static byte[] _dot => new byte[] { 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1 };
+            public static byte[] _slash_r => new byte[] { 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1 };            // Leitor le: "-"
             public static byte[] _0 => new byte[] { 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1 };
             public static byte[] _1 => new byte[] { 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1 };
             public static byte[] _2 => new byte[] { 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1 };
@@ -119,7 +125,15 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
                     case '*':
                         return _asterisk;
                     case '-':
-                        return _less;
+                        return _slash_r; // _less;
+                    case '$':
+                        return _dolar;
+                    case ' ':
+                        return _space;
+                    case '%':
+                        return _percent;
+                    case '+':
+                        return _plus;
                     case '0':
                         return _0;
                     case '1':

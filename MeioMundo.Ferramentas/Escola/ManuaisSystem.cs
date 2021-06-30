@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -179,6 +181,14 @@ namespace MeioMundo.Ferramentas.Escola
                 string json = System.IO.File.ReadAllText(livrosFile);
                 Livros = System.Text.Json.JsonSerializer.Deserialize<Internal.Livro[]>(json).ToList();
             }
+        }
+
+        public static void SaveLivros()
+        {
+            string livrosFile = DataLocationFolder + "Livros.json";
+
+            string json = System.Text.Json.JsonSerializer.Serialize(Livros, new JsonSerializerOptions() { WriteIndented = true });
+            File.WriteAllText(livrosFile, json);
         }
 
         #endregion

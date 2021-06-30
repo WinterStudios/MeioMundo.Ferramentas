@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using U_System.External;
 using U_System.External.Plugin;
@@ -68,6 +69,14 @@ namespace MeioMundo.Ferramentas
                 Path = "Ferramentas>Voucher",
                 PluginTypeBehavior = PluginTypeBehavior.Tab,
                 Icon = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/Icons/plugin.png"
+            },
+            new Module()
+            {
+                Name = "Emição de Voucheres",
+                Type = typeof(Voucher.VoucherEmition).FullName,
+                Path = "Ferramentas>Emição de Voucheres",
+                PluginTypeBehavior = PluginTypeBehavior.Tab,
+                Icon = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/Icons/plugin.png"
             }
         };
         public bool ShowWelcomePage => true;
@@ -88,6 +97,14 @@ namespace MeioMundo.Ferramentas
             AppContext.SetSwitch(@"Switch.System.Windows.Controls.DoNotAugmentWordBreakingUsingSpeller", true);
 
             Internal.FornecedorSystem.Inicialize();
+            try
+            {
+                Voucher.VoucherSystem.Inicialize();
+            }
+            catch (Exception ex)
+            {
+                var exd = ex;
+            }
         }
     }
 }

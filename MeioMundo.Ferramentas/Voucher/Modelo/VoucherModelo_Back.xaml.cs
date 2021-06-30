@@ -28,7 +28,12 @@ namespace MeioMundo.Ferramentas.Voucher.Modelo
         {
             InitializeComponent();
             UC_Image_GiftCode.Source = Barcode.Barcode.CreateBarcodeToImage(string.Format("MM-GIFTCARD-{0}", value), Barcode.BarcodeEncoding.Code39);
-            UC_Image_GiftCode_Cliente.Source = Barcode.Barcode.CreateBarcodeToImage(string.Format("GC-{0}{1}", value, serialNumber), Barcode.BarcodeEncoding.Code39);
+            UC_Image_GiftCode_Cliente.Source = Barcode.Barcode.CreateBarcodeToImage(string.Format("GC-{0}", serialNumber.ToString("000")), Barcode.BarcodeEncoding.Code39);
+        }
+
+        private void RichTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

@@ -4,8 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MeioMundo.Ferramentas.Escola"
+             xmlns:internal="clr-namespace:MeioMundo.Ferramentas.Escola.Internal"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="Editor_GetAnos" MethodName="GetAnosUX" ObjectType="{x:Type internal:EditorExtensions}"/>
+        <ObjectDataProvider x:Key="Editor_GetDisciplinas" MethodName="GetDisciplinasUX" ObjectType="{x:Type internal:EditorExtensions}"/>
+
+        <internal:IntToStringConvert x:Key="IntToStringConvert"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
@@ -15,7 +22,7 @@
             <RowDefinition MinHeight="30" Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <DataGrid x:Name="UC_DataGrid_Livros" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Source={x:Static local:ManuaisSystem.Livros}}" SelectedItem="{Binding Livro, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}" >
+        <DataGrid x:Name="UC_DataGrid_Livros" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="True" ItemsSource="{Binding Source={x:Static local:ManuaisSystem.Livros}}" SelectedItem="{Binding Livro, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ISBN" Width="100" Binding="{Binding ISBN}"/>
                 <DataGridTextColumn Header="Nome" Width="*" Binding="{Binding Nome}"/>
@@ -28,10 +35,10 @@
         <GroupBox Header="Livro Editor" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
             <StackPanel Orientation="Vertical">
                 <GroupBox Header="Ano">
-                    <ComboBox />
+                    <ComboBox ItemsSource="{Binding Source={StaticResource Editor_GetAnos}}" DisplayMemberPath="Nome" SelectedValue="{Binding Livro.Ano, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}" SelectedValuePath="ID" />
                 </GroupBox>
                 <GroupBox Header="Disciplina">
-                    <ComboBox />
+                    <ComboBox ItemsSource="{Binding Source={StaticResource Editor_GetDisciplinas}}" DisplayMemberPath="Nome" SelectedValue="{Binding Livro.Disciplina, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}" SelectedValuePath="ID" />
                 </GroupBox>
                 <GroupBox Header="ISBN">
                     <TextBox Text="{Binding Livro.ISBN, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}" />

@@ -36,8 +36,20 @@ namespace MeioMundo.Ferramentas.Escola
         public Editor_Livros()
         {
             InitializeComponent();
+            UC_DataGrid_Livros.RowEditEnding += UC_DataGrid_Livros_RowEditEnding;
+            UC_DataGrid_Livros.CellEditEnding += UC_DataGrid_Livros_CellEditEnding;
         }
 
+        private void UC_DataGrid_Livros_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            ManuaisSystem.SaveLivros();
+
+        }
+
+        private void UC_DataGrid_Livros_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            ManuaisSystem.SaveLivros();
+        }
 
     }
 }

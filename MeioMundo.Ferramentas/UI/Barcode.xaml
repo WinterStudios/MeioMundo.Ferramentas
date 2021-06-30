@@ -33,7 +33,7 @@
                     <TextBox x:Name="txt_box_Desc" Text="TextBlock"/>
                 </GroupBox>
                 <GroupBox Header="Referencia">
-                    <TextBox x:Name="UI_TB_Ref" TextWrapping="Wrap" Text="0123456789"/>
+                    <TextBox x:Name="UI_TB_Ref" TextWrapping="Wrap" Text="0123456789" TextChanged="UI_TB_Ref_TextChanged"/>
                 </GroupBox>
                 <GroupBox Header="Quantidade" >
                     <StackPanel Orientation="Horizontal">

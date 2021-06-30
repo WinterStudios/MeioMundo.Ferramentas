@@ -1,0 +1,240 @@
+﻿<UserControl x:Class="MeioMundo.Ferramentas.Correio.Internal.CartaBodyTemplate"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MeioMundo.Ferramentas.Correio.Internal"
+             xmlns:internal="clr-namespace:MeioMundo.Ferramentas.Internal"
+             xmlns:main="clr-namespace:MeioMundo.Ferramentas"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime.Extensions"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             Height="29.7cm" Width="21cm"
+             Background="White"
+             Foreground="Black"
+             >
+
+    <UserControl.Resources>
+        <internal:ConvertDoubleToDoubleNegative x:Key="ConvertDoubleToNegative"/>
+        <internal:StringToUpperConverter x:Key="StringToUpperConverter"/>
+        
+        <SolidColorBrush x:Key="Remetente.Foreground" Color="#007BE1"/>
+        <Style x:Key="EmpresaSide" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segui UI"/>
+            <Setter Property="FontSize" Value="8pt"/>
+        </Style>
+        <Style x:Key="EmpresaSideMorada" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segui UI"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="8pt"/>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Border Padding="0.5cm">
+        <Grid>
+            <Border HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                <Border.LayoutTransform>
+                    <RotateTransform Angle="-90"/>
+                </Border.LayoutTransform>
+                <TextBlock x:Name="leftSideText" FontSize="7pt" FontWeight="Light" FontFamily="Calibri">
+                    <Run Text="{Binding Source={x:Static main:MeioMundoInformation.DominaçãoSocial}, Mode=OneTime, Converter={StaticResource StringToUpperConverter}}"/>
+                    <Run Text=", "/>
+                    <Run Text="{Binding Source={x:Static main:MeioMundoInformationMorada.Rua}, Mode=OneTime, Converter={StaticResource StringToUpperConverter}}"/>
+                    <Run Text=", "/>
+                    <Run Text="{Binding Source={x:Static main:MeioMundoInformationMorada.CodigoPostal}, Mode=OneTime, Converter={StaticResource StringToUpperConverter}}"/>
+                    <Run Text=", NIF:"/>
+                    <Run Text="{Binding Source={x:Static main:MeioMundoInformation.NIF}, Mode=OneTime, Converter={StaticResource StringToUpperConverter}}"/>
+                </TextBlock>
+            </Border>
+
+            <Grid Margin="0.75cm">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Rectangle Width="0.75cm" Height="0.5pt" Fill="Black" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,-1.25cm,0"/>
+                <!--Zona da Cabeça de Carta | o primeiro terço da primeira folha-->
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top"  Grid.ColumnSpan="2" Grid.RowSpan="2">
+                        <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="/MeioMundo.Ferramentas;component/Assets/carta-logo.png" Width="5cm" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock/>
+                        <StackPanel>
+                            <TextBlock Style="{DynamicResource EmpresaSideMorada}" Text="{Binding Source={x:Static main:MeioMundoInformation.DominaçãoSocial}, Converter={StaticResource StringToUpperConverter}}"/>
+                            <TextBlock Style="{DynamicResource EmpresaSideMorada}" Text="{Binding Source={x:Static main:MeioMundoInformationMorada.Rua}, Converter={StaticResource StringToUpperConverter}}"/>
+                            <TextBlock Style="{DynamicResource EmpresaSideMorada}" Text="{Binding Source={x:Static main:MeioMundoInformationMorada.CodigoPostal}, Converter={StaticResource StringToUpperConverter}}"/>
+                            <TextBlock Style="{DynamicResource EmpresaSideMorada}" Text="{Binding Source={x:Static main:MeioMundoInformationMorada.Pais}, Converter={StaticResource StringToUpperConverter}}"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,0.2cm">
+                            <TextBlock Style="{DynamicResource EmpresaSide}" >
+                                <Run Text="NIF: "/>
+                                <Run Text="{Binding Source={x:Static main:MeioMundoInformation.NIF}, Mode=OneTime}"/>
+                            </TextBlock>
+                            <TextBlock Style="{DynamicResource EmpresaSide}">
+                                <Run Text="Capital Social: "/>
+                                <Run Text="{Binding Source={x:Static main:MeioMundoInformation.CapitalSocial}, Mode=OneTime}"/>
+                            </TextBlock>
+                            <TextBlock Style="{DynamicResource EmpresaSide}" Text="Registada na C.R.C Oliveira do Hospital" />
+                        </StackPanel>
+                        <StackPanel>
+                            <DockPanel LastChildFill="True">
+                                <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-phone.png" Width="0.4cm" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality" Margin="0,0,0.2cm,0"/>
+                                <TextBlock Style="{DynamicResource EmpresaSide}" Text="{Binding Source={x:Static main:MeioMundoInformation.Telefone}, Mode=OneTime}" VerticalAlignment="Center"/>
+                            </DockPanel>
+                            <DockPanel LastChildFill="True">
+                                <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-mail.png" Width="0.4cm" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality" Margin="0,0,0.2cm,0"/>
+                                <TextBlock Style="{DynamicResource EmpresaSide}" Text="{Binding Source={x:Static main:MeioMundoInformation.Email}, Mode=OneTime}" VerticalAlignment="Center"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-web.png" Width="0.4cm" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality" Margin="0,0,0.2cm,0"/>
+                                <TextBlock Style="{DynamicResource EmpresaSide}" Text="{Binding Source={x:Static main:MeioMundoInformation.WebPage}, Mode=OneTime}" VerticalAlignment="Center"/>
+                            </DockPanel>
+
+                        </StackPanel>
+
+                    </StackPanel>
+                    <Border x:Name="mainBorder" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Left" Margin="9cm,2.5cm,1cm,.9cm" Padding="0.1cm">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-.3pt,0,0,0" BorderThickness="0">
+                                <Button x:Name="fornSearch" Height="24px" Width="24px" Tag="__SelectForn" Click="Button_Click" Padding="4px">
+                                    <Button.Content>
+                                        <Image Source="/MeioMundo.Ferramentas;component/Assets/Icons/search.png" />
+                                    </Button.Content>
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Visibility" Value="Hidden"/>
+                                            <Setter Property="BorderThickness" Value=".4pt"/>
+                                            <Setter Property="Background" Value="Transparent"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=mainBorder, Path=IsMouseOver}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding ElementName=fornMorada, Path=IsFocused}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                    <Setter Property="BorderBrush" Value="LightBlue"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </Border>
+
+                            <Border x:Name="subBorder" Grid.Row="1">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="Exmo.(s) Senhor(es)" FontFamily="Calibri" FontSize="12pt" Margin="4pt,0,0,0"/>
+                                    <RichTextBox AcceptsReturn="True" x:Name="fornMorada" FontSize="12pt" TextBlock.LineHeight="2.65pt" FontFamily="Calibri" Background="White"
+                                         BorderThickness="0" BorderBrush="Transparent" Margin="0,5pt,0,0">
+                                        <RichTextBox.Style>
+                                            <Style TargetType="RichTextBox">
+                                                <Setter Property="Margin" Value="0"/>
+                                                <Setter Property="Padding" Value="0"/>
+                                            </Style>
+                                        </RichTextBox.Style>
+                                    </RichTextBox>
+                                </StackPanel>
+                                <Border.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="BorderBrush" Value="Transparent"/>
+                                        <Setter Property="BorderThickness" Value=".40pt"/>
+                                        <Setter Property="Margin" Value="-.2pt"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="BorderBrush" Value="Gray"/>
+                                            </Trigger>
+                                            <DataTrigger Binding="{Binding ElementName=fornMorada, Path=IsFocused}" Value="True">
+                                                <Setter Property="BorderBrush" Value="LightBlue"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <TextBlock x:Name="dateTimeToday" FontSize="10pt" FontWeight="Normal" FontFamily="Calibri" Margin="1.5cm,-0.55cm,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Border x:Name="richboxTools">
+                        <Border.RenderTransform>
+                            <TranslateTransform X="{Binding ElementName=richboxTools, Path=ActualHeight, Converter={StaticResource ConvertDoubleToNegative}}" />
+                        </Border.RenderTransform>
+                    </Border>
+                    <StackPanel Margin="1.5cm,0">
+                        <Grid VerticalAlignment="Top" Margin="0,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="0" FontFamily="Calibri" Text="Assunto:" VerticalAlignment="Center" Margin="0,1pt,0,0" FontWeight="Bold" FontSize="11pt"/>
+                            <TextBox Grid.Column="1" Grid.RowSpan="2" FontFamily="Calibri" FontWeight="Bold" FontSize="11pt"
+                                     Text="Assunto a por aqui" VerticalAlignment="Center" BorderBrush="Transparent" AcceptsReturn="True" BorderThickness="1pt"/>
+                        </Grid>
+                        <RichTextBox x:Name="richtextbox" Visibility="Visible" FontSize="11pt" AcceptsReturn="True" AcceptsTab="True" TextBlock.TextAlignment="Justify"
+                                     Margin="0cm,0.5cm,0cm,0" VerticalAlignment="Top"
+                                     MinHeight="3cm" SelectionChanged="richtextbox_SelectionChanged" xml:lang="pt-PT" SpellCheck.IsEnabled="True" >
+                            
+
+                            <FlowDocument>
+                                <Paragraph TextIndent="1.27cm">
+                                    <Run>Insira aqui o seu texto...</Run>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Run>
+                                </Paragraph>
+                            </FlowDocument>
+                            <RichTextBox.Style>
+                                <Style TargetType="RichTextBox">
+                                    <Setter Property="SpellCheck.IsEnabled" Value="False"/>
+                                    <Setter Property="SpellCheck.SpellingReform" Value="Postreform"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsFocused" Value="False">
+                                            <Setter Property="BorderBrush" Value="Transparent"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </RichTextBox.Style>
+                            <RichTextBox.Resources>
+                                <Style TargetType="{x:Type Paragraph}">
+                                    <Setter Property="Margin" Value="0,0pt"/>
+                                    <Setter Property="TextIndent" Value="1.27cm"/>
+                                    <Setter Property="LineHeight" Value="19pt"/>
+                                </Style>
+                            </RichTextBox.Resources>
+                        </RichTextBox>
+                    </StackPanel>
+                    
+                </Grid>
+            </Grid>
+            <Border Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="0" BorderBrush="Black" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding Source={x:Static main:MeioMundoInformation.DominaçãoSocial}}" FontSize="7pt" FontWeight="Light" FontFamily="Calibri"/>
+                    </StackPanel>
+                    <TextBlock x:Name="pageNumber" Grid.Column="2" Text="Pagina 1 de 1" FontSize="7pt" FontWeight="Light" FontFamily="Calibri" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+
+</UserControl>

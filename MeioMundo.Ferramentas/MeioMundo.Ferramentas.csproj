@@ -1,0 +1,145 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+     <PackageCopyToOutput>true</PackageCopyToOutput>
+    <FileVersion>21.5.13.0</FileVersion>    
+
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>C:\Users\hugo_\GitHub\U-System\U-System\bin\Debug\Plugins\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="UX\**" />
+    <EmbeddedResource Remove="UX\**" />
+    <None Remove="UX\**" />
+    <Page Remove="UX\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\barcode.png" />
+    <None Remove="Assets\books-ico.png" />
+    <None Remove="Assets\books.png" />
+    <None Remove="Assets\boxes.png" />
+    <None Remove="Assets\carta-logo.png" />
+    <None Remove="Assets\carta-mail.png" />
+    <None Remove="Assets\carta-phone.png" />
+    <None Remove="Assets\carta-selo.png" />
+    <None Remove="Assets\carta-web.png" />
+    <None Remove="Assets\correio-azul.png" />
+    <None Remove="Assets\correio-intrucoesdeimpressao.png" />
+    <None Remove="Assets\correio-registado.png" />
+    <None Remove="Assets\correio-verde.png" />
+    <None Remove="Assets\down-arrow.png" />
+    <None Remove="Assets\email.png" />
+    <None Remove="Assets\envelope.png" />
+    <None Remove="Assets\global.png" />
+    <None Remove="Assets\globe.png" />
+    <None Remove="Assets\Icons\barcode.png" />
+    <None Remove="Assets\Icons\bold-text.png" />
+    <None Remove="Assets\Icons\book %281%29.png" />
+    <None Remove="Assets\Icons\book.png" />
+    <None Remove="Assets\Icons\copy.png" />
+    <None Remove="Assets\Icons\cut.png" />
+    <None Remove="Assets\Icons\envelope.png" />
+    <None Remove="Assets\Icons\italics.png" />
+    <None Remove="Assets\Icons\newFile.png" />
+    <None Remove="Assets\Icons\page_break.png" />
+    <None Remove="Assets\Icons\plugin.png" />
+    <None Remove="Assets\Icons\search.png" />
+    <None Remove="Assets\Icons\Text\text_bold.png" />
+    <None Remove="Assets\Icons\Text\text_italic.png" />
+    <None Remove="Assets\Icons\Text\text_strikethough.png" />
+    <None Remove="Assets\Icons\Text\text_subscript.png" />
+    <None Remove="Assets\Icons\Text\text_superscript.png" />
+    <None Remove="Assets\Icons\Text\text_underline.png" />
+    <None Remove="Assets\menu.png" />
+    <None Remove="Assets\more.png" />
+    <None Remove="Assets\search.png" />
+    <None Remove="Assets\settings.png" />
+    <None Remove="Assets\up-arrow.png" />
+    <None Remove="Resources\Icons\paste.png" />
+    <None Remove="Resources\Icons\plus.png" />
+    <None Remove="Voucher\Modelo\barcode.gif" />
+    <None Remove="Voucher\Modelo\Voucher_New.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="U-System.Core">
+      <HintPath>..\..\U-System\U-System.Core\bin\Debug\net5.0-windows\ref\U-System.Core.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="U-System.External">
+      <HintPath>..\..\U-System\U-System\bin\Debug\U-System.External.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\books-ico.png" />
+    <Resource Include="Assets\books.png" />
+    <Resource Include="Assets\boxes.png" />
+    <Resource Include="Assets\carta-logo.png" />
+    <Resource Include="Assets\carta-mail.png" />
+    <Resource Include="Assets\carta-phone.png" />
+    <Resource Include="Assets\carta-web.png" />
+    <Resource Include="Assets\correio-intrucoesdeimpressao.png" />
+    <Resource Include="Assets\correio-registado.png" />
+    <Resource Include="Assets\carta-selo.png" />
+    <Resource Include="Assets\correio-azul.png" />
+    <Resource Include="Assets\correio-verde.png" />
+    <Resource Include="Assets\down-arrow.png" />
+    <Resource Include="Assets\email.png" />
+    <Resource Include="Assets\global.png" />
+    <Resource Include="Assets\globe.png" />
+    <Resource Include="Assets\Icons\barcode.png" />
+    <Resource Include="Assets\Icons\book (1).png" />
+    <Resource Include="Assets\Icons\book.png" />
+    <Resource Include="Assets\Icons\copy.png" />
+    <Resource Include="Assets\Icons\cut.png" />
+    <Resource Include="Assets\Icons\envelope.png" />
+    <Resource Include="Assets\Icons\newFile.png" />
+    <Resource Include="Assets\Icons\page_break.png" />
+    <Resource Include="Assets\Icons\plugin.png" />
+    <Resource Include="Assets\Icons\search.png" />
+    <Resource Include="Assets\Icons\Text\text_bold.png" />
+    <Resource Include="Assets\Icons\Text\text_italic.png" />
+    <Resource Include="Assets\Icons\Text\text_strikethough.png" />
+    <Resource Include="Assets\Icons\Text\text_subscript.png" />
+    <Resource Include="Assets\Icons\Text\text_superscript.png" />
+    <Resource Include="Assets\Icons\Text\text_underline.png" />
+    <Resource Include="Assets\menu.png" />
+    <Resource Include="Assets\more.png" />
+    <Resource Include="Assets\search.png" />
+    <Resource Include="Assets\settings.png" />
+    <Resource Include="Assets\up-arrow.png" />
+    <Resource Include="Resources\Icons\paste.png" />
+    <Resource Include="Resources\Icons\plus.png" />
+    <Resource Include="Voucher\Modelo\barcode.gif" />
+    <Resource Include="Voucher\Modelo\Voucher_New.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Escola\Modelos\Modelo_2021_06_Escolha_Primaria.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Escola\Modelos\Modelo_2021_06_Box.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Escola\Modelos\Modelo_2021_06.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+
+</Project>

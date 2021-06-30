@@ -1,0 +1,117 @@
+﻿<UserControl x:Class="MeioMundo.Ferramentas.Escola.UC_PrindDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MeioMundo.Ferramentas.Escola" d:DataContext="{d:DesignInstance Type=local:PagEncomendasEscolares}"
+             mc:Ignorable="d" 
+             d:Width="480" d:Height="240" DataContext="{x:Type local:UC_PrindDialog}"
+             >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/MeioMundo.Ferramentas;component/Resources/Icons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <ObjectDataProvider x:Key="GetEscolas" MethodName="GetEscolas" ObjectType="{x:Type local:ManuaisSystem}"/>
+            <ObjectDataProvider x:Key="GetCopies" MethodName="GetCopies" ObjectType="{x:Type local:ManuaisSystem}"/>
+        </ResourceDictionary>
+        
+
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <GroupBox Header="Escola">
+                    <ComboBox x:Name="UC_ComboBox_PrintSelect_Escola_ToAdd" SelectionChanged="UC_ComboBox_PrintSelect_Escola_ToAdd_SelectionChanged" 
+                              Tag="__Escla_Select" DisplayMemberPath="Nome" SelectedItem="{Binding Encomenda.Escola, RelativeSource={RelativeSource AncestorType=local:UC_PrindDialog}}"/>
+                </GroupBox>
+                <GroupBox Header="Ano" Grid.Column="1">
+                    <Border Grid.Row="1" Grid.Column="1">
+                        <ComboBox x:Name="UC_ComboBox_PrintSelect_Escola_Ano_ToAdd" SelectedItem="{Binding Encomenda.SelectAno, RelativeSource={RelativeSource AncestorType=local:UC_PrindDialog}}"/>
+                    </Border>
+                </GroupBox>
+                <GroupBox Header="Copias" Grid.Column="2">
+                    <ComboBox ItemsSource="{Binding Source={StaticResource GetCopies}}" SelectedValue="1" SelectedItem="{Binding Encomenda.Copies, RelativeSource={RelativeSource AncestorType=local:UC_PrindDialog}}" IsEditable="True"/>
+                </GroupBox>
+                
+                
+                <Border Grid.Row="1" Grid.Column="3">
+                    <Button Style="{DynamicResource Button.Icon}" Content="{DynamicResource Btn.Icon.Add}" Click="Button_Click" Tag="__Escola_Add"/>
+                </Border>
+            </Grid>
+        </Border>
+        <Border Grid.Row="1">
+            <DataGrid  CanUserAddRows="False" x:Name="gridPrint" CanUserDeleteRows="True" AutoGenerateColumns="False" ItemsSource="{Binding Pags, RelativeSource={RelativeSource AncestorType=local:UC_PrindDialog}}"
+                      >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Width="30" IsReadOnly="True" Binding="{Binding ID}"/>
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="Escola"/>
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type local:PagEncomendasEscolares}">
+                                <ComboBox SelectedItem="{Binding Escola}" DisplayMemberPath="Nome" ItemsSource="{Binding Source={StaticResource GetEscolas}}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="Ano"/>
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type local:PagEncomendasEscolares}">
+                                <ComboBox SelectedItem="{Binding SelectAno, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Path=Escola.Anos}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!--<DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.Header>
+                            <Grid>
+                                <TextBlock Text="Escola"/>
+                            </Grid>
+                        </DataGridTemplateColumn.Header>
+                        --><!--<DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox ItemsSource="{Binding Source={StaticResource GetEscolas}}" x:Name="ComboBox1" DisplayMemberPath="Nome" SelectedItem="{Binding Escola, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <ComboBox Grid.Column="1" ItemsSource="{Binding SelectedItem.Anos, ElementName=ComboBox1}" SelectedItem="{Binding SelectAno}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>--><!--
+                    </DataGridTemplateColumn>-->
+                    <!--<DataGridTextColumn Header="Copias" Width="50" Binding="{Binding Copies}"/>-->
+                    <DataGridTemplateColumn Width="50">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="Copias"/>
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox ItemsSource="{Binding Source={StaticResource GetCopies}}" SelectedValue="1" SelectedItem="{Binding Copies }" IsEditable="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+        <Border Grid.Row="2" Margin="20,20">
+            <Button Content="Imprimir" Padding="10" Click="Button_Click" Tag="__PRINT" />
+        </Border>
+                
+    </Grid>
+</UserControl>

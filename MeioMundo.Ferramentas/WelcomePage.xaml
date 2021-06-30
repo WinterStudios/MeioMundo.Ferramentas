@@ -1,0 +1,158 @@
+﻿<UserControl x:Class="MeioMundo.Ferramentas.WelcomePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MeioMundo.Ferramentas"
+             mc:Ignorable="d" 
+             d:DesignHeight="720" d:DesignWidth="1280"
+             Background="{DynamicResource backgroundGradiente}"
+             
+             >
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="black"/>
+            <Setter Property="FontFamily" Value="Segoi UI"/>
+        </Style>
+        <SolidColorBrush x:Key="Button.Background" Color="#90409AB0"/>
+        <Style x:Key="btn.action" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource Button.Background}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="mainBorder" Background="{TemplateBinding Background}"
+                                Margin="4" Padding="12" CornerRadius="6">
+                            <ContentPresenter/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Duration="0:0:0.2" To="LightBlue"
+                                            Storyboard.TargetProperty="Background.Color"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Duration="0:0:0.2" To="#90409AB0"
+                                            Storyboard.TargetProperty="Background.Color"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+        <SolidColorBrush x:Name="d" x:Key="d" Color="#000"/>
+
+        <LinearGradientBrush x:Key="backgroundGradiente">
+            <GradientStop Color="#2980B9" Offset="0.0"/>
+            <GradientStop Color="#6DD5FA" Offset="0.5"/>
+            <GradientStop Color="#ffffff" Offset="1.0"/>
+        </LinearGradientBrush>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Viewbox>
+                <Border Padding="32">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Viewbox Margin="32" Width="64" Height="64">
+                            <Image Source="/MeioMundo.Ferramentas;component/Assets/books.png"/>
+                        </Viewbox>
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+                            <TextBlock Text="Zona Escolar" FontSize="32pt" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Viewbox>
+            <Border Grid.Row="1" >
+                <Viewbox>
+                    <StackPanel Orientation="Vertical">
+                        <Button Style="{DynamicResource btn.action}" Click="Button_Click" Tag="_MANUAL_ESCOLAR">
+                            <Button.Content>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="Encomendas Escolares" FontSize="14pt"/>
+                                    <TextBlock Text="Escolha a escola e o ano que deseje fazer a encomenda" 
+                                           TextWrapping="Wrap" FontWeight="Light"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </Viewbox>
+                
+            </Border>
+            
+        </Grid>
+
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Viewbox>
+                <Border Padding="32">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Viewbox Margin="32" Width="64" Height="64">
+                            <Image Source="/MeioMundo.Ferramentas;component/Assets/email.png"/>
+                        </Viewbox>
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+                            <TextBlock Text="Correio" FontSize="32pt" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Viewbox>
+            <Border Grid.Row="1" >
+                <Viewbox>
+                    <StackPanel Orientation="Vertical">
+                        <Button Style="{DynamicResource btn.action}" Click="Button_Click" Tag="_MANUAL_ESCOLAR">
+                            <Button.Content>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="Encomendas Escolares" FontSize="14pt"/>
+                                    <TextBlock Text="Escolha a escola e o ano que deseje fazer a encomenda" 
+                                           TextWrapping="Wrap" FontWeight="Light"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </Viewbox>
+
+            </Border>
+
+        </Grid>
+        <Button Visibility="Collapsed" Grid.Column="2" Click="Button_Click" Tag="_CORREIO" Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/MeioMundo.Ferramentas;component/Assets/email.png" Margin="64,64" />
+                <TextBlock Text="Correios" Grid.Row="1" FontSize="24pt" HorizontalAlignment="Center"/>
+            </Grid>
+        </Button>
+    </Grid>
+</UserControl>

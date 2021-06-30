@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="MeioMundo.Ferramentas.Correio.FornecedorSelect"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MeioMundo.Ferramentas.Correio"
+             xmlns:internal="clr-namespace:MeioMundo.Ferramentas.Internal"
+             
+             mc:Ignorable="d" 
+             Width="720"
+             Height="600"
+             >
+
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border>
+            <DataGrid x:Name="UC_DataGrid_Fornecedores" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding Source={x:Static internal:FornecedorSystem.Fornecedores}}" AutoGenerateColumns="False" SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=local:FornecedorSelect}, Path=Fornecedor}" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Width="50" Binding="{Binding ID}"/>
+                    <DataGridTextColumn Header="Nome" Width="*" Binding="{Binding Nome}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <ListView Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=local:FornecedorSelect}, Path=Fornecedor.Moradas}" HorizontalContentAlignment="Stretch"
+                  SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=local:FornecedorSelect},Path=Morada}">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type internal:Morada}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border Background="Black" HorizontalAlignment="Left" Padding="10,2">
+                            <TextBlock Text="{Binding _TipoMorada}" FontWeight="Bold" Foreground="White"/>
+                        </Border>
+                        <Border Grid.Row="1" BorderThickness=".5pt" BorderBrush="Black" CornerRadius="0" Padding="8">
+                            <StackPanel>
+                                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=local:FornecedorSelect}, Path=Fornecedor.Nome}"/>
+                                <TextBlock Text="{Binding Rua}"/>
+                                <TextBlock Text="{Binding Localidade}"/>
+                                <TextBlock Text="{Binding ZipCode}"/>
+                                <TextBlock Text="{Binding Country}"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Grid.Row="1" Content="Selecionar" Click="Button_Click" Tag="__RESULT"/>
+    </Grid>
+</UserControl>

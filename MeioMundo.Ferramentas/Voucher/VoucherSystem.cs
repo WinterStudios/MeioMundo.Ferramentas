@@ -38,7 +38,6 @@ namespace MeioMundo.Ferramentas.Voucher
         {
             Vouchers = new List<VoucherData>();
             try {
-                
                 Load();
             }
             catch (Exception ex)
@@ -49,15 +48,26 @@ namespace MeioMundo.Ferramentas.Voucher
 
         public static void Load()
         {
-            using (new Internal.Net.NetworkConnection(@"\\srvmm", new NetworkCredential("meiomundo", "meiomundo")))
+            try
             {
                 if (File.Exists(VoucherFileNetworkLocation))
                 {
                     string json = File.ReadAllText(VoucherFileNetworkLocation);
                     Vouchers = JsonSerializer.Deserialize<List<VoucherData>>(json);
                 }
-                else
-                    Save();
+            }
+            catch (Exception ex)
+            {
+                using (new Internal.Net.NetworkConnection(@"\\srvmm", new NetworkCredential("meiomundo", "meiomundo")))
+                {
+                    if (File.Exists(VoucherFileNetworkLocation))
+                    {
+                        string json = File.ReadAllText(VoucherFileNetworkLocation);
+                        Vouchers = JsonSerializer.Deserialize<List<VoucherData>>(json);
+                    }
+                    else
+                        Save();
+                }
             }
         }
 

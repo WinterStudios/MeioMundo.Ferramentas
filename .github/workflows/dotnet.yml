@@ -31,7 +31,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       id: buildPackege
       with:
-        name: ReleaseBuild
+        name: Release
         path: "dotnet-release/"
       
     - name: Create Tag Build
@@ -55,8 +55,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: ./${{ matrix.rid }}.zip
-        asset_name: ${{ steps.get_release_info.outputs.file_name }}-${{ matrix.rid }}.zip
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: "dotnet-release/"
+        asset_name: Release.zip
         asset_content_type: application/zip
     

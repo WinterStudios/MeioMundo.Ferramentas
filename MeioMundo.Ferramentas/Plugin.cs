@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using System.Windows;
+using System.Windows.Input;
 using U_System.External;
 using U_System.External.Plugin;
 
@@ -9,6 +11,19 @@ namespace MeioMundo.Ferramentas
 {
     public class EntryPoint : IPlugin
     {
+        public ResourceDictionary Icons { get 
+            {
+                if(icons == null)
+                {
+                    icons = new ResourceDictionary();
+                    icons.Source = new Uri("pack://application:,,,/MeioMundo.Ferramentas;component/Resources/ModernIcons.xaml", UriKind.Absolute);   
+                }
+                return icons;
+            }
+            set => icons = value; }
+        private ResourceDictionary icons;
+
+
         public static string DataLocation { get; private set; }
         public string Name => "Meio Mundo - Ferramentas";
         public string Description => "Ferramentas para a Meio Mundo";
@@ -20,7 +35,7 @@ namespace MeioMundo.Ferramentas
                 Path = "Ferramentas>Codigos de Barras",
                 PluginTypeBehavior = PluginTypeBehavior.Tab,
                 TabIconLocations = "/MeioMundo.Ferramentas;component/Assets/barcode.png",
-                Icon = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/Icons/barcode.png",
+                Icon = Icons["ICON.Barcode"],
                 Shortcut = "Ctrl + B"
             },
             new Module() {
@@ -29,7 +44,7 @@ namespace MeioMundo.Ferramentas
                 Path = "Ferramentas>Manuais Escolares",
                 PluginTypeBehavior = PluginTypeBehavior.Tab,
                 TabIconLocations = "/MeioMundo.Ferramentas;component/Assets/books.png",
-                Icon = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/Icons/book.png",
+                Icon = Icons["ICON.ManuaisEscolares"],
             },
             new Module() {
                 Name = "Site",
@@ -43,7 +58,7 @@ namespace MeioMundo.Ferramentas
                 Name = "Correio",
                 Type = typeof(Correio.Main).FullName,
                 Path = "Ferramentas>Correio",
-                Icon = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/Icons/envelope.png",
+                Icon = Icons["ICON.Mail"],
                 PluginTypeBehavior = PluginTypeBehavior.Tab,
             },
             new Module()
@@ -94,16 +109,17 @@ namespace MeioMundo.Ferramentas
 
         public void initialization()
         {
+            
             AppContext.SetSwitch(@"Switch.System.Windows.Controls.DoNotAugmentWordBreakingUsingSpeller", true);
-
+            //Internal.Net.MeioMundoServer.Inicialize();
             Internal.FornecedorSystem.Inicialize();
             try
             {
                 Voucher.VoucherSystem.Inicialize();
             }
-            catch (Exception ex)
+            catch 
             {
-                var exd = ex;
+                var exd = 0;
             }
         }
     }

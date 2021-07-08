@@ -58,6 +58,7 @@ namespace MeioMundo.Ferramentas.Escola
                 if(Escola.Anos.Count > 0)
                     Ano = Escola.Anos[0];
                 LoadPreviewModelo();
+                UC_ComboBox_Version.SelectedIndex = 1;
             }
         }
 

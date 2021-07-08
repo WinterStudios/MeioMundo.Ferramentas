@@ -43,38 +43,36 @@ namespace MeioMundo.Ferramentas.Site
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            // string Tag = ((Button)sender).Tag.ToString();
-
-            string sageLocation;
-            string webLocation;
-
-            OpenFileDialog WebDialog = new OpenFileDialog();
-            WebDialog.Filter = "Website Files|*.csv;*.txt|" +
-                               "All Files |*.*";
-            WebDialog.Title = "Carregar ficheiro com os dados do Site";
-
-            if(WebDialog.ShowDialog() == true)
+            string tag = ((Button)sender).Tag.ToString();
+            if (tag == "Load")
             {
-                webLocation = WebDialog.FileName;
-                OpenFileDialog SageDialog = new OpenFileDialog();
-                SageDialog.Filter = "Sage Files|*.xls;*.txt|" +
-                                    "All Files |*.*";
+                string sageLocation;
+                string webLocation;
 
-                SageDialog.Title = "Carregar ficheiro com os dados do SAGE";
-                if (SageDialog.ShowDialog() == true)
+                OpenFileDialog WebDialog = new OpenFileDialog();
+                WebDialog.Filter = "Website Files|*.csv;*.txt|" +
+                                   "All Files |*.*";
+                WebDialog.Title = "Carregar ficheiro com os dados do Site";
+
+                if (WebDialog.ShowDialog() == true)
                 {
-                    sageLocation = SageDialog.FileName;
-                    LoadDataBase(webLocation, sageLocation);
+                    webLocation = WebDialog.FileName;
+                    OpenFileDialog SageDialog = new OpenFileDialog();
+                    SageDialog.Filter = "Sage Files|*.xls;*.txt|" +
+                                        "All Files |*.*";
+
+                    SageDialog.Title = "Carregar ficheiro com os dados do SAGE";
+                    if (SageDialog.ShowDialog() == true)
+                    {
+                        sageLocation = SageDialog.FileName;
+                        LoadDataBase(webLocation, sageLocation);
+                    }
                 }
             }
-
-            //if (dialog.ShowDialog() == true)
-            //{
-            //    if(Tag == "Sage")
-            //        LoadFile(dialog.FileName, SourceLocation.Sage);
-            //    if (Tag == "Web")
-            //        LoadFile(dialog.FileName, SourceLocation.WebSite);
-            //}
+            if(tag == "Upload")
+            {
+                CreateCSVFile();
+            }
                 
             
         }
@@ -124,6 +122,7 @@ namespace MeioMundo.Ferramentas.Site
                     ProdutoNome = cols.ToList().FindIndex(x => x == "Nome");
                     PvpIndex = cols.ToList().FindIndex(x => x == "Preço normal");
                     IvaIndex = cols.ToList().FindIndex(x => x == "Classe de imposto");
+                    StockIndex = cols.ToList().FindIndex(x => x == "Stock");
                 }
                 else
                 {
@@ -211,6 +210,7 @@ namespace MeioMundo.Ferramentas.Site
                             UC_StatusBar_Progress.Value = percentagem;
                         }, DispatcherPriority.Background);
                         Produtos[i].StockSage = SageProdutos[z].StockSage;
+                        Produtos[i].Preco_C_IVA = SageProdutos[z].Preco_C_IVA;
                         break;
                     }
                 }
@@ -218,6 +218,27 @@ namespace MeioMundo.Ferramentas.Site
                 percentagem = x / Produtos.Count;
             });
             dispatcher.Invoke(() => UC_StatusBar_ListObjects.Text = "Done");
+        }
+
+
+        private async Task CreateCSVFile()
+        {
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.FileName = "Export_1";
+
+            if(saveFile.ShowDialog() == true)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("REF,Nome,Stock,\"Classe de imposto\",\"Preço normal\"");
+                for (int i = 0; i < Produtos.Count; i++)
+                {
+                    sb.AppendLine(Produtos[i].ToStringCSV());
+                }
+                
+                await File.WriteAllTextAsync(saveFile.FileName, sb.ToString());
+            }
+
+            
         }
     }
 }

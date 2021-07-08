@@ -77,12 +77,10 @@
 
   <ItemGroup>
     <Reference Include="U-System.Core">
-      <HintPath>..\..\U-System\U-System.Core\bin\Debug\net5.0-windows\ref\U-System.Core.dll</HintPath>
-      <Private>false</Private>
+      <HintPath>..\lib\U-System.Core.dll</HintPath>
     </Reference>
     <Reference Include="U-System.External">
-      <HintPath>..\..\U-System\U-System\bin\Debug\U-System.External.dll</HintPath>
-      <Private>false</Private>
+      <HintPath>..\lib\U-System.External.dll</HintPath>
     </Reference>
   </ItemGroup>
 

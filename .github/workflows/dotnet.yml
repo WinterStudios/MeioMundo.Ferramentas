@@ -49,10 +49,9 @@ jobs:
         release_name: ${{ steps.action-tag-date-version.outputs.version }}
         tag_name: ${{ steps.action-tag-date-version.outputs.version }}
     
-    - name: Upload Release Asset
-      id: upload-release-asset 
-      uses: fnkr/github-action-ghr@v1
+    - name: Upload Release Assets
+      uses: wzshiming/action-upload-release-assets@v1
       env:
-        GHR_PATH: "dotnet-release/"
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        RELEASE: "dotnet-release/"
     

@@ -76,9 +76,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="U-System.Core">
+      <HintPath>..\lib\U-System.Core.dll</HintPath>
+    </Reference>
     <Reference Include="U-System.External">
-      <HintPath>..\..\U-System\U-System\bin\Debug\U-System.External.dll</HintPath>
-      <Private>true</Private>
+      <HintPath>..\lib\U-System.External.dll</HintPath>
     </Reference>
   </ItemGroup>
 

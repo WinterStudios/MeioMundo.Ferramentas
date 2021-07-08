@@ -5,9 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MeioMundo.Ferramentas"
              mc:Ignorable="d" 
-             d:DesignHeight="720" d:DesignWidth="1280"
-             Background="{DynamicResource backgroundGradiente}"
-             
+             d:DesignHeight="720" d:DesignWidth="1280"             
              >
     <UserControl.Resources>
         <Style TargetType="TextBlock">
@@ -52,12 +50,8 @@
             </Style.Triggers>
         </Style>
         <SolidColorBrush x:Name="d" x:Key="d" Color="#000"/>
-
-        <LinearGradientBrush x:Key="backgroundGradiente">
-            <GradientStop Color="#2980B9" Offset="0.0"/>
-            <GradientStop Color="#6DD5FA" Offset="0.5"/>
-            <GradientStop Color="#ffffff" Offset="1.0"/>
-        </LinearGradientBrush>
+        
+        
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -154,5 +148,29 @@
                 <TextBlock Text="Correios" Grid.Row="1" FontSize="24pt" HorizontalAlignment="Center"/>
             </Grid>
         </Button>
+        <Grid.Background>
+            <LinearGradientBrush>
+                <GradientStop x:Name="backgroundGradiente_g0" Color="#2980B9" Offset="0.0"/>
+                <GradientStop x:Name="backgroundGradiente_g1" Color="#6DD5FA" Offset="0.5"/>
+                <GradientStop x:Name="backgroundGradiente_g2" Color="#ffffff" Offset="1.0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation Duration="0:0:10" To="Green" RepeatBehavior="Forever" AutoReverse="True"
+                                        Storyboard.TargetProperty="Color"
+                                        Storyboard.TargetName="backgroundGradiente_g0"/>
+                        <ColorAnimation Duration="0:0:10" To="#2980B9" RepeatBehavior="Forever" AutoReverse="True"
+                                        Storyboard.TargetProperty="Color"
+                                        Storyboard.TargetName="backgroundGradiente_g1"/>
+                        <ColorAnimation Duration="0:0:10" To="LightPink" RepeatBehavior="Forever" AutoReverse="True"
+                                        Storyboard.TargetProperty="Color"
+                                        Storyboard.TargetName="backgroundGradiente_g2"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
     </Grid>
 </UserControl>

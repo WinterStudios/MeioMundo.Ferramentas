@@ -37,7 +37,7 @@ namespace MeioMundo.Ferramentas.Site.Models
                     case TaxaImposto.TaxaNormal:
                         return "23 %";
                     default:
-                        return "0%";
+                        return "0 %";
                 }
             }
             set {
@@ -49,5 +49,15 @@ namespace MeioMundo.Ferramentas.Site.Models
                     _iva = TaxaImposto.TaxaReduzida;
             }}
         private TaxaImposto _iva;
+
+
+
+        public string ToStringCSV()
+        {
+            // REF, Nome, Stock, IVA, Preço
+            return string.Format("{0},{1},{2},{3},{4}",
+                REF,Nome,StockFinal,IVA,Preco_C_IVA.ToString().Replace(',','.')
+                );
+        }
     }
 }

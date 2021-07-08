@@ -5,10 +5,54 @@ using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Timers;
 using System.Threading.Tasks;
+using System.Net.NetworkInformation;
 
 namespace MeioMundo.Ferramentas.Internal.Net
 {
+
+    public class MeioMundoServer
+    {
+        public static bool IsConnected { get; set; }
+
+
+        internal static Timer ServerTimer { get; set; }
+
+
+        public static event ElapsedEventHandler Ticks;
+
+        public static void Inicialize()
+        {
+            ServerTimer = new Timer();
+            ServerTimer.Interval = 5000;
+            ServerTimer.Elapsed += Ticks;
+
+            ServerTimer.Start();
+
+
+        }
+
+        internal static void CheckForServerMM()
+        {
+            Ping ping = new Ping();
+            ping.Send(IPAddress.Parse("192.168.1.11"));
+            
+        }
+    }
+    public class NetworkEventArgs : EventArgs
+    {
+        private string EventInfo;
+        public NetworkEventArgs(string Text)
+        {
+            EventInfo = Text;
+        }
+        public string GetInfo()
+        {
+            return EventInfo;
+        }
+    }
+
     public class NetworkConnection : IDisposable
     {
         string _networkName;

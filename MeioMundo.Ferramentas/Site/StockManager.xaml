@@ -16,7 +16,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" >
-            <Button Content="Carregar Ficheiros" Padding="8,4" Click="Button_Click"/>
+            <Button Content="Carregar Ficheiros" Padding="8,4" Click="Button_Click" Tag="Load"/>
+            <Button Content="Descarregar" Padding="8,4" Click="Button_Click" Tag="Upload"/>
         </StackPanel>
         
         <DataGrid x:Name="UC_StockManager" Grid.Row="1" ItemsSource="{Binding Produtos, RelativeSource={RelativeSource AncestorType=local:StockManager}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" HeadersVisibility="Column">

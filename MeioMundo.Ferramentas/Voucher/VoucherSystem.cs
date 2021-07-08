@@ -37,13 +37,8 @@ namespace MeioMundo.Ferramentas.Voucher
         public static void Inicialize()
         {
             Vouchers = new List<VoucherData>();
-            try {
-                Load();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            Load();
+
         }
 
         public static void Load()
@@ -65,8 +60,8 @@ namespace MeioMundo.Ferramentas.Voucher
                         string json = File.ReadAllText(VoucherFileNetworkLocation);
                         Vouchers = JsonSerializer.Deserialize<List<VoucherData>>(json);
                     }
-                    else
-                        Save();
+                    //else
+                        //Save();
                 }
             }
         }

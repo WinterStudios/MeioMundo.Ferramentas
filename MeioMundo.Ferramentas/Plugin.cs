@@ -111,15 +111,15 @@ namespace MeioMundo.Ferramentas
         {
             
             AppContext.SetSwitch(@"Switch.System.Windows.Controls.DoNotAugmentWordBreakingUsingSpeller", true);
-
+            //Internal.Net.MeioMundoServer.Inicialize();
             Internal.FornecedorSystem.Inicialize();
             try
             {
                 Voucher.VoucherSystem.Inicialize();
             }
-            catch (Exception ex)
+            catch 
             {
-                var exd = ex;
+                var exd = 0;
             }
         }
     }

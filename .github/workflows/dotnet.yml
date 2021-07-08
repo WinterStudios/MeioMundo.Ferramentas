@@ -28,12 +28,11 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --output "dotnet-release/"
       
-    - uses: actions/upload-artifact@v2
+    - name: Zip Release
       id: buildPackege
-      with:
-        name: Release
-        path: "dotnet-release/"
-      
+      shell: pwsh
+      run: Compress-Archive -Path 'dotnet-release\' -DestinationPath 'dotnet-release\Release.zip'
+              
     - name: Create Tag Build
       uses: mydea/action-tag-date-version@v20
       id: action-tag-date-version

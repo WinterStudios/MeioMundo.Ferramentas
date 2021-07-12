@@ -114,7 +114,9 @@ namespace MeioMundo.Ferramentas
         public static PluginInfo Info { get; set; }
         public string[] PluginDependicy { get => new string[0]; }
 
-        public void initialization()
+        public void Awake() { }
+
+        public void Start()
         {
             
             AppContext.SetSwitch(@"Switch.System.Windows.Controls.DoNotAugmentWordBreakingUsingSpeller", true);

@@ -9,6 +9,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -19,8 +20,12 @@
             <Button Content="Carregar Ficheiros" Padding="8,4" Click="Button_Click" Tag="Load"/>
             <Button Content="Descarregar" Padding="8,4" Click="Button_Click" Tag="Upload"/>
         </StackPanel>
-        
-        <DataGrid x:Name="UC_StockManager" Grid.Row="1" ItemsSource="{Binding Produtos, RelativeSource={RelativeSource AncestorType=local:StockManager}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" HeadersVisibility="Column">
+        <DockPanel Grid.Row="1" HorizontalAlignment="Left" Margin="0,0,0,2">
+            <GroupBox Header="Procurar" Width="300">
+                <TextBox x:Name="TextBox_SearchText" TextChanged="TextBox_RefSearch_TextChanged" Tag="Search_REF"/>
+            </GroupBox>
+        </DockPanel>
+        <DataGrid x:Name="UC_StockManager" Grid.Row="2" ItemsSource="{Binding Produtos, RelativeSource={RelativeSource AncestorType=local:StockManager}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" HeadersVisibility="Column">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding REF}" Header="REF" MinWidth="110"/>
                 <DataGridTextColumn Binding="{Binding Nome}" Header="Nome" MinWidth="200" Width="*"/>
@@ -44,7 +49,7 @@
                 <DataGridTextColumn Binding="{Binding StockFinal}" Header="Total" MinWidth="60" Width="Auto"/>
             </DataGrid.Columns>
         </DataGrid>
-        <StatusBar Grid.Row="2">
+        <StatusBar Grid.Row="3">
             <StatusBarItem>
                 <TextBlock x:Name="UC_StatusBar_ListObjects"/>
             </StatusBarItem>

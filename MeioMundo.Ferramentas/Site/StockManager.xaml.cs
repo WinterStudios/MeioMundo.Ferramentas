@@ -20,6 +20,7 @@ using System.Windows.Shapes;
 using MeioMundo.Ferramentas.Site.Models;
 using System.Text.RegularExpressions;
 using System.Windows.Threading;
+using System.ComponentModel;
 
 namespace MeioMundo.Ferramentas.Site
 {
@@ -239,6 +240,36 @@ namespace MeioMundo.Ferramentas.Site
             }
 
             
+        }
+
+        private bool FilterRowsREF(object item)
+        {
+            if (((Produto)item).REF.Contains(TextBox_SearchText.Text) || ((Produto)item).Nome.Contains(TextBox_SearchText.Text))
+                    return true;
+            return false;
+        }
+
+        private async void TextBox_RefSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox box = (TextBox)sender;
+
+            string tag = box.Tag.ToString();
+            
+            if (box != null)
+            {
+                string searchText = Dispatcher.Invoke(() => box.Text);
+                if (!string.IsNullOrEmpty(searchText))
+                {
+                    ICollectionView view = CollectionViewSource.GetDefaultView(Produtos);
+                    await Dispatcher.InvokeAsync(() => view.Filter = FilterRowsREF, DispatcherPriority.Background);
+
+                }
+                if(string.IsNullOrEmpty(searchText))
+                {
+                    ICollectionView view = CollectionViewSource.GetDefaultView(Produtos);
+                    view.Filter = null;
+                }
+            }
         }
     }
 }

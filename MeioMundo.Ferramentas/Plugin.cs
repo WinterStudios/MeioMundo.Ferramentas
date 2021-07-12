@@ -49,10 +49,10 @@ namespace MeioMundo.Ferramentas
             new Module() {
                 Name = "Site",
                 Type = typeof(Site.Core).FullName,
-                Path = "Ferramentas>Site",
+                Path = "Ferramentas>Site>Gestão de Stocks",
                 PluginTypeBehavior = PluginTypeBehavior.Tab,
                 TabIconLocations = "/MeioMundo.Ferramentas;component/Assets/globe.png",
-                Icon = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/Icons/barcode.png",
+                Icon = Icons["ICON.Site.ManagerStock"]
             },
             new Module() {
                 Name = "Correio",
@@ -92,6 +92,13 @@ namespace MeioMundo.Ferramentas
                 Path = "Ferramentas>Emição de Voucheres",
                 PluginTypeBehavior = PluginTypeBehavior.Tab,
                 Icon = "pack://application:,,,/MeioMundo.Ferramentas;component/Assets/Icons/plugin.png"
+            },
+            new Module()
+            {
+                Name = "Criar Artigos",
+                Type = "",
+                Path = "Ferramentas>Site>Inportar Produtos",
+                PluginTypeBehavior = PluginTypeBehavior.Tab,
             }
         };
         public bool ShowWelcomePage => true;

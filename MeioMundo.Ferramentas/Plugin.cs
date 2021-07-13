@@ -96,7 +96,7 @@ namespace MeioMundo.Ferramentas
             new Module()
             {
                 Name = "Criar Artigos",
-                Type = "",
+                Type = typeof(Site.ImportProducts).FullName,
                 Path = "Ferramentas>Site>Inportar Produtos",
                 PluginTypeBehavior = PluginTypeBehavior.Tab,
             }

@@ -38,7 +38,7 @@ namespace MeioMundo.Ferramentas
                 tab.Tag = "/MeioMundo.Ferramentas;component/Assets/books.png";
                 Escola.ManuaisEscolares manuais = new Escola.ManuaisEscolares();
                 tab.Content = manuais;
-                U_System.Core.UX.TabsSystem.Add(tab);
+                U_System.External.UI.TabSystem.Add(manuais);// U_System.Core.UX.TabsSystem.Add(tab);
             }
             if(tag == "_CORREIO")
             {

@@ -1,0 +1,45 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <SolidColorBrush x:Key="c" Color="#00A2CC"/>
+
+    <Style x:Key="BTN.Produto.New" TargetType="Button">
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant"/>
+        <Setter Property="Height" Value="74"/>
+        <Setter Property="Content">
+            <Setter.Value>
+                <StackPanel Orientation="Vertical">
+                    <Viewbox Stretch="Uniform" Height="48">
+                        <Canvas Height="64" Width="64">
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m47.707 2.293a1 1 0 0 0 -.707-.293h-38a1 1 0 0 0 -1 1v58a1 1 0 0 0 1 1h46a1 1 0 0 0 1-1v-50a1 1 0 0 0 -.293-.707zm.293 3.121 4.586 4.586h-4.586zm6 54.586h-44v-56h36v7a1 1 0 0 0 1 1h7z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m28 6h-16v12h16zm-2 10h-12v-8h12z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m44 6h-14v12h14zm-2 10h-10v-8h10z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m42 20h10v2h-10z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m42 28h10v2h-10z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m42 24h10v2h-10z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m46 32h2v2h-2z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m12 20h28v2h-28z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m12 24h6v2h-6z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m20 24h2v2h-2z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m24 24h3v2h-3z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m29 24h11v2h-11z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m12 28h28v2h-28z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m12 32h28v2h-28z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m42 32h2v2h-2z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m50 32h2v2h-2z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m30 44h22v2h-22z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m31 48h20v2h-20z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m30 52h22v2h-22z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m32 56h20v2h-20z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m12 58h16v-14h-16zm2-12h12v10h-12z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{DynamicResource c}" Data="m12 42h40v-6h-40zm2-4h36v2h-36z"/>
+                        </Canvas>
+                    </Viewbox>
+                    <TextBlock Margin="4,2" Text="Novo Produto" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

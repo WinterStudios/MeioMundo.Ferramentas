@@ -96,7 +96,7 @@ namespace MeioMundo.Ferramentas
             new Module()
             {
                 Name = "Criar Artigos",
-                Type = "",
+                Type = typeof(Site.ImportProducts).FullName,
                 Path = "Ferramentas>Site>Inportar Produtos",
                 PluginTypeBehavior = PluginTypeBehavior.Tab,
             }
@@ -114,7 +114,9 @@ namespace MeioMundo.Ferramentas
         public static PluginInfo Info { get; set; }
         public string[] PluginDependicy { get => new string[0]; }
 
-        public void initialization()
+        public void Awake() { }
+
+        public void Start()
         {
             
             AppContext.SetSwitch(@"Switch.System.Windows.Controls.DoNotAugmentWordBreakingUsingSpeller", true);

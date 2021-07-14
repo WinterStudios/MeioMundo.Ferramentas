@@ -177,8 +177,8 @@ namespace MeioMundo.Ferramentas.Site
                         p.Nome = cols[NomeIndex].Replace("\"", "");
                         float preco = float.NaN;
                         if (float.TryParse(cols[PvpIndex].Replace('.', ','), out preco))
-                            p.Preco_C_IVA = preco;
-                        p.IVA = cols[IvaIndex];
+                            p.Preco_cIVA = preco;
+                        //p.IVA = cols[IvaIndex];
                         int stockSage = 0;
                         if (int.TryParse(cols[StockIndex], out stockSage))
                             p.StockSage = stockSage;
@@ -211,7 +211,7 @@ namespace MeioMundo.Ferramentas.Site
                             UC_StatusBar_Progress.Value = percentagem;
                         }, DispatcherPriority.Background);
                         Produtos[i].StockSage = SageProdutos[z].StockSage;
-                        Produtos[i].Preco_C_IVA = SageProdutos[z].Preco_C_IVA;
+                        Produtos[i].Preco_cIVA = SageProdutos[z].Preco_cIVA;
                         break;
                     }
                 }

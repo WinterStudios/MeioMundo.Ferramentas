@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="MeioMundo.Ferramentas.Barcode.Models.Etiqueta_A"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MeioMundo.Ferramentas.Barcode.Models"
+             mc:Ignorable="d" 
+             Height="1.5cm" Width="3.5cm"
+             >
+    <Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.25cm"/>
+                <RowDefinition Height="0.25cm"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.4cm"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="3">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="1.5cm"/>
+                    </Grid.ColumnDefinitions>
+                    <Border>
+                        <TextBlock Text="Preço:"/>
+                    </Border>
+                    <Border Grid.Column="1" Padding="0.2cm,0" BorderThickness=".5pt,.5pt,0,0" BorderBrush="Black">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <TextBlock Text="2,50" FontFamily="Calibri" FontSize="9pt" LineHeight="1pt"/>
+                            <TextBlock Text="€" FontSize="9pt" LineHeight="1pt" FontFamily="Calibri"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

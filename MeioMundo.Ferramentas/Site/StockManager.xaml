@@ -29,7 +29,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding REF}" Header="REF" MinWidth="110"/>
                 <DataGridTextColumn Binding="{Binding Nome}" Header="Nome" MinWidth="200" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Preco_S_IVA, StringFormat=C, ConverterCulture=pt-PT}" Header="Preço s/IVA" MinWidth="70" Width="Auto">
+                <DataGridTextColumn Binding="{Binding Preco_sIVA, StringFormat=C, ConverterCulture=pt-PT}" Header="Preço s/IVA" MinWidth="70" Width="Auto">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Right" />
@@ -37,7 +37,7 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding IVA}" Header="IVA" MinWidth="40" Width="Auto"/>
-                <DataGridTextColumn Binding="{Binding Preco_C_IVA, StringFormat=C, ConverterCulture=pt-PT}" Header="Preço c/IVA" MinWidth="70" Width="Auto">
+                <DataGridTextColumn Binding="{Binding Preco_cIVA, StringFormat=C, ConverterCulture=pt-PT}" Header="Preço c/IVA" MinWidth="70" Width="Auto">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Right" />

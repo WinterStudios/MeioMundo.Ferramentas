@@ -121,9 +121,10 @@ namespace MeioMundo.Ferramentas
             
             AppContext.SetSwitch(@"Switch.System.Windows.Controls.DoNotAugmentWordBreakingUsingSpeller", true);
             //Internal.Net.MeioMundoServer.Inicialize();
-            Internal.FornecedorSystem.Inicialize();
             try
             {
+                Internal.FornecedorSystem.Inicialize();
+
                 Voucher.VoucherSystem.Inicialize();
             }
             catch 

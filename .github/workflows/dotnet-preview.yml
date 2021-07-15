@@ -36,8 +36,8 @@ jobs:
     - name: Create Tag Build
       uses: mydea/action-tag-date-version@v20
       id: action-tag-date-version
-        with:
-          prerelease: preview
+      with:
+        prerelease: preview
 
    
     - name: Release

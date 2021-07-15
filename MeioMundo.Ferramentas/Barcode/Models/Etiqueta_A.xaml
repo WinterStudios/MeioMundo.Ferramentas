@@ -7,14 +7,42 @@
              mc:Ignorable="d" 
              Height="1.5cm" Width="3.5cm"
              >
-    <Border>
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="9pt"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Border  BorderThickness="0.25pt" BorderBrush="LightGray">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.25cm"/>
-                <RowDefinition Height="0.25cm"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="0.4cm"/>
             </Grid.RowDefinitions>
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Padding="0.4cm,0,0.2cm,0" BorderThickness="0,0,.25pt,.25pt" BorderBrush="Black" Background="#FCFCFC">
+                        <TextBlock Text="Ref:" FontSize="6pt" FontWeight="Bold"/>
+                    </Border>
+                    <Border Grid.Column="1">
+                        <TextBlock x:Name="UC_TextBlock_Code" FontSize="6pt" FontWeight="Light"/>
+                    </Border>
+                </Grid>
+            </Border>
+            <Border Grid.Row="1">
+                <TextBlock Text="Text" FontSize="4.5pt" HorizontalAlignment="Center"/>
+            </Border>
+            <Border Grid.Row="2">
+                <Image x:Name="UC_Image_CodeBar" />
+            </Border>
             <Border Grid.Row="3">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -22,12 +50,12 @@
                         <ColumnDefinition Width="1.5cm"/>
                     </Grid.ColumnDefinitions>
                     <Border>
-                        <TextBlock Text="Preço:"/>
+                        <TextBlock Text="Preço:" HorizontalAlignment="Right" FontSize="7pt" Margin="0.2cm,0" VerticalAlignment="Center"/>
                     </Border>
                     <Border Grid.Column="1" Padding="0.2cm,0" BorderThickness=".5pt,.5pt,0,0" BorderBrush="Black">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                            <TextBlock Text="2,50" FontFamily="Calibri" FontSize="9pt" LineHeight="1pt"/>
-                            <TextBlock Text="€" FontSize="9pt" LineHeight="1pt" FontFamily="Calibri"/>
+                            <TextBlock Text="2,50" FontSize="9pt" FontWeight="Bold"/>
+                            <TextBlock Text="€" FontSize="9pt" FontWeight="Bold"/>
                         </StackPanel>
                     </Border>
                 </Grid>

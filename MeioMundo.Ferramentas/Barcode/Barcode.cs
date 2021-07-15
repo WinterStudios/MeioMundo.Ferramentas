@@ -53,7 +53,7 @@ namespace MeioMundo.Ferramentas.Barcode
             {
                 case BarcodeEncoding.Code39:
                     barcode.Code = code;
-                    barcode.Draw = Internal.Code39.Draw(code, 6);
+                    barcode.Draw = Internal.Code39.Draw(code, 6, text);
                     break;
                 default:
                     break;

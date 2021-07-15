@@ -31,7 +31,7 @@ namespace MeioMundo.Ferramentas
         public Module[] Modules => new Module[] { 
             new Module() {
                 Name = "Codigo de Barras",
-                Type = typeof(UI.Barcode).FullName,
+                Type = typeof(Barcode.UC).FullName,
                 Path = "Ferramentas>Codigos de Barras",
                 PluginTypeBehavior = PluginTypeBehavior.Tab,
                 TabIconLocations = "/MeioMundo.Ferramentas;component/Assets/barcode.png",

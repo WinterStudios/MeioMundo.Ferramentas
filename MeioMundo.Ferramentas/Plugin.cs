@@ -127,7 +127,7 @@ namespace MeioMundo.Ferramentas
 
                 Voucher.VoucherSystem.Inicialize();
             }
-            catch 
+            catch (Exception ex)
             {
                 var exd = 0;
             }

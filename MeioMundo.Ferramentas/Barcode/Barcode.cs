@@ -55,6 +55,10 @@ namespace MeioMundo.Ferramentas.Barcode
                     barcode.Code = code;
                     barcode.Draw = Internal.Code39.Draw(code, 6, text);
                     break;
+                case BarcodeEncoding.EAN13:
+                    barcode.Code = code;
+                    barcode.Draw = Internal.EAN13.Draw(code, resolution, text);
+                    break;
                 default:
                     break;
             }

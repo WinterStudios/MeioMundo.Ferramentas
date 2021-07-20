@@ -29,8 +29,8 @@
                     <TextBox x:Name="Code" TextChanged="Code_TextChanged" />
                 </GroupBox>
             </StackPanel>
-            <Border>
-                <Image x:Name="Image_BarCode"/>
+            <Border Grid.Row="1">
+                <Image x:Name="Image_BarCode" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
             </Border>
         </Grid>
         

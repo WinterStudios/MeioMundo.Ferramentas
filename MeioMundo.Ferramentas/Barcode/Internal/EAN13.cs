@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace MeioMundo.Ferramentas.Barcode.Internal
 {
-    public class EAN13 : Barcode
+    public class EAN13
     {
         //    private const double InchsToCmFactor = 2.54d;
         //    private const double CmToPixelsFactor = 37.79d;

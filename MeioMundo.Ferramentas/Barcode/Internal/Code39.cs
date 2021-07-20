@@ -211,9 +211,26 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
         //        }
         //    }
         //}
-        public string Code { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DisplayCodeType DisplayCodeType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public BarcodeImageResolution BarcodeImageResolution { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Code 
+        {
+            get { return m_code; }
+            set { m_code = value; Draw(); }
+        }
+        public DisplayCodeType DisplayCodeType
+        {
+            get { return m_displayCodeType; }
+            set { m_displayCodeType = value; Draw(); }
+        }
+        public BarcodeImageResolution BarcodeImageResolution
+        {
+            get { return m_barcodeImageResolution; }
+            set { m_barcodeImageResolution = value; Draw(); }
+        }
+        public BarcodeHeight BarcodeHeight
+        {
+            get { return m_barcodeHeight; }
+            set { m_barcodeHeight = value; Draw(); }
+        }
         public BarType BarType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public char[] Chars => new char[] {
@@ -222,7 +239,7 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
             '*', ' ', '-', '+', '$', '%'
         };
 
-        public byte[] Symbles => ;
+        public byte[] Symbles => null;
 
         public BitmapSource CodeImage
         {
@@ -233,20 +250,86 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
         private string m_code;
         private DisplayCodeType m_displayCodeType;
         private BarcodeImageResolution m_barcodeImageResolution;
+        private BarcodeHeight m_barcodeHeight;
         private BitmapSource m_codeImage;
 
-        
+
+        Brush BarColor = Brushes.Black;
+        Brush BackgroundColor = Brushes.Violet;
+
+
+        public Code39()
+        {
+
+        }
+
+
+        private float GetCharHeight(float customRatio = 1)
+        {
+            switch (BarcodeHeight)
+            {
+                case BarcodeHeight.Minimal:
+                    return 0.25f;
+                case BarcodeHeight.Low:
+                    return 0.5f;
+                case BarcodeHeight.Normal:
+                    return 1f;
+                case BarcodeHeight.High:
+                    return 2f;
+                case BarcodeHeight.VeryHigh:
+                    return 3f;
+                case BarcodeHeight.Custom:
+                    return customRatio;
+                default:
+                    return 1f;
+            }
+        }
 
         public void Draw()
         {
-            throw new NotImplementedException();
-        }
+            DrawingVisual visual = new DrawingVisual();
+            DrawingContext drawingSpace = visual.RenderOpen();
 
-        public void DrawSegment()
-        {
             
         }
 
+        
+        internal BitmapSource DrawChar(char c, float resolution, bool drawChar)
+        {
+            DrawingVisual visual = new DrawingVisual();
+            DrawingContext drawingSpace = visual.RenderOpen();
+
+            int defaultWidthChar = 26;  // 26 pixels
+            float defaultHeightChar = (float)defaultWidthChar * GetCharHeight();
+
+            FormattedText charFormatted = new FormattedText(c.ToString().ToUpper(), CultureInfo.GetCultureInfo("pt-PT"), FlowDirection.LeftToRight, new Typeface("Calibri"), 11d * resolution, BarColor, 1);
+
+            double defaultCharHeight = (charFormatted.Extent + charFormatted.OverhangAfter) * resolution;
+
+            drawingSpace.DrawRectangle(BackgroundColor, null, new Rect(0, 0, defaultWidthChar * resolution, (defaultHeightChar * resolution + defaultCharHeight)));
+
+            byte[] data = GetSymbles(c);
+
+            for (int z = 0; z < data.Length; z++)
+            {
+                if (data[z] == 1)
+                    drawingSpace.DrawRectangle(BarColor, null, new Rect(z * 2 * resolution, 0, 2 * resolution, defaultHeightChar * resolution));
+            }
+
+            if (drawChar)
+            {
+                double center = (defaultWidthChar * resolution / 2) - (charFormatted.Width / 2);
+                drawingSpace.DrawText(charFormatted, new Point(center, defaultHeightChar));
+            }
+            drawingSpace.Close();
+
+            int sizeX = (int)Math.Round(visual.Drawing.Bounds.Width);
+            int sizeY = (int)Math.Round(visual.Drawing.Bounds.Height);
+
+            var targetBitmap = new RenderTargetBitmap(sizeX, sizeY, 96, 96, PixelFormats.Pbgra32);
+            targetBitmap.Render(visual);
+            return (BitmapSource)targetBitmap;
+        }
 
         private static byte[] GetSymbles(char c)
         {
@@ -284,14 +367,14 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
         //    public static byte[] _plus => new byte[] { 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1 };     // Leitor le: "»"
         //    public static byte[] _dot => new byte[] { 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1 };
         //    public static byte[] _slash_r => new byte[] { 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1 };            // Leitor le: "-"
-        //    public static byte[] _0 => 
-        //    public static byte[] _1 => 
-        //    public static byte[] _2 => 
-        //    public static byte[] _3 => 
-        //    public static byte[] _4 => 
-        //    public static byte[] _5 => 
-        //    public static byte[] _6 => 
-        //    public static byte[] _7 => 
+        //    public static byte[] _0 => new byte[] { 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1 };
+        //    public static byte[] _1 => new byte[] { 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1 };
+        //    public static byte[] _2 => new byte[] { 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1 };
+        //    public static byte[] _3 => new byte[] { 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1 };
+        //    public static byte[] _4 => new byte[] { 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1 };
+        //    public static byte[] _5 => new byte[] { 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1 };
+        //    public static byte[] _6 => new byte[] { 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1 };
+        //    public static byte[] _7 => new byte[] { 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1 };
         //    public static byte[] _8 => new byte[] { 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1 };
         //    public static byte[] _9 => new byte[] { 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1 };
         //    public static byte[] _A => new byte[] { 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1 };
@@ -320,7 +403,7 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
         //    public static byte[] _X => new byte[] { 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1 };
         //    public static byte[] _Y => new byte[] { 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1 };
         //    public static byte[] _Z => new byte[] { 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1 };
-    
+
     }
-    
+
 }

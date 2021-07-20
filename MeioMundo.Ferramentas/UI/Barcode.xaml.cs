@@ -32,7 +32,7 @@ namespace MeioMundo.Ferramentas.UI
                 return;
             if (UI_TB_Ref.Text.Length > 0)
             {
-                UI_Preview_Code.Source = MeioMundo.Ferramentas.Barcode.Barcode.CreateBarcodeToImage(UI_TB_Ref.Text, BarcodeEncoding.Code39);
+                //UI_Preview_Code.Source = MeioMundo.Ferramentas.Barcode.Barcode.CreateBarcodeToImage(UI_TB_Ref.Text, BarcodeEncoding.Code39);
             }
             else
                 UI_Preview_Code.Source = null;

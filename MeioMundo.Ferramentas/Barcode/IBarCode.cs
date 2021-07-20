@@ -13,11 +13,10 @@ namespace MeioMundo.Ferramentas.Barcode
         DisplayCodeType DisplayCodeType { get; set; }
         BarcodeImageResolution BarcodeImageResolution { get; set; }
         BarType BarType { get; set; }
+        BarcodeHeight BarcodeHeight { get; set; }
         char[] Chars { get; }        
         BitmapSource CodeImage { get; set; }
         void Draw();
-        void DrawSegment();
-
-        
+                
     }
 }

@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 namespace MeioMundo.Ferramentas.Barcode
 {
     //public class Barcode : IBarCode
-    {
+    
         //public string Code { get; set; }
 
         //internal DrawingVisual Draw { get; set; }
@@ -70,36 +70,6 @@ namespace MeioMundo.Ferramentas.Barcode
 
         //    return image;
         //}
-        public string Code 
-        {
-            get { return m_code; }
-            set { m_code = value; Draw(); }
-        }
-        public DisplayCodeType DisplayCodeType
-        {
-            get { return m_displayCodeType; }
-            set { m_displayCodeType = value; Draw(); }
-        }
-
-        public BarType BarType
-        {
-            get { return m_barType; }
-            set { m_barType = value; Draw(); }
-        }
-
-        private string m_code;
-        private DisplayCodeType m_displayCodeType;
-        private BarType m_barType;
-
-
-        public void Draw()
-        {
-            
-        }
-
-        public void DrawSegment()
-        {
-            
-        }
-    }
+        
+    
 }

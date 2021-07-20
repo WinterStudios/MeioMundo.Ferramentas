@@ -26,7 +26,7 @@ namespace MeioMundo.Ferramentas.Barcode.Models
             InitializeComponent();
             code = "1234567890123";
             UC_TextBlock_Code.Text = code;
-            UC_Image_CodeBar.Source = Barcode.CreateBarcodeToImage(code, BarcodeEncoding.Code39, 300, false);
+            //UC_Image_CodeBar.Source = Barcode.CreateBarcodeToImage(code, BarcodeEncoding.Code39, 300, false);
     }
     }
 }

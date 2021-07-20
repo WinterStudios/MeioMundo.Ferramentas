@@ -21,11 +21,14 @@ namespace MeioMundo.Ferramentas.Barcode
     public partial class UC : UserControl
     {
 
-        private Barcode Barcode { get; set; }
+        
 
         public UC()
         {
             InitializeComponent();
+            Internal.Code39 code = new Internal.Code39();
+            Image_BarCode.Source = code.DrawChar('0', 1.5f, true);
+
         }
 
         private void Code_TextChanged(object sender, TextChangedEventArgs e)

@@ -23,6 +23,15 @@ namespace MeioMundo.Ferramentas.Barcode
         VeryHigh = 6,
         Extreme = 10
     }
+    public enum BarcodeHeight
+    {
+        Minimal = 0,
+        Low = 1,
+        Normal = 2,
+        High = 3,
+        VeryHigh = 4,
+        Custom = 10
+    }
     public enum BarType
     {
         Code39 = 0,

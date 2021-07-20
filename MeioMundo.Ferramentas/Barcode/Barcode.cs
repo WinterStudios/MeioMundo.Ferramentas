@@ -9,84 +9,97 @@ using System.Windows.Media.Imaging;
 
 namespace MeioMundo.Ferramentas.Barcode
 {
-    public enum DisplayCodeType
+    //public class Barcode : IBarCode
     {
-        None = 0,
-        Center = 1,
-        PerChar = 2
-    }
-    public interface IBarCode
-    {
-        string Code { get; set; }
-        DisplayCodeType DisplayCodeType { get; set; }
+        //public string Code { get; set; }
 
+        //internal DrawingVisual Draw { get; set; }
 
-        void Draw();
-        void DrawSegment();
+        //internal float Resolution { get; private set; }
+        //internal int Width { get; private set; }
+        //public int Height { get; private set; }
 
-        
-    }
+        //public Barcode()
+        //{
 
-    public class Barcode
-    {
-        public string Code { get; set; }
+        //}
 
-        internal DrawingVisual Draw { get; set; }
+        //internal static Barcode CreateBarcode(string v, BarcodeEncoding encoding)
+        //{
+        //    Barcode barcode = new Barcode();
+        //    barcode.Resolution = 4f;
+        //    int width = 0;
+        //    int height = 0;
+        //    switch (encoding)
+        //    {
+        //        case BarcodeEncoding.Code39:
+        //            barcode.Code = v;
+        //            //barcode.Draw = Internal.Code39.Draw(v, barcode.Resolution, out width, out height);
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //    barcode.Width = width;
+        //    barcode.Height = height;
 
-        internal float Resolution { get; private set; }
-        internal int Width { get; private set; }
-        public int Height { get; private set; }
+        //    return barcode;
+        //}
+        //internal static BitmapSource CreateBarcodeToImage(string code, BarcodeEncoding encoding, int resolution = 300, bool text = true)
+        //{
+        //    Barcode barcode = new Barcode();
+        //    int width = 900;
+        //    int height = 200;
+        //    switch (encoding)
+        //    {
+        //        case BarcodeEncoding.Code39:
+        //            barcode.Code = code;
+        //            barcode.Draw = Internal.Code39.Draw(code, 6, text);
+        //            break;
+        //        case BarcodeEncoding.EAN13:
+        //            barcode.Code = code;
+        //            //barcode.Draw = Internal.EAN13.Draw(code, resolution, text);
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //    width = (int)Math.Round(barcode.Draw.ContentBounds.Width);
+        //    //barcode.Height = 20;
 
-        public Barcode()
+        //    var image = new RenderTargetBitmap((int)barcode.Draw.ContentBounds.Width, (int)barcode.Draw.ContentBounds.Height, 96, 96, PixelFormats.Pbgra32);
+        //    image.Render(barcode.Draw);
+
+        //    return image;
+        //}
+        public string Code 
         {
-
+            get { return m_code; }
+            set { m_code = value; Draw(); }
+        }
+        public DisplayCodeType DisplayCodeType
+        {
+            get { return m_displayCodeType; }
+            set { m_displayCodeType = value; Draw(); }
         }
 
-        internal static Barcode CreateBarcode(string v, BarcodeEncoding encoding)
+        public BarType BarType
         {
-            Barcode barcode = new Barcode();
-            barcode.Resolution = 4f;
-            int width = 0;
-            int height = 0;
-            switch (encoding)
-            {
-                case BarcodeEncoding.Code39:
-                    barcode.Code = v;
-                    //barcode.Draw = Internal.Code39.Draw(v, barcode.Resolution, out width, out height);
-                    break;
-                default:
-                    break;
-            }
-            barcode.Width = width;
-            barcode.Height = height;
-
-            return barcode;
+            get { return m_barType; }
+            set { m_barType = value; Draw(); }
         }
-        internal static BitmapSource CreateBarcodeToImage(string code, BarcodeEncoding encoding, int resolution = 300, bool text = true)
+
+        private string m_code;
+        private DisplayCodeType m_displayCodeType;
+        private BarType m_barType;
+
+
+        public void Draw()
         {
-            Barcode barcode = new Barcode();
-            int width = 900;
-            int height = 200;
-            switch (encoding)
-            {
-                case BarcodeEncoding.Code39:
-                    barcode.Code = code;
-                    barcode.Draw = Internal.Code39.Draw(code, 6, text);
-                    break;
-                case BarcodeEncoding.EAN13:
-                    barcode.Code = code;
-                    //barcode.Draw = Internal.EAN13.Draw(code, resolution, text);
-                    break;
-                default:
-                    break;
-            }
-            width = (int)Math.Round(barcode.Draw.ContentBounds.Width);
-            //barcode.Height = 20;
+            
+        }
 
-            var image = new RenderTargetBitmap((int)barcode.Draw.ContentBounds.Width, (int)barcode.Draw.ContentBounds.Height, 96, 96, PixelFormats.Pbgra32);
-            image.Render(barcode.Draw);
-
-            return image;
+        public void DrawSegment()
+        {
+            
         }
     }
 }

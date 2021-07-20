@@ -20,9 +20,17 @@ namespace MeioMundo.Ferramentas.Barcode
     /// </summary>
     public partial class UC : UserControl
     {
+
+        private Barcode Barcode { get; set; }
+
         public UC()
         {
             InitializeComponent();
+        }
+
+        private void Code_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ((Image)sender).Source = null;
         }
     }
 }

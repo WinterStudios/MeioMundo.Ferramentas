@@ -9,6 +9,24 @@ using System.Windows.Media.Imaging;
 
 namespace MeioMundo.Ferramentas.Barcode
 {
+    public enum DisplayCodeType
+    {
+        None = 0,
+        Center = 1,
+        PerChar = 2
+    }
+    public interface IBarCode
+    {
+        string Code { get; set; }
+        DisplayCodeType DisplayCodeType { get; set; }
+
+
+        void Draw();
+        void DrawSegment();
+
+        
+    }
+
     public class Barcode
     {
         public string Code { get; set; }
@@ -57,7 +75,7 @@ namespace MeioMundo.Ferramentas.Barcode
                     break;
                 case BarcodeEncoding.EAN13:
                     barcode.Code = code;
-                    barcode.Draw = Internal.EAN13.Draw(code, resolution, text);
+                    //barcode.Draw = Internal.EAN13.Draw(code, resolution, text);
                     break;
                 default:
                     break;

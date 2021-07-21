@@ -127,34 +127,43 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
 
         }
 
-        private static byte[] Get(char c)
+        private static byte[] Get(string s)
         {
-            switch (c)
+            switch (s)
             {
-                // Right Side ---------------------------------
-                case '0':
+                // RIGHT SIDE ---------------------------------
+                case "R0":
                     return new byte[] { 1, 1, 1, 0, 0, 1, 0 };
-                case '1':
+                case "R1":
                     return new byte[] { 1, 1, 0, 0, 1, 1, 0 };
-                case '2':
+                case "R2":
                     return new byte[] { 1, 1, 0, 1, 1, 0, 0 };
-                case '3':
+                case "R3":
                     return new byte[] { 1, 0, 0, 0, 0, 1, 0 };
-                case '4':
+                case "R4":
                     return new byte[] { 1, 0, 1, 1, 1, 0, 0 };
-                case '5':
+                case "R5":
                     return new byte[] { 1, 0, 0, 1, 1, 1, 0 };
-                case '6':
+                case "R6":
                     return new byte[] { 1, 0, 1, 0, 0, 0, 0 };
-                case '7':
+                case "R7":
                     return new byte[] { 1, 0, 0, 0, 1, 0, 0 };
-                case '8':
+                case "R8":
                     return new byte[] { 1, 0, 0, 1, 0, 0, 0 };
-                case '9':
+                case "R9":
                     return new byte[] { 1, 1, 1, 0, 1, 0, 0 };
+
+                // GREEN SIDE  -------------------------------
+                case "G0":
+                    return new byte[] { };
                 default:
                     return new byte[] { };
             }
+        }
+
+        public string CheckCode(string s)
+        {
+            throw new NotImplementedException();
         }
 
         //    private const double InchsToCmFactor = 2.54d;

@@ -55,11 +55,12 @@ namespace MeioMundo.Ferramentas.Barcode
                 barcodePreview.DisplayCodeType = (DisplayCodeType)((ComboBox)sender).SelectedIndex;
             if (tag == "BarHeight")
                 barcodePreview.BarcodeHeight = (BarcodeHeight)((ComboBox)sender).SelectedIndex;
-            if(tag == "BarType")
+            if (tag == "BarType")
             {
                 switch (((ComboBox)sender).SelectedItem)    
                 {
-                    case "":
+                    case BarType.Code39:
+                        barcodePreview = CreateCodeDefault(BarType.Code39);
                         break;
                     default:
                         break;
@@ -69,6 +70,20 @@ namespace MeioMundo.Ferramentas.Barcode
             Image_BarCode.Source = barcodePreview.CodeImage;
         }
 
-
+        private IBarCode CreateCodeDefault(BarType typeOfBar)
+        {
+            IBarCode bar = null;
+            if(typeOfBar == BarType.Code39)
+            {
+                bar = (IBarCode)Activator.CreateInstance(typeof(Code39), 
+                    new object[] {
+                        Code.Text,
+                        (BarcodeImageResolution)UC_ComboBox_BarResolution.SelectedIndex,
+                        (BarcodeHeight)UC_ComboBox_BarHeight.SelectedIndex,
+                        (DisplayCodeType)UC_ComboBox_BarDisplay.SelectedIndex
+                });
+            }
+            return bar;
+        }
     }
 }

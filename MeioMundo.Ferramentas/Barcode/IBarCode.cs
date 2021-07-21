@@ -17,6 +17,6 @@ namespace MeioMundo.Ferramentas.Barcode
         char[] Chars { get; }        
         BitmapSource CodeImage { get; set; }
         void Draw();
-                
+        string CheckCode(string s);
     }
 }

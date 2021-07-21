@@ -17,7 +17,7 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
         public string Code 
         {
             get { return m_code; }
-            set { m_code = value.ToUpper(); Draw(); }
+            set { m_code = CheckCode(value.ToUpper()); Draw(); }
         }
         public DisplayCodeType DisplayCodeType
         {
@@ -63,9 +63,19 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
 
         public Code39()
         {
-
+            BarcodeImageResolution = BarcodeImageResolution.Medium;
+            BarcodeHeight = BarcodeHeight.Normal;
+            DisplayCodeType = DisplayCodeType.Center;
         }
 
+        public Code39(string code, BarcodeImageResolution res, BarcodeHeight height, DisplayCodeType displayType)
+        {
+            Code = code;
+            BarcodeImageResolution = res;
+            BarcodeHeight = height;
+            DisplayCodeType = displayType;
+            Draw();
+        }
 
         private float GetCharHeight(float customRatio = 1)
         {
@@ -111,6 +121,26 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
                     return 3;
             }
         }
+
+        public string CheckCode(string s)
+        {
+            for (int i = 0; i < s.Length; i++)
+            {
+                bool exist = false;
+                for (int x = 0; x < Chars.Length; x++)
+                {
+                    if (s[i] == Chars[x])
+                    {
+                        exist = true;
+                        break;
+                    }
+                }
+                if (!exist)
+                    return string.Empty;
+            }
+            return s;
+        }
+
         public void Draw()
         {
             if (string.IsNullOrEmpty(Code))
@@ -301,6 +331,8 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
                     return new byte[] { };
             }
         }
+
+        
         //    public static byte[] _asterisk => new byte[] { 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1 };
         //    public static byte[] _less => new byte[] { 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1 };           // Leitor le:"'"
         //    public static byte[] _space => new byte[] { 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0 };

@@ -51,25 +51,25 @@
                     <StackPanel>
                         <DockPanel>
                             <TextBlock Text="Tipo" Width="110"/>
-                            <ComboBox SelectionChanged="ComboBox_SelectionChanged" Tag="Resolution" SelectedIndex="0"
+                            <ComboBox x:Name="UC_ComboBox_BarType" SelectionChanged="ComboBox_SelectionChanged" Tag="BarType" SelectedIndex="0"
                               ItemsSource="{Binding Source={StaticResource GetBarcodeTypes}}"/>
                         </DockPanel>
                         <DockPanel Margin="0,4">
                             <TextBlock Text="Altura das Barras" Width="110"/>
-                            <ComboBox SelectionChanged="ComboBox_SelectionChanged" Tag="BarHeight" SelectedIndex="2"
+                            <ComboBox x:Name="UC_ComboBox_BarHeight" SelectionChanged="ComboBox_SelectionChanged" Tag="BarHeight" SelectedIndex="2"
                               ItemsSource="{Binding Source={StaticResource GetBarcodeHeights}}"/>
                         </DockPanel>
                         <DockPanel>
                             <TextBlock Text="Mostra Texto" Width="110"/>
-                            <ComboBox SelectionChanged="ComboBox_SelectionChanged" Tag="DisplayType" SelectedIndex="1">
+                            <ComboBox x:Name="UC_ComboBox_BarDisplay" SelectionChanged="ComboBox_SelectionChanged" Tag="DisplayType" SelectedIndex="1">
                                 <ComboBoxItem Content="Não Mostrar"/>
                                 <ComboBoxItem Content="Centrado"/>
                                 <ComboBoxItem Content="Por Caractere"/>
                             </ComboBox>
                         </DockPanel>
                         <DockPanel>
-                            <TextBlock Text="Resolução"/>
-                            <ComboBox SelectionChanged="ComboBox_SelectionChanged" Tag="Resolution" SelectedIndex="2"
+                            <TextBlock Text="Resolução" Width="110"/>
+                            <ComboBox x:Name="UC_ComboBox_BarResolution" SelectionChanged="ComboBox_SelectionChanged" Tag="Resolution" SelectedIndex="2"
                                 ItemsSource="{Binding Source={StaticResource GetBarcodeResolutions}}"/>
                         </DockPanel>
                     </StackPanel>

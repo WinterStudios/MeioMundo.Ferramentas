@@ -21,7 +21,7 @@ namespace MeioMundo.Ferramentas.Barcode
         MediumHigh = 4,
         High = 5,
         VeryHigh = 6,
-        Extreme = 10
+        Extreme = 7
     }
     public enum BarcodeHeight
     {

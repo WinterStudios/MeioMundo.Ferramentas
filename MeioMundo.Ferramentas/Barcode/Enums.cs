@@ -35,6 +35,6 @@ namespace MeioMundo.Ferramentas.Barcode
     public enum BarType
     {
         Code39 = 0,
-        EAN13 = 1
+        EAN13 = 1,
     }
 }

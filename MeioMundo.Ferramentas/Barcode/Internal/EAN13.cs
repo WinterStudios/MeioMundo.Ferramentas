@@ -1,4 +1,5 @@
 ﻿using MeioMundo.Ferramentas.Escola;
+using MeioMundo.Ferramentas.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,11 +7,156 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace MeioMundo.Ferramentas.Barcode.Internal
 {
-    public class EAN13
+    public class EAN13 : ViewModelBase, IBarCode
     {
+        public string Code
+        {
+            get { return m_code; }
+            set { m_code = value.ToUpper(); Draw(); }
+        }
+        public DisplayCodeType DisplayCodeType
+        {
+            get { return m_displayCodeType; }
+            set { m_displayCodeType = value; Draw(); }
+        }
+        public BarcodeImageResolution BarcodeImageResolution
+        {
+            get { return m_barcodeImageResolution; }
+            set { m_barcodeImageResolution = value; Draw(); OnPropertyChanged(); }
+        }
+        public BarcodeHeight BarcodeHeight
+        {
+            get { return m_barcodeHeight; }
+            set { m_barcodeHeight = value; Draw(); }
+        }
+        public BarType BarType { get => BarType.EAN13; }
+
+        public char[] Chars => new char[] {
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        };
+
+        public byte[] Symbles => null;
+
+        public BitmapSource CodeImage
+        {
+            get { return m_codeImage; }
+            set { m_codeImage = value; OnPropertyChanged(); }
+        }
+
+        private string m_code;
+        private DisplayCodeType m_displayCodeType;
+        private BarcodeImageResolution m_barcodeImageResolution;
+        private BarcodeHeight m_barcodeHeight;
+        private BitmapSource m_codeImage;
+
+
+        Brush BarColor = Brushes.Black;
+        Brush BackgroundColor = Brushes.White;
+
+
+        private enum GroupSide
+        {
+            L,
+            G,
+            R
+        }
+
+        public EAN13()
+        {
+            DisplayCodeType = DisplayCodeType.PerChar;
+        }
+
+
+        private float GetCharHeight(float customRatio = 1)
+        {
+            switch (BarcodeHeight)
+            {
+                case BarcodeHeight.Minimal:
+                    return 0.25f;
+                case BarcodeHeight.Low:
+                    return 0.5f;
+                case BarcodeHeight.Normal:
+                    return 1f;
+                case BarcodeHeight.High:
+                    return 2f;
+                case BarcodeHeight.VeryHigh:
+                    return 3f;
+                case BarcodeHeight.Custom:
+                    return customRatio;
+                default:
+                    return 1f;
+            }
+        }
+        private int GetResolution()
+        {
+            switch (BarcodeImageResolution) // default char width (26) * factor
+            {
+                case BarcodeImageResolution.VeryLow:
+                    return 1;
+                case BarcodeImageResolution.Low:
+                    return 2;
+                case BarcodeImageResolution.MediumLow:
+                    return 3;
+                case BarcodeImageResolution.Medium:
+                    return 4;
+                case BarcodeImageResolution.MediumHigh:
+                    return 5;
+                case BarcodeImageResolution.High:
+                    return 6;
+                case BarcodeImageResolution.VeryHigh:
+                    return 7;
+                case BarcodeImageResolution.Extreme:
+                    return 8;
+                default:
+                    return 3;
+            }
+        }
+
+
+        public void Draw()
+        {
+
+        }
+
+        private void DrawSymblo(char number, GroupSide side )
+        {
+
+        }
+
+        private static byte[] Get(char c)
+        {
+            switch (c)
+            {
+                // Right Side ---------------------------------
+                case '0':
+                    return new byte[] { 1, 1, 1, 0, 0, 1, 0 };
+                case '1':
+                    return new byte[] { 1, 1, 0, 0, 1, 1, 0 };
+                case '2':
+                    return new byte[] { 1, 1, 0, 1, 1, 0, 0 };
+                case '3':
+                    return new byte[] { 1, 0, 0, 0, 0, 1, 0 };
+                case '4':
+                    return new byte[] { 1, 0, 1, 1, 1, 0, 0 };
+                case '5':
+                    return new byte[] { 1, 0, 0, 1, 1, 1, 0 };
+                case '6':
+                    return new byte[] { 1, 0, 1, 0, 0, 0, 0 };
+                case '7':
+                    return new byte[] { 1, 0, 0, 0, 1, 0, 0 };
+                case '8':
+                    return new byte[] { 1, 0, 0, 1, 0, 0, 0 };
+                case '9':
+                    return new byte[] { 1, 1, 1, 0, 1, 0, 0 };
+                default:
+                    return new byte[] { };
+            }
+        }
+
         //    private const double InchsToCmFactor = 2.54d;
         //    private const double CmToPixelsFactor = 37.79d;
         //    private double _height;
@@ -136,12 +282,6 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
         //    private static string Encoded(string code) { return ""; }
 
         //}
-
-
-        void Draw()
-        {
-
-        }
 
     }
 }

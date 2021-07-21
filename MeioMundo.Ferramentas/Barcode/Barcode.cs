@@ -1,7 +1,9 @@
-﻿using System;
+﻿using MeioMundo.Ferramentas.Barcode.Internal;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
@@ -9,6 +11,27 @@ using System.Windows.Media.Imaging;
 
 namespace MeioMundo.Ferramentas.Barcode
 {
+    public class Barcode
+    {
+        public static BitmapSource GetBarcodeToImage(string code, BarType type, BarcodeImageResolution resolution = BarcodeImageResolution.MediumLow, BarcodeHeight height = BarcodeHeight.Normal, DisplayCodeType displayText = DisplayCodeType.Center)
+        {
+            switch (type)
+            {
+                case BarType.Code39:
+                    Code39 m_code = new Code39();
+                    m_code.BarcodeHeight = height;
+                    m_code.BarcodeImageResolution = resolution;
+                    m_code.DisplayCodeType = displayText;
+                    m_code.Code = code;
+                    return m_code.CodeImage;
+                case BarType.EAN13:
+                    return null;
+                default:
+                    return null;
+            }
+        }
+    }
+}
     //public class Barcode : IBarCode
     
         //public string Code { get; set; }
@@ -70,6 +93,3 @@ namespace MeioMundo.Ferramentas.Barcode
 
         //    return image;
         //}
-        
-    
-}

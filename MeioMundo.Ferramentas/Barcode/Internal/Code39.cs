@@ -8,213 +8,16 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
+using MeioMundo.Ferramentas.Internal;
+
 namespace MeioMundo.Ferramentas.Barcode.Internal
 {
-    public class Code39 : IBarCode
+    public class Code39 : ViewModelBase, IBarCode
     {
-        //internal static DrawingVisual Draw(string code, double resolution, bool showText = true)
-        //{
-
-        //    code = code.ToUpper();   
-        //    string codeToPrint = string.Format("*{0}*", code);
-        //    int charHeight = 4;
-        //    int charWidth = 14;
-
-
-        //    DrawingVisual visual = new DrawingVisual();
-
-        //    DrawingContext drawingSpace = visual.RenderOpen();
-
-        //    Brush brush = Brushes.White;
-        //    Pen pen = new Pen(brush, 1);
-
-        //    //width = (int)Math.Round((float)code.Length * (float)charWidth * resolution);
-        //    int _charHeight = (int)Math.Round(charHeight * resolution / 2);
-        //    drawingSpace.DrawRectangle(brush, null, new Rect(0, 0, (double)codeToPrint.Length * (double)charWidth * resolution, _charHeight * resolution));
-
-        //    Brush b = Brushes.Black;
-
-        //    for (int i = 0; i < codeToPrint.Length; i++)
-        //    {
-        //        char c = codeToPrint[i];
-        //        byte[] _c = Chars.ToChar(c);
-        //        if (c == '-')
-        //            b = Brushes.Black;
-        //        else
-        //            b = Brushes.Black;
-        //        for (int z = 0; z < _c.Length; z++)
-        //        {
-        //            if(_c[z] == 1)
-        //                drawingSpace.DrawRectangle(b, null, new Rect(((float)i * (float)charWidth * resolution) + ((float)z * (float)resolution), 0, 1 * (float)resolution, _charHeight * resolution));
-        //        }
-        //    }
-
-        //    //height = _charHeight;
-        //    if (showText)
-        //    {
-        //        // Add Pixel Density for .Net 6
-        //        FormattedText textToFormat = new FormattedText(code, CultureInfo.GetCultureInfo("pt-PT"), FlowDirection.LeftToRight, new Typeface("Segoe UI"), 10d * resolution, Brushes.Black, 300);
-        //        //height = (int)Math.Round(textToFormat.Height) + _charHeight;
-        //        double textSpace = textToFormat.WidthIncludingTrailingWhitespace;
-        //        double star = ((double)codeToPrint.Length * (double)charWidth * resolution - textSpace) / 2;
-        //        drawingSpace.DrawText(textToFormat, new Point((int)Math.Round((float)star), _charHeight * resolution));
-        //    }
-
-        //    drawingSpace.Close();
-
-        //    return visual;
-        //}
-
-        //public struct Chars
-        //{
-        //    /// <value>*</value>
-        //    public static byte[] _asterisk => new byte[] { 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1 };
-        //    public static byte[] _less => new byte[] { 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1 }; // Leitor le:"'"
-        //    public static byte[] _space => new byte[] { 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0 };
-        //    public static byte[] _dolar => new byte[] { 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1 };
-        //    public static byte[] _percent => new byte[] { 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1 };
-        //    public static byte[] _plus => new byte[] { 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1 };     // Leitor le: "»"
-        //    public static byte[] _dot => new byte[] { 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1 };
-        //    public static byte[] _slash_r => new byte[] { 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1 };            // Leitor le: "-"
-        //    public static byte[] _0 => new byte[] { 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1 };
-        //    public static byte[] _1 => new byte[] { 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1 };
-        //    public static byte[] _2 => new byte[] { 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1 };
-        //    public static byte[] _3 => new byte[] { 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1 };
-        //    public static byte[] _4 => new byte[] { 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1 };
-        //    public static byte[] _5 => new byte[] { 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1 };
-        //    public static byte[] _6 => new byte[] { 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1 };
-        //    public static byte[] _7 => new byte[] { 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1 };
-        //    public static byte[] _8 => new byte[] { 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1 };
-        //    public static byte[] _9 => new byte[] { 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1 };
-        //    public static byte[] _A => new byte[] { 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1 };
-        //    public static byte[] _B => new byte[] { 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1 };
-        //    public static byte[] _C => new byte[] { 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1 };
-        //    public static byte[] _D => new byte[] { 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1 };
-        //    public static byte[] _E => new byte[] { 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1 };
-        //    public static byte[] _F => new byte[] { 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 1 };
-        //    public static byte[] _G => new byte[] { 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1 };
-        //    public static byte[] _H => new byte[] { 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1 };
-        //    public static byte[] _I => new byte[] { 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1 };
-        //    public static byte[] _J => new byte[] { 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1 };
-        //    public static byte[] _K => new byte[] { 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1 };
-        //    public static byte[] _L => new byte[] { 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1 };
-        //    public static byte[] _M => new byte[] { 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1 };
-        //    public static byte[] _N => new byte[] { 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1 };
-        //    public static byte[] _O => new byte[] { 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1 };
-        //    public static byte[] _P => new byte[] { 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1 };
-        //    public static byte[] _Q => new byte[] { 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 1 };
-        //    public static byte[] _R => new byte[] { 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1 };
-        //    public static byte[] _S => new byte[] { 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1 };
-        //    public static byte[] _T => new byte[] { 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 1 };
-        //    public static byte[] _U => new byte[] { 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1 };
-        //    public static byte[] _V => new byte[] { 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1 };
-        //    public static byte[] _W => new byte[] { 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1 };
-        //    public static byte[] _X => new byte[] { 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1 };
-        //    public static byte[] _Y => new byte[] { 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1 };
-        //    public static byte[] _Z => new byte[] { 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1 };
-
-
-
-
-        //    public static byte[] ToChar(char c)
-        //    {
-        //        //c = c.ToString().ToUpper().ToCharArray();
-        //        byte[] data = new byte[] { };
-        //        switch (c)
-        //        {
-        //            case '*':
-        //                return _asterisk;
-        //            case '-':
-        //                return _slash_r; // _less;
-        //            case '$':
-        //                return _dolar;
-        //            case ' ':
-        //                return _space;
-        //            case '%':
-        //                return _percent;
-        //            case '+':
-        //                return _plus;
-        //            case '0':
-        //                return _0;
-        //            case '1':
-        //                return _1;
-        //            case '2':
-        //                return _2;
-        //            case '3':
-        //                return _3;
-        //            case '4':
-        //                return _4;
-        //            case '5':
-        //                return _5;
-        //            case '6':
-        //                return _6;
-        //            case '7':
-        //                return _7;
-        //            case '8':
-        //                return _8;
-        //            case '9':
-        //                return _9;
-        //            case 'A':
-        //                return _A;
-        //            case 'B':
-        //                return _B;
-        //            case 'C':
-        //                return _C;
-        //            case 'D':
-        //                return _D;
-        //            case 'E':
-        //                return _E;
-        //            case 'F':
-        //                return _F;
-        //            case 'G':
-        //                return _G;
-        //            case 'H':
-        //                return _H;
-        //            case 'I':
-        //                return _I;
-        //            case 'J':
-        //                return _J;
-        //            case 'K':
-        //                return _K;
-        //            case 'L':
-        //                return _L;
-        //            case 'M':
-        //                return _M;
-        //            case 'N':
-        //                return _N;
-        //            case 'O':
-        //                return _O;
-        //            case 'P':
-        //                return _P;
-        //            case 'Q':
-        //                return _Q;
-        //            case 'R':
-        //                return _R;
-        //            case 'S':
-        //                return _S;
-        //            case 'T':
-        //                return _T;
-        //            case 'U':
-        //                return _U;
-        //            case 'V':
-        //                return _V;
-        //            case 'W':
-        //                return _W;
-        //            case 'X':
-        //                return _X;
-        //            case 'Y':
-        //                return _Y;
-        //            case 'Z':
-        //                return _Z;
-        //            default:
-        //                return new byte[] { };
-        //        }
-        //    }
-        //}
         public string Code 
         {
             get { return m_code; }
-            set { m_code = value; Draw(); }
+            set { m_code = value.ToUpper(); Draw(); }
         }
         public DisplayCodeType DisplayCodeType
         {
@@ -224,14 +27,14 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
         public BarcodeImageResolution BarcodeImageResolution
         {
             get { return m_barcodeImageResolution; }
-            set { m_barcodeImageResolution = value; Draw(); }
+            set { m_barcodeImageResolution = value; Draw(); OnPropertyChanged(); }
         }
         public BarcodeHeight BarcodeHeight
         {
             get { return m_barcodeHeight; }
             set { m_barcodeHeight = value; Draw(); }
         }
-        public BarType BarType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public BarType BarType { get => BarType.Code39; }
 
         public char[] Chars => new char[] {
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'Y', 'X', 'Z',
@@ -244,7 +47,7 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
         public BitmapSource CodeImage
         {
             get { return m_codeImage; }
-            set { m_codeImage = value; }
+            set { m_codeImage = value; OnPropertyChanged(); }
         }
 
         private string m_code;
@@ -255,7 +58,7 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
 
 
         Brush BarColor = Brushes.Black;
-        Brush BackgroundColor = Brushes.Violet;
+        Brush BackgroundColor = Brushes.White;
 
 
         public Code39()
@@ -284,29 +87,91 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
                     return 1f;
             }
         }
-
+        private int GetResolution()
+        {
+            switch (BarcodeImageResolution) // default char width (26) * factor
+            {
+                case BarcodeImageResolution.VeryLow:
+                    return 1;
+                case BarcodeImageResolution.Low:
+                    return 2;
+                case BarcodeImageResolution.MediumLow:
+                    return 3;
+                case BarcodeImageResolution.Medium:
+                    return 4;
+                case BarcodeImageResolution.MediumHigh:
+                    return 5;
+                case BarcodeImageResolution.High:
+                    return 6;
+                case BarcodeImageResolution.VeryHigh:
+                    return 7;
+                case BarcodeImageResolution.Extreme:
+                    return 8;
+                default:
+                    return 3;
+            }
+        }
         public void Draw()
         {
+            if (string.IsNullOrEmpty(Code))
+                return;
+
             DrawingVisual visual = new DrawingVisual();
             DrawingContext drawingSpace = visual.RenderOpen();
 
-            
+            string codeToDraw = string.Format("*{0}*", Code);
+
+            double widthBar = 0;
+            double heighBar = 0;
+            for (int i = 0; i < codeToDraw.Length; i++)
+            {
+                bool showCharPerSymble = false;
+                if (DisplayCodeType == DisplayCodeType.PerChar)
+                    showCharPerSymble = true;
+                BitmapSource image = DrawChar(codeToDraw[i], showCharPerSymble);
+                drawingSpace.DrawImage(image, new Rect(image.Width * i, 0, image.Width, image.Height));
+                widthBar += image.Width;
+                heighBar = image.Height;
+            }
+
+            if (DisplayCodeType == DisplayCodeType.Center)
+            {
+                FormattedText charFormatted = new FormattedText(Code.ToString().ToUpper(), CultureInfo.GetCultureInfo("pt-PT"), FlowDirection.LeftToRight, new Typeface("Calibri"), 14 * GetResolution(), BarColor, 1);
+                double centerX = (widthBar / 2) - (charFormatted.Width / 2);
+                double centerY = heighBar + charFormatted.OverhangAfter;
+                drawingSpace.DrawText(charFormatted, new Point(centerX, centerY)); //defaultHeightChar + (charTextHeightOffset * resolution / 2)));
+            }
+
+
+            drawingSpace.Close();
+
+            int sizeX = (int)Math.Round(visual.Drawing.Bounds.Width);
+            int sizeY = (int)Math.Round(visual.Drawing.Bounds.Height);
+
+            var targetBitmap = new RenderTargetBitmap(sizeX, sizeY, 96, 96, PixelFormats.Pbgra32);
+            targetBitmap.Render(visual);
+            CodeImage = targetBitmap;
         }
 
         
-        internal BitmapSource DrawChar(char c, float resolution, bool drawChar)
+        internal BitmapSource DrawChar(char c, bool drawChar)
         {
             DrawingVisual visual = new DrawingVisual();
             DrawingContext drawingSpace = visual.RenderOpen();
 
+            float resolution = GetResolution();
             int defaultWidthChar = 26;  // 26 pixels
             float defaultHeightChar = (float)defaultWidthChar * GetCharHeight();
+            
 
-            FormattedText charFormatted = new FormattedText(c.ToString().ToUpper(), CultureInfo.GetCultureInfo("pt-PT"), FlowDirection.LeftToRight, new Typeface("Calibri"), 11d * resolution, BarColor, 1);
-
-            double defaultCharHeight = (charFormatted.Extent + charFormatted.OverhangAfter) * resolution;
-
-            drawingSpace.DrawRectangle(BackgroundColor, null, new Rect(0, 0, defaultWidthChar * resolution, (defaultHeightChar * resolution + defaultCharHeight)));
+            FormattedText charFormatted = new FormattedText(c.ToString().ToUpper(), CultureInfo.GetCultureInfo("pt-PT"), FlowDirection.LeftToRight, new Typeface("Calibri"), 12 * resolution, BarColor, 1);
+            
+            double charTextHeightOffset = 2 * resolution;
+            double defaultCharHeight = charFormatted.Height - (charFormatted.Baseline - charFormatted.Extent);
+            if (drawChar)
+                drawingSpace.DrawRectangle(BackgroundColor, null, new Rect(0, 0, defaultWidthChar * resolution, (defaultHeightChar * resolution + defaultCharHeight + charTextHeightOffset)));
+            else
+                drawingSpace.DrawRectangle(BackgroundColor, null, new Rect(0, 0, defaultWidthChar * resolution, (defaultHeightChar * resolution)));
 
             byte[] data = GetSymbles(c);
 
@@ -318,8 +183,11 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
 
             if (drawChar)
             {
-                double center = (defaultWidthChar * resolution / 2) - (charFormatted.Width / 2);
-                drawingSpace.DrawText(charFormatted, new Point(center, defaultHeightChar));
+                double centerX = (defaultWidthChar * resolution / 2) - (charFormatted.Width / 2);
+                double centerY = defaultHeightChar * resolution - ((charFormatted.Baseline - charFormatted.Extent)/2);
+                if (charFormatted.Text == "*")
+                    centerY += charFormatted.OverhangTrailing;
+                drawingSpace.DrawText(charFormatted, new Point(centerX, centerY)); //defaultHeightChar + (charTextHeightOffset * resolution / 2)));
             }
             drawingSpace.Close();
 
@@ -335,6 +203,7 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
         {
             switch (c)
             {
+                // NUMEROS --------------------------------------------------------
                 case '0':
                     return new byte[] { 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1 };
                 case '1':
@@ -355,18 +224,91 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
                     return new byte[] { 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1 };
                 case '9':
                     return new byte[] { 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1 };
+
+                // LETRAS ----------------------------------------------------------
+                case 'A':
+                    return new byte[] { 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1 };
+                case 'B':
+                    return new byte[] { 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1 };
+                case 'C':
+                    return new byte[] { 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1 };
+                case 'D':
+                    return new byte[] { 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1 };
+                case 'E':
+                    return new byte[] { 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1 };
+                case 'F':
+                    return new byte[] { 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 1 };
+                case 'G':
+                    return new byte[] { 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1 };
+                case 'H':
+                    return new byte[] { 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1 };
+                case 'I':
+                    return new byte[] { 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1 };
+                case 'J':
+                    return new byte[] { 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1 };
+                case 'K':
+                    return new byte[] { 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1 };
+                case 'L':
+                    return new byte[] { 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1 };
+                case 'M':
+                    return new byte[] { 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1 };
+                case 'N':
+                    return new byte[] { 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1 };
+                case 'O':
+                    return new byte[] { 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1 };
+                case 'P':
+                    return new byte[] { 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1 };
+                case 'Q':
+                    return new byte[] { 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 1 };
+                case 'R':
+                    return new byte[] { 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1 };
+                case 'S':
+                    return new byte[] { 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1 };
+                case 'T':
+                    return new byte[] { 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 1 };
+                case 'U':
+                    return new byte[] { 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1 };
+                case 'V':
+                    return new byte[] { 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1 };
+                case 'W':
+                    return new byte[] { 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1 };
+                case 'X':
+                    return new byte[] { 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1 };
+                case 'Y':
+                    return new byte[] { 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1 };
+                case 'Z':
+                    return new byte[] { 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1 };
+
+
+                // Simblos ----------------------------------------------------------
+                case '*':
+                    return new byte[] { 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1 };
+                case '%':
+                    return new byte[] { 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1 };
+                case '-':                                                                   // Real:  new byte[] { 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1 };           // Leitor lê:"'"
+                    return new byte[] { 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1 };            // ->  (Simblo Incorreto: Leitor Lê '/' como '-')
+                case '+':
+                    return new byte[] { 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1 };            // Leitor le: "»"
+                case '$':
+                    return new byte[] { 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1 };
+                case '/':
+                    return new byte[] { 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1 };           // Leitor lê: '-'
+                case '.':
+                    return new byte[] { 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1 };
+                case ' ':
+                    return new byte[] { 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0 };
                 default:
                     return new byte[] { };
             }
         }
         //    public static byte[] _asterisk => new byte[] { 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1 };
-        //    public static byte[] _less => new byte[] { 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1 }; // Leitor le:"'"
+        //    public static byte[] _less => new byte[] { 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1 };           // Leitor le:"'"
         //    public static byte[] _space => new byte[] { 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0 };
         //    public static byte[] _dolar => new byte[] { 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1 };
         //    public static byte[] _percent => new byte[] { 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1 };
-        //    public static byte[] _plus => new byte[] { 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1 };     // Leitor le: "»"
+        //    public static byte[] _plus => new byte[] { 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1 };           // Leitor le: "»"
         //    public static byte[] _dot => new byte[] { 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1 };
-        //    public static byte[] _slash_r => new byte[] { 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1 };            // Leitor le: "-"
+        //    public static byte[] _slash_r => new byte[] { 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1 };        // Leitor le: "-"
         //    public static byte[] _0 => new byte[] { 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1 };
         //    public static byte[] _1 => new byte[] { 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1 };
         //    public static byte[] _2 => new byte[] { 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1 };

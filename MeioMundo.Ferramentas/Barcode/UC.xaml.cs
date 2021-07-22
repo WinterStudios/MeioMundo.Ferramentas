@@ -40,6 +40,7 @@ namespace MeioMundo.Ferramentas.Barcode
         {
             barcodePreview.Code = Code.Text;
             Image_BarCode.Source = barcodePreview.CodeImage;
+            GetInfo();
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -62,12 +63,16 @@ namespace MeioMundo.Ferramentas.Barcode
                     case BarType.Code39:
                         barcodePreview = CreateCodeDefault(BarType.Code39);
                         break;
+                    case BarType.EAN13:
+                        barcodePreview = CreateCodeDefault(BarType.EAN13);
+                        break;
                     default:
                         break;
                 }
             }    
 
             Image_BarCode.Source = barcodePreview.CodeImage;
+            GetInfo();
         }
 
         private IBarCode CreateCodeDefault(BarType typeOfBar)
@@ -83,7 +88,23 @@ namespace MeioMundo.Ferramentas.Barcode
                         (DisplayCodeType)UC_ComboBox_BarDisplay.SelectedIndex
                 });
             }
+            if (typeOfBar == BarType.EAN13)
+            {
+                bar = (IBarCode)Activator.CreateInstance(typeof(EAN13),
+                    new object[] {
+                        Code.Text,
+                        (BarcodeImageResolution)UC_ComboBox_BarResolution.SelectedIndex,
+                        (BarcodeHeight)UC_ComboBox_BarHeight.SelectedIndex,
+                        (DisplayCodeType)UC_ComboBox_BarDisplay.SelectedIndex
+                });
+            }
             return bar;
+        }
+
+        private void GetInfo()
+        {
+            if(barcodePreview.CodeImage != null)
+                info_1.Text = string.Format("W:{0}px - H:{1}px", barcodePreview.CodeImage.PixelWidth, barcodePreview.CodeImage.PixelHeight);
         }
     }
 }

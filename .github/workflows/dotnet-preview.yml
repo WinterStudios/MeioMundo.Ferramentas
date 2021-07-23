@@ -6,7 +6,7 @@ on:
     branches: 
       - preview
     
-name: Build .Net
+name: Build .Net Preview
 
 
 jobs:

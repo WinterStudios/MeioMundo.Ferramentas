@@ -69,6 +69,7 @@
     <None Remove="Assets\search.png" />
     <None Remove="Assets\settings.png" />
     <None Remove="Assets\up-arrow.png" />
+    <None Remove="Barcode\Internal\Fonts\LibreBarcodeEAN13Text-Regular.ttf" />
     <None Remove="Resources\Icons\paste.png" />
     <None Remove="Resources\Icons\plus.png" />
     <None Remove="Voucher\Modelo\barcode.gif" />
@@ -78,9 +79,11 @@
   <ItemGroup>
     <Reference Include="U-System.Core">
       <HintPath>..\lib\U-System.Core.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="U-System.External">
       <HintPath>..\lib\U-System.External.dll</HintPath>
+      <Private>false</Private>
     </Reference>
   </ItemGroup>
 
@@ -122,6 +125,7 @@
     <Resource Include="Assets\search.png" />
     <Resource Include="Assets\settings.png" />
     <Resource Include="Assets\up-arrow.png" />
+    <Resource Include="Barcode\Internal\Fonts\LibreBarcodeEAN13Text-Regular.ttf" />
     <Resource Include="Resources\Icons\paste.png" />
     <Resource Include="Resources\Icons\plus.png" />
     <Resource Include="Voucher\Modelo\barcode.gif" />
@@ -142,6 +146,7 @@
 
   <ItemGroup>
     <Folder Include="Site\Icons\" />
+    <Folder Include="UI\" />
   </ItemGroup>
 
 </Project>

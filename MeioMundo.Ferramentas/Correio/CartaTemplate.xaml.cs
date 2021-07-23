@@ -65,7 +65,7 @@ namespace MeioMundo.Ferramentas.Correio
         {
             //code.Source = new BitmapImage();
             
-            code.Source = Barcode.Barcode.CreateBarcode(s, Barcode.BarcodeEncoding.Code39).ToImage((int)Math.Round(code.Width), (int)Math.Round(code.Height));
+            //code.Source = Barcode.Barcode.CreateBarcode(s, Barcode.BarcodeEncoding.Code39).ToImage((int)Math.Round(code.Width), (int)Math.Round(code.Height));
 
         }
 

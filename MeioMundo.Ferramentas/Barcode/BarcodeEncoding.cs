@@ -8,6 +8,7 @@ namespace MeioMundo.Ferramentas.Barcode
 {
     public enum BarcodeEncoding
     {
-        Code39 = 0
+        Code39 = 0,
+        EAN13 = 1
     }
 }

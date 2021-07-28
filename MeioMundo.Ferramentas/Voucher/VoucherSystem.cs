@@ -43,12 +43,17 @@ namespace MeioMundo.Ferramentas.Voucher
 
         public static void Load()
         {
+            string serverPath = @"srvmm";
+
             try
             {
-                if (File.Exists(VoucherFileNetworkLocation))
+                using (Network.NetworkShareAccesser.Access(serverPath, "meiomundo", "meiomundo"))
                 {
-                    string json = File.ReadAllText(VoucherFileNetworkLocation);
-                    Vouchers = JsonSerializer.Deserialize<List<VoucherData>>(json);
+                    if (File.Exists(VoucherFileNetworkLocation))
+                    {
+                        string json = File.ReadAllText(VoucherFileNetworkLocation);
+                        Vouchers = JsonSerializer.Deserialize<List<VoucherData>>(json);
+                    }
                 }
             }
             catch (Exception ex)

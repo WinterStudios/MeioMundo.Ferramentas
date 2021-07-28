@@ -67,11 +67,7 @@ namespace MeioMundo.Ferramentas.Escola
         }
 
         private static string DataLocationFolder { get {
-                string pluginAssemblyDirectory = AppDomain.CurrentDomain.BaseDirectory.Replace("\\","/");
-                string pluginDataDirectory = pluginAssemblyDirectory;
-                if (!System.IO.Directory.Exists(pluginDataDirectory + "/Data/MeioMundo.Ferramentas/Escola"))
-                    System.IO.Directory.CreateDirectory(pluginDataDirectory + "/Data/MeioMundo.Ferramentas/Escola");
-                return pluginDataDirectory + "/Data/MeioMundo.Ferramentas/Escola/";
+                return @"\\Srvmm\USR\MeioMundo_Local\Escola\";
             } }
 
         public static void Inicialize()
@@ -140,13 +136,16 @@ namespace MeioMundo.Ferramentas.Escola
 
         public static void LoadEscolas()
         {
+            string serverPath = @"srvmm";
             string escolaFile = DataLocationFolder + "Escolas.json";
-            if (System.IO.File.Exists(escolaFile))
+            using (Network.NetworkShareAccesser.Access(serverPath, "meiomundo", "meiomundo"))
             {
-                string json = System.IO.File.ReadAllText(escolaFile);
-                Escolas = System.Text.Json.JsonSerializer.Deserialize<Internal.Escola[]>(json).ToList();
+                if (System.IO.File.Exists(escolaFile))
+                {
+                    string json = System.IO.File.ReadAllText(escolaFile);
+                    Escolas = System.Text.Json.JsonSerializer.Deserialize<Internal.Escola[]>(json).ToList();
+                }
             }
-
         }
 
         internal static void AddEscola()
@@ -164,7 +163,11 @@ namespace MeioMundo.Ferramentas.Escola
             string escolaFile = DataLocationFolder + "Escolas.json";
             System.Text.Json.JsonSerializerOptions options = new System.Text.Json.JsonSerializerOptions() { WriteIndented = true };
             string json = System.Text.Json.JsonSerializer.Serialize(Escolas.ToArray(), options);
-            System.IO.File.WriteAllText(escolaFile, json);
+            string serverPath = @"srvmm";
+            using (Network.NetworkShareAccesser.Access(serverPath, "meiomundo", "meiomundo"))
+            {
+                System.IO.File.WriteAllText(escolaFile, json);
+            }
         }
 
 
@@ -175,7 +178,9 @@ namespace MeioMundo.Ferramentas.Escola
         #region Livros
         public static void LoadLivros()
         {
+            string serverPath = @"srvmm";
             string livrosFile = DataLocationFolder + "Livros.json";
+            using (Network.NetworkShareAccesser.Access(serverPath, "meiomundo", "meiomundo"))
             if (System.IO.File.Exists(livrosFile))
             {
                 string json = System.IO.File.ReadAllText(livrosFile);
@@ -185,10 +190,13 @@ namespace MeioMundo.Ferramentas.Escola
 
         public static void SaveLivros()
         {
+            string serverPath = @"srvmm";
             string livrosFile = DataLocationFolder + "Livros.json";
-
-            string json = System.Text.Json.JsonSerializer.Serialize(Livros, new JsonSerializerOptions() { WriteIndented = true });
-            File.WriteAllText(livrosFile, json);
+            using (Network.NetworkShareAccesser.Access(serverPath, "meiomundo", "meiomundo"))
+            {
+                string json = System.Text.Json.JsonSerializer.Serialize(Livros, new JsonSerializerOptions() { WriteIndented = true });
+                File.WriteAllText(livrosFile, json);
+            }
         }
 
         #endregion

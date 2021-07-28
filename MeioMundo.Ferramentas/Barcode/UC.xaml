@@ -5,9 +5,34 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MeioMundo.Ferramentas.Barcode"
              xmlns:Models="clr-namespace:MeioMundo.Ferramentas.Barcode.Models" x:Class="MeioMundo.Ferramentas.Barcode.UC"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+            Background="{DynamicResource Theme.Background}"
+    > 
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="GetBarcodeResolutions" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:BarcodeImageResolution"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="GetBarcodeHeights" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:BarcodeHeight"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="GetBarcodeDisplayTypes" />
+        <ObjectDataProvider x:Key="GetBarcodeTypes" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:BarType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         <GroupBox Header="Preview" Height="150" Width="300">
             <Viewbox>
 
@@ -15,6 +40,53 @@
 
             </Viewbox>
         </GroupBox>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Vertical">
+                <GroupBox Header="Codigo">
+                    <TextBox x:Name="Code" TextChanged="Code_TextChanged" />
+                </GroupBox>
+                <GroupBox Header="Defeniçoes">
+                    <StackPanel>
+                        <DockPanel>
+                            <TextBlock Text="Tipo" Width="110"/>
+                            <ComboBox x:Name="UC_ComboBox_BarType" SelectionChanged="ComboBox_SelectionChanged" Tag="BarType" SelectedIndex="0"
+                              ItemsSource="{Binding Source={StaticResource GetBarcodeTypes}}"/>
+                        </DockPanel>
+                        <DockPanel Margin="0,4">
+                            <TextBlock Text="Altura das Barras" Width="110"/>
+                            <ComboBox x:Name="UC_ComboBox_BarHeight" SelectionChanged="ComboBox_SelectionChanged" Tag="BarHeight" SelectedIndex="2"
+                              ItemsSource="{Binding Source={StaticResource GetBarcodeHeights}}"/>
+                        </DockPanel>
+                        <DockPanel>
+                            <TextBlock Text="Mostra Texto" Width="110"/>
+                            <ComboBox x:Name="UC_ComboBox_BarDisplay" SelectionChanged="ComboBox_SelectionChanged" Tag="DisplayType" SelectedIndex="1">
+                                <ComboBoxItem Content="Não Mostrar"/>
+                                <ComboBoxItem Content="Centrado"/>
+                                <ComboBoxItem Content="Por Caractere"/>
+                            </ComboBox>
+                        </DockPanel>
+                        <DockPanel>
+                            <TextBlock Text="Resolução" Width="110"/>
+                            <ComboBox x:Name="UC_ComboBox_BarResolution" SelectionChanged="ComboBox_SelectionChanged" Tag="Resolution" SelectedIndex="2"
+                                ItemsSource="{Binding Source={StaticResource GetBarcodeResolutions}}"/>
+                        </DockPanel>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Information">
+                    <StackPanel>
+                        <TextBlock x:Name="info_1"/>
+                        <TextBlock x:Name="info_2"/>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+            <Border Grid.Row="1">
+                <Image x:Name="Image_BarCode" RenderOptions.BitmapScalingMode="Linear"/>
+            </Border>
+        </Grid>
         
     </Grid>
 </UserControl>

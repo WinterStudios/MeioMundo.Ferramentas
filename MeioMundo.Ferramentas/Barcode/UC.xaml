@@ -27,41 +27,71 @@
                 <x:Type TypeName="local:BarType"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <ObjectDataProvider>
+            <ObjectDataProvider.MethodParameters>
+                
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <GroupBox Header="Preview" Height="150" Width="300">
-            <Viewbox>
-
-                <Models:Etiqueta_A/>
-
+        <GroupBox Header="Preview">
+            <Viewbox x:Name="previewPage">
+                
             </Viewbox>
         </GroupBox>
-        <Grid Grid.Column="1">
+        <Border Grid.Column="1" Padding="2">
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <GroupBox Header="Modelo">
+                    <ComboBox/>
+                </GroupBox>
+                <DataGrid Grid.Row="1" ItemsSource="{Binding Codes, RelativeSource={RelativeSource AncestorType=local:UC}}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridComboBoxColumn Header="Etiqueta" Width="*"/>
+                        <DataGridTextColumn Header="Nome" Width="*" Binding="{Binding Nome}"/>
+                        <DataGridTextColumn Header="Codigo Barra" Width="*" Binding="{Binding Code}" />
+                        <DataGridComboBoxColumn Header="Tipo de Codigo" Width="*" ItemsSource="{Binding Source={StaticResource GetBarcodeTypes}}" SelectedItemBinding="{Binding BarType, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="Preço" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+        <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Vertical">
+                <GroupBox Header="Modelo da Etiqueta">
+                    <ComboBox/>
+                </GroupBox>
+                <GroupBox Header="Nome">
+                    <TextBox x:Name="CodigoNome" Height="24" TextChanged="CodigoNome_TextChanged" VerticalContentAlignment="Center" />
+                </GroupBox>
                 <GroupBox Header="Codigo">
-                    <TextBox x:Name="Code" TextChanged="Code_TextChanged" />
+                    <TextBox x:Name="Code" Height="24" TextChanged="Code_TextChanged" VerticalContentAlignment="Center" />
                 </GroupBox>
                 <GroupBox Header="Defeniçoes">
                     <StackPanel>
-                        <DockPanel>
+                        <DockPanel Margin="0,0,0,4">
                             <TextBlock Text="Tipo" Width="110"/>
                             <ComboBox x:Name="UC_ComboBox_BarType" SelectionChanged="ComboBox_SelectionChanged" Tag="BarType" SelectedIndex="0"
                               ItemsSource="{Binding Source={StaticResource GetBarcodeTypes}}"/>
                         </DockPanel>
-                        <DockPanel Margin="0,4">
+                        <DockPanel Margin="0,0,0,4">
                             <TextBlock Text="Altura das Barras" Width="110"/>
                             <ComboBox x:Name="UC_ComboBox_BarHeight" SelectionChanged="ComboBox_SelectionChanged" Tag="BarHeight" SelectedIndex="2"
                               ItemsSource="{Binding Source={StaticResource GetBarcodeHeights}}"/>
                         </DockPanel>
-                        <DockPanel>
+                        <DockPanel Margin="0,0,0,4">
                             <TextBlock Text="Mostra Texto" Width="110"/>
                             <ComboBox x:Name="UC_ComboBox_BarDisplay" SelectionChanged="ComboBox_SelectionChanged" Tag="DisplayType" SelectedIndex="1">
                                 <ComboBoxItem Content="Não Mostrar"/>
@@ -69,10 +99,14 @@
                                 <ComboBoxItem Content="Por Caractere"/>
                             </ComboBox>
                         </DockPanel>
-                        <DockPanel>
+                        <DockPanel Margin="0,0,0,4">
                             <TextBlock Text="Resolução" Width="110"/>
                             <ComboBox x:Name="UC_ComboBox_BarResolution" SelectionChanged="ComboBox_SelectionChanged" Tag="Resolution" SelectedIndex="2"
                                 ItemsSource="{Binding Source={StaticResource GetBarcodeResolutions}}"/>
+                        </DockPanel>
+                        <DockPanel Margin="0,0,0,4">
+                            <TextBlock Text="Quantidade" Width="110"/>
+                            <TextBox Height="24" VerticalContentAlignment="Center" />
                         </DockPanel>
                     </StackPanel>
                 </GroupBox>
@@ -82,8 +116,9 @@
                         <TextBlock x:Name="info_2"/>
                     </StackPanel>
                 </GroupBox>
+                <Button Content="Adicionar" Margin="0,5" Click="Button_Click" Tag="AddCode"/>
             </StackPanel>
-            <Border Grid.Row="1">
+            <Border Grid.Row="1" Background="White" VerticalAlignment="Top" Padding="10">
                 <Image x:Name="Image_BarCode" RenderOptions.BitmapScalingMode="Linear"/>
             </Border>
         </Grid>

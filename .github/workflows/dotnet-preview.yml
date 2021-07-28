@@ -1,12 +1,12 @@
 on:
   push:
     branches:
-      - master
+      - preview
   pull_request:
     branches: 
-      - master
+      - preview
     
-name: Build .Net
+name: Build .Net Preview
 
 
 jobs:
@@ -58,4 +58,3 @@ jobs:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: dotnet-release/Release.zip
         tag: ${{ steps.action-tag-date-version.outputs.version }}
-    

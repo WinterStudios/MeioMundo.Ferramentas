@@ -8,6 +8,7 @@ namespace MeioMundo.Ferramentas.Escola.Internal
 {
     public static class Anos
     {
+
         public static Dictionary<int, string> __Anos
         {
             get
@@ -64,6 +65,7 @@ namespace MeioMundo.Ferramentas.Escola.Internal
             get
             {
                 Dictionary<int, string> keys = new Dictionary<int, string>();
+                keys.Add(0, "");
 
                 keys.Add(10, "Português");
                 keys.Add(11, "Inglês");
@@ -123,5 +125,6 @@ namespace MeioMundo.Ferramentas.Escola.Internal
         }
 
         public static Dictionary<int, string> GetDisciplinas() => __Disciplinas;
+
     }
 }

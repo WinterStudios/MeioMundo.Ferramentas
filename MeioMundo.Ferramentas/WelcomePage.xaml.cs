@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 
-using U_System.Core;
 
 namespace MeioMundo.Ferramentas
 {
@@ -39,6 +38,24 @@ namespace MeioMundo.Ferramentas
                 tab.Tag = "/MeioMundo.Ferramentas;component/Assets/books.png";
                 Escola.ManuaisEscolares manuais = new Escola.ManuaisEscolares();
                 tab.Content = manuais;
+                U_System.External.UI.TabSystem.Add(manuais);// U_System.Core.UX.TabsSystem.Add(tab);
+            }
+            if(tag == "_CORREIO")
+            {
+                TabItem tab = new TabItem();
+                tab.Header = "Manuais Escolares";
+                tab.Tag = "/MeioMundo.Ferramentas;component/Assets/carta-logo.png";
+                Correio.Main main = new Correio.Main();
+                tab.Content = main;
+                U_System.Core.UX.TabsSystem.Add(tab);
+            }
+            if (tag == "_WEBSITE_MANAGER")
+            {
+                TabItem tab = new TabItem();
+                tab.Header = "Website Manager";
+                tab.Tag = "/MeioMundo.Ferramentas;component/Assets/carta-logo.png";
+                Site.Core main = new Site.Core();
+                tab.Content = main;
                 U_System.Core.UX.TabsSystem.Add(tab);
             }
         }

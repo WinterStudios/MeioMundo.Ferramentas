@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="MeioMundo.Ferramentas.Voucher.Modelo.VoucherModelo_Back"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MeioMundo.Ferramentas.Voucher.Modelo"
+             mc:Ignorable="d" 
+             
+             Background="{DynamicResource backgroundLineiearGradiant}"
+             Width="21cm" Height="9.9cm">
+    
+    <UserControl.Resources>
+        <LinearGradientBrush x:Key="backgroundLineiearGradiant" StartPoint="0,0" EndPoint="1,1" ColorInterpolationMode="ScRgbLinearInterpolation">
+            <GradientStop Color="#EBF1F5" Offset="0"/>
+            <GradientStop Color="#FFFFFF" Offset="1"/>
+        </LinearGradientBrush>
+        <Style x:Key="Header" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#0070C0"/>
+            <Setter Property="FontSize" Value="8pt"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Margin" Value="0,8pt,0,8pt"/>
+        </Style>
+        <Style x:Key="Normal" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="8pt"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+        </Style>
+        <Style TargetType="Paragraph">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="8pt"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="Margin" Value="0,1pt,0,0"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Border Margin="1cm">
+            <StackPanel>
+                <TextBlock Text="Como resgatar o seu Gift Card" Style="{DynamicResource Header}"/>
+                <TextBlock Text="Para usar o seu Gift Card, dirija-se à Papelaria Meio Mundo e escolha os produtos que deseja." Style="{DynamicResource Normal}"/>
+                <TextBlock Text="No ato de pagamento apresente o seu Gift Card para que seja feito o desconto na fatura." Style="{DynamicResource Normal}"/>
+                <TextBlock Text="Termos e condições:" Style="{DynamicResource Header}"/>
+                <RichTextBox BorderThickness="0" IsReadOnly="True" Focusable="False" Background="Transparent" TextChanged="RichTextBox_TextChanged">
+                    <FlowDocument FontFamily="Segoe UI">
+                        <List MarkerStyle="Decimal" Margin="0">
+                            <List.Style>
+                                <Style TargetType="List">
+                                    <Setter Property="MarkerOffset" Value="0.5cm"/>
+                                    <Setter Property="Foreground" Value="#0070C0"/>
+                                    <Setter Property="FontSize" Value="8pt"/>
+                                    <Setter Property="FontFamily" Value="Segoe UI"/>
+                                    <Setter Property="FontWeight" Value="Light"/>
+                                </Style>
+                            </List.Style>
+                            <ListItem>
+                                <Paragraph>O Gift Card é válido até 3 meses após a compra do mesmo.</Paragraph>
+                            </ListItem>
+                            <ListItem>
+                                <Paragraph>O Gift Card é transacionável (pode ser dado a uma outra pessoa como um presente).</Paragraph>
+                            </ListItem>
+                            <ListItem>
+                                <Paragraph>Este Gift Card é equivalente a uma "nota de crédito".</Paragraph>
+                            </ListItem>
+                            <ListItem>
+                                <Paragraph>O uso do Gift Card está sujeito aos termos e condições presentes na loja física.</Paragraph>
+                            </ListItem>
+                            <ListItem>
+                                <Paragraph>A Meio Mundo não se responsabiliza pelo Gift Card que, depois de ativo, seja roubado, perdido, desativado ou danificado. Trate o seu Gift Card como se fosse dinheiro.</Paragraph>
+                            </ListItem>
+                        </List>
+                    </FlowDocument>
+                </RichTextBox>
+            </StackPanel>
+        </Border>
+
+        <Image x:Name="UC_Image_GiftCode" HorizontalAlignment="Left" Stretch="Uniform" VerticalAlignment="Bottom" Height="0.6cm" Margin="1cm" RenderOptions.BitmapScalingMode="HighQuality"/>
+        <Image x:Name="UC_Image_GiftCode_Cliente" HorizontalAlignment="Right" Stretch="Uniform" VerticalAlignment="Bottom"  Height="0.6cm" Margin="1cm" RenderOptions.BitmapScalingMode="HighQuality" />
+    </Grid>
+</UserControl>

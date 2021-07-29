@@ -1,0 +1,51 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Pen x:Key="Pen.Icon.Paste.Black" Thickness="1" Brush="#3A3A38"/>
+    <Pen x:Key="Pen.Icon.Paste.Orage" Thickness="1" Brush="#DE6C00" />
+    <Pen x:Key="Pen.Icon.Paste.Yellow" Thickness="2" Brush="#F8DB8F" />
+    <Pen x:Key="Pen.Icon.Paste.Grey" Thickness="2" Brush="#797774" />
+    <DrawingImage x:Key="Image.Paste" >
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Geometry="M 24 24 L 24 0 L 0 0 L 0 24 Z" Brush="Transparent"/>
+                <GeometryDrawing Geometry="M 22.5 23.5 L 22.5 11.5 L 13.5 11.5 L 13.5 23.5 Z" Pen="{DynamicResource Pen.Icon.Paste.Black}"/>
+                <GeometryDrawing Geometry="M 10.5 22.5 L 2.5 22.5 L 2.5 4.5 L 5.5 4.5" Pen="{DynamicResource Pen.Icon.Paste.Orage}" />
+                <GeometryDrawing Geometry="M 15.5 4.5 L 18.5 4.5 L 18.5 9.5" Pen="{DynamicResource Pen.Icon.Paste.Orage}" />
+                <GeometryDrawing Geometry="M 10 21 L 4 21 L 4 6 L 5 6" Pen="{DynamicResource Pen.Icon.Paste.Yellow}"/>
+                <GeometryDrawing Geometry="M 17 9 L 17 6 L 16 6" Pen="{DynamicResource Pen.Icon.Paste.Yellow}"/>
+                <GeometryDrawing Geometry="M 6.5 7.5 L 6.5 3.5 L 8.5 3.5 C 8.5 0.5 12.5 0.5 12.5 3.5 L 14.5 3.5 L 14.5 7.5 Z" Pen="{DynamicResource Pen.Icon.Paste.Grey}"/>
+                <GeometryDrawing Geometry="M 5 7 L 5 20 L 12.5 20 L 12.5 10.5 L 16 10.5 L 16 7 Z" Brush="#F8F8F8"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <Pen x:Key="Pen.Icon.Cut.Blue" Thickness="1" Brush="#2B579A"/>
+    <Pen x:Key="Pen.Icon.Cut.Grey" Thickness="1" Brush="#C5C8DB"/>
+    <DrawingImage x:Key="Image.Cut">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Geometry="M 24 24 L 24 0 L 0 0 L 0 24 Z" Brush="Transparent"/>
+                <GeometryDrawing Geometry="M 5 21 A 1 1 0 0 0 10 21 A 1 1 0 0 0 5 21" Pen="{DynamicResource Pen.Icon.Cut.Blue}"/>
+                <GeometryDrawing Geometry="M 13 21 A 1 1 0 0 0 18 21 A 1 1 0 0 0 13 21" Pen="{DynamicResource Pen.Icon.Cut.Blue}"/>
+                <GeometryDrawing Geometry="M 14 20 L 11 12 L 7 3 L 10 13 Z" Brush="#A5A8BB" Pen="{DynamicResource Pen.Icon.Cut.Grey}"/>
+                <GeometryDrawing Geometry="M 9 20 L 13 13 L 16 3 L 12 12 Z" Brush="#A5a8BB" Pen="{DynamicResource Pen.Icon.Cut.Grey}"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <SolidColorBrush x:Key="main" Color="#000"/>
+    <Style x:Key="Button.Icon" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Height" Value="24"/>
+        <Setter Property="Width" Value="24"/>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    <ContentControl x:Key="Btn.Icon.Add">
+        <Border Margin="2" Padding="4" BorderThickness="1" BorderBrush="DarkViolet">
+            <Image Source="/MeioMundo.Ferramentas;component/Resources/Icons/plus.png" />
+        </Border>
+    </ContentControl>
+
+</ResourceDictionary>

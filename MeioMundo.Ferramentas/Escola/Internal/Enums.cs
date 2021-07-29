@@ -11,4 +11,11 @@ namespace MeioMundo.Ferramentas.Escola.Internal
         Escola = 0,
         Ano = 1,
     }
+
+    public enum Ciclo
+    {
+        Primaria = 0,
+        Basico = 1,
+        Secundario = 2
+    }
 }

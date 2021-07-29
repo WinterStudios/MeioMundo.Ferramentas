@@ -8,12 +8,14 @@
              mc:Ignorable="d" 
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
              Width="21.0cm" Height="29.7cm"
+             Padding="0.5cm"
+             Foreground="Black"
              >
 
     <UserControl.Resources>
-        <SolidColorBrush x:Key="Color.Background.Light" Color="#FFC8C8C8"/>
-        <SolidColorBrush x:Key="Color.Border.Light" Color="#FFA6A6A6"/>
-        <SolidColorBrush x:Key="Color.Background.Main" Color="#FFFFCB23"/>
+        <SolidColorBrush x:Key="Color.Background.Light" Color="#7F4CB0CB"/>
+        <SolidColorBrush x:Key="Color.Border.Light" Color="#FF4CB0CB"/>
+        <SolidColorBrush x:Key="Color.Background.Main" Color="#FF4d9ee0"/>
         <VisualBrush x:Key="Color.Brush.Pattern.Right" TileMode="Tile" Viewport="0,0,5,5" Viewbox="0,0,10,10" ViewboxUnits="Absolute" ViewportUnits="Absolute">
             <VisualBrush.Visual>
                 <Grid Background="{DynamicResource Color.Background.Main}">
@@ -101,7 +103,7 @@
                 <Border Height="0.4cm" Background="{DynamicResource Color.Background.Main}">
                     <TextBlock Text="Componente Geral" Foreground="Black" HorizontalAlignment="Center" FontFamily="Segui" FontWeight="Normal" VerticalAlignment="Center"/>
                 </Border>
-                <DataGrid x:Name="UC_DISC_COMP_GERAL" Style="{StaticResource DataGrid_Componetes}">
+                <DataGrid x:Name="UC_DISC_COMP_GERAL" Style="{DynamicResource DataGrid_Componetes}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Disciplina" Binding="{Binding ID, Converter={StaticResource IntToStringConvert}, ConverterParameter=DisciplinaID}" Width="3cm"/>
                         <DataGridTextColumn Header="ISBN" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_ISBN}" Width="2.5cm"/>

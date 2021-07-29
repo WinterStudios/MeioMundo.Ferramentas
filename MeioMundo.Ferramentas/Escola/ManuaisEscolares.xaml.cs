@@ -32,7 +32,12 @@ namespace MeioMundo.Ferramentas.Escola
         }
         #endregion
 
-        public Internal.Escola Escola { get => escola; set { escola = value; LoadPreviewModelo(); } }
+        public Internal.Escola Escola { get => escola; set { escola = value;
+
+                if (value.Anos.Count < UC_ComboBox_Anos.SelectedIndex)
+                    UC_ComboBox_Anos.SelectedItem = value.Anos[UC_ComboBox_Anos.SelectedIndex];
+                LoadPreviewModelo();
+                NotifyPropertyChanged(); } }
         private Internal.Escola escola;
 
         public Internal.Ano Ano { get => ano; set { ano = value; LoadPreviewModelo(); } }
@@ -53,17 +58,18 @@ namespace MeioMundo.Ferramentas.Escola
                 if(Escola.Anos.Count > 0)
                     Ano = Escola.Anos[0];
                 LoadPreviewModelo();
+                UC_ComboBox_Version.SelectedIndex = 1;
             }
         }
 
         private void LoadPreviewModelo()
         {
             UC_Viewbox_PreviewModelo.Child = null;
-
+            
             if(Ano == null)
-                UC_Viewbox_PreviewModelo.Child = ManuaisSystem.GetModelo(ManuaisSystem.Modelos.v_2020_07, Escola.Nome, Escola.Anos[0]);
+                UC_Viewbox_PreviewModelo.Child = ManuaisSystem.GetModelo((ManuaisSystem.Modelos)UC_ComboBox_Version.SelectedIndex, Escola.Nome, Escola.Anos[0]);
             else
-                UC_Viewbox_PreviewModelo.Child = ManuaisSystem.GetModelo(ManuaisSystem.Modelos.v_2020_07, Escola.Nome, Ano);
+                UC_Viewbox_PreviewModelo.Child = ManuaisSystem.GetModelo((ManuaisSystem.Modelos)UC_ComboBox_Version.SelectedIndex, Escola.Nome, Ano);
         }
 
         private void Editores_Button_Click(object sender, RoutedEventArgs e)
@@ -87,6 +93,44 @@ namespace MeioMundo.Ferramentas.Escola
                 window.Content = editor;
                 window.Show();
             }
+            if(tag == "__PRINT_SINGLE")
+            {
+                PrintDialog printDialog = new PrintDialog();
+                System.Printing.PageMediaSize a4 = new System.Printing.PageMediaSize(System.Printing.PageMediaSizeName.ISOA4);
+                printDialog.PrintTicket.PageMediaSize = a4;
+                printDialog.PrintTicket.Duplexing = System.Printing.Duplexing.OneSided;
+
+                if (printDialog.ShowDialog() == true)
+                {
+                    printDialog.PrintVisual(UC_Viewbox_PreviewModelo, "My First Print Job");
+                }
+
+            }
+            if(tag == "__PRINT_MULTIPLE") 
+            {
+                Window window = new Window();
+
+                UC_PrindDialog uc_prindDialog = new UC_PrindDialog();
+                window.Content = uc_prindDialog;
+                window.Height = 480;
+                window.Width = 400;
+
+                window.ShowDialog();
+            }
+        }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            scaleTransform.ScaleX = scaleTransform.ScaleY = e.NewValue;
+        }
+        private void ZoomToFit()
+        {
+            scaleTransform.ScaleX = scaleTransform.ScaleY = 0;
+        }
+
+        private void UC_ComboBox_Version_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UC_Viewbox_PreviewModelo.Child = ManuaisSystem.GetModelo((ManuaisSystem.Modelos)UC_ComboBox_Version.SelectedIndex, Escola.Nome, Ano);
         }
     }
 }

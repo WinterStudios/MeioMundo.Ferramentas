@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="MeioMundo.Ferramentas.Site.StockManager"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MeioMundo.Ferramentas.Site"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" >
+            <Button Content="Carregar Ficheiros" Padding="8,4" Click="Button_Click" Tag="Load"/>
+            <Button Content="Descarregar" Padding="8,4" Click="Button_Click" Tag="Upload"/>
+        </StackPanel>
+        <DockPanel Grid.Row="1" HorizontalAlignment="Left" Margin="0,0,0,2">
+            <GroupBox Header="Procurar" Width="300">
+                <TextBox x:Name="TextBox_SearchText" TextChanged="TextBox_RefSearch_TextChanged" Tag="Search_REF"/>
+            </GroupBox>
+        </DockPanel>
+        <DataGrid x:Name="UC_StockManager" Grid.Row="2" ItemsSource="{Binding Produtos, RelativeSource={RelativeSource AncestorType=local:StockManager}}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding REF}" Header="REF" MinWidth="110"/>
+                <DataGridTextColumn Binding="{Binding Nome}" Header="Nome" MinWidth="200" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Preco_sIVA, StringFormat=C, ConverterCulture=pt-PT}" Header="Preço s/IVA" MinWidth="70" Width="Auto">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Right" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding IVA}" Header="IVA" MinWidth="40" Width="Auto"/>
+                <DataGridTextColumn Binding="{Binding Preco_cIVA, StringFormat=C, ConverterCulture=pt-PT}" Header="Preço c/IVA" MinWidth="70" Width="Auto">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Right" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding StockSite}" Header="Qtd Web" MinWidth="60" Width="Auto"/>
+                <DataGridTextColumn Binding="{Binding StockSage}" Header="Qtd Sage" MinWidth="60" Width="Auto"/>
+                <DataGridTextColumn Binding="{Binding StockFinal}" Header="Total" MinWidth="60" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StatusBar Grid.Row="3">
+            <StatusBarItem>
+                <TextBlock x:Name="UC_StatusBar_ListObjects"/>
+            </StatusBarItem>
+            <StatusBarItem>
+                <ProgressBar x:Name="UC_StatusBar_Progress" Maximum="1" Minimum="0" Width="200" Height="10" Value="0" Foreground="#FF11D9D5" />
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</UserControl>

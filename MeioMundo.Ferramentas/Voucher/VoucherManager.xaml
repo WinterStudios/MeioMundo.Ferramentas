@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="MeioMundo.Ferramentas.Voucher.VoucherManager"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MeioMundo.Ferramentas.Voucher"
+             xmlns:localModelo="clr-namespace:MeioMundo.Ferramentas.Voucher.Modelo"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="*" MinWidth="250"/>
+        </Grid.ColumnDefinitions>
+        <DockPanel>
+            
+                
+        </DockPanel>
+        <Border Grid.Row="1">
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" >
+                <Grid>
+                    <Grid.LayoutTransform>
+                        <TransformGroup>
+                            <ScaleTransform x:Name="scaleTransform" CenterX="0.5" ScaleX="1.5" ScaleY="1.5"/>
+                        </TransformGroup>
+                    </Grid.LayoutTransform>
+                    <Viewbox>
+                        <Border x:Name="UC_VoucherPreview_Border">
+                            
+                        </Border>
+                    </Viewbox>
+                </Grid>
+            </ScrollViewer>
+        </Border>
+
+
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+            <GroupBox Header="Gift Card">
+                <StackPanel Orientation="Vertical">
+                    <ComboBox x:Name="UC_ComboBox_GiftCard_Value" IsEditable="True" SelectionChanged="UC_ComboBox_GiftCard_Value_SelectionChanged"/>
+                    <Button Content="Imprimir" Click="Button_Click" Tag="__Print_Gifts"/>
+                    <GroupBox Header="Serie">
+                        <TextBox x:Name="UC_TextBox_VoucherSerie" PreviewTextInput="UC_TextBox_VoucherSerie_PreviewTextInput"/>
+                    </GroupBox>
+                    <GroupBox Header="Base de Dados">
+                        <DataGrid x:Name="UC_DataGrid_GiftCards">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Valor" Width="40"/>
+                                <DataGridTextColumn Header="Qtd. Disp" Width="*"/>
+                                <DataGridTextColumn Header="Qtd. Vend" Width="*"/>
+                                <DataGridTextColumn Header="Qtd. Usados" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</UserControl>
+
+    

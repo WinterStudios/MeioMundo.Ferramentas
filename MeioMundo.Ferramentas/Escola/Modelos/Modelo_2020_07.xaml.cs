@@ -31,13 +31,6 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
         public Ano Ano { get; set; }
         public UserControl __UserControl => this;
 
-        public enum Ciclo
-        {
-            Primaria = 0,
-            Basico = 1,
-            Secundario = 2
-        }
-
         public Ciclo _Ciclo { get => _ciclo; set { _ciclo = value; } }
         private Ciclo _ciclo;
 
@@ -98,7 +91,6 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
             if (ciclo == Ciclo.Basico)
             {
                 UC_STACKPANEL_COMP_ESPECIFICA.Visibility = Visibility.Collapsed;
-
             }
             if (ciclo == Ciclo.Secundario)
             {
@@ -121,6 +113,7 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
                     UC_StackPanel_Matriculas.Children.Add(rectangle);
                     Modelo_2020_07_Escolha escolha = new Modelo_2020_07_Escolha();
                     UC_StackPanel_Matriculas.Children.Add(escolha);
+                    escolha.__CICLO = Ciclo.Primaria;
                 }
 
             }
@@ -136,6 +129,9 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
                     UC_StackPanel_Matriculas.Children.Add(rectangle);
                     Modelo_2020_07_Escolha escolha = new Modelo_2020_07_Escolha();
                     UC_StackPanel_Matriculas.Children.Add(escolha);
+                    if (_Ciclo == Ciclo.Basico)
+                        escolha.__CICLO = Ciclo.Basico;
+                    
                 }
             }
         }

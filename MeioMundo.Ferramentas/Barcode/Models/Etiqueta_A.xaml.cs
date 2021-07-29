@@ -1,4 +1,5 @@
-﻿using MeioMundo.Ferramentas.Internal;
+﻿using MeioMundo.Ferramentas.Barcode.Internal;
+using MeioMundo.Ferramentas.Internal;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -50,7 +51,7 @@ namespace MeioMundo.Ferramentas.Barcode.Models
             get { return m_CodigoBarras; }
             set { m_CodigoBarras = value; BarCode.Code = value; BarCode.Draw(); OnPropertyChanged(); }
         }
-        public string Preco 
+        public float Preco 
         {
             get { return m_Preco; }
             set { m_Preco = value; OnPropertyChanged(); }
@@ -62,10 +63,11 @@ namespace MeioMundo.Ferramentas.Barcode.Models
         private IBarCode m_BarCode;
         private string m_Produto;
         private string m_CodigoBarras;
-        private string m_Preco;
+        private float m_Preco;
 
         public Etiqueta_A()
         {
+            BarCode = new Code39();
             InitializeComponent();
             //UC_TextBlock_Code.Text = BarCode.Code;
             //UC_Image_CodeBar.Source = Barcode.CreateBarcodeToImage(code, BarcodeEncoding.Code39, 300, false);

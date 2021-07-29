@@ -27,6 +27,11 @@
                 <x:Type TypeName="local:BarType"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <ObjectDataProvider x:Key="GetModelosEtiquetas" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:ModelosEtiquetas"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -66,7 +71,7 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Vertical">
                 <GroupBox Header="Modelo da Etiqueta">
-                    <ComboBox x:Name="UC_ComboBox_TipoEtiquetas" DisplayMemberPath="Name" SelectedIndex="0" SelectedItem="{Binding EtiquetaPreview, RelativeSource={RelativeSource AncestorType=local:UC}}"/>
+                    <ComboBox x:Name="UC_ComboBox_TipoEtiquetas" ItemsSource="{Binding Source={StaticResource GetModelosEtiquetas}}" SelectedIndex="0"/>
                 </GroupBox>
                 <GroupBox Header="Produto">
                     <Grid>
@@ -97,8 +102,7 @@
                             </DockPanel>
                             <DockPanel Margin="0,2">
                                 <TextBlock Text="Preço:" Width="110" VerticalAlignment="Center"/>
-                                <TextBox x:Name="Preco" Height="24" VerticalContentAlignment="Center" Tag="Preço"
-                                         Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=EtiquetaPreview.Preco, Mode=TwoWay}"/>
+                                <TextBox x:Name="Preco" Height="24" TextChanged="OnTextBox_Changed" VerticalContentAlignment="Center" Tag="Preco" />
                             </DockPanel>
                             
                         </StackPanel>
@@ -144,9 +148,13 @@
                 </GroupBox>
                 <Button Content="Adicionar" Margin="0,5" Click="Button_Click" Tag="AddCode"/>
             </StackPanel>
-            <Border Grid.Row="1" Background="White" VerticalAlignment="Top" Padding="10">
-                <Image x:Name="Image_BarCode" RenderOptions.BitmapScalingMode="Linear"/>
-            </Border>
+            <GroupBox Grid.Row="1" Header="Preview">
+                <Border Background="White" VerticalAlignment="Top" Padding="10">
+                    <Viewbox x:Name="UC_VeiwBox_PreviewEtiqueta"/>
+                </Border>
+            </GroupBox>
+            
+            
         </Grid>
         
     </Grid>

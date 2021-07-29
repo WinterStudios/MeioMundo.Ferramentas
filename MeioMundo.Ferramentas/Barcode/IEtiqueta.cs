@@ -12,7 +12,7 @@ namespace MeioMundo.Ferramentas.Barcode
         Type IEtiquetaType { get; }
         string Produto { get; set; }
         string CodigoBarras { get; set; }
-        string Preco { get; set; }
+        float Preco { get; set; }
         string SKU { get; set; }
     }
 }

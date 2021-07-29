@@ -37,4 +37,8 @@ namespace MeioMundo.Ferramentas.Barcode
         Code39 = 0,
         EAN13 = 1,
     }
+    public enum ModelosEtiquetas
+    {
+        Etiqueta_A = 0
+    }
 }

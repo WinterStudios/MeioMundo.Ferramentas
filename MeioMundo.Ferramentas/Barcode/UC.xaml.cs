@@ -45,18 +45,28 @@ namespace MeioMundo.Ferramentas.Barcode
 
         public EtiquetaA4 etiquetaPage { get => m_EtiquetaA4; set { m_EtiquetaA4 = value; OnPropertyChanged(); } }
         private EtiquetaA4 m_EtiquetaA4;
-        
+
+        public IEtiqueta PreviewEtiqueta
+        {
+            get { return m_PreviewEtiqueta; }
+            set { m_PreviewEtiqueta = value; OnPropertyChanged(); }
+        }
+
+        private IEtiqueta m_PreviewEtiqueta;
+
 
         public UC()
         {
             InitializeComponent();
-            UC_ComboBox_TipoEtiquetas.ItemsSource = GetIEtiquetas();
+            PreviewEtiqueta = CreateNewEtiqueta();
+            UC_VeiwBox_PreviewEtiqueta.Child = (UserControl)PreviewEtiqueta;
+            //UC_ComboBox_TipoEtiquetas.ItemsSource = GetIEtiquetas();
             Etiquetas = new ObservableCollection<IEtiqueta>();
-            Etiquetas.CollectionChanged += Etiquetas_CollectionChanged;
-            EtiquetaPreview = CreateNewEtiqueta();
-            //Image_BarCode.Source = code.DrawChar('0', true);
-            etiquetaPage = new EtiquetaA4();
-            previewPage.Child = etiquetaPage;
+            //Etiquetas.CollectionChanged += Etiquetas_CollectionChanged;
+            //EtiquetaPreview = CreateNewEtiqueta();
+            ////Image_BarCode.Source = code.DrawChar('0', true);
+            //etiquetaPage = new EtiquetaA4();
+            //previewPage.Child = etiquetaPage;
             //etiquetaPage.ListView_Etiquetas.ItemsSource = Etiquetas;
             //etiquetaPage.Etiquetas = Etiquetas;
 
@@ -66,8 +76,8 @@ namespace MeioMundo.Ferramentas.Barcode
         private IEtiqueta CreateNewEtiqueta()
         {
             IEtiqueta t_IEtiquetaPreview = (IEtiqueta)Activator.CreateInstance(typeof(Etiqueta_A));
-            
-            t_IEtiquetaPreview.Preco = string.Empty;
+
+            t_IEtiquetaPreview.Preco = 0;
             t_IEtiquetaPreview.Produto = string.Empty;
             t_IEtiquetaPreview.SKU = string.Empty;
             t_IEtiquetaPreview.BarCode = (IBarCode)Activator.CreateInstance(typeof(Code39));
@@ -98,7 +108,7 @@ namespace MeioMundo.Ferramentas.Barcode
         private void Code_TextChanged(object sender, TextChangedEventArgs e)
         {
             EtiquetaPreview.BarCode.Code = Code.Text;
-            Image_BarCode.Source = EtiquetaPreview.BarCode.CodeImage;
+            //Image_BarCode.Source = EtiquetaPreview.BarCode.CodeImage;
             GetInfo();
         }
 
@@ -110,20 +120,20 @@ namespace MeioMundo.Ferramentas.Barcode
                 return;
 
             if(tag == "Resolution")
-                EtiquetaPreview.BarCode.BarcodeImageResolution = (BarcodeImageResolution)((ComboBox)sender).SelectedIndex;
+                PreviewEtiqueta.BarCode.BarcodeImageResolution = (BarcodeImageResolution)((ComboBox)sender).SelectedIndex;
             if (tag == "DisplayType")
-                EtiquetaPreview.BarCode.DisplayCodeType = (DisplayCodeType)((ComboBox)sender).SelectedIndex;
+                PreviewEtiqueta.BarCode.DisplayCodeType = (DisplayCodeType)((ComboBox)sender).SelectedIndex;
             if (tag == "BarHeight")
-                EtiquetaPreview.BarCode.BarcodeHeight = (BarcodeHeight)((ComboBox)sender).SelectedIndex;
+                PreviewEtiqueta.BarCode.BarcodeHeight = (BarcodeHeight)((ComboBox)sender).SelectedIndex;
             if (tag == "BarType")
             {
                 switch (((ComboBox)sender).SelectedItem)    
                 {
                     case BarType.Code39:
-                        EtiquetaPreview.BarCode = CreateCodeDefault(BarType.Code39);
+                        PreviewEtiqueta.BarCode = CreateCodeDefault(BarType.Code39);
                         break;
                     case BarType.EAN13:
-                        EtiquetaPreview.BarCode = CreateCodeDefault(BarType.EAN13);
+                        PreviewEtiqueta.BarCode = CreateCodeDefault(BarType.EAN13);
                         break;
                     default:
                         break;
@@ -135,7 +145,7 @@ namespace MeioMundo.Ferramentas.Barcode
 
             }
 
-            Image_BarCode.Source = EtiquetaPreview.BarCode.CodeImage;
+            //Image_BarCode.Source = EtiquetaPreview.BarCode.CodeImage;
             GetInfo();
         }
 
@@ -167,8 +177,8 @@ namespace MeioMundo.Ferramentas.Barcode
 
         private void GetInfo()
         {
-            if(EtiquetaPreview.BarCode.CodeImage != null)
-                info_1.Text = string.Format("W:{0}px - H:{1}px", EtiquetaPreview.BarCode.CodeImage.PixelWidth, EtiquetaPreview.BarCode.CodeImage.PixelHeight);
+            if(PreviewEtiqueta.BarCode.CodeImage != null)
+                info_1.Text = string.Format("W:{0}px - H:{1}px", PreviewEtiqueta.BarCode.CodeImage.PixelWidth, PreviewEtiqueta.BarCode.CodeImage.PixelHeight);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -177,7 +187,7 @@ namespace MeioMundo.Ferramentas.Barcode
 
             if (tag == "AddCode")
             {
-                Etiquetas.Add(EtiquetaPreview);
+                Etiquetas.Add(PreviewEtiqueta);
                 EtiquetaPreview = CreateNewEtiqueta();
             }
         }
@@ -188,13 +198,13 @@ namespace MeioMundo.Ferramentas.Barcode
 
 
             if (tag == "Nome")
-                EtiquetaPreview.Produto = text;
+                PreviewEtiqueta.Produto = text;
             if (tag == "CodigoBarras")
-                EtiquetaPreview.CodigoBarras = text;
-            if (tag == "Preço")
-                EtiquetaPreview.Preco = text;
+                PreviewEtiqueta.CodigoBarras = text;
+            if (tag == "Preco" && float.TryParse(text, out float price))
+                PreviewEtiqueta.Preco = price;
 
-            Image_BarCode.Source = EtiquetaPreview.BarCode.CodeImage;
+            //Image_BarCode.Source = EtiquetaPreview.BarCode.CodeImage;
         }
 
     }

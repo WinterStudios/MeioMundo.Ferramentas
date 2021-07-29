@@ -33,15 +33,15 @@
                         <TextBlock Text="Ref:" FontSize="6pt" FontWeight="Bold"/>
                     </Border>
                     <Border Grid.Column="1">
-                        <TextBlock x:Name="UC_TextBlock_Code" FontSize="6pt" FontWeight="Light"/>
+                        <TextBlock Text="{Binding CodigoBarras, RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}}" FontSize="6pt" FontWeight="Light"/>
                     </Border>
                 </Grid>
             </Border>
             <Border Grid.Row="1">
-                <TextBlock Text="Text" FontSize="4.5pt" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding Produto, RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}}" FontSize="4.5pt" HorizontalAlignment="Center"/>
             </Border>
             <Border Grid.Row="2">
-                <Image x:Name="UC_Image_CodeBar" />
+                <Image x:Name="UC_Image_CodeBar" Source="{Binding BarCode.CodeImage, RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}}" />
             </Border>
             <Border Grid.Row="3">
                 <Grid>
@@ -54,8 +54,7 @@
                     </Border>
                     <Border Grid.Column="1" Padding="0.2cm,0" BorderThickness=".5pt,.5pt,0,0" BorderBrush="Black">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                            <TextBlock Text="2,50" FontSize="9pt" FontWeight="Bold"/>
-                            <TextBlock Text="€" FontSize="9pt" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Preco, RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}, ConverterCulture=pt-PT, StringFormat={}{0:C2}}" FontSize="9pt" FontWeight="Bold"/>
                         </StackPanel>
                     </Border>
                 </Grid>

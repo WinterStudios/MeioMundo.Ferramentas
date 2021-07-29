@@ -4,7 +4,10 @@ using MeioMundo.Ferramentas.Internal;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,40 +25,74 @@ namespace MeioMundo.Ferramentas.Barcode
     /// <summary>
     /// Interaction logic for UC.xaml
     /// </summary>
-    public partial class UC : UserControl
+    public partial class UC : UserControl, INotifyPropertyChanged
     {
+        #region OnPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        IEtiqueta EtiquetaPreview { get; set; }
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
 
-        public ObservableCollection<IBarCode> Codes { get; set; }
-        internal ObservableCollection<IEtiqueta> Etiquetas { get; set; }
+        public IEtiqueta EtiquetaPreview { get; set; }
 
-        private EtiquetaA4 etiquetaPage { get; set; }
+        public ObservableCollection<IEtiqueta> Etiquetas { get; set; }
+
+        public EtiquetaA4 etiquetaPage { get => m_EtiquetaA4; set { m_EtiquetaA4 = value; OnPropertyChanged(); } }
+        private EtiquetaA4 m_EtiquetaA4;
         
 
         public UC()
         {
             InitializeComponent();
-            Codes = new ObservableCollection<IBarCode>();
-            Codes.CollectionChanged += Codes_CollectionChanged;
-            EtiquetaPreview = (IEtiqueta)Activator.CreateInstance(typeof(Etiqueta_A));
-            EtiquetaPreview.BarCode = (IBarCode)Activator.CreateInstance(typeof(Code39));
-            EtiquetaPreview.BarCode.BarcodeImageResolution = BarcodeImageResolution.Medium;
-            EtiquetaPreview.BarCode.BarcodeHeight = BarcodeHeight.Normal;
-            EtiquetaPreview.BarCode.DisplayCodeType = DisplayCodeType.Center;
-            Image_BarCode.Source = EtiquetaPreview.BarCode.CodeImage;
+            UC_ComboBox_TipoEtiquetas.ItemsSource = GetIEtiquetas();
+            Etiquetas = new ObservableCollection<IEtiqueta>();
+            Etiquetas.CollectionChanged += Etiquetas_CollectionChanged;
+            EtiquetaPreview = CreateNewEtiqueta();
             //Image_BarCode.Source = code.DrawChar('0', true);
             etiquetaPage = new EtiquetaA4();
             previewPage.Child = etiquetaPage;
+            //etiquetaPage.ListView_Etiquetas.ItemsSource = Etiquetas;
+            //etiquetaPage.Etiquetas = Etiquetas;
+
 
         }
 
-        private void Codes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private IEtiqueta CreateNewEtiqueta()
         {
-            if(e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
-            {               
-                
+            IEtiqueta t_IEtiquetaPreview = (IEtiqueta)Activator.CreateInstance(typeof(Etiqueta_A));
+            
+            t_IEtiquetaPreview.Preco = string.Empty;
+            t_IEtiquetaPreview.Produto = string.Empty;
+            t_IEtiquetaPreview.SKU = string.Empty;
+            t_IEtiquetaPreview.BarCode = (IBarCode)Activator.CreateInstance(typeof(Code39));
+            t_IEtiquetaPreview.BarCode.BarcodeImageResolution = BarcodeImageResolution.Medium;
+            t_IEtiquetaPreview.BarCode.BarcodeHeight = BarcodeHeight.Normal;
+            t_IEtiquetaPreview.BarCode.DisplayCodeType = DisplayCodeType.Center;
+
+            return t_IEtiquetaPreview;
+        }
+
+        public static IEnumerable<Type> GetIEtiquetas()
+        {
+            return System.Reflection.Assembly.GetExecutingAssembly().GetTypes().Where((typeof(IEtiqueta)).IsAssignableFrom).Where(x => !x.IsInterface).ToList();
+        }
+
+        private void Etiquetas_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if(e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Reset)
+            {
+                IEtiqueta[] etiquetas = (IEtiqueta[])e.NewItems;
             }
+            etiquetaPage = new EtiquetaA4();
+            previewPage.Child = etiquetaPage;
+            etiquetaPage.Etiquetas = new ObservableCollection<IEtiqueta>(Etiquetas.ToArray());
+
         }
 
         private void Code_TextChanged(object sender, TextChangedEventArgs e)
@@ -92,6 +129,11 @@ namespace MeioMundo.Ferramentas.Barcode
                         break;
                 }
             }    
+
+            if(tag == "")
+            {
+
+            }
 
             Image_BarCode.Source = EtiquetaPreview.BarCode.CodeImage;
             GetInfo();
@@ -135,13 +177,25 @@ namespace MeioMundo.Ferramentas.Barcode
 
             if (tag == "AddCode")
             {
-                Codes.Add(EtiquetaPreview.BarCode);
+                Etiquetas.Add(EtiquetaPreview);
+                EtiquetaPreview = CreateNewEtiqueta();
             }
         }
-
-        private void CodigoNome_TextChanged(object sender, TextChangedEventArgs e)
+        private void OnTextBox_Changed(object sender, TextChangedEventArgs args)
         {
-            EtiquetaPreview.BarCode.Nome = CodigoNome.Text;
+            string tag = ((TextBox)sender).Tag.ToString();
+            string text = ((TextBox)sender).Text;
+
+
+            if (tag == "Nome")
+                EtiquetaPreview.Produto = text;
+            if (tag == "CodigoBarras")
+                EtiquetaPreview.CodigoBarras = text;
+            if (tag == "Preço")
+                EtiquetaPreview.Preco = text;
+
+            Image_BarCode.Source = EtiquetaPreview.BarCode.CodeImage;
         }
+
     }
 }

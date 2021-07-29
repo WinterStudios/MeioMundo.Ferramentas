@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,10 +21,26 @@ namespace MeioMundo.Ferramentas.Barcode.Models
     /// </summary>
     public partial class EtiquetaA4 : UserControl
     {
-        public List<IEtiqueta> Etiquetas { get; set; }
+        public ObservableCollection<IEtiqueta> Etiquetas { get; set; }
         public EtiquetaA4()
         {
+            Etiquetas = new ObservableCollection<IEtiqueta>();
+            Etiquetas.CollectionChanged += Etiquetas_CollectionChanged;
             InitializeComponent();
         }
+
+        private void Etiquetas_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if(e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+
+            }
+        }
+
+        private void AddEtiquetas()
+        {
+
+        }
+
     }
 }

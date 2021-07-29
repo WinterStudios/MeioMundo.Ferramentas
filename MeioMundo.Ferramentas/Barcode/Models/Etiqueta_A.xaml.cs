@@ -23,6 +23,7 @@ namespace MeioMundo.Ferramentas.Barcode.Models
     /// </summary>
     public partial class Etiqueta_A : UserControl, IEtiqueta, INotifyPropertyChanged
     {
+        #region OnPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -32,26 +33,42 @@ namespace MeioMundo.Ferramentas.Barcode.Models
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-    
-        public string code { get; set; }
+        #endregion
+
         public IBarCode BarCode 
         {
             get { return m_BarCode; }
             set { m_BarCode = value; OnPropertyChanged(); }
         }
-        public string Produto { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string CodigoBarras { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Preco { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string SKU { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Produto
+        {
+            get { return m_Produto; }
+            set { m_Produto = value; OnPropertyChanged(); }
+        }
+        public string CodigoBarras
+        {
+            get { return m_CodigoBarras; }
+            set { m_CodigoBarras = value; BarCode.Code = value; BarCode.Draw(); OnPropertyChanged(); }
+        }
+        public string Preco 
+        {
+            get { return m_Preco; }
+            set { m_Preco = value; OnPropertyChanged(); }
+        }
+        public string SKU { get; set; }
+
+        public Type IEtiquetaType => this.GetType();
 
         private IBarCode m_BarCode;
+        private string m_Produto;
+        private string m_CodigoBarras;
+        private string m_Preco;
 
         public Etiqueta_A()
         {
             InitializeComponent();
-            code = "1234567890123";
-            UC_TextBlock_Code.Text = code;
+            //UC_TextBlock_Code.Text = BarCode.Code;
             //UC_Image_CodeBar.Source = Barcode.CreateBarcodeToImage(code, BarcodeEncoding.Code39, 300, false);
-    }
+        }
     }
 }

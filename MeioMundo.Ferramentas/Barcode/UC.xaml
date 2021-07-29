@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
             Background="{DynamicResource Theme.Background}"
-    > 
+    >
     <UserControl.Resources>
         <ObjectDataProvider x:Key="GetBarcodeResolutions" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
@@ -27,17 +27,12 @@
                 <x:Type TypeName="local:BarType"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-        <ObjectDataProvider>
-            <ObjectDataProvider.MethodParameters>
-                
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <GroupBox Header="Preview">
             <Viewbox x:Name="previewPage">
@@ -51,35 +46,66 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <GroupBox Header="Modelo">
-                    <ComboBox/>
+                    <ComboBox x:Name="Tip"/>
                 </GroupBox>
-                <DataGrid Grid.Row="1" ItemsSource="{Binding Codes, RelativeSource={RelativeSource AncestorType=local:UC}}" AutoGenerateColumns="False">
+                <DataGrid Grid.Row="1" ItemsSource="{Binding Etiquetas, RelativeSource={RelativeSource AncestorType=local:UC}}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridComboBoxColumn Header="Etiqueta" Width="*"/>
-                        <DataGridTextColumn Header="Nome" Width="*" Binding="{Binding Nome}"/>
-                        <DataGridTextColumn Header="Codigo Barra" Width="*" Binding="{Binding Code}" />
-                        <DataGridComboBoxColumn Header="Tipo de Codigo" Width="*" ItemsSource="{Binding Source={StaticResource GetBarcodeTypes}}" SelectedItemBinding="{Binding BarType, Mode=OneWay}"/>
-                        <DataGridTextColumn Header="Preço" Width="*"/>
+                        <DataGridTextColumn Header="Tipo Etiqueta" Width="*" Binding="{Binding IEtiquetaType.Name}"/>
+                        <DataGridTextColumn Header="Nome" Width="*" Binding="{Binding Produto}"/>
+                        <DataGridTextColumn Header="Codigo Barra" Width="*" Binding="{Binding BarCode.Code}" />
+                        <DataGridComboBoxColumn Header="Tipo de Codigo" Width="*" ItemsSource="{Binding Source={StaticResource GetBarcodeTypes}}" SelectedItemBinding="{Binding BarCode.BarType, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="Preço" Width="*" Binding="{Binding Preco}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
         </Border>
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Vertical">
                 <GroupBox Header="Modelo da Etiqueta">
-                    <ComboBox/>
+                    <ComboBox x:Name="UC_ComboBox_TipoEtiquetas" DisplayMemberPath="Name" SelectedIndex="0" SelectedItem="{Binding EtiquetaPreview, RelativeSource={RelativeSource AncestorType=local:UC}}"/>
                 </GroupBox>
-                <GroupBox Header="Nome">
-                    <TextBox x:Name="CodigoNome" Height="24" TextChanged="CodigoNome_TextChanged" VerticalContentAlignment="Center" />
+                <GroupBox Header="Produto">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <StackPanel Orientation="Vertical" Grid.Row="1">
+                            <DockPanel Margin="0,2">
+                                <TextBlock Text="Nome:" Width="110" VerticalAlignment="Center"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox x:Name="CodigoNome" Height="24" TextChanged="OnTextBox_Changed" VerticalContentAlignment="Center" Tag="Nome" />
+                                    <Button Grid.Column="1" Width="24" Height="24" Style="{DynamicResource BTN_MM_C_IMG}" Padding="6" Click="Button_Click" Tag="SelectFornAddress">
+                                        <Button.Content>
+                                            <Image Source="/MeioMundo.Ferramentas;component/Assets/search.png"/>
+                                        </Button.Content>
+                                    </Button>
+                                </Grid>
+                            </DockPanel>
+                            <DockPanel Margin="0,2">
+                                <TextBlock Text="Codigo de Barras:" Width="110" VerticalAlignment="Center"/>
+                                <TextBox x:Name="Code" Height="24" TextChanged="OnTextBox_Changed" VerticalContentAlignment="Center" Tag="CodigoBarras"/>
+                            </DockPanel>
+                            <DockPanel Margin="0,2">
+                                <TextBlock Text="Preço:" Width="110" VerticalAlignment="Center"/>
+                                <TextBox x:Name="Preco" Height="24" VerticalContentAlignment="Center" Tag="Preço"
+                                         Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=EtiquetaPreview.Preco, Mode=TwoWay}"/>
+                            </DockPanel>
+                            
+                        </StackPanel>
+                    </Grid>
+
                 </GroupBox>
-                <GroupBox Header="Codigo">
-                    <TextBox x:Name="Code" Height="24" TextChanged="Code_TextChanged" VerticalContentAlignment="Center" />
-                </GroupBox>
-                <GroupBox Header="Defeniçoes">
+                <GroupBox Header="Defeniçoes do Codigo Barras">
                     <StackPanel>
                         <DockPanel Margin="0,0,0,4">
                             <TextBlock Text="Tipo" Width="110"/>

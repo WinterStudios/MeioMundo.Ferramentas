@@ -68,6 +68,7 @@ namespace MeioMundo.Ferramentas.Barcode.Models
         public Etiqueta_A()
         {
             BarCode = new Code39();
+            BarCode.DisplayCodeType = DisplayCodeType.None;
             InitializeComponent();
             //UC_TextBlock_Code.Text = BarCode.Code;
             //UC_Image_CodeBar.Source = Barcode.CreateBarcodeToImage(code, BarcodeEncoding.Code39, 300, false);

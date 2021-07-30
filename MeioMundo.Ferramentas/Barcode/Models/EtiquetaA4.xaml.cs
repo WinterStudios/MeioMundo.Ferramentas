@@ -21,25 +21,36 @@ namespace MeioMundo.Ferramentas.Barcode.Models
     /// </summary>
     public partial class EtiquetaA4 : UserControl
     {
-        public ObservableCollection<IEtiqueta> Etiquetas { get; set; }
+        public ObservableCollection<ObservableCollection<IEtiqueta>> Etiquetas { get; set; }
         public EtiquetaA4()
         {
-            Etiquetas = new ObservableCollection<IEtiqueta>();
-            Etiquetas.CollectionChanged += Etiquetas_CollectionChanged;
+            Etiquetas = new ObservableCollection<ObservableCollection<IEtiqueta>>();
             InitializeComponent();
         }
 
-        private void Etiquetas_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+
+        internal void AddEtiquetas(IEtiqueta etiqueta)
         {
-            if(e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            if(Etiquetas.Count == 0)
             {
-
+                ObservableCollection<IEtiqueta> etiquetaY = new ObservableCollection<IEtiqueta>();
+                etiquetaY.Add(etiqueta);
+                Etiquetas.Add(etiquetaY);
+                return;
             }
-        }
 
-        private void AddEtiquetas()
-        {
+            for (int y = 0; y < Etiquetas.Count; y++)
+            {
+                ObservableCollection<IEtiqueta> etiquetasY = Etiquetas[y];
+                int maxX = 2;
+                //if(etiquetasY.Count < 1)
+                   
+                for (int x = 0; x < etiquetasY.Count; x++)
+                {
+                    IEtiqueta etiquetaX = etiquetasY[x];
 
+                }
+            }
         }
 
     }

@@ -11,14 +11,8 @@
              Background="White" Foreground="Black"
       >
     <Border>
-        <ListView x:Name="ListView_Etiquetas" ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=local:EtiquetaA4}, Path=Etiquetas}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Border Background="Red" Padding="5cm">
-                        <ContentPresenter/>
-                    </Border>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <StackPanel Orientation="Vertical">
+            
+        </StackPanel>
     </Border>
 </UserControl>

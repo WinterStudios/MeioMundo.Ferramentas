@@ -65,8 +65,8 @@ namespace MeioMundo.Ferramentas.Barcode
             //Etiquetas.CollectionChanged += Etiquetas_CollectionChanged;
             //EtiquetaPreview = CreateNewEtiqueta();
             ////Image_BarCode.Source = code.DrawChar('0', true);
-            //etiquetaPage = new EtiquetaA4();
-            //previewPage.Child = etiquetaPage;
+            etiquetaPage = new EtiquetaA4();
+            previewPage.Child = etiquetaPage;
             //etiquetaPage.ListView_Etiquetas.ItemsSource = Etiquetas;
             //etiquetaPage.Etiquetas = Etiquetas;
 
@@ -97,11 +97,9 @@ namespace MeioMundo.Ferramentas.Barcode
         {
             if(e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Reset)
             {
-                IEtiqueta[] etiquetas = (IEtiqueta[])e.NewItems;
+                
             }
-            etiquetaPage = new EtiquetaA4();
-            previewPage.Child = etiquetaPage;
-            etiquetaPage.Etiquetas = new ObservableCollection<IEtiqueta>(Etiquetas.ToArray());
+            
 
         }
 
@@ -188,6 +186,7 @@ namespace MeioMundo.Ferramentas.Barcode
             if (tag == "AddCode")
             {
                 Etiquetas.Add(PreviewEtiqueta);
+                etiquetaPage.AddEtiquetas(PreviewEtiqueta);
                 EtiquetaPreview = CreateNewEtiqueta();
             }
         }

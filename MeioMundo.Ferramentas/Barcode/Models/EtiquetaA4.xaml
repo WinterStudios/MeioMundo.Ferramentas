@@ -11,8 +11,10 @@
              Background="White" Foreground="Black"
       >
     <Border>
-        <StackPanel Orientation="Vertical">
-            
-        </StackPanel>
+        <Grid>
+            <StackPanel x:Name="UC_StackList" Orientation="Vertical">
+
+            </StackPanel>
+        </Grid>
     </Border>
 </UserControl>

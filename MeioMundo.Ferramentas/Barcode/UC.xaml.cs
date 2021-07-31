@@ -39,8 +39,6 @@ namespace MeioMundo.Ferramentas.Barcode
         }
         #endregion
 
-        public IEtiqueta EtiquetaPreview { get; set; }
-
         public ObservableCollection<IEtiqueta> Etiquetas { get; set; }
 
         public EtiquetaA4 etiquetaPage { get => m_EtiquetaA4; set { m_EtiquetaA4 = value; OnPropertyChanged(); } }
@@ -105,7 +103,7 @@ namespace MeioMundo.Ferramentas.Barcode
 
         private void Code_TextChanged(object sender, TextChangedEventArgs e)
         {
-            EtiquetaPreview.BarCode.Code = Code.Text;
+            PreviewEtiqueta.BarCode.Code = Code.Text;
             //Image_BarCode.Source = EtiquetaPreview.BarCode.CodeImage;
             GetInfo();
         }
@@ -186,8 +184,12 @@ namespace MeioMundo.Ferramentas.Barcode
             if (tag == "AddCode")
             {
                 Etiquetas.Add(PreviewEtiqueta);
-                etiquetaPage.AddEtiquetas(PreviewEtiqueta);
-                EtiquetaPreview = CreateNewEtiqueta();
+                this.Dispatcher.Invoke(() => PreviewEtiqueta = CreateNewEtiqueta());
+                //etiquetaPage = null;
+                //etiquetaPage = new EtiquetaA4(Etiquetas.ToArray());
+                etiquetaPage.LoadEtiquetas(Etiquetas.ToArray());
+                etiquetaPage.Dispatcher.Invoke(() => etiquetaPage.UpdateLayout());
+                
             }
         }
         private void OnTextBox_Changed(object sender, TextChangedEventArgs args)

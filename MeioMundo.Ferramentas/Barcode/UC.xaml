@@ -40,9 +40,12 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <GroupBox Header="Preview">
-            <Viewbox x:Name="previewPage">
-                
-            </Viewbox>
+            <Border>
+                <Border.RenderTransform>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Border.RenderTransform>
+                <Viewbox x:Name="previewPage"/>
+            </Border>
         </GroupBox>
         <Border Grid.Column="1" Padding="2">
             <Grid >
@@ -57,7 +60,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Tipo Etiqueta" Width="*" Binding="{Binding IEtiquetaType.Name}"/>
                         <DataGridTextColumn Header="Nome" Width="*" Binding="{Binding Produto}"/>
-                        <DataGridTextColumn Header="Codigo Barra" Width="*" Binding="{Binding BarCode.Code}" />
+                        <DataGridTextColumn Header="Codigo Barra" Width="*" Binding="{Binding BarCode.Code, UpdateSourceTrigger=PropertyChanged}" />
                         <DataGridComboBoxColumn Header="Tipo de Codigo" Width="*" ItemsSource="{Binding Source={StaticResource GetBarcodeTypes}}" SelectedItemBinding="{Binding BarCode.BarType, Mode=OneWay}"/>
                         <DataGridTextColumn Header="Preço" Width="*" Binding="{Binding Preco}"/>
                     </DataGrid.Columns>
@@ -149,7 +152,7 @@
                 <Button Content="Adicionar" Margin="0,5" Click="Button_Click" Tag="AddCode"/>
             </StackPanel>
             <GroupBox Grid.Row="1" Header="Preview">
-                <Border Background="White" VerticalAlignment="Top" Padding="10">
+                <Border Background="White" VerticalAlignment="Stretch" Padding="5">
                     <Viewbox x:Name="UC_VeiwBox_PreviewEtiqueta"/>
                 </Border>
             </GroupBox>

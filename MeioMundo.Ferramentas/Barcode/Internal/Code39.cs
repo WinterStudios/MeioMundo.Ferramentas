@@ -79,6 +79,7 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
             BarcodeImageResolution = BarcodeImageResolution.Medium;
             BarcodeHeight = BarcodeHeight.Normal;
             DisplayCodeType = DisplayCodeType.Center;
+            Code = "";
         }
 
         public Code39(string code, BarcodeImageResolution res, BarcodeHeight height, DisplayCodeType displayType)

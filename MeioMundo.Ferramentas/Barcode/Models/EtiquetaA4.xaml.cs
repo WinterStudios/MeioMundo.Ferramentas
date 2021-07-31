@@ -21,36 +21,41 @@ namespace MeioMundo.Ferramentas.Barcode.Models
     /// </summary>
     public partial class EtiquetaA4 : UserControl
     {
-        public ObservableCollection<ObservableCollection<IEtiqueta>> Etiquetas { get; set; }
+        public ObservableCollection<IEtiqueta> Etiquetas { get; set; }
+
+        private int MaxY { get; set; }
+
         public EtiquetaA4()
         {
-            Etiquetas = new ObservableCollection<ObservableCollection<IEtiqueta>>();
             InitializeComponent();
+            MaxY = 5;
+            for (int i = 0; i < 5; i++)
+            {
+                UC_StackList.Children.Add(new Rectangle() { Width = 30, Height = 20, Fill = Brushes.Gray });
+
+            }
         }
 
-
-        internal void AddEtiquetas(IEtiqueta etiqueta)
+        internal void LoadEtiquetas(IEtiqueta[] etiquetas)
         {
-            if(Etiquetas.Count == 0)
+            Etiquetas = new ObservableCollection<IEtiqueta>(etiquetas);
+            int m_lines = Etiquetas.Count / MaxY + 1;
+            UC_StackList.Children.Clear();
+            for (int i = 0; i < m_lines; i++)
             {
-                ObservableCollection<IEtiqueta> etiquetaY = new ObservableCollection<IEtiqueta>();
-                etiquetaY.Add(etiqueta);
-                Etiquetas.Add(etiquetaY);
-                return;
-            }
-
-            for (int y = 0; y < Etiquetas.Count; y++)
-            {
-                ObservableCollection<IEtiqueta> etiquetasY = Etiquetas[y];
-                int maxX = 2;
-                //if(etiquetasY.Count < 1)
-                   
-                for (int x = 0; x < etiquetasY.Count; x++)
+                StackPanel stackHorizontal = new StackPanel();
+                stackHorizontal.Orientation = Orientation.Horizontal;
+                IEtiqueta[] m_etiquetasX = Etiquetas.Skip(i * MaxY).Take(MaxY).ToArray();
+                for (int x = 0; x < m_etiquetasX.Length; x++)
                 {
-                    IEtiqueta etiquetaX = etiquetasY[x];
-
+                    Type m_EtiquetaType = m_etiquetasX[x].GetType();
+                    UserControl m_etiqueta = (UserControl)Activator.CreateInstance(m_EtiquetaType, m_etiquetasX[x]);
+                    stackHorizontal.Children.Add((UserControl)m_etiqueta);
                 }
+                UC_StackList.Children.Add(stackHorizontal);
+                
             }
+
         }
 
     }

@@ -36,7 +36,7 @@ namespace MeioMundo.Ferramentas.Barcode.Models
         }
         #endregion
 
-        public IBarCode BarCode 
+        public IBarCode BarCode
         {
             get { return m_BarCode; }
             set { m_BarCode = value; OnPropertyChanged(); }
@@ -51,7 +51,7 @@ namespace MeioMundo.Ferramentas.Barcode.Models
             get { return m_CodigoBarras; }
             set { m_CodigoBarras = value; BarCode.Code = value; BarCode.Draw(); OnPropertyChanged(); }
         }
-        public float Preco 
+        public float Preco
         {
             get { return m_Preco; }
             set { m_Preco = value; OnPropertyChanged(); }
@@ -72,6 +72,15 @@ namespace MeioMundo.Ferramentas.Barcode.Models
             InitializeComponent();
             //UC_TextBlock_Code.Text = BarCode.Code;
             //UC_Image_CodeBar.Source = Barcode.CreateBarcodeToImage(code, BarcodeEncoding.Code39, 300, false);
+        }
+        public Etiqueta_A(IEtiqueta etiqueta)
+        {
+            InitializeComponent();
+            BarCode = etiqueta.BarCode;
+            Produto = etiqueta.Produto;
+            CodigoBarras = etiqueta.CodigoBarras;
+            Preco = etiqueta.Preco;
+            SKU = etiqueta.SKU;
         }
     }
 }

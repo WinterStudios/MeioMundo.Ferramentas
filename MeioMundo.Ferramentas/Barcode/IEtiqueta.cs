@@ -14,5 +14,6 @@ namespace MeioMundo.Ferramentas.Barcode
         string CodigoBarras { get; set; }
         float Preco { get; set; }
         string SKU { get; set; }
+        bool MostrarPreco { get; set; }
     }
 }

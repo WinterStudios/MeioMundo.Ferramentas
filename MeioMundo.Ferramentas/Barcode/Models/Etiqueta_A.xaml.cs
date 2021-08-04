@@ -58,13 +58,19 @@ namespace MeioMundo.Ferramentas.Barcode.Models
         }
         public string SKU { get; set; }
 
+        public bool MostrarPreco
+        {
+            get { return m_MostrarPreco; }
+            set { m_MostrarPreco = value; if (value) preco.Visibility = Visibility.Visible; else preco.Visibility = Visibility.Collapsed; OnPropertyChanged(); }
+        }
+
         public Type IEtiquetaType => this.GetType();
 
         private IBarCode m_BarCode;
         private string m_Produto;
         private string m_CodigoBarras;
         private float m_Preco;
-
+        private bool m_MostrarPreco;
         public Etiqueta_A()
         {
             BarCode = new Code39();
@@ -81,6 +87,7 @@ namespace MeioMundo.Ferramentas.Barcode.Models
             CodigoBarras = etiqueta.CodigoBarras;
             Preco = etiqueta.Preco;
             SKU = etiqueta.SKU;
+            MostrarPreco = etiqueta.MostrarPreco;
         }
     }
 }

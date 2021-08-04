@@ -91,8 +91,8 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBox x:Name="CodigoNome" Height="24" TextChanged="OnTextBox_Changed" VerticalContentAlignment="Center" Tag="Nome" />
-                                    <Button Grid.Column="1" Width="24" Height="24" Style="{DynamicResource BTN_MM_C_IMG}" Padding="6" Click="Button_Click" Tag="SelectFornAddress">
+                                    <TextBox x:Name="CodigoNome" Height="24" VerticalContentAlignment="Center" Tag="Nome" Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=PreviewEtiqueta.Produto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Button Grid.Column="1" Width="24" Height="24" Style="{DynamicResource BTN_MM_C_IMG}" Padding="6" Click="Button_Click" Tag="SearchProduct">
                                         <Button.Content>
                                             <Image Source="/MeioMundo.Ferramentas;component/Assets/search.png"/>
                                         </Button.Content>
@@ -101,11 +101,11 @@
                             </DockPanel>
                             <DockPanel Margin="0,2">
                                 <TextBlock Text="Codigo de Barras:" Width="110" VerticalAlignment="Center"/>
-                                <TextBox x:Name="Code" Height="24" TextChanged="OnTextBox_Changed" VerticalContentAlignment="Center" Tag="CodigoBarras"/>
+                                <TextBox x:Name="Code" Height="24" VerticalContentAlignment="Center" Tag="CodigoBarras" Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=PreviewEtiqueta.CodigoBarras, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             </DockPanel>
                             <DockPanel Margin="0,2">
                                 <TextBlock Text="Preço:" Width="110" VerticalAlignment="Center"/>
-                                <TextBox x:Name="Preco" Height="24" TextChanged="OnTextBox_Changed" VerticalContentAlignment="Center" Tag="Preco" />
+                                <TextBox x:Name="Preco" Height="24" VerticalContentAlignment="Center" Tag="Preco" Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=PreviewEtiqueta.Preco, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </DockPanel>
                             
                         </StackPanel>
@@ -143,14 +143,23 @@
                         </DockPanel>
                     </StackPanel>
                 </GroupBox>
-                <GroupBox Header="Information">
+                <GroupBox Header="Defenições da Etiqueta">
+                    <Border>
+                        <StackPanel Orientation="Vertical">
+                            <CheckBox Content="Mostrar Preço" Foreground="{DynamicResource Theme.Primary}" IsChecked="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=PreviewEtiqueta.MostrarPreco, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
+                        </StackPanel>
+                    </Border>
+                </GroupBox>
+                <GroupBox Header="Informações">
                     <StackPanel>
                         <TextBlock x:Name="info_1"/>
                         <TextBlock x:Name="info_2"/>
                     </StackPanel>
                 </GroupBox>
+
                 <Button Content="Adicionar" Margin="0,5" Click="Button_Click" Tag="AddCode"/>
             </StackPanel>
+            
             <GroupBox Grid.Row="1" Header="Preview">
                 <Border Background="White" VerticalAlignment="Stretch" Padding="5">
                     <Viewbox x:Name="UC_VeiwBox_PreviewEtiqueta"/>

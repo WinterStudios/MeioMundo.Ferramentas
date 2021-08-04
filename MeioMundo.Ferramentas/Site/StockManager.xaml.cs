@@ -17,7 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using MeioMundo.Ferramentas.Site.Models;
+using MeioMundo.Ferramentas.Internal.Models;
 using System.Text.RegularExpressions;
 using System.Windows.Threading;
 using System.ComponentModel;
@@ -29,7 +29,7 @@ namespace MeioMundo.Ferramentas.Site
     /// </summary>
     public partial class StockManager : UserControl
     {
-        public ObservableCollection<Site.Models.Produto> Produtos { get; set; }
+        public ObservableCollection<Internal.Models.Produto> Produtos { get; set; }
         private List<Produto> SageProdutos { get; set; }
 
         public bool WebSiteLoad { get; set; }
@@ -37,7 +37,7 @@ namespace MeioMundo.Ferramentas.Site
         public StockManager()
         {
             InitializeComponent();
-            Produtos = new ObservableCollection<Site.Models.Produto>();
+            Produtos = new ObservableCollection<Internal.Models.Produto>();
             SageProdutos = new List<Produto>();
             UC_StockManager.ItemsSource = Produtos;
         }

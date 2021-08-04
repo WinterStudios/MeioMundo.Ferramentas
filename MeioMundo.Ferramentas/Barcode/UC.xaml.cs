@@ -191,6 +191,20 @@ namespace MeioMundo.Ferramentas.Barcode
                 etiquetaPage.Dispatcher.Invoke(() => etiquetaPage.UpdateLayout());
                 
             }
+            if (tag == "SearchProduct")
+            {
+                Window w = new Window();
+                Ferramentas.Internal.MVC.UC_Produdots_List list = new Ferramentas.Internal.MVC.UC_Produdots_List();
+                w.Content = list;
+                list.ParentWindow = w;
+                if(w.ShowDialog() == true)
+                {
+                    PreviewEtiqueta.Produto = list.OUT_Produto.Nome;
+                    PreviewEtiqueta.Preco = list.OUT_Produto.Preco_cIVA;
+                    PreviewEtiqueta.CodigoBarras = list.OUT_Produto.REF;
+                    PreviewEtiqueta.BarCode.Code = list.OUT_Produto.REF;
+                }
+            }
         }
         private void OnTextBox_Changed(object sender, TextChangedEventArgs args)
         {
@@ -208,5 +222,10 @@ namespace MeioMundo.Ferramentas.Barcode
             //Image_BarCode.Source = EtiquetaPreview.BarCode.CodeImage;
         }
 
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            PreviewEtiqueta.MostrarPreco = checkBox.IsChecked.Value;
+        }
     }
 }

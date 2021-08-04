@@ -1,4 +1,4 @@
-﻿using MeioMundo.Ferramentas.Site.Models;
+﻿using MeioMundo.Ferramentas.Internal.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

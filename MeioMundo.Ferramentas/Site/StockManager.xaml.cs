@@ -17,7 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using MeioMundo.Ferramentas.Site.Models;
+using MeioMundo.Ferramentas.Internal.Models;
 using System.Text.RegularExpressions;
 using System.Windows.Threading;
 using System.ComponentModel;
@@ -29,7 +29,7 @@ namespace MeioMundo.Ferramentas.Site
     /// </summary>
     public partial class StockManager : UserControl
     {
-        public ObservableCollection<Site.Models.Produto> Produtos { get; set; }
+        public ObservableCollection<Internal.Models.Produto> Produtos { get; set; }
         private List<Produto> SageProdutos { get; set; }
 
         public bool WebSiteLoad { get; set; }
@@ -37,7 +37,7 @@ namespace MeioMundo.Ferramentas.Site
         public StockManager()
         {
             InitializeComponent();
-            Produtos = new ObservableCollection<Site.Models.Produto>();
+            Produtos = new ObservableCollection<Internal.Models.Produto>();
             SageProdutos = new List<Produto>();
             UC_StockManager.ItemsSource = Produtos;
         }
@@ -47,8 +47,7 @@ namespace MeioMundo.Ferramentas.Site
             string tag = ((Button)sender).Tag.ToString();
             if (tag == "Load")
             {
-                string sageLocation;
-                string webLocation;
+                string webLocation = string.Empty;
 
                 OpenFileDialog WebDialog = new OpenFileDialog();
                 WebDialog.Filter = "Website Files|*.csv;*.txt|" +
@@ -58,16 +57,8 @@ namespace MeioMundo.Ferramentas.Site
                 if (WebDialog.ShowDialog() == true)
                 {
                     webLocation = WebDialog.FileName;
-                    OpenFileDialog SageDialog = new OpenFileDialog();
-                    SageDialog.Filter = "Sage Files|*.xls;*.txt|" +
-                                        "All Files |*.*";
+                    LoadDataBase(webLocation);
 
-                    SageDialog.Title = "Carregar ficheiro com os dados do SAGE";
-                    if (SageDialog.ShowDialog() == true)
-                    {
-                        sageLocation = SageDialog.FileName;
-                        LoadDataBase(webLocation, sageLocation);
-                    }
                 }
             }
             if(tag == "Upload")
@@ -77,16 +68,22 @@ namespace MeioMundo.Ferramentas.Site
                 
             
         }
-        private async void LoadDataBase(string webLocation, string sageLocation)
+        private async Task LoadDataBase(string webLocation)
         {
             Produtos.Clear();
             SageProdutos.Clear();
             string webExtension = System.IO.Path.GetExtension(webLocation);
+            string sageLocation = @"\\srvmm\USR\MeioMundo_Local\Listagem de Artigos _EUROS_.TXT";
+            string serverPath = @"srvmm";
+
             string sageExtension = System.IO.Path.GetExtension(sageLocation);
             if (webExtension.ToUpper() == ".CSV" && sageExtension.ToUpper() == ".TXT")
             {
                 await LoadWebSiteAsync(webLocation);
-                await LoadSageAsync(sageLocation);
+                using (Network.NetworkShareAccesser.Access(serverPath, "meiomundo", "meiomundo"))
+                {
+                    await Task.Run(() => LoadSageAsync(sageLocation));
+                }
                 Task task = new Task(() => UpdateStockAsync());
                 task.Start();
             }

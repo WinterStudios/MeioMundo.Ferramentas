@@ -15,13 +15,13 @@
         </Style>
     </UserControl.Resources>
 
-    <Border  BorderThickness="0.25pt" BorderBrush="LightGray">
+    <Border BorderThickness="0.25pt" CornerRadius="2" BorderBrush="#808080">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="0.4cm"/>
+                <RowDefinition Height="0.6cm"/>
             </Grid.RowDefinitions>
             <Border>
                 <Grid>
@@ -29,36 +29,54 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Border Padding="0.4cm,0,0.2cm,0" BorderThickness="0,0,.25pt,.25pt" BorderBrush="Black" Background="#FCFCFC">
-                        <TextBlock Text="Ref:" FontSize="6pt" FontWeight="Bold"/>
+                    <Border Padding="0.4cm,0,0.2cm,0" BorderThickness="0,0,.25pt,.25pt" BorderBrush="Black" Background="#000" CornerRadius="2,0,0,0">
+                        <TextBlock Text="Ref:" FontSize="5.5pt" FontWeight="Bold" Foreground="White"/>
                     </Border>
                     <Border Grid.Column="1">
-                        <TextBlock x:Name="UC_TextBlock_Code" FontSize="6pt" FontWeight="Light"/>
+                        <TextBlock Text="{Binding CodigoBarras, RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}}" FontSize="5.5pt" Margin="2.5pt,0" FontWeight="Light" TextWrapping="Wrap"/>
                     </Border>
                 </Grid>
             </Border>
             <Border Grid.Row="1">
-                <TextBlock Text="Text" FontSize="4.5pt" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding Produto, RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}}" FontSize="4.5pt" HorizontalAlignment="Center" Margin="0,.25pt"/>
             </Border>
-            <Border Grid.Row="2">
-                <Image x:Name="UC_Image_CodeBar" />
+            <Border Grid.Row="2" Padding="0.075cm">
+                <Image x:Name="UC_Image_CodeBar" Source="{Binding BarCode.CodeImage, RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}}" />
             </Border>
             <Border Grid.Row="3">
                 <Grid>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1cm"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="1.5cm"/>
                     </Grid.ColumnDefinitions>
-                    <Border>
-                        <TextBlock Text="Preço:" HorizontalAlignment="Right" FontSize="7pt" Margin="0.2cm,0" VerticalAlignment="Center"/>
-                    </Border>
-                    <Border Grid.Column="1" Padding="0.2cm,0" BorderThickness=".5pt,.5pt,0,0" BorderBrush="Black">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                            <TextBlock Text="2,50" FontSize="9pt" FontWeight="Bold"/>
-                            <TextBlock Text="€" FontSize="9pt" FontWeight="Bold"/>
-                        </StackPanel>
-                    </Border>
+                    <Grid Grid.Column="1" x:Name="preco">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="1.5cm"/>
+                        </Grid.ColumnDefinitions>
+                        <Border>
+                            <TextBlock Text="Preço:" HorizontalAlignment="Right" FontSize="8pt" Margin="0.1cm,0" VerticalAlignment="Center" FontWeight="Bold"/>
+                        </Border>
+                        <Border Grid.Column="1" Padding="0.2cm,0" BorderThickness=".5pt,.5pt,0,0" BorderBrush="Black">
+                            <Border HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Preco, RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}, ConverterCulture=pt-PT, StringFormat={}{0:C2}}" FontSize="9pt" FontWeight="Bold"/>
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}, Path=MostarPreco, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}, Path=MostarPreco, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                <Setter Property="Visibility" Value="Hidden" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                            </Border>
+                        </Border>
+                    </Grid>
                 </Grid>
+                
             </Border>
         </Grid>
     </Border>

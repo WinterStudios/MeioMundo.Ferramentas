@@ -21,9 +21,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="UI\**" />
     <Compile Remove="UX\**" />
+    <EmbeddedResource Remove="UI\**" />
     <EmbeddedResource Remove="UX\**" />
+    <None Remove="UI\**" />
     <None Remove="UX\**" />
+    <Page Remove="UI\**" />
     <Page Remove="UX\**" />
   </ItemGroup>
 
@@ -146,7 +150,6 @@
 
   <ItemGroup>
     <Folder Include="Site\Icons\" />
-    <Folder Include="UI\" />
   </ItemGroup>
 
 </Project>

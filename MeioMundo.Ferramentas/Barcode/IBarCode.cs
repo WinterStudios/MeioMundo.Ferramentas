@@ -9,6 +9,7 @@ namespace MeioMundo.Ferramentas.Barcode
 {
     public interface IBarCode
     {
+        string Nome { get; set; }
         string Code { get; set; }
         DisplayCodeType DisplayCodeType { get; set; }
         BarcodeImageResolution BarcodeImageResolution { get; set; }
@@ -18,5 +19,6 @@ namespace MeioMundo.Ferramentas.Barcode
         BitmapSource CodeImage { get; set; }
         void Draw();
         string CheckCode(string s);
+        int Count { get; set; }
     }
 }

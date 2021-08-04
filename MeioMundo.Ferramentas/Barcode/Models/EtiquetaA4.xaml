@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="MeioMundo.Ferramentas.Barcode.Models.EtiquetaA4"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MeioMundo.Ferramentas.Barcode.Models"
+             xmlns:barcode="clr-namespace:MeioMundo.Ferramentas.Barcode"
+             xmlns:models="clr-namespace:MeioMundo.Ferramentas.Barcode.Models"
+             mc:Ignorable="d" 
+             Width="21cm" Height="29.7cm"
+             Background="White" Foreground="Black"
+      >
+    <Border>
+        <Grid>
+            <StackPanel x:Name="UC_StackList" Orientation="Vertical">
+
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

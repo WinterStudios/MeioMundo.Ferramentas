@@ -14,7 +14,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/U-System.UX;component/Style/GroupBox.xaml"/>
-                <ResourceDictionary Source="/U-System.UX;component/ThemeResource.xaml"/>
+
                 <ResourceDictionary>
                     <ObjectDataProvider x:Key="GetBarcodeResolutions" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
                         <ObjectDataProvider.MethodParameters>
@@ -47,7 +47,7 @@
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <GroupBox Header="Preview">
+        <GroupBox Header="Preview" Style="{DynamicResource GroupStyle_TypeA}">
             <Border>
                 <Border.RenderTransform>
                     <ScaleTransform ScaleX="1" ScaleY="1"/>
@@ -61,7 +61,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <GroupBox Header="Modelo">
+                <GroupBox Header="Modelo" Style="{DynamicResource GroupStyle_TypeA}">
                     <ComboBox x:Name="Tip"/>
                 </GroupBox>
                 <DataGrid Grid.Row="1" ItemsSource="{Binding Etiquetas, RelativeSource={RelativeSource AncestorType=local:UC}}" AutoGenerateColumns="False">
@@ -84,7 +84,7 @@
                 <GroupBox Header="Modelo da Etiqueta" Style="{DynamicResource GroupStyle_TypeA}">
                     <ComboBox x:Name="UC_ComboBox_TipoEtiquetas" ItemsSource="{Binding Source={StaticResource GetModelosEtiquetas}}" SelectedIndex="0"/>
                 </GroupBox>
-                <GroupBox Header="Produto">
+                <GroupBox Header="Produto" Style="{DynamicResource GroupStyle_TypeA}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -120,7 +120,7 @@
                     </Grid>
 
                 </GroupBox>
-                <GroupBox Header="Defeniçoes do Codigo Barras">
+                <GroupBox Header="Defeniçoes do Codigo Barras" Style="{DynamicResource GroupStyle_TypeA}">
                     <StackPanel>
                         <DockPanel Margin="0,0,0,4">
                             <TextBlock Text="Tipo" Width="110"/>
@@ -151,14 +151,14 @@
                         </DockPanel>
                     </StackPanel>
                 </GroupBox>
-                <GroupBox Header="Defenições da Etiqueta">
+                <GroupBox Header="Defenições da Etiqueta" Style="{DynamicResource GroupStyle_TypeA}">
                     <Border>
                         <StackPanel Orientation="Vertical">
                             <CheckBox Content="Mostrar Preço" Foreground="{DynamicResource Theme.Primary}" IsChecked="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=PreviewEtiqueta.MostrarPreco, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
                         </StackPanel>
                     </Border>
                 </GroupBox>
-                <GroupBox Header="Informações">
+                <GroupBox Header="Informações" Style="{DynamicResource GroupStyle_TypeA}">
                     <StackPanel>
                         <TextBlock x:Name="info_1"/>
                         <TextBlock x:Name="info_2"/>
@@ -167,8 +167,8 @@
 
                 <Button Content="Adicionar" Margin="0,5" Click="Button_Click" Tag="AddCode"/>
             </StackPanel>
-            
-            <GroupBox Grid.Row="1" Header="Preview">
+
+            <GroupBox Grid.Row="1" Header="Preview" Style="{DynamicResource GroupStyle_TypeA}">
                 <Border Background="White" VerticalAlignment="Stretch" Padding="5">
                     <Viewbox x:Name="UC_VeiwBox_PreviewEtiqueta"/>
                 </Border>

@@ -11,27 +11,34 @@
             Background="{DynamicResource Theme.Background}"
     >
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="GetBarcodeResolutions" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="local:BarcodeImageResolution"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-        <ObjectDataProvider x:Key="GetBarcodeHeights" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="local:BarcodeHeight"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-        <ObjectDataProvider x:Key="GetBarcodeDisplayTypes" />
-        <ObjectDataProvider x:Key="GetBarcodeTypes" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="local:BarType"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-        <ObjectDataProvider x:Key="GetModelosEtiquetas" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="local:ModelosEtiquetas"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/U-System.UX;component/Style/GroupBox.xaml"/>
+                <ResourceDictionary>
+                    <ObjectDataProvider x:Key="GetBarcodeResolutions" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+                        <ObjectDataProvider.MethodParameters>
+                            <x:Type TypeName="local:BarcodeImageResolution"/>
+                        </ObjectDataProvider.MethodParameters>
+                    </ObjectDataProvider>
+                    <ObjectDataProvider x:Key="GetBarcodeHeights" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+                        <ObjectDataProvider.MethodParameters>
+                            <x:Type TypeName="local:BarcodeHeight"/>
+                        </ObjectDataProvider.MethodParameters>
+                    </ObjectDataProvider>
+                    <ObjectDataProvider x:Key="GetBarcodeDisplayTypes" />
+                    <ObjectDataProvider x:Key="GetBarcodeTypes" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+                        <ObjectDataProvider.MethodParameters>
+                            <x:Type TypeName="local:BarType"/>
+                        </ObjectDataProvider.MethodParameters>
+                    </ObjectDataProvider>
+                    <ObjectDataProvider x:Key="GetModelosEtiquetas" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+                        <ObjectDataProvider.MethodParameters>
+                            <x:Type TypeName="local:ModelosEtiquetas"/>
+                        </ObjectDataProvider.MethodParameters>
+                    </ObjectDataProvider>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -73,7 +80,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Vertical">
-                <GroupBox Header="Modelo da Etiqueta">
+                <GroupBox Header="Modelo da Etiqueta" Style="{DynamicResource GroupStyle_TypeA}">
                     <ComboBox x:Name="UC_ComboBox_TipoEtiquetas" ItemsSource="{Binding Source={StaticResource GetModelosEtiquetas}}" SelectedIndex="0"/>
                 </GroupBox>
                 <GroupBox Header="Produto">

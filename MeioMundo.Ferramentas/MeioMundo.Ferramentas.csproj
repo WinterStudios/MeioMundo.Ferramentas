@@ -89,6 +89,9 @@
       <HintPath>..\lib\U-System.External.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="U-System.UX">
+      <HintPath>..\..\U-System\U-System\bin\Debug\U-System.UX.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

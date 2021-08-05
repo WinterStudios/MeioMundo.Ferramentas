@@ -8,10 +8,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="Editor_GetAnos" MethodName="GetAnosUX" ObjectType="{x:Type internal:EditorExtensions}"/>
-        <ObjectDataProvider x:Key="Editor_GetDisciplinas" MethodName="GetDisciplinasUX" ObjectType="{x:Type internal:EditorExtensions}"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/MeioMundo.Ferramentas;component/ShareResources.xaml"/>
+                <ResourceDictionary>
+                    <ObjectDataProvider x:Key="Editor_GetAnos" MethodName="GetAnosUX" ObjectType="{x:Type internal:EditorExtensions}"/>
+                    <ObjectDataProvider x:Key="Editor_GetDisciplinas" MethodName="GetDisciplinasUX" ObjectType="{x:Type internal:EditorExtensions}"/>
 
-        <internal:IntToStringConvert x:Key="IntToStringConvert"/>
+                    <internal:IntToStringConvert x:Key="IntToStringConvert"/>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>

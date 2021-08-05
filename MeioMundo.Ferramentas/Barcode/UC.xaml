@@ -14,7 +14,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/MeioMundo.Ferramentas;component/ShareResources.xaml"/>
-
                 <ResourceDictionary>
                     <ObjectDataProvider x:Key="GetBarcodeResolutions" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
                         <ObjectDataProvider.MethodParameters>
@@ -47,7 +46,7 @@
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <GroupBox Header="Preview" Style="{DynamicResource GroupStyle_TypeA}">
+        <GroupBox Header="Preview">
             <Border>
                 <Border.RenderTransform>
                     <ScaleTransform ScaleX="1" ScaleY="1"/>
@@ -81,10 +80,10 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Vertical">
-                <GroupBox Header="Modelo da Etiqueta" Style="{DynamicResource GroupStyle_TypeA}">
+                <GroupBox Header="Modelo da Etiqueta">
                     <ComboBox x:Name="UC_ComboBox_TipoEtiquetas" ItemsSource="{Binding Source={StaticResource GetModelosEtiquetas}}" SelectedIndex="0"/>
                 </GroupBox>
-                <GroupBox Header="Produto" Style="{DynamicResource GroupStyle_TypeA}">
+                <GroupBox Header="Produto">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -120,7 +119,7 @@
                     </Grid>
 
                 </GroupBox>
-                <GroupBox Header="Defeniçoes do Codigo Barras" Style="{DynamicResource GroupStyle_TypeA}">
+                <GroupBox Header="Defeniçoes do Codigo Barras">
                     <StackPanel>
                         <DockPanel Margin="0,0,0,4">
                             <TextBlock Text="Tipo" Width="110"/>
@@ -133,7 +132,7 @@
                               ItemsSource="{Binding Source={StaticResource GetBarcodeHeights}}"/>
                         </DockPanel>
                         <DockPanel Margin="0,0,0,4">
-                            <TextBlock Text="Mostra Texto" Width="110" Style="{DynamicResource ComboBox_Style_A}"/>
+                            <TextBlock Text="Mostra Texto" Width="110" />
                             <ComboBox x:Name="UC_ComboBox_BarDisplay" SelectionChanged="ComboBox_SelectionChanged" Tag="DisplayType" SelectedIndex="1">
                                 <ComboBoxItem Content="Não Mostrar"/>
                                 <ComboBoxItem Content="Centrado"/>

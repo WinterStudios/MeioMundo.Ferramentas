@@ -4,8 +4,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/U-System.UX;component/Style/GroupBox.xaml"/>
         <ResourceDictionary Source="/U-System.UX;component/Style/ComboBox.xaml"/>
+        <ResourceDictionary Source="/U-System.UX;component/Style/TextBox.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-    <Style TargetType="TextBlock">
-        <Setter Property="Foreground" Value="{DynamicResource Theme.Primary}"/>
-    </Style>
+    
 </ResourceDictionary>

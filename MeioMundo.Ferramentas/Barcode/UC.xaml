@@ -133,7 +133,7 @@
                               ItemsSource="{Binding Source={StaticResource GetBarcodeHeights}}"/>
                         </DockPanel>
                         <DockPanel Margin="0,0,0,4">
-                            <TextBlock Text="Mostra Texto" Width="110"/>
+                            <TextBlock Text="Mostra Texto" Width="110" Style="{DynamicResource ComboBox_Style_A}"/>
                             <ComboBox x:Name="UC_ComboBox_BarDisplay" SelectionChanged="ComboBox_SelectionChanged" Tag="DisplayType" SelectedIndex="1">
                                 <ComboBoxItem Content="Não Mostrar"/>
                                 <ComboBoxItem Content="Centrado"/>

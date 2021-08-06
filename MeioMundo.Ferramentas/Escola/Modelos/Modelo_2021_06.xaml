@@ -99,9 +99,9 @@
                         </Grid.ColumnDefinitions>
                         <DockPanel Margin=".25cm,0" VerticalAlignment="Center" LastChildFill="True">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock x:Name="UC_TextBox_Ano" FontSize="14pt" FontFamily="Segui" VerticalAlignment="Center" Text="[M:Escola.Ano]" />
+                                <TextBlock x:Name="UC_TextBox_Ano" FontSize="14pt" FontFamily="Segui" VerticalAlignment="Center" Text="[M:Escola.Ano]" Foreground="Black" />
                                 <Rectangle VerticalAlignment="Center" Height="1pt" Width="4pt" Fill="Black" Margin="6 0"/>
-                                <TextBlock x:Name="UC_TextBox_Escola" FontSize="14pt" FontFamily="Segui" VerticalAlignment="Center" FontWeight="Bold" Text="[M:Escola]" />
+                                <TextBlock x:Name="UC_TextBox_Escola" FontSize="14pt" FontFamily="Segui" VerticalAlignment="Center" FontWeight="Bold" Text="[M:Escola]" Foreground="Black" />
                             </StackPanel>
                         </DockPanel>
                         

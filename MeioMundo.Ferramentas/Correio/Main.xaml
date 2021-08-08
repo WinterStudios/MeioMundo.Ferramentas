@@ -13,7 +13,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/MeioMundo.Ferramentas;component/Resources/ResourceDictionary_Correio.xaml"/>
-                <ResourceDictionary Source="/U-System.UX;component/Style/GroupBox.xaml"/>
+                <ResourceDictionary Source="/MeioMundo.Ferramentas;component/ShareResources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
@@ -59,7 +59,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <GroupBox Header="Forenecedor" Style="{DynamicResource GroupStyle_TypeA}">
+                <GroupBox Header="Forenecedor">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>

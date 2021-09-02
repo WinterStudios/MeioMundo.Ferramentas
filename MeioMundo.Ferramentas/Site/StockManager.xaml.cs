@@ -153,22 +153,23 @@ namespace MeioMundo.Ferramentas.Site
             int IvaIndex = 5;
             int StockIndex = 3;
 
-
-            while ((line = reader.ReadLine()) != null)
+            try
             {
-                string[] cols = line.Split(',');
-                if (cols.Length > 5)
+                while ((line = await reader.ReadLineAsync()) != null)
                 {
-                    if (index == 0)
+                    string[] cols = line.Split(',');
+                    if (cols.Length > 5)
                     {
+                        //if (index == 0)
+                        //{
                         //RefIndex = cols.ToList().FindIndex(0, cols.Length, x => x == "REF");
                         //NomeIndex = cols.ToList().FindIndex(0, cols.Length, x => x == "PRODUTO");
                         //PvpIndex = cols.ToList().FindIndex(0, cols.Length, x => x == "PVP");
                         //IvaIndex = cols.ToList().FindIndex(0, cols.Length, x => x == "IMPOSTO");
                         //StockIndex = cols.ToList().FindIndex(0, cols.Length, x => x == "DISPONÍVEL");
-                    }
-                    else
-                    {
+                        //}
+                        //else
+                        //{
                         Produto p = new Produto();
                         p.REF = cols[RefIndex].Replace("\"", "");
                         p.Nome = cols[NomeIndex].Replace("\"", "");
@@ -181,10 +182,16 @@ namespace MeioMundo.Ferramentas.Site
                             p.StockSage = stockSage;
 
                         SageProdutos.Add(p);
+                        //}
                     }
+                    index++;
+                    Dispatcher.Invoke(() => UC_StatusBar_ListObjects.Text = string.Format("Produtos: {0}", Produtos.Count));
+                    
                 }
-                index++;
-                UC_StatusBar_ListObjects.Text = string.Format("Produtos: {0}", Produtos.Count);
+            }
+            catch(Exception ex)
+            {
+                
             }
         }
 

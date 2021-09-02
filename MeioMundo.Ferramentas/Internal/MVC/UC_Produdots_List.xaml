@@ -16,7 +16,7 @@
             <Border>
                 <DockPanel>
                     <GroupBox Width="150" Header="Referência">
-                        <TextBox />
+                        <TextBox TextChanged="TextBox_TextChanged"/>
                     </GroupBox>
                     <GroupBox Header="Nome">
                         <TextBox />

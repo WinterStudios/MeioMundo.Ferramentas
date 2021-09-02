@@ -4,10 +4,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MeioMundo.Ferramentas.Correio"
+             xmlns:internal="clr-namespace:MeioMundo.Ferramentas.Internal"
+             xmlns:main="clr-namespace:MeioMundo.Ferramentas"
              mc:Ignorable="d" 
              Width="22.0cm" Height="11.0cm">
     <UserControl.Resources>
+        <internal:StringToUpperConverter x:Key="StringToUpperConverter"/>
         <SolidColorBrush x:Key="Remetente.Foreground" Color="#007BE1"/>
+        <SolidColorBrush x:Key="Foreground" Color="Black"/>
+        <Style x:Key="EmpresaSideMorada" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segui UI"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="8pt"/>
+            <Setter Property="Foreground" Value="{DynamicResource Foreground}"/>
+        </Style>
+        <Style x:Key="EmpresaSide" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segui UI"/>
+            <Setter Property="FontSize" Value="8pt"/>
+            <Setter Property="Foreground" Value="{DynamicResource Remetente.Foreground}"/>
+        </Style>
+        
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -22,21 +38,36 @@
             <ColumnDefinition Width="1.5cm"/>
         </Grid.ColumnDefinitions>
         <Grid x:Name="gridLogo" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="0.75cm,0.75cm,0,0" VerticalAlignment="Top" Visibility="{Binding GridLogoVisiblity, RelativeSource={RelativeSource AncestorType=local:CartaTemplate}, Mode=OneWay}">
-            <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="/MeioMundo.Ferramentas;component/Assets/carta-logo.png" Width="5cm" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality" />
-            <StackPanel Margin="0,2.75cm,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Vertical">
-                <TextBlock Text="MEIO MUNDO - LIVRARIA E PAPELARIA, LDA" Foreground="{DynamicResource Remetente.Foreground}" Margin="0,0,0,5" />
-                <TextBlock Text="Rua Prof. Antonio R. Garcia Vasconcelos, Lote 40/41" Foreground="{DynamicResource Remetente.Foreground}" FontWeight="Light" />
-                <TextBlock Text="3400-132 Oliveira do Hospital" Foreground="{DynamicResource Remetente.Foreground}" FontWeight="Light" />
-            </StackPanel>
-            <StackPanel Margin="0,4.5cm,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Vertical">
-                <DockPanel LastChildFill="True">
-                    <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-phone.png" Width="0.5cm" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality"/>
-                    <TextBlock Text="238601375" Foreground="{DynamicResource Remetente.Foreground}" Margin="0.2cm,0,0,0" FontWeight="Light" FontSize="10"/>
-                </DockPanel>
-                <DockPanel LastChildFill="True">
-                    <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-mail.png" Width="0.5cm" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality"/>
-                    <TextBlock Text="geral@papelariameiomundo.com" Foreground="{DynamicResource Remetente.Foreground}" Margin="0.2cm,0,0,0" VerticalAlignment="Center" FontWeight="Light" FontSize="10"/>
-                </DockPanel>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top"  Grid.ColumnSpan="2" Grid.RowSpan="2">
+                <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="/MeioMundo.Ferramentas;component/Assets/carta-logo.png" Width="5cm" RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="HighQuality"/>
+                <TextBlock/>
+                <StackPanel>
+                    <TextBlock Style="{DynamicResource EmpresaSideMorada}" Text="{Binding Source={x:Static main:MeioMundoInformation.DominaçãoSocial}, Converter={StaticResource StringToUpperConverter}}"/>
+                    <TextBlock Style="{DynamicResource EmpresaSideMorada}" Text="{Binding Source={x:Static main:MeioMundoInformationMorada.Rua}, Converter={StaticResource StringToUpperConverter}}"/>
+                    <TextBlock Style="{DynamicResource EmpresaSideMorada}" Text="{Binding Source={x:Static main:MeioMundoInformationMorada.CodigoPostal}, Converter={StaticResource StringToUpperConverter}}"/>
+                    <TextBlock Style="{DynamicResource EmpresaSideMorada}" Text="{Binding Source={x:Static main:MeioMundoInformationMorada.Pais}, Converter={StaticResource StringToUpperConverter}}"/>
+                </StackPanel>
+                <StackPanel Margin="0,0.2cm">
+                    <TextBlock Style="{DynamicResource EmpresaSide}" FontSize="7pt" Foreground="Black">
+                                <Run Text="NIF:"/>
+                                <Run Text="{Binding Source={x:Static main:MeioMundoInformation.NIF}, Mode=OneTime}"/>
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel>
+                    <DockPanel LastChildFill="True">
+                        <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-phone.png" Width="0.4cm" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality" Margin="0,0,0.2cm,0"/>
+                        <TextBlock Style="{DynamicResource EmpresaSide}" Text="{Binding Source={x:Static main:MeioMundoInformation.Telefone}, Mode=OneTime}" VerticalAlignment="Center"/>
+                    </DockPanel>
+                    <DockPanel LastChildFill="True">
+                        <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-mail.png" Width="0.4cm" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality" Margin="0,0,0.2cm,0"/>
+                        <TextBlock Style="{DynamicResource EmpresaSide}" Text="{Binding Source={x:Static main:MeioMundoInformation.Email}, Mode=OneTime}" VerticalAlignment="Center"/>
+                    </DockPanel>
+                    <DockPanel>
+                        <Image Source="/MeioMundo.Ferramentas;component/Assets/carta-web.png" Width="0.4cm" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality" Margin="0,0,0.2cm,0"/>
+                        <TextBlock Style="{DynamicResource EmpresaSide}" Text="{Binding Source={x:Static main:MeioMundoInformation.WebPage}, Mode=OneTime}" VerticalAlignment="Center"/>
+                    </DockPanel>
+
+                </StackPanel>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2">

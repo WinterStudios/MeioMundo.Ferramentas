@@ -13,6 +13,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/MeioMundo.Ferramentas;component/Resources/ResourceDictionary_Correio.xaml"/>
+                <ResourceDictionary Source="/MeioMundo.Ferramentas;component/ShareResources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

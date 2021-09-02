@@ -29,6 +29,11 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
             InitializeComponent();
             __CICLO = Ciclo.Secundario;
         }
+        public Modelo_2021_06_Box(Ciclo ciclo)
+        {
+            InitializeComponent();
+            __CICLO = ciclo;
+        }
 
         private void UI_UPDATE_CICLO(Ciclo ciclo)
         {

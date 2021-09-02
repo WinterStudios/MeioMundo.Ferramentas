@@ -128,6 +128,7 @@ namespace MeioMundo.Ferramentas
         public void Start()
         {
             //Application.Current.Exit += Current_Exit;
+            
             AppContext.SetSwitch(@"Switch.System.Windows.Controls.DoNotAugmentWordBreakingUsingSpeller", true);
             ConnectToServer();
             Voucher.VoucherSystem.Inicialize();

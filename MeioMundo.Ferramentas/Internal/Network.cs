@@ -81,7 +81,7 @@ namespace MeioMundo.Ferramentas.Internal.Net
 
             if (result != 0)
             {
-                throw new Win32Exception(result);
+                //throw new Win32Exception(result);
             }
         }
 

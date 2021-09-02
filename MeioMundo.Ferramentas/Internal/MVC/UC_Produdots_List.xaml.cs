@@ -119,6 +119,13 @@ namespace MeioMundo.Ferramentas.Internal.MVC
         {
             ParentWindow.DialogResult = true;
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string t = ((TextBox)sender).Text;
+            ICollectionView filteredView = new CollectionViewSource { Source = UC_DataGrid_ListProdutos.ItemsSource }.View;
+            UC_DataGrid_ListProdutos.Items.Filter = new Predicate<object>(x => ((Produto)x).REF.Contains(t));
+        }
     }
 }
 

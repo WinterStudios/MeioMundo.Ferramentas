@@ -34,10 +34,19 @@ namespace MeioMundo.Ferramentas.Escola
 
         public Internal.Escola Escola { get => escola; set { escola = value;
 
-                if (value.Anos.Count < UC_ComboBox_Anos.SelectedIndex)
-                    UC_ComboBox_Anos.SelectedItem = value.Anos[UC_ComboBox_Anos.SelectedIndex];
-                LoadPreviewModelo();
-                NotifyPropertyChanged(); } }
+                try
+                {
+                    if (value.Anos.Count < UC_ComboBox_Anos.SelectedIndex)
+                        UC_ComboBox_Anos.SelectedItem = value.Anos[UC_ComboBox_Anos.SelectedIndex];
+                    LoadPreviewModelo();
+                    NotifyPropertyChanged();
+                } 
+                catch(Exception ex)
+                { }
+            }
+            
+        }
+                
         private Internal.Escola escola;
 
         public Internal.Ano Ano { get => ano; set { ano = value; LoadPreviewModelo(); } }

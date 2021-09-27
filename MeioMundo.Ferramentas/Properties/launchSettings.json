@@ -2,7 +2,7 @@
   "profiles": {
     "MeioMundo.Ferramentas": {
       "commandName": "Executable",
-      "executablePath": "C:\\Users\\hugo_\\GitHub\\U-System\\U-System\\bin\\x64\\Release\\U-System.exe"
+      "executablePath": "C:\\Users\\hugo_\\GitHub\\U-System\\U-System\\bin\\Debug\\U-System.exe"
     }
   }
 }

@@ -190,12 +190,12 @@ namespace MeioMundo.Ferramentas.Escola
         {
             string serverPath = @"srvmm";
             string livrosFile = DataLocationFolder + "Livros.json";
-            using (Network.NetworkShareAccesser.Access(serverPath, "meiomundo", "meiomundo"))
-            if (System.IO.File.Exists(livrosFile))
-            {
-                string json = System.IO.File.ReadAllText(livrosFile);
-                Livros = System.Text.Json.JsonSerializer.Deserialize<Internal.Livro[]>(json).ToList();
-            }
+
+            string json = Network.AccessFiles.ReadJsonFile(livrosFile, serverPath, "meiomundo", "meiomundo");
+            if (!string.IsNullOrEmpty(json))
+                Livros = JsonSerializer.Deserialize<Livro[]>(json).ToList();
+            else
+                Livros = new List<Livro>();
         }
 
         public static void SaveLivros()

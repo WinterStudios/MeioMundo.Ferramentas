@@ -22,7 +22,7 @@ namespace MeioMundo.Ferramentas.Network
                 try
                 {
                     if (System.IO.File.Exists(path))
-                        json = System.IO.File.ReadAllText(path);
+                        return System.IO.File.ReadAllText(path);
                     else
                         throw new Exception();
                 }
@@ -41,7 +41,7 @@ namespace MeioMundo.Ferramentas.Network
                     {
                         using (Network.NetworkShareAccesser.Access(serverPath, username, password))
                             if (System.IO.File.Exists(path))
-                                json = System.IO.File.ReadAllText(path);
+                                return System.IO.File.ReadAllText(path);
                             else
                                 throw new Exception();
                     }

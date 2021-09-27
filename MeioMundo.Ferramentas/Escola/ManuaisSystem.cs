@@ -148,14 +148,20 @@ namespace MeioMundo.Ferramentas.Escola
         {
             string serverPath = @"srvmm";
             string escolaFile = DataLocationFolder + "Escolas.json";
-            using (Network.NetworkShareAccesser.Access(serverPath, "meiomundo", "meiomundo"))
-            {
-                if (System.IO.File.Exists(escolaFile))
-                {
-                    string json = System.IO.File.ReadAllText(escolaFile);
-                    Escolas = System.Text.Json.JsonSerializer.Deserialize<Internal.Escola[]>(json).ToList();
-                }
-            }
+
+            string json = Network.AccessFiles.ReadJsonFile(escolaFile, "meiomundo", "meiomundo");
+            if (!string.IsNullOrEmpty(json))
+                Escolas = JsonSerializer.Deserialize<Internal.Escola[]>(json).ToList();
+            else
+                Escolas = new List<Internal.Escola>();
+            //using (Network.NetworkShareAccesser.Access(serverPath, "meiomundo", "meiomundo"))
+            //{
+            //    if (System.IO.File.Exists(escolaFile))
+            //    {
+            //        string json = System.IO.File.ReadAllText(escolaFile);
+            //        Escolas = System.Text.Json.JsonSerializer.Deserialize<Internal.Escola[]>(json).ToList();
+            //    }
+            //}
         }
 
         internal static void AddEscola()
@@ -191,7 +197,7 @@ namespace MeioMundo.Ferramentas.Escola
             string serverPath = @"srvmm";
             string livrosFile = DataLocationFolder + "Livros.json";
 
-            string json = Network.AccessFiles.ReadJsonFile(livrosFile, serverPath, "meiomundo", "meiomundo");
+            string json = Network.AccessFiles.ReadJsonFile(livrosFile, "meiomundo", "meiomundo");
             if (!string.IsNullOrEmpty(json))
                 Livros = JsonSerializer.Deserialize<Livro[]>(json).ToList();
             else

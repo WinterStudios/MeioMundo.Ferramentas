@@ -9,8 +9,23 @@ namespace MeioMundo.Ferramentas.Network
     public class AccessFiles
     {
         private static int Attemptes { get => 2; }
+        private static string ServerPath { get => @"srvmm"; }
 
 
+        public static string ReadJsonFile(string path, string username = null, string password = null)
+        {
+            string json = "";
+            try
+            {
+                if (System.IO.File.Exists(path))
+                    json = System.IO.File.ReadAllText(path);
+            }
+            catch (Exception ex)
+            {
+                return ReadJsonFileCredencials(path, ServerPath, username, password);
+            }
+            return json;
+        }
         public static string ReadJsonFile(string path) => ReadJsonFile(path, null, null);
         public static string ReadJsonFile(string path, string serverPath = null, string username = null, string password = null)
         {
@@ -53,5 +68,14 @@ namespace MeioMundo.Ferramentas.Network
             }
             return json;
         }
+
+        private static string ReadJsonFileCredencials(string path, string serverPath, string username, string password)
+        {
+            using (Network.NetworkShareAccesser.Access(serverPath, username, password))
+                if (System.IO.File.Exists(path))
+                    return System.IO.File.ReadAllText(path);
+                else return "";
+        }
+
     }
 }

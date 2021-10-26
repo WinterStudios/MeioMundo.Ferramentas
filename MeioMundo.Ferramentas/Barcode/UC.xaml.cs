@@ -56,6 +56,7 @@ namespace MeioMundo.Ferramentas.Barcode
         public UC()
         {
             InitializeComponent();
+            U_System.UX.MainFrame.RequestMax();
             PreviewEtiqueta = CreateNewEtiqueta();
             UC_VeiwBox_PreviewEtiqueta.Child = (UserControl)PreviewEtiqueta;
             //UC_ComboBox_TipoEtiquetas.ItemsSource = GetIEtiquetas();

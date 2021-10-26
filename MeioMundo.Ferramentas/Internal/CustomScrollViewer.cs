@@ -18,8 +18,10 @@ namespace MeioMundo.Ferramentas.Internal
 
         Storyboard story = new Storyboard();
         DoubleAnimation animation = new DoubleAnimation();
+        private bool animationFinish = false;
         public CustomScrollViewer()
         {
+            animation.Completed += (sender, arg) => { animationFinish = true; };
             story.Children.Add(animation);
             Storyboard.SetTarget(animation, this);
             Storyboard.SetTargetProperty(animation, new PropertyPath(CustomScrollViewer.CurrentVerticalOffsetProperty));
@@ -39,22 +41,29 @@ namespace MeioMundo.Ferramentas.Internal
             viewer.ScrollToHorizontalOffset((double)e.NewValue);
         }
 
+        private double ToVertical = 0;
         protected override void OnMouseWheel(MouseWheelEventArgs e)
         {
             //base.OnMouseWheel(e);
-            double to = e.Delta * -1d;
-            if(to != double.NaN)
-                Scroll(to);
+            ToVertical = e.Delta * -1d;
+            if(!animation.IsFrozen)
+                Scroll(ToVertical);
+                
         }
 
         private void Scroll(double d)
         {
+            story.Stop();
             if (double.IsNaN(d))
                 return;
+            if (CurrentVerticalOffset + d > this.ScrollableHeight)
+                animation.To = this.ScrollableHeight;
+            else
+                animation.To = CurrentVerticalOffset + d;
+
             animation.From = this.VerticalOffset;
-            animation.To = CurrentVerticalOffset + d;
             animation.Duration = new Duration(TimeSpan.FromMilliseconds(1000));
-            animation.EasingFunction = new ExponentialEase() { EasingMode = EasingMode.EaseOut };
+            animation.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
             story.Begin();
         }
 

@@ -38,7 +38,7 @@ namespace MeioMundo.Ferramentas.Barcode.Models
         }
 
         internal void LoadEtiquetas(IEtiqueta[] etiquetas)
-        {
+        {   
             Etiquetas = new ObservableCollection<IEtiqueta>(etiquetas);
             int m_lines = Etiquetas.Count / MaxY + 1;
             UC_StackList.Children.Clear();

@@ -10,7 +10,7 @@
              Width="21cm" Height="29.7cm"
              Background="White" Foreground="Black"
       >
-    <Border>
+    <Border Padding="0.5cm">
         <Grid>
             <StackPanel x:Name="UC_StackList" Orientation="Vertical">
 

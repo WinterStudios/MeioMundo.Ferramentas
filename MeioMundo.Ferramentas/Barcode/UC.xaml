@@ -4,6 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MeioMundo.Ferramentas.Barcode"
              xmlns:Models="clr-namespace:MeioMundo.Ferramentas.Barcode.Models" x:Class="MeioMundo.Ferramentas.Barcode.UC"
+             xmlns:xamlControls="clr-namespace:MeioMundo.Ferramentas.Internal"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
@@ -58,12 +59,17 @@
             <Grid >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <GroupBox Header="Modelo">
+                <StackPanel HorizontalAlignment="Left">
+                    <Button Content="Imprimir" Click="Button_Click" Tag="PrintPreview"/>
+                </StackPanel>
+                <GroupBox Grid.Row="1" Header="Modelo">
                     <ComboBox x:Name="Tip"/>
                 </GroupBox>
-                <DataGrid Grid.Row="1" ItemsSource="{Binding Etiquetas, RelativeSource={RelativeSource AncestorType=local:UC}}" AutoGenerateColumns="False">
+                
+                <DataGrid Grid.Row="2" ItemsSource="{Binding Etiquetas, RelativeSource={RelativeSource AncestorType=local:UC}}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Tipo Etiqueta" Width="*" Binding="{Binding IEtiquetaType.Name}"/>
                         <DataGridTextColumn Header="Nome" Width="*" Binding="{Binding Produto}"/>
@@ -78,96 +84,102 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Vertical">
-                <GroupBox Header="Modelo da Etiqueta">
-                    <ComboBox x:Name="UC_ComboBox_TipoEtiquetas" ItemsSource="{Binding Source={StaticResource GetModelosEtiquetas}}" SelectedIndex="0"/>
-                </GroupBox>
-                <GroupBox Header="Produto">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        
-                        <StackPanel Orientation="Vertical" Grid.Row="1">
-                            <DockPanel Margin="0,2">
-                                <TextBlock Text="Nome:" Width="110" VerticalAlignment="Center"/>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBox x:Name="CodigoNome" Height="24" VerticalContentAlignment="Center" Tag="Nome" Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=PreviewEtiqueta.Produto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <Button Grid.Column="1" Width="24" Height="24" Style="{DynamicResource BTN_MM_C_IMG}" Padding="6" Click="Button_Click" Tag="SearchProduct">
-                                        <Button.Content>
-                                            <Image Source="/MeioMundo.Ferramentas;component/Assets/search.png"/>
-                                        </Button.Content>
-                                    </Button>
-                                </Grid>
-                            </DockPanel>
-                            <DockPanel Margin="0,2">
-                                <TextBlock Text="Codigo de Barras:" Width="110" VerticalAlignment="Center"/>
-                                <TextBox x:Name="Code" Height="24" VerticalContentAlignment="Center" Tag="CodigoBarras" Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=PreviewEtiqueta.CodigoBarras, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            </DockPanel>
-                            <DockPanel Margin="0,2">
-                                <TextBlock Text="Preço:" Width="110" VerticalAlignment="Center"/>
-                                <TextBox x:Name="Preco" Height="24" VerticalContentAlignment="Center" Tag="Preco" Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=PreviewEtiqueta.Preco, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </DockPanel>
-                            
-                        </StackPanel>
-                    </Grid>
+            <xamlControls:CustomScrollViewer ScrollViewer.PanningMode="VerticalOnly" ScrollViewer.PanningRatio="0.01" ScrollViewer.PanningDeceleration="10" ScrollViewer.CanContentScroll="False"  >
+                <StackPanel Orientation="Vertical">
+                    <GroupBox Header="Modelo da Etiqueta">
+                        <ComboBox x:Name="UC_ComboBox_TipoEtiquetas" ItemsSource="{Binding Source={StaticResource GetModelosEtiquetas}}" SelectedIndex="0"/>
+                    </GroupBox>
+                    <GroupBox Header="Produto">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
-                </GroupBox>
-                <GroupBox Header="Defeniçoes do Codigo Barras">
-                    <StackPanel>
-                        <DockPanel Margin="0,0,0,4">
-                            <TextBlock Text="Tipo" Width="110"/>
-                            <ComboBox x:Name="UC_ComboBox_BarType" SelectionChanged="ComboBox_SelectionChanged" Tag="BarType" SelectedIndex="0"
+                            <StackPanel Orientation="Vertical" Grid.Row="1">
+                                <DockPanel Margin="0,2">
+                                    <TextBlock Text="Nome:" Width="110" VerticalAlignment="Center"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox x:Name="CodigoNome" Height="24" VerticalContentAlignment="Center" Tag="Nome" Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=PreviewEtiqueta.Produto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        <Button Grid.Column="1" Width="24" Height="24" Style="{DynamicResource BTN_MM_C_IMG}" Padding="6" Click="Button_Click" Tag="SearchProduct">
+                                            <Button.Content>
+                                                <Image Source="/MeioMundo.Ferramentas;component/Assets/search.png"/>
+                                            </Button.Content>
+                                        </Button>
+                                    </Grid>
+                                </DockPanel>
+                                <DockPanel Margin="0,2">
+                                    <TextBlock Text="Codigo de Barras:" Width="110" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="Code" Height="24" VerticalContentAlignment="Center" Tag="CodigoBarras" Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=PreviewEtiqueta.CodigoBarras, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                </DockPanel>
+                                <DockPanel Margin="0,2">
+                                    <TextBlock Text="Preço:" Width="110" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="Preco" Height="24" VerticalContentAlignment="Center" Tag="Preco" Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=PreviewEtiqueta.Preco, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </DockPanel>
+                                <DockPanel Margin="0,2">
+                                    <TextBlock Text="IVA" Width="110" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="TaxaIVA" VerticalAlignment="Center" Tag="TaxaIVA" Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=PreviewEtiqueta.Taxa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:P0}}" />
+                                </DockPanel>
+
+                            </StackPanel>
+                        </Grid>
+
+                    </GroupBox>
+                    <GroupBox Header="Defeniçoes do Codigo Barras">
+                        <StackPanel>
+                            <DockPanel Margin="0,0,0,4">
+                                <TextBlock Text="Tipo" Width="110"/>
+                                <ComboBox x:Name="UC_ComboBox_BarType" SelectionChanged="ComboBox_SelectionChanged" Tag="BarType" SelectedIndex="0"
                               ItemsSource="{Binding Source={StaticResource GetBarcodeTypes}}"/>
-                        </DockPanel>
-                        <DockPanel Margin="0,0,0,4">
-                            <TextBlock Text="Altura das Barras" Width="110"/>
-                            <ComboBox x:Name="UC_ComboBox_BarHeight" SelectionChanged="ComboBox_SelectionChanged" Tag="BarHeight" SelectedIndex="2"
+                            </DockPanel>
+                            <DockPanel Margin="0,0,0,4">
+                                <TextBlock Text="Altura das Barras" Width="110"/>
+                                <ComboBox x:Name="UC_ComboBox_BarHeight" SelectionChanged="ComboBox_SelectionChanged" Tag="BarHeight" SelectedIndex="2"
                               ItemsSource="{Binding Source={StaticResource GetBarcodeHeights}}"/>
-                        </DockPanel>
-                        <DockPanel Margin="0,0,0,4">
-                            <TextBlock Text="Mostra Texto" Width="110" />
-                            <ComboBox x:Name="UC_ComboBox_BarDisplay" Style="{DynamicResource ComboBox_Style_A}" SelectionChanged="ComboBox_SelectionChanged" Tag="DisplayType" SelectedIndex="1">
-                                <ComboBoxItem Content="Não Mostrar"/>
-                                <ComboBoxItem Content="Centrado"/>
-                                <ComboBoxItem Content="Por Caractere"/>
-                            </ComboBox>
-                        </DockPanel>
-                        <DockPanel Margin="0,0,0,4">
-                            <TextBlock Text="Resolução" Width="110"/>
-                            <ComboBox x:Name="UC_ComboBox_BarResolution" SelectionChanged="ComboBox_SelectionChanged" Tag="Resolution" SelectedIndex="2"
+                            </DockPanel>
+                            <DockPanel Margin="0,0,0,4">
+                                <TextBlock Text="Mostra Texto" Width="110" />
+                                <ComboBox x:Name="UC_ComboBox_BarDisplay" Style="{DynamicResource ComboBox_Style_A}" SelectionChanged="ComboBox_SelectionChanged" Tag="DisplayType" SelectedIndex="1">
+                                    <ComboBoxItem Content="Não Mostrar"/>
+                                    <ComboBoxItem Content="Centrado"/>
+                                    <ComboBoxItem Content="Por Caractere"/>
+                                </ComboBox>
+                            </DockPanel>
+                            <DockPanel Margin="0,0,0,4">
+                                <TextBlock Text="Resolução" Width="110"/>
+                                <ComboBox x:Name="UC_ComboBox_BarResolution" SelectionChanged="ComboBox_SelectionChanged" Tag="Resolution" SelectedIndex="2"
                                 ItemsSource="{Binding Source={StaticResource GetBarcodeResolutions}}"/>
-                        </DockPanel>
-                        <DockPanel Margin="0,0,0,4">
-                            <TextBlock Text="Quantidade" Width="110"/>
-                            <TextBox Height="24" VerticalContentAlignment="Center" />
-                        </DockPanel>
-                    </StackPanel>
-                </GroupBox>
-                <GroupBox Header="Defenições da Etiqueta" Style="{DynamicResource GroupStyle_TypeA}">
-                    <Border>
-                        <StackPanel Orientation="Vertical">
-                            <CheckBox Content="Mostrar Preço" Foreground="{DynamicResource Theme.Primary}" IsChecked="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=PreviewEtiqueta.MostrarPreco, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
+                            </DockPanel>
+                            <DockPanel Margin="0,0,0,4">
+                                <TextBlock Text="Quantidade" Width="110"/>
+                                <TextBox Height="24" VerticalContentAlignment="Center" />
+                            </DockPanel>
                         </StackPanel>
-                    </Border>
-                </GroupBox>
-                <GroupBox Header="Informações" Style="{DynamicResource GroupStyle_TypeA}">
-                    <StackPanel>
-                        <TextBlock x:Name="info_1"/>
-                        <TextBlock x:Name="info_2"/>
-                    </StackPanel>
-                </GroupBox>
-
-                <Button Content="Adicionar" Margin="0,5" Click="Button_Click" Tag="AddCode"/>
-            </StackPanel>
-
-            <GroupBox Grid.Row="1" Header="Preview" Style="{DynamicResource GroupStyle_TypeA}">
+                    </GroupBox>
+                    <GroupBox Header="Defenições da Etiqueta" Style="{DynamicResource GroupStyle_TypeA}">
+                        <Border>
+                            <StackPanel Orientation="Vertical">
+                                <CheckBox Content="Mostrar Preço" Foreground="{DynamicResource Theme.Primary}" IsChecked="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=PreviewEtiqueta.MostrarPreco, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
+                            </StackPanel>
+                        </Border>
+                    </GroupBox>
+                    <GroupBox Header="Informações" Style="{DynamicResource GroupStyle_TypeA}">
+                        <StackPanel>
+                            <TextBlock x:Name="info_1"/>
+                            <TextBlock x:Name="info_2"/>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </xamlControls:CustomScrollViewer>
+            
+            <Button Grid.Row="1" Content="Adicionar" Margin="0,5" Click="Button_Click" Tag="AddCode"/>
+            <GroupBox Grid.Row="2" Header="Preview" Style="{DynamicResource GroupStyle_TypeA}">
                 <Border Background="White" VerticalAlignment="Stretch" Padding="5">
                     <Viewbox x:Name="UC_VeiwBox_PreviewEtiqueta"/>
                 </Border>

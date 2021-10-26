@@ -56,12 +56,17 @@ namespace MeioMundo.Ferramentas.Barcode.Models
             get { return m_Preco; }
             set { m_Preco = value; OnPropertyChanged(); }
         }
+        public float Taxa
+        {
+            get { return m_Imposto; }
+            set { m_Imposto = value; OnPropertyChanged(); }
+        }
         public string SKU { get; set; }
 
         public bool MostrarPreco
         {
             get { return m_MostrarPreco; }
-            set { m_MostrarPreco = value; if (value) preco.Visibility = Visibility.Visible; else preco.Visibility = Visibility.Collapsed; OnPropertyChanged(); }
+            set { m_MostrarPreco = value; if (value && this.IsLoaded) preco.Visibility = Visibility.Visible; else preco.Visibility = Visibility.Collapsed; OnPropertyChanged(); }
         }
 
         public Type IEtiquetaType => this.GetType();
@@ -71,11 +76,13 @@ namespace MeioMundo.Ferramentas.Barcode.Models
         private string m_CodigoBarras;
         private float m_Preco;
         private bool m_MostrarPreco;
+        private float m_Imposto;
         public Etiqueta_A()
         {
             BarCode = new Code39();
             BarCode.DisplayCodeType = DisplayCodeType.None;
             InitializeComponent();
+            MostrarPreco = true;
             //UC_TextBlock_Code.Text = BarCode.Code;
             //UC_Image_CodeBar.Source = Barcode.CreateBarcodeToImage(code, BarcodeEncoding.Code39, 300, false);
         }
@@ -88,6 +95,7 @@ namespace MeioMundo.Ferramentas.Barcode.Models
             Preco = etiqueta.Preco;
             SKU = etiqueta.SKU;
             MostrarPreco = etiqueta.MostrarPreco;
+            Taxa = etiqueta.Taxa;
         }
     }
 }

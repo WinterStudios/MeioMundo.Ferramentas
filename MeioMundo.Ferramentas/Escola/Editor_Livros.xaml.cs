@@ -51,5 +51,9 @@ namespace MeioMundo.Ferramentas.Escola
             ManuaisSystem.SaveLivros();
         }
 
+        private void UC_DataGrid_Livros_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Windows;
@@ -114,22 +115,52 @@ namespace MeioMundo.Ferramentas
         public static PluginInfo Info { get; set; }
         public string[] PluginDependicy { get => new string[0]; }
 
-        public void Awake() { }
+        public void Awake() 
+        {
+            
+        }
+
+        private void Current_Exit(object sender, ExitEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
         public void Start()
         {
+            //Application.Current.Exit += Current_Exit;
             
             AppContext.SetSwitch(@"Switch.System.Windows.Controls.DoNotAugmentWordBreakingUsingSpeller", true);
+            ConnectToServer();
+            Voucher.VoucherSystem.Inicialize();
             //Internal.Net.MeioMundoServer.Inicialize();
             try
             {
                 Internal.FornecedorSystem.Inicialize();
 
-                Voucher.VoucherSystem.Inicialize();
+                
             }
             catch (Exception ex)
             {
                 var exd = 0;
+            }
+            
+        }
+
+        private void ConnectToServer()
+        {
+            string serverPath = @"srvmm";
+            NetworkCredential credential = new NetworkCredential("meiomundo", "meiomundo");
+            try
+            {
+                using (Network.NetworkShareAccesser.Access(serverPath, "meiomundo", "meiomundo"))
+                {
+                    var s = System.IO.Directory.GetDirectories(@"\srvmm");
+                    string cv = s[0];
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }

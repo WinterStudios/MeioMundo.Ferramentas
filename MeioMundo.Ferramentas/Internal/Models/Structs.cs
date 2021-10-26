@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MeioMundo.Ferramentas.Site.Models
+namespace MeioMundo.Ferramentas.Internal.Models
 {
     /// <summary>
     /// Representa uma estrutura com CxLxA em cm

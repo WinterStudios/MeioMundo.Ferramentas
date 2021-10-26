@@ -21,9 +21,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="UI\**" />
     <Compile Remove="UX\**" />
+    <EmbeddedResource Remove="UI\**" />
     <EmbeddedResource Remove="UX\**" />
+    <None Remove="UI\**" />
     <None Remove="UX\**" />
+    <Page Remove="UI\**" />
     <Page Remove="UX\**" />
   </ItemGroup>
 
@@ -84,6 +88,9 @@
     <Reference Include="U-System.External">
       <HintPath>..\lib\U-System.External.dll</HintPath>
       <Private>false</Private>
+    </Reference>
+    <Reference Include="U-System.UX">
+      <HintPath>..\..\U-System\U-System\bin\Debug\U-System.UX.dll</HintPath>
     </Reference>
   </ItemGroup>
 
@@ -146,7 +153,6 @@
 
   <ItemGroup>
     <Folder Include="Site\Icons\" />
-    <Folder Include="UI\" />
   </ItemGroup>
 
 </Project>

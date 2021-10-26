@@ -1,7 +1,4 @@
 on:
-  push:
-    branches:
-      - preview
   pull_request:
     branches: 
       - preview

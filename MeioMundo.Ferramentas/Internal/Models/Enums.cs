@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MeioMundo.Ferramentas.Site.Models
+namespace MeioMundo.Ferramentas.Internal.Models
 {
     public enum FileType
     {
@@ -20,8 +20,11 @@ namespace MeioMundo.Ferramentas.Site.Models
     }
     public enum TaxaImposto
     {
-        TaxaReduzida = 0,
-        TaxaIntermedia = 1,
-        TaxaNormal = 2
+        Taxa_Reduzida = 0,
+        Taxa_Intermedia = 1,
+        Taxa_Normal = 2,
+        Taxa_Isento = 3,
+
+        Taxa_Desconhecida = 10
     }
 }

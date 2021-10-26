@@ -8,8 +8,16 @@
              Background="{DynamicResource Theme.Background}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="Editor_GetEscolas" MethodName="GetEscolasUX" ObjectType="{x:Type internal:EditorExtensions}"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/MeioMundo.Ferramentas;component/ShareResources.xaml"/>
+                <ResourceDictionary>
+                    <ObjectDataProvider x:Key="Editor_GetEscolas" MethodName="GetEscolasUX" ObjectType="{x:Type internal:EditorExtensions}"/>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -27,6 +35,7 @@
                     <ComboBoxItem Content="v.2020/07"/>
                     <ComboBoxItem Content="v.2021/06"/>
                     <ComboBoxItem Content="v.2021/06-Outros"/>
+                    <ComboBoxItem Content="v.2021/06-EPTOLIVA"/>
                 </ComboBox>
             </GroupBox>
             <Button Content="Imprimir" Padding="8,4,8,4" Margin="6,6" VerticalAlignment="Bottom" Click="Editores_Button_Click" Tag="__PRINT_SINGLE"/>

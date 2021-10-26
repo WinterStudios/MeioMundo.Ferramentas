@@ -14,15 +14,20 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
 {
     public class Code39 : ViewModelBase, IBarCode
     {
+        public string Nome
+        {
+            get { return m_Nome; }
+            set { m_Nome = value; OnPropertyChanged(); }
+        }
         public string Code 
         {
             get { return m_code; }
-            set { m_code = CheckCode(value.ToUpper()); Draw(); }
+            set { m_code = CheckCode(value.ToUpper()); Draw(); OnPropertyChanged(); }
         }
         public DisplayCodeType DisplayCodeType
         {
             get { return m_displayCodeType; }
-            set { m_displayCodeType = value; Draw(); }
+            set { m_displayCodeType = value; Draw(); OnPropertyChanged(); }
         }
         public BarcodeImageResolution BarcodeImageResolution
         {
@@ -32,7 +37,7 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
         public BarcodeHeight BarcodeHeight
         {
             get { return m_barcodeHeight; }
-            set { m_barcodeHeight = value; Draw(); }
+            set { m_barcodeHeight = value; Draw(); OnPropertyChanged(); }
         }
         public BarType BarType { get => BarType.Code39; }
 
@@ -50,7 +55,15 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
             set { m_codeImage = value; OnPropertyChanged(); }
         }
 
+        public int Count
+        {
+            get { return m_Count; }
+            set { m_Count = value; OnPropertyChanged(); }
+        }
+
+        private string m_Nome;
         private string m_code;
+        private int m_Count;
         private DisplayCodeType m_displayCodeType;
         private BarcodeImageResolution m_barcodeImageResolution;
         private BarcodeHeight m_barcodeHeight;
@@ -66,6 +79,7 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
             BarcodeImageResolution = BarcodeImageResolution.Medium;
             BarcodeHeight = BarcodeHeight.Normal;
             DisplayCodeType = DisplayCodeType.Center;
+            Code = "";
         }
 
         public Code39(string code, BarcodeImageResolution res, BarcodeHeight height, DisplayCodeType displayType)

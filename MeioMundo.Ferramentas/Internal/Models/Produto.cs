@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using U_System.Core.UX.Preferences;
 
-namespace MeioMundo.Ferramentas.Site.Models
+namespace MeioMundo.Ferramentas.Internal.Models
 {
     public class Produto : ViewModelBase
     {
@@ -25,6 +25,7 @@ namespace MeioMundo.Ferramentas.Site.Models
         private int _stockSite;
         private int _stockSage;
 
+        private TaxaImposto _taxaImposto;
 
         #region Proprietes >>>> String
 
@@ -49,6 +50,22 @@ namespace MeioMundo.Ferramentas.Site.Models
             set { _textoDescricao = value; OnPropertyChanged(); }
         }
 
+        public string GetTaxaImposto
+        {
+            get
+            {
+                string s = string.Empty;
+                if (TaxaImposto == TaxaImposto.Taxa_Reduzida)
+                    s = "Taxa Reduzida";
+                if (TaxaImposto == TaxaImposto.Taxa_Intermedia)
+                    s = "Taxa Intermédia";
+                if (TaxaImposto == TaxaImposto.Taxa_Normal)
+                    s = "Taxa Normal";
+                if (TaxaImposto == TaxaImposto.Taxa_Desconhecida)
+                    s = "Desconhecida";
+                return s;
+            }
+        }
 
         #endregion
 
@@ -99,7 +116,6 @@ namespace MeioMundo.Ferramentas.Site.Models
         }
         #endregion
 
-
         #region Proprietes >>>> Int
 
         /// <summary>
@@ -128,6 +144,15 @@ namespace MeioMundo.Ferramentas.Site.Models
         public int StockDiference { get => StockSite - StockSage; }
         #endregion
 
+        #region Proprietes >>>>> Enums
+        public TaxaImposto TaxaImposto
+        {
+            get { return _taxaImposto; }
+            set { _taxaImposto = value; SetTaxaImposto(); OnPropertyChanged(); }
+        }
+
+        #endregion
+
 
         public Dimensoes Dimensoes { get; set; }
 
@@ -135,12 +160,54 @@ namespace MeioMundo.Ferramentas.Site.Models
 
         public string[] Images { get; set; }
 
+
+        private void SetTaxaImposto()
+        {
+            switch (TaxaImposto)
+            {
+                case TaxaImposto.Taxa_Reduzida:
+                    TaxaIVA = 0.06f;
+                    break;
+                case TaxaImposto.Taxa_Intermedia:
+                    TaxaIVA = 0.13f;
+                    break;
+                case TaxaImposto.Taxa_Normal:
+                    TaxaIVA = 0.23f;
+                    break;
+                case TaxaImposto.Taxa_Isento:
+                    TaxaIVA = 0;
+                    break;
+            }
+        }
+
         public string ToStringCSV()
         {
             // REF, Nome, Stock, IVA, Preço
             return string.Format("{0},{1},{2},{3},{4}",
                 REF,Nome,StockFinal,0,Preco_cIVA.ToString().Replace(',','.')
                 );
+        }
+
+
+        public static TaxaImposto SetTaxaImposto(string s)
+        {
+            TaxaImposto imposto = TaxaImposto.Taxa_Desconhecida;
+            if (string.IsNullOrEmpty(s))
+                return imposto;
+
+            switch (s)
+            {
+                case "IVA Taxa Normal":
+                    imposto = TaxaImposto.Taxa_Normal;
+                    break;
+                case "IVA Taxa Intermédia":
+                    imposto = TaxaImposto.Taxa_Intermedia;
+                    break;
+                default:
+                    break;
+            }
+
+            return imposto;
         }
     }
 }

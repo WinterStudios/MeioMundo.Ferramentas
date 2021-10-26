@@ -161,9 +161,13 @@
                                             <DataTrigger Binding="{Binding OP_Basica_3}" Value="True">
                                                 <Setter Property="Background" TargetName="border" Value="{DynamicResource MODELO.2021.BRUSH.BACKGROUND.DISC.OP}"/>
                                             </DataTrigger>
-                                            <DataTrigger Binding="{Binding ID}" Value="0">
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ID}" Value="0"/>
+                                                    <Condition Binding="{Binding Nome}" Value=""/>
+                                                </MultiDataTrigger.Conditions>
                                                 <Setter Property="Background" TargetName="border" Value="{DynamicResource Color.Brush.Pattern.Right}"/>
-                                            </DataTrigger>
+                                            </MultiDataTrigger>
                                         </DataTemplate.Triggers>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -373,7 +377,7 @@
                 <Border Style="{DynamicResource MODELO.2021.BORDER.FILL}" Width="2cm" HorizontalAlignment="Left" Height="0.5cm" VerticalAlignment="Top">
                     <TextBlock Text="Notas" Style="{DynamicResource MODELO.CORE.TEXTBLOCK.LIGHT}"/>
                 </Border>
-                <Border Style="{DynamicResource MODELO.2021.BORDER.LINES}" Height="2cm"/>
+                <Border Style="{DynamicResource MODELO.2021.BORDER.LINES}" Background="Transparent" Height="2cm"/>
             </Grid>
             
 

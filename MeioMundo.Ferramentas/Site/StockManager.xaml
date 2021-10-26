@@ -6,6 +6,9 @@
              xmlns:local="clr-namespace:MeioMundo.Ferramentas.Site"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/MeioMundo.Ferramentas;component/ShareResources.xaml"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

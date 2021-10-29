@@ -66,7 +66,7 @@ namespace MeioMundo.Ferramentas.Barcode.Models
         public bool MostrarPreco
         {
             get { return m_MostrarPreco; }
-            set { m_MostrarPreco = value; if (value && this.IsLoaded) preco.Visibility = Visibility.Visible; else preco.Visibility = Visibility.Collapsed; OnPropertyChanged(); }
+            set { m_MostrarPreco = value; if (value) preco.Visibility = Visibility.Visible; else preco.Visibility = Visibility.Collapsed; OnPropertyChanged(); }
         }
 
         public Type IEtiquetaType => this.GetType();
@@ -81,6 +81,7 @@ namespace MeioMundo.Ferramentas.Barcode.Models
         {
             BarCode = new Code39();
             BarCode.DisplayCodeType = DisplayCodeType.None;
+            
             InitializeComponent();
             MostrarPreco = true;
             //UC_TextBlock_Code.Text = BarCode.Code;

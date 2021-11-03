@@ -8,7 +8,9 @@
              xmlns:internal="clr-namespace:MeioMundo.Ferramentas.Escola.Internal"
              d:DataContext="{d:DesignInstance Type=local:Editor_Geral}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="{DynamicResource Theme.Background}"
+             Foreground="{DynamicResource Theme.Primary}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

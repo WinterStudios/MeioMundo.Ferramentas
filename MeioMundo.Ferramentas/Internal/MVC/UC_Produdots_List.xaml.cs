@@ -58,60 +58,58 @@ namespace MeioMundo.Ferramentas.Internal.MVC
             Produtos = new ObservableCollection<Produto>();
             UC_DataGrid_ListProdutos.ItemsSource = Produtos;
             string serverPath = @"srvmm";
-            using (Network.NetworkShareAccesser.Access(serverPath, "meiomundo", "meiomundo"))
-            {
-                string filePath = @"\\Srvmm\USR\MeioMundo_Local\Listagem de Artigos _EUROS_.TXT";
-                FileStream file = new FileStream(filePath, FileMode.Open, FileAccess.Read);
 
-                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                Encoding encoding = Encoding.GetEncoding(1252);
+            string filePath = @"\\Srvmm\USR\MeioMundo_Local\Listagem de Artigos _EUROS_.TXT";
+            FileStream file = Network.AccessFiles.ReadFile(filePath, "meiomundo", "meiomundo");
 
-                StreamReader reader = new StreamReader(file, encoding, true);
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            Encoding encoding = Encoding.GetEncoding(1252);
 
-                string line = string.Empty;
-                int index = 0;
-                //Index Colluns
-                int RefIndex = 0;
-                int NomeIndex = 1;
-                int PvpIndex = 2;
-                int IvaIndex = 5;
-                int StockIndex = 3;
+            StreamReader reader = new StreamReader(file, encoding, true);
+
+            string line = string.Empty;
+            int index = 0;
+            //Index Colluns
+            int RefIndex = 0;
+            int NomeIndex = 1;
+            int PvpIndex = 2;
+            int IvaIndex = 5;
+            int StockIndex = 3;
                 
-                    while ((line = await reader.ReadLineAsync()) != null)
+            while ((line = await reader.ReadLineAsync()) != null)
+            {
+                string[] cols = line.Split(',');
+                if (cols.Length > 5)
+                {
+                    if (index == 0)
                     {
-                        string[] cols = line.Split(',');
-                        if (cols.Length > 5)
-                        {
-                            if (index == 0)
-                            {
-                                //RefIndex = cols.ToList().FindIndex(0, cols.Length, x => x == "REF");
-                                //NomeIndex = cols.ToList().FindIndex(0, cols.Length, x => x == "PRODUTO");
-                                //PvpIndex = cols.ToList().FindIndex(0, cols.Length, x => x == "PVP");
-                                //IvaIndex = cols.ToList().FindIndex(0, cols.Length, x => x == "IMPOSTO");
-                                //StockIndex = cols.ToList().FindIndex(0, cols.Length, x => x == "DISPONÍVEL");
-                            }
-                            else
-                            {
-                                Models.Produto p = new Models.Produto();
-                                p.REF = cols[RefIndex].Replace("\"", "");
-                                p.Nome = cols[NomeIndex].Replace("\"", "");
-                                float preco = float.NaN;
-                                if (float.TryParse(cols[PvpIndex].Replace('.', ','), out preco))
-                                    p.Preco_cIVA = preco;
-                                p.TaxaImposto = Produto.SetTaxaImposto(cols[IvaIndex]);
-                                p.Preco_sIVA = p.Preco_cIVA / (1 + p.TaxaIVA);
-                                int stockSage = 0;
-                                if (int.TryParse(cols[StockIndex], out stockSage))
-                                    p.StockSage = stockSage;
+                        //RefIndex = cols.ToList().FindIndex(0, cols.Length, x => x == "REF");
+                        //NomeIndex = cols.ToList().FindIndex(0, cols.Length, x => x == "PRODUTO");
+                        //PvpIndex = cols.ToList().FindIndex(0, cols.Length, x => x == "PVP");
+                        //IvaIndex = cols.ToList().FindIndex(0, cols.Length, x => x == "IMPOSTO");
+                        //StockIndex = cols.ToList().FindIndex(0, cols.Length, x => x == "DISPONÍVEL");
+                    }
+                    else
+                    {
+                        Models.Produto p = new Models.Produto();
+                        p.REF = cols[RefIndex].Replace("\"", "");
+                        p.Nome = cols[NomeIndex].Replace("\"", "");
+                        float preco = float.NaN;
+                        if (float.TryParse(cols[PvpIndex].Replace('.', ','), out preco))
+                            p.Preco_cIVA = preco;
+                        p.TaxaImposto = Produto.SetTaxaImposto(cols[IvaIndex]);
+                        p.Preco_sIVA = p.Preco_cIVA / (1 + p.TaxaIVA);
+                        int stockSage = 0;
+                        if (int.TryParse(cols[StockIndex], out stockSage))
+                            p.StockSage = stockSage;
 
                                 
-                                Produtos.Add(p);
-                            }
-                            index++;
-                        }
+                        Produtos.Add(p);
+                    }
+                    index++;
+                }
 
-                    }                
-            }
+            }                
                 
         }
 

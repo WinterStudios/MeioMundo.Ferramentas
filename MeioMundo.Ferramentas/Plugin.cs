@@ -104,7 +104,7 @@ namespace MeioMundo.Ferramentas
         };
         public bool ShowWelcomePage => true;
         public Module WelcomePage => new Module() {
-            Name = "Welcome",
+            Name = "Bem-Vindo",
             Type = typeof(WelcomePage).FullName,
             Path = "Ferramentas>Welcome",
             PluginTypeBehavior = PluginTypeBehavior.Tab
@@ -135,9 +135,7 @@ namespace MeioMundo.Ferramentas
             //Internal.Net.MeioMundoServer.Inicialize();
             try
             {
-                Internal.FornecedorSystem.Inicialize();
-
-                
+                Internal.FornecedorSystem.Inicialize();                
             }
             catch (Exception ex)
             {

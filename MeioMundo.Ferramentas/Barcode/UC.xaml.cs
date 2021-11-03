@@ -44,6 +44,9 @@ namespace MeioMundo.Ferramentas.Barcode
         public EtiquetaA4 etiquetaPage { get => m_EtiquetaA4; set { m_EtiquetaA4 = value; OnPropertyChanged(); } }
         private EtiquetaA4 m_EtiquetaA4;
 
+        public int Qtd { get => m_Qtd; set { m_Qtd = value; OnPropertyChanged(); } }
+        private int m_Qtd;
+
         public IEtiqueta PreviewEtiqueta
         {
             get { return m_PreviewEtiqueta; }
@@ -184,14 +187,31 @@ namespace MeioMundo.Ferramentas.Barcode
 
             if (tag == "AddCode")
             {
-                Etiquetas.Add(PreviewEtiqueta);
-                await this.Dispatcher.BeginInvoke(() =>
+                for (int i = 0; i < Qtd; i++)
                 {
-                    PreviewEtiqueta = CreateNewEtiqueta();
+                    IEtiqueta t_IEtiquetaPreview = (IEtiqueta)Activator.CreateInstance(typeof(Etiqueta_A));
+
+                    t_IEtiquetaPreview.Preco = PreviewEtiqueta.Preco;
+                    t_IEtiquetaPreview.Produto = PreviewEtiqueta.Produto;
+                    t_IEtiquetaPreview.SKU = PreviewEtiqueta.SKU;
+                    t_IEtiquetaPreview.BarCode = (IBarCode)Activator.CreateInstance(PreviewEtiqueta.BarCode.GetType());
+                    t_IEtiquetaPreview.CodigoBarras = PreviewEtiqueta.CodigoBarras;
+                    t_IEtiquetaPreview.BarCode.Code = PreviewEtiqueta.BarCode.Code;
+                    t_IEtiquetaPreview.BarCode.BarcodeImageResolution = PreviewEtiqueta.BarCode.BarcodeImageResolution;
+                    t_IEtiquetaPreview.BarCode.BarcodeHeight = PreviewEtiqueta.BarCode.BarcodeHeight;
+                    t_IEtiquetaPreview.BarCode.DisplayCodeType = PreviewEtiqueta.BarCode.DisplayCodeType;
+                    t_IEtiquetaPreview.MostrarPreco = PreviewEtiqueta.MostrarPreco;
+                    t_IEtiquetaPreview.Taxa = PreviewEtiqueta.Taxa;
+                    Etiquetas.Add(t_IEtiquetaPreview);
+                    //PreviewEtiqueta = CreateNewEtiqueta();
+                }
+                await this.Dispatcher.BeginInvoke(() =>
+                {   
                     UC_VeiwBox_PreviewEtiqueta.Child = (UserControl)PreviewEtiqueta;
                 });
                 //etiquetaPage = null;
                 //etiquetaPage = new EtiquetaA4(Etiquetas.ToArray());
+                PreviewEtiqueta = CreateNewEtiqueta();
                 etiquetaPage.LoadEtiquetas(Etiquetas.ToArray());
                 etiquetaPage.Dispatcher.Invoke(() => etiquetaPage.UpdateLayout());
                 

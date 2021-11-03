@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,31 @@ namespace MeioMundo.Ferramentas.Network
             }
             return json;
         }
+        public static FileStream ReadFile(string path, string username = null, string password = null)
+        {
+            FileStream fs = null;
+            try
+            {
+                if (System.IO.File.Exists(path))
+                    fs = System.IO.File.Open(path, FileMode.Open);
+                else
+                    throw new Exception("Not Found");
+            }
+            catch (Exception ex)
+            {
+                return ReadFileCredencials(path, ServerPath, username, password);
+            }
+            return fs;
+        }
+
+        private static FileStream ReadFileCredencials(string path, string serverPath, string username, string password)
+        {
+            using (Network.NetworkShareAccesser.Access(serverPath, username, password))
+                if (System.IO.File.Exists(path))
+                    return System.IO.File.Open(path, FileMode.Open);
+                else return null;
+        }
+
         public static string ReadJsonFile(string path) => ReadJsonFile(path, null, null);
         public static string ReadJsonFile(string path, string serverPath = null, string username = null, string password = null)
         {

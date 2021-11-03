@@ -34,6 +34,8 @@ namespace MeioMundo.Ferramentas.Network
             {
                 if (System.IO.File.Exists(path))
                     fs = System.IO.File.Open(path, FileMode.Open);
+                else
+                    throw new Exception("Not Found");
             }
             catch (Exception ex)
             {

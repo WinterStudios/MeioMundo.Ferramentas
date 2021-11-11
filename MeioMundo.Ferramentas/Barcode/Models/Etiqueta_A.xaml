@@ -45,9 +45,9 @@
             <Border Grid.Row="2" Padding="0.075cm" BorderThickness="0,0,0,.25pt" BorderBrush="{StaticResource Brush1}">
                 <Image x:Name="UC_Image_CodeBar" Stretch="Fill" Source="{Binding BarCode.CodeImage, RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}}" />
             </Border>
-            <Border Grid.Row="3">
+            <Border Grid.Row="3" x:Name="preco">
                 <Grid>
-                    <Grid Grid.Column="1" x:Name="preco">
+                    <Grid Grid.Column="1" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
@@ -59,20 +59,8 @@
                         <Border Grid.Column="1" Padding="0.1cm,0">
                             <TextBlock Text="Preço:" HorizontalAlignment="Right" FontSize="8pt" Margin="0" VerticalAlignment="Center" FontWeight="Normal"/>
                         </Border>
-                        <Border Grid.Column="2" Padding="0.2cm,0" BorderThickness="1" BorderBrush="Black" Background="Black">
+                        <Border x:Name="mostrarPreco" Grid.Column="2" Padding="0.2cm,0" BorderThickness="1" BorderBrush="Black" Background="Black">
                             <TextBlock Text="{Binding Preco, RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}, ConverterCulture=pt-PT, StringFormat={}{0:C2}}" FontSize="9pt" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                            <Border.Style>
-                                <Style TargetType="Border">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}, Path=MostarPreco, IsAsync=True, TargetNullValue=True, FallbackValue=True}" Value="True">
-                                            <Setter Property="Visibility" Value="Visible" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}, Path=MostrarPreco, IsAsync=True, TargetNullValue=False}" Value="False">
-                                            <Setter Property="Visibility" Value="Hidden" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
                         </Border>
                     </Grid>
                 </Grid>

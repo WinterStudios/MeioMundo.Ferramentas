@@ -169,17 +169,16 @@ namespace MeioMundo.Ferramentas.Internal
         }
         private static async Task Load()
         {
-            string fileLocation = string.Format("{0}Fornecedores.json", EntryPoint.Info.PluginStorageData);
-            if (File.Exists(fileLocation))
-            {
+            string fileLocation = @"\\srvmm\USR\MeioMundo_Local\Fornecedores.json"; // string.Format("{0}Fornecedores.json", EntryPoint.Info.PluginStorageData);
+
                 JsonSerializerOptions serializerOptions = new JsonSerializerOptions()
                 {
                     WriteIndented = true
                 };
-                FileStream stream = new FileStream(fileLocation, FileMode.Open);
+                FileStream stream = Network.AccessFiles.ReadFile(fileLocation, "meiomundo", "meiomundo");// new FileStream(fileLocation, FileMode.Open);
 
                 Fornecedores = (await JsonSerializer.DeserializeAsync<Fornecedor[]>(stream, serializerOptions)).ToList();
-            }
+
         }
     }
 }

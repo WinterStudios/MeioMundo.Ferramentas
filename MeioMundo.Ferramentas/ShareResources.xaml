@@ -1,11 +1,21 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
+
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/U-System.UX;component/Style/UI.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-    
+
     <Style TargetType="UserControl">
         <Setter Property="Background" Value="{DynamicResource Theme.Background}"/>
     </Style>
+
+    <Style TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Primary}"/>
+    </Style>
+    <Style TargetType="Label">
+        <Setter Property="Foreground" Value="{DynamicResource Theme.Primary}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+
 </ResourceDictionary>

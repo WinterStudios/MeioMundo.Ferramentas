@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace MeioMundo.Ferramentas.Internal
 {
-    public class Fornecedor
+    public class People
     {
         public int ID { get; set; }
         public string Nome { get; set; }
-        public Morada[] Moradas { get; set; }
+        public List<Morada> Moradas { get; set; }
         public string Contribuinte { get; set; }
         public override string ToString()
         {

@@ -21,10 +21,10 @@ namespace MeioMundo.Ferramentas.Internal
     /// </summary>
     public partial class FornecedoresManager : UserControl
     {
-        public ObservableCollection<Fornecedor> Fornecedors { get; set; }
+        public ObservableCollection<People> Fornecedors { get; set; }
         public FornecedoresManager()
         {
-            Fornecedors = new ObservableCollection<Fornecedor>(FornecedorSystem.Fornecedores);
+            Fornecedors = new ObservableCollection<People>(MoradasSystem.Fornecedores);
             InitializeComponent();
         }
 
@@ -34,15 +34,15 @@ namespace MeioMundo.Ferramentas.Internal
 
             if(tag == "_UPDATE_FORNECEDORES")
             {
-                await FornecedorSystem.LoadFromFile();
+                //await MoradasSystem.LoadFromFile();
                 grid.Items.Refresh();
             }
         }
 
         private async void grid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            FornecedorSystem.Fornecedores = Fornecedors.ToList();
-            await FornecedorSystem.Save();
+            //FornecedorSystem.Fornecedores = Fornecedors.ToList();
+            //await FornecedorSystem.Save();
         }
     }
 }

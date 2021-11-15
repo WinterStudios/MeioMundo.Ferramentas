@@ -100,6 +100,13 @@ namespace MeioMundo.Ferramentas
                 Type = typeof(Site.ImportProducts).FullName,
                 Path = "Ferramentas>Site>Inportar Produtos",
                 PluginTypeBehavior = PluginTypeBehavior.Tab,
+            },
+            new Module()
+            {
+                Name = "Fornecedores de Livros",
+                Type = typeof(Internal.ListaFornecedoresLivros).FullName,
+                Path = "Ferramentas>Internal>Fornecedores de Livros",
+                PluginTypeBehavior= PluginTypeBehavior.Tab,
             }
         };
         public bool ShowWelcomePage => true;
@@ -135,7 +142,7 @@ namespace MeioMundo.Ferramentas
             //Internal.Net.MeioMundoServer.Inicialize();
             try
             {
-                Internal.FornecedorSystem.Inicialize();                
+                Internal.MoradasSystem.Inicialize();                
             }
             catch (Exception ex)
             {

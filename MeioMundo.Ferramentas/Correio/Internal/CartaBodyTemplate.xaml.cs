@@ -43,22 +43,22 @@ namespace MeioMundo.Ferramentas.Correio.Internal
 
             if(tag == "__SelectForn")
             {
-                FornecedorSelect fornecedorAddress = new FornecedorSelect();
+                MoradasSelect Address = new MoradasSelect();
                 Window window = new Window();
-                window.Content = fornecedorAddress;
+                window.Content = Address;
                 window.SizeToContent = SizeToContent.WidthAndHeight;
                 Morada morada = new Morada();
                 if (window.ShowDialog() == true)
                 {                   
                     Paragraph nome = new Paragraph();
-                    nome.Inlines.Add(fornecedorAddress.Morada.FornecedorNome);
+                    //nome.Inlines.Add(Address.Morada.);
 
                     Paragraph _morada = new Paragraph();
-                    _morada.Inlines.Add(fornecedorAddress.Morada.Rua);
+                    _morada.Inlines.Add(Address.Morada.Rua);
                     Paragraph _locat = new Paragraph();
-                    _morada.Inlines.Add(fornecedorAddress.Morada.Localidade);
+                    _morada.Inlines.Add(Address.Morada.Localidade);
                     Paragraph zip = new Paragraph();
-                    zip.Inlines.Add(fornecedorAddress.Morada.ZipCode);
+                    zip.Inlines.Add(Address.Morada.ZipCode);
 
                     fornMorada.Document = new FlowDocument();
 

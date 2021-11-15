@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="MeioMundo.Ferramentas.Correio.MoradasSelect"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MeioMundo.Ferramentas.Correio"
+             xmlns:internal="clr-namespace:MeioMundo.Ferramentas.Internal"
+             mc:Ignorable="d" 
+             Width="720"
+             Height="600"
+             Foreground="{DynamicResource Theme.Primary}" Background="{DynamicResource Theme.Background}"
+             >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/MeioMundo.Ferramentas;component/ShareResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <ObjectDataProvider x:Key="GetFornecedores" MethodName="GetFornecedores"  ObjectType="{x:Type internal:MoradasSystem}"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="1" >
+            <DataGrid x:Name="UC_DataGrid_Fornecedores" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding Source={StaticResource GetFornecedores}}" AutoGenerateColumns="False" SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=local:MoradasSelect}, Path=Person}" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Width="50" Binding="{Binding ID}"/>
+                    <DataGridTextColumn Header="Nome" Width="*" Binding="{Binding Nome}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <ListView Grid.Column="1" Grid.Row="1" ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=local:MoradasSelect}, Path=Person.Moradas}" HorizontalContentAlignment="Stretch"
+                  SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=local:MoradasSelect}, Path=Morada}"
+                  Background="Transparent">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type internal:Morada}">
+                    <Grid>
+                        <GroupBox >
+                            <GroupBox.Header>
+                                <Label Content="{Binding _TipoMorada}" Margin="0" Padding="0" FontWeight="SemiBold" Foreground="{DynamicResource Theme.Background}"/>
+                            </GroupBox.Header>
+                            <StackPanel>
+                                <TextBlock Foreground="{DynamicResource Theme.Primary}" Text="{Binding RelativeSource={RelativeSource AncestorType=local:MoradasSelect}, Path=Person.Nome}"/>
+                                <TextBlock Foreground="{DynamicResource Theme.Primary}" Text="{Binding Rua}"/>
+                                <TextBlock Foreground="{DynamicResource Theme.Primary}" Text="{Binding Localidade}"/>
+                                <TextBlock Foreground="{DynamicResource Theme.Primary}" Text="{Binding ZipCode}"/>
+                                <TextBlock Foreground="{DynamicResource Theme.Primary}" Text="{Binding Country}"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Grid.Row="2" Content="Selecionar" Click="Button_Click" Tag="__RESULT"/>
+    </Grid>
+</UserControl>

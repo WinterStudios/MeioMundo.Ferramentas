@@ -21,7 +21,7 @@ namespace MeioMundo.Ferramentas.Correio
     /// <summary>
     /// Interaction logic for FornecedorSelect.xaml
     /// </summary>
-    public partial class FornecedorSelect : UserControl, INotifyPropertyChanged
+    public partial class MoradasSelect : UserControl, INotifyPropertyChanged
     {
 
         #region Notification Changed
@@ -31,12 +31,12 @@ namespace MeioMundo.Ferramentas.Correio
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
-        public Fornecedor Fornecedor { get => fornecedor; set { fornecedor = value; NotifyPropertyChanged(); } }
-        private Fornecedor fornecedor;
+        public People Person { get => person; set { person = value; NotifyPropertyChanged(); } }
+        private People person;
 
         public Morada Morada { get => morada; set { morada = value; NotifyPropertyChanged(); } }
         private Morada morada;
-        public FornecedorSelect()
+        public MoradasSelect()
         {
             InitializeComponent();
         }

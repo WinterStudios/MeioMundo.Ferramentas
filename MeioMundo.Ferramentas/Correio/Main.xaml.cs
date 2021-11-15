@@ -34,7 +34,10 @@ namespace MeioMundo.Ferramentas.Correio
         #endregion
         public Morada FornecedorMorada { get => fornecedorMorada; set { fornecedorMorada = value; NotifyPropertyChanged(); } }
         private Morada fornecedorMorada;
-    
+        
+        public People People { get => people; set { people = value; NotifyPropertyChanged(); } }
+        private People people;
+
         public TypeRegister RegisterType { get => _registerType; set { _registerType = value; } }
         private TypeRegister _registerType;
 
@@ -119,22 +122,33 @@ namespace MeioMundo.Ferramentas.Correio
                 printDialog.PrintTicket.PageOrientation = System.Printing.PageOrientation.Landscape;
                 if (printDialog.ShowDialog() == true)
                 {
-                    printDialog.PrintVisual(carta, "My First Print Job");
+                    try
+                    {
+                        printDialog.PrintVisual(carta, "My First Print Job");
+                    }
+                    catch { }
+                    
                 }
             }
 
             if(tag == "SelectFornAddress")
             {
-                FornecedorSelect fornecedorAddress = new FornecedorSelect();
+                MoradasSelect Address = new MoradasSelect();
 
                 Window window = new Window();
 
-                window.Content = fornecedorAddress;
+                window.Content = Address;
                 window.SizeToContent = SizeToContent.WidthAndHeight;
 
                 if(window.ShowDialog() == true)
                 {
-                    FornecedorMorada = fornecedorAddress.Morada;
+                    FornecedorMorada = Address.Morada;
+                    People = Address.Person;
+
+                    UX_TextBox_Letter_AddressName.Text = People.Nome;
+                    UX_TextBox_Letter_AddressAddress.Text = string.Format("{0}\n{1}", fornecedorMorada.Rua, fornecedorMorada.Localidade);
+                    UX_TextBox_Letter_AddressZipCode.Text = fornecedorMorada.ZipCode;
+                    UX_TextBox_Letter_AddressContry.Text = fornecedorMorada.Country;
                 }
 
             }

@@ -8,9 +8,6 @@ namespace MeioMundo.Ferramentas.Internal
 {
     public class Morada
     {
-        public int FornecedorID { get; set; }
-        public string FornecedorNome { get; set; }
-        public string Titular { get; set; }
         public string Rua { get; set; }
         public string Localidade { get; set; }
         public string Concelho { get; set; }

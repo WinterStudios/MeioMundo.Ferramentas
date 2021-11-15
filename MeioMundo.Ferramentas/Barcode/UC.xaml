@@ -158,7 +158,7 @@
                             </DockPanel>
                             <DockPanel Margin="0,0,0,4">
                                 <TextBlock Text="Quantidade" Width="110"/>
-                                <TextBox Height="24" VerticalContentAlignment="Center" />
+                                <TextBox Text="{Binding Qtd, RelativeSource={RelativeSource AncestorType=local:UC}}"  Height="24" VerticalContentAlignment="Center" />
                             </DockPanel>
                         </StackPanel>
                     </GroupBox>

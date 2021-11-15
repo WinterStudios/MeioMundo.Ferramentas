@@ -7,7 +7,8 @@
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              Background="{DynamicResource Theme.Background}"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             d:Background="White">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -86,7 +87,7 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0" Margin="0,0,10,0">
-                                <TextBox Foreground="Black" Text="{Binding RelativeSource={RelativeSource AncestorType=local:Main}, Path=FornecedorMorada.FornecedorNome}" Height="24" IsReadOnly="True"/>
+                                <TextBox Text="{Binding RelativeSource={RelativeSource AncestorType=local:Main}, Path=People.Nome}" Height="24" IsReadOnly="True"/>
                                 <TextBox Text="{Binding RelativeSource={RelativeSource AncestorType=local:Main}, Path=FornecedorMorada.Rua}" Height="24" IsReadOnly="True"/>
                                 <TextBox Text="{Binding RelativeSource={RelativeSource AncestorType=local:Main}, Path=FornecedorMorada.Localidade}" Height="24" IsReadOnly="True"/>
                                 <TextBox Text="{Binding RelativeSource={RelativeSource AncestorType=local:Main}, Path=FornecedorMorada.ZipCode}" Height="24" IsReadOnly="True"/>
@@ -123,20 +124,20 @@
                     <Grid>
                         <StackPanel>
                             <DockPanel LastChildFill="True" Margin="6">
-                                <TextBlock Text="Rua" Width="100"/>
-                                <TextBox MaxLines="2" Height="32pt" AcceptsReturn="True" TextChanged="TextBox_TextChanged" Tag="Morada_Rua"/>
+                                <TextBlock Text="Nome" Width="100"/>
+                                <TextBox x:Name="UX_TextBox_Letter_AddressName" MaxLines="2" Height="32pt" AcceptsReturn="True" TextChanged="TextBox_TextChanged" Tag="Morada_Rua"/>
                             </DockPanel>
                             <DockPanel LastChildFill="True" Margin="6">
-                                <TextBlock Text="Localidade" Width="100"/>
-                                <TextBox MaxLines="2" Height="32pt" TextChanged="TextBox_TextChanged" AcceptsReturn="True" Tag="Morada_Localidade"/>
+                                <TextBlock Text="Morada" Width="100"/>
+                                <TextBox x:Name="UX_TextBox_Letter_AddressAddress" MaxLines="2" Height="32pt" TextChanged="TextBox_TextChanged" AcceptsReturn="True" Tag="Morada_Localidade"/>
                             </DockPanel>
                             <DockPanel LastChildFill="True" Margin="6">
                                 <TextBlock Text="Codigo Postal" Width="100"/>
-                                <TextBox MaxLines="2" Height="32pt" AcceptsReturn="True" TextChanged="TextBox_TextChanged" Tag="Morada_CodigoPostal"/>
+                                <TextBox x:Name="UX_TextBox_Letter_AddressZipCode" MaxLines="2" Height="32pt" AcceptsReturn="True" TextChanged="TextBox_TextChanged" Tag="Morada_CodigoPostal"/>
                             </DockPanel>
                             <DockPanel LastChildFill="True" Margin="6">
                                 <TextBlock Text="Pais" Width="100"/>
-                                <TextBox MaxLines="2" Height="32pt" AcceptsReturn="True" TextChanged="TextBox_TextChanged" Tag="Morada_Pais"/>
+                                <TextBox x:Name="UX_TextBox_Letter_AddressContry" MaxLines="2" Height="32pt" AcceptsReturn="True" TextChanged="TextBox_TextChanged" Tag="Morada_Pais"/>
                             </DockPanel>
                         </StackPanel>
                     </Grid>

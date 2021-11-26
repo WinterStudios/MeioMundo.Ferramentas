@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MeioMundo.Ferramentas.Barcode.Models"
              mc:Ignorable="d" 
-             Height="1.7cm" Width="3.7cm"
+             Height="1.7cm" Width="3.4cm"
              >
     <UserControl.Resources>
         <Style TargetType="TextBlock">

@@ -93,6 +93,7 @@
     </Reference>
     <Reference Include="U-System.UX">
       <HintPath>..\lib\U-System.UX.dll</HintPath>
+		<Private>false</Private>
       <CopyLocal>False</CopyLocal>
     </Reference>
   </ItemGroup>

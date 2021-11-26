@@ -46,10 +46,19 @@ namespace MeioMundo.Ferramentas.Network
 
         private static FileStream ReadFileCredencials(string path, string serverPath, string username, string password)
         {
-            using (Network.NetworkShareAccesser.Access(serverPath, username, password))
-                if (System.IO.File.Exists(path))
-                    return System.IO.File.Open(path, FileMode.Open);
-                else return null;
+            try
+            {
+
+
+                using (Network.NetworkShareAccesser.Access(serverPath, username, password))
+                    if (System.IO.File.Exists(path))
+                        return System.IO.File.Open(path, FileMode.Open);
+                    else return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public static string ReadJsonFile(string path) => ReadJsonFile(path, null, null);

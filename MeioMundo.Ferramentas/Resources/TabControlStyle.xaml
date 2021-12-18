@@ -3,7 +3,7 @@
 
 
     <Style x:Key="TabOffice" TargetType="TabControl">
-        
+        <Setter Property="Background" Value="{DynamicResource Theme.Background}"/>
     </Style>
     
 </ResourceDictionary>

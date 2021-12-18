@@ -56,6 +56,14 @@ namespace MeioMundo.Ferramentas
                 Icon = Icons["ICON.Site.ManagerStock"]
             },
             new Module() {
+                Name = "Gestão de Stocks",
+                Type = typeof(Internal.StocksManager).FullName,
+                Path = "Ferramentas>Gestão de Stocks",
+                PluginTypeBehavior = PluginTypeBehavior.Tab,
+                TabIconLocations = "/MeioMundo.Ferramentas;component/Assets/globe.png",
+                Icon = Icons["ICON.Site.ManagerStock"]
+            },
+            new Module() {
                 Name = "Correio",
                 Type = typeof(Correio.Main).FullName,
                 Path = "Ferramentas>Correio",

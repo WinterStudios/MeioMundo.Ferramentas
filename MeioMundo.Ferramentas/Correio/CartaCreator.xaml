@@ -14,6 +14,7 @@
                 <ResourceDictionary Source="/MeioMundo.Ferramentas;component/Resources/TabControlStyle.xaml"/>
                 <ResourceDictionary Source="/MeioMundo.Ferramentas;component/Resources/Icons.xaml" />
                 <ResourceDictionary Source="/MeioMundo.Ferramentas;component/Correio/Internal/Buttons.xaml" />
+                <ResourceDictionary Source="/MeioMundo.Ferramentas;component/ShareResources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key="Default.ComboBox" TargetType="ComboBox">
                 <Setter Property="OverridesDefaultStyle" Value="False"/>
@@ -33,8 +34,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TabControl>
-            <TabItem Header="Base" >
+        <TabControl Style="{StaticResource TabOffice}">
+            <TabItem Header="Base">
                 <DockPanel>
                     <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" >
                         <ToolBar Header="Área de Transferência" Style="{DynamicResource ToolBarOffice}">
@@ -45,7 +46,7 @@
                         <Rectangle Style="{DynamicResource TOOLBAR.SEPARETOR}"/>
                         <ToolBar Header="Tipo de Letra" Style="{DynamicResource ToolBarOffice}">
                             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="4,0,4,4">
-                                <ComboBox Width="120" Style="{x:Null}" SelectedIndex="1" VerticalContentAlignment="Center" SelectionChanged="TYPE_FONT_SELECT_CHANGED" Tag="FONT_TYPE">
+                                <ComboBox Width="120" SelectedIndex="1" VerticalContentAlignment="Center" SelectionChanged="TYPE_FONT_SELECT_CHANGED" Tag="FONT_TYPE">
                                     <ComboBoxItem>
                                         <TextBlock Text="Arial" FontFamily="Arial"/>
                                     </ComboBoxItem>

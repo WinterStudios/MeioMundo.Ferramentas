@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using U_System.External;
@@ -51,6 +52,14 @@ namespace MeioMundo.Ferramentas
                 Name = "Site",
                 Type = typeof(Site.Core).FullName,
                 Path = "Ferramentas>Site>Gestão de Stocks",
+                PluginTypeBehavior = PluginTypeBehavior.Tab,
+                TabIconLocations = "/MeioMundo.Ferramentas;component/Assets/globe.png",
+                Icon = Icons["ICON.Site.ManagerStock"]
+            },
+            new Module() {
+                Name = "Gestão de Stocks",
+                Type = typeof(Internal.StocksManager).FullName,
+                Path = "Ferramentas>Gestão de Stocks",
                 PluginTypeBehavior = PluginTypeBehavior.Tab,
                 TabIconLocations = "/MeioMundo.Ferramentas;component/Assets/globe.png",
                 Icon = Icons["ICON.Site.ManagerStock"]
@@ -122,9 +131,25 @@ namespace MeioMundo.Ferramentas
         public static PluginInfo Info { get; set; }
         public string[] PluginDependicy { get => new string[0]; }
 
-        public void Awake() 
+        public async Task Awake() 
         {
-            
+            Application.Current.Exit += Current_Exit;
+
+            AppContext.SetSwitch(@"Switch.System.Windows.Controls.DoNotAugmentWordBreakingUsingSpeller", true);
+            await Task.Run(() =>
+            {
+                ConnectToServer();
+                Voucher.VoucherSystem.Inicialize();
+                //Internal.Net.MeioMundoServer.Inicialize();
+                try
+                {
+                    Internal.MoradasSystem.Inicialize();
+                }
+                catch (Exception ex)
+                {
+                    var exd = 0;
+                }
+            });
         }
 
         private void Current_Exit(object sender, ExitEventArgs e)
@@ -134,21 +159,7 @@ namespace MeioMundo.Ferramentas
 
         public void Start()
         {
-            //Application.Current.Exit += Current_Exit;
-            
-            AppContext.SetSwitch(@"Switch.System.Windows.Controls.DoNotAugmentWordBreakingUsingSpeller", true);
-            ConnectToServer();
-            Voucher.VoucherSystem.Inicialize();
-            //Internal.Net.MeioMundoServer.Inicialize();
-            try
-            {
-                Internal.MoradasSystem.Inicialize();                
-            }
-            catch (Exception ex)
-            {
-                var exd = 0;
-            }
-            
+            Awake();
         }
 
         private void ConnectToServer()

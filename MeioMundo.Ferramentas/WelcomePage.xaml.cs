@@ -38,7 +38,7 @@ namespace MeioMundo.Ferramentas
                 tab.Tag = "/MeioMundo.Ferramentas;component/Assets/books.png";
                 Escola.ManuaisEscolares manuais = new Escola.ManuaisEscolares();
                 tab.Content = manuais;
-                U_System.External.UI.TabSystem.Add(manuais);// U_System.Core.UX.TabsSystem.Add(tab);
+                U_System.UX.TabSystem.Add(manuais);// U_System.Core.UX.TabsSystem.Add(tab);
             }
             if(tag == "_CORREIO")
             {
@@ -47,7 +47,7 @@ namespace MeioMundo.Ferramentas
                 tab.Tag = "/MeioMundo.Ferramentas;component/Assets/carta-logo.png";
                 Correio.Main main = new Correio.Main();
                 tab.Content = main;
-                U_System.Core.UX.TabsSystem.Add(tab);
+                U_System.UX.TabSystem.Add(tab);
             }
             if (tag == "_WEBSITE_MANAGER")
             {
@@ -56,7 +56,7 @@ namespace MeioMundo.Ferramentas
                 tab.Tag = "/MeioMundo.Ferramentas;component/Assets/carta-logo.png";
                 Site.Core main = new Site.Core();
                 tab.Content = main;
-                U_System.Core.UX.TabsSystem.Add(tab);
+                U_System.UX.TabSystem.Add(tab);
             }
         }
     }

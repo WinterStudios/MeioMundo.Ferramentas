@@ -16,7 +16,16 @@
     <Border>
         <Grid>
             <TabControl TabStripPlacement="Left">
-                <TabItem Header="D">
+                <TabItem Header="GEs">
+                    <TabItem.Tag>
+                        <BitmapImage UriSource="/MeioMundo.Ferramentas;component/Assets/boxes.png" />
+                    </TabItem.Tag>
+                    <Grid/>
+                </TabItem>
+                <TabItem Header="Web">
+                    <TabItem.Tag>
+                        <BitmapImage UriSource="/MeioMundo.Ferramentas;component/Assets/carta-web.png" />
+                    </TabItem.Tag>
                     <Grid/>
                 </TabItem>
             </TabControl>

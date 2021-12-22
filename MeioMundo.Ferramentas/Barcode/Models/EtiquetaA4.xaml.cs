@@ -29,35 +29,40 @@ namespace MeioMundo.Ferramentas.Barcode.Models
         public EtiquetaA4()
         {
             InitializeComponent();
+            //Etiquetas.CollectionChanged += Etiquetas_CollectionChanged;
             MaxY = 5;
-            for (int i = 0; i < 5; i++)
-            {
-                UC_StackList.Children.Add(new Rectangle() { Width = 30, Height = 20, Fill = Brushes.Gray });
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    UC_StackList.Children.Add(new Rectangle() { Width = 30, Height = 20, Fill = Brushes.Gray });
 
-            }
+            //}
         }
 
         internal void LoadEtiquetas(IEtiqueta[] etiquetas)
         {   
-            Etiquetas = new ObservableCollection<IEtiqueta>(etiquetas);
+            //Etiquetas = new ObservableCollection<IEtiqueta>(etiquetas);
+            
+
+        }
+
+        internal void UpdateList()
+        {
             int m_lines = Etiquetas.Count / MaxY + 1;
             UC_StackList.Children.Clear();
             for (int i = 0; i < m_lines; i++)
             {
                 StackPanel stackHorizontal = new StackPanel();
                 stackHorizontal.Orientation = Orientation.Horizontal;
-                IEtiqueta[] m_etiquetasX = Etiquetas.Skip(i * MaxY).Take(MaxY).ToArray();
-                for (int x = 0; x < m_etiquetasX.Length; x++)
+                var m_etiquetasX = Etiquetas.Skip(i * MaxY).Take(MaxY).ToList();
+                for (int x = 0; x < m_etiquetasX.Count; x++)
                 {
                     Type m_EtiquetaType = m_etiquetasX[x].GetType();
                     UserControl m_etiqueta = (UserControl)Activator.CreateInstance(m_EtiquetaType, m_etiquetasX[x]);
-                    stackHorizontal.Children.Add((UserControl)m_etiqueta);
+                    stackHorizontal.Children.Add(m_etiqueta);
                 }
                 UC_StackList.Children.Add(stackHorizontal);
-                
+
             }
-
         }
-
     }
 }

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MeioMundo.Ferramentas.Barcode.Models"
+             xmlns:local="clr-namespace:MeioMundo.Ferramentas.Barcode.Models" d:DataContext="{d:DesignInstance Type=local:Etiqueta_A}"
              mc:Ignorable="d" 
              Height="1.7cm" Width="3.4cm"
              >
@@ -60,7 +60,7 @@
                             <TextBlock Text="Preço:" HorizontalAlignment="Right" FontSize="8pt" Margin="0" VerticalAlignment="Center" FontWeight="Normal"/>
                         </Border>
                         <Border x:Name="mostrarPreco" Grid.Column="2" Padding="0.2cm,0" BorderThickness="1" BorderBrush="Black" Background="Black">
-                            <TextBlock Text="{Binding Preco, RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}, ConverterCulture=pt-PT, StringFormat={}{0:C2}}" FontSize="9pt" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="UC_TextBlock_Preco" Text="{Binding RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}, Path=Preco, ConverterCulture=pt-PT, StringFormat={}{0:C2}}" FontSize="9pt" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                         </Border>
                     </Grid>
                 </Grid>

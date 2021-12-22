@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MeioMundo.Ferramentas.Internal"
+             xmlns:mvc="clr-namespace:MeioMundo.Ferramentas.Site.MVC"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -16,7 +17,19 @@
     <Border>
         <Grid>
             <TabControl TabStripPlacement="Left">
-                <TabItem Header="D">
+                <TabItem Header="GEs">
+                    <TabItem.Tag>
+                        <BitmapImage UriSource="/MeioMundo.Ferramentas;component/Assets/boxes.png" />
+                    </TabItem.Tag>
+                    <mvc:SageStock/>
+                </TabItem>
+                <TabItem/>
+                <TabItem/>
+                <TabItem/>
+                <TabItem Header="Web">
+                    <TabItem.Tag>
+                        <BitmapImage UriSource="/MeioMundo.Ferramentas;component/Assets/carta-web.png" />
+                    </TabItem.Tag>
                     <Grid/>
                 </TabItem>
             </TabControl>

@@ -8,13 +8,6 @@ namespace MeioMundo.Ferramentas.Barcode
 {
     public interface IEtiqueta
     {
-        IBarCode BarCode { get; set; }
-        Type IEtiquetaType { get; }
-        string Produto { get; set; }
-        string CodigoBarras { get; set; }
-        float Preco { get; set; }
-        float Taxa { get; set; }
-        string SKU { get; set; }
-        bool MostrarPreco { get; set; }
+        public Etiqueta Etiqueta { get; set; }
     }
 }

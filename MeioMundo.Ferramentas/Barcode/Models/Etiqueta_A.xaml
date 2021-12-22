@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MeioMundo.Ferramentas.Barcode.Models"
+             xmlns:local="clr-namespace:MeioMundo.Ferramentas.Barcode.Models" d:DataContext="{d:DesignInstance Type=local:Etiqueta_A}"
              mc:Ignorable="d" 
              Height="1.7cm" Width="3.4cm"
              >
@@ -35,15 +35,15 @@
                         <TextBlock Text="Ref:" FontSize="7pt" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Right"/>
                     </Border>
                     <Border Grid.Column="1" Margin="0.5cm,0,0,0">
-                        <TextBlock Text="{Binding CodigoBarras, RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}}" FontSize="7pt" Margin="2.5pt,0" FontWeight="Light" TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding Etiqueta.CodigoBarras, RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}}" FontSize="7pt" Margin="2.5pt,0" FontWeight="Light" TextWrapping="Wrap"/>
                     </Border>
                 </Grid>
             </Border>
             <Border Grid.Row="1" BorderBrush="{StaticResource Brush1}" Background="#FAFAFA" BorderThickness="0,.25pt">
-                <TextBlock Text="{Binding Produto, RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}}" FontSize="4.5pt" HorizontalAlignment="Left" Margin="0.2cm,0.02cm"/>
+                <TextBlock Text="{Binding Etiqueta.Produto, RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}}" FontSize="4.5pt" HorizontalAlignment="Left" Margin="0.2cm,0.02cm"/>
             </Border>
             <Border Grid.Row="2" Padding="0.075cm" BorderThickness="0,0,0,.25pt" BorderBrush="{StaticResource Brush1}">
-                <Image x:Name="UC_Image_CodeBar" Stretch="Fill" Source="{Binding BarCode.CodeImage, RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}}" />
+                <Image x:Name="UC_Image_CodeBar" Stretch="Fill" Source="{Binding Etiqueta.BarCode.CodeImage, RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}, UpdateSourceTrigger=PropertyChanged}"/>
             </Border>
             <Border Grid.Row="3" x:Name="preco">
                 <Grid>
@@ -60,7 +60,8 @@
                             <TextBlock Text="Preço:" HorizontalAlignment="Right" FontSize="8pt" Margin="0" VerticalAlignment="Center" FontWeight="Normal"/>
                         </Border>
                         <Border x:Name="mostrarPreco" Grid.Column="2" Padding="0.2cm,0" BorderThickness="1" BorderBrush="Black" Background="Black">
-                            <TextBlock Text="{Binding Preco, RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}, ConverterCulture=pt-PT, StringFormat={}{0:C2}}" FontSize="9pt" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="UC_TextBlock_Preco" Text="{Binding Etiqueta.Preco, RelativeSource={RelativeSource AncestorType=local:Etiqueta_A}, ConverterCulture=pt-PT, StringFormat={}{0:C2}, UpdateSourceTrigger=PropertyChanged}"
+                                       FontSize="9pt" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                         </Border>
                     </Grid>
                 </Grid>

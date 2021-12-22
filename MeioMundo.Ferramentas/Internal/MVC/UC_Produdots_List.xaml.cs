@@ -62,6 +62,9 @@ namespace MeioMundo.Ferramentas.Internal.MVC
             string filePath = @"\\Srvmm\USR\MeioMundo_Local\Listagem de Artigos _EUROS_.TXT";
             FileStream file = Network.AccessFiles.ReadFile(filePath, "meiomundo", "meiomundo");
 
+            if (file == null)
+                return;
+
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Encoding encoding = Encoding.GetEncoding(1252);
 

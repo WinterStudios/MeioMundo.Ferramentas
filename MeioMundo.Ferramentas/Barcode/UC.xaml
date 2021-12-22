@@ -68,14 +68,16 @@
                 <GroupBox Grid.Row="1" Header="Modelo">
                     <ComboBox x:Name="Tip"/>
                 </GroupBox>
-                
-                <DataGrid Grid.Row="2" ItemsSource="{Binding Etiquetas, RelativeSource={RelativeSource AncestorType=local:UC}}" AutoGenerateColumns="False">
+
+                <DataGrid x:Name="UC_BarCodeList" Grid.Row="2" AutoGenerateColumns="False" CanUserAddRows="False"
+                          ItemsSource="{Binding Path=Etiquetas, RelativeSource={RelativeSource AncestorType=local:UC}, Mode=TwoWay}"
+                          SelectedValue="{Binding Path=SelectEtiqueta, RelativeSource={RelativeSource AncestorType=local:UC}}" >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Tipo Etiqueta" Width="*" Binding="{Binding IEtiquetaType.Name}"/>
-                        <DataGridTextColumn Header="Nome" Width="*" Binding="{Binding Produto}"/>
-                        <DataGridTextColumn Header="Codigo Barra" Width="*" Binding="{Binding BarCode.Code, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn Header="Tipo Etiqueta" Width="*" Binding="{Binding IEtiquetaType.Name}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Nome" Width="*" Binding="{Binding Path=Produto}"/>
+                        <DataGridTextColumn Header="Codigo Barra" Width="*" Binding="{Binding Path=CodigoBarras}" />
                         <DataGridComboBoxColumn Header="Tipo de Codigo" Width="*" ItemsSource="{Binding Source={StaticResource GetBarcodeTypes}}" SelectedItemBinding="{Binding BarCode.BarType, Mode=OneWay}"/>
-                        <DataGridTextColumn Header="Preço" Width="*" Binding="{Binding Preco}"/>
+                        <DataGridTextColumn Header="Preço" Width="*" Binding="{Binding Path=Preco, StringFormat={}{0:C2}, ConverterCulture=PT-pt, Mode=TwoWay}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
@@ -106,7 +108,7 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBox x:Name="CodigoNome" Height="24" VerticalContentAlignment="Center" Tag="Nome" Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=PreviewEtiqueta.Produto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        <TextBox Height="24" VerticalContentAlignment="Center" Tag="Nome" Text="{Binding Path=SelectEtiqueta.Produto, RelativeSource={RelativeSource AncestorType=local:UC}}" />
                                         <Button Grid.Column="1" Width="24" Height="24" Style="{DynamicResource BTN_MM_C_IMG}" Padding="6" Click="Button_Click" Tag="SearchProduct">
                                             <Button.Content>
                                                 <Image Source="/MeioMundo.Ferramentas;component/Assets/search.png"/>
@@ -116,15 +118,15 @@
                                 </DockPanel>
                                 <DockPanel Margin="0,2">
                                     <TextBlock Text="Codigo de Barras:" Width="110" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="Code" Height="24" VerticalContentAlignment="Center" Tag="CodigoBarras" Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=PreviewEtiqueta.CodigoBarras, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBox x:Name="Code" Height="24" VerticalContentAlignment="Center" Tag="CodigoBarras" Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=SelectEtiqueta.CodigoBarras, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                 </DockPanel>
                                 <DockPanel Margin="0,2">
                                     <TextBlock Text="Preço:" Width="110" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="Preco" Height="24" VerticalContentAlignment="Center" Tag="Preco" Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=PreviewEtiqueta.Preco, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox x:Name="Preco" Height="24" VerticalContentAlignment="Center" Tag="Preco" Text="{Binding Path=SelectEtiqueta.Preco, RelativeSource={RelativeSource AncestorType=local:UC}, StringFormat={}{0:C2}, ConverterCulture=PT-pt, UpdateSourceTrigger=LostFocus}" />
                                 </DockPanel>
                                 <DockPanel Margin="0,2">
                                     <TextBlock Text="IVA" Width="110" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="TaxaIVA" VerticalAlignment="Center" Tag="TaxaIVA" Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=PreviewEtiqueta.Taxa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:P0}}" />
+                                    <TextBox x:Name="TaxaIVA" VerticalAlignment="Center" Tag="TaxaIVA" Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=SelectEtiqueta.Taxa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </DockPanel>
 
                             </StackPanel>
@@ -141,7 +143,8 @@
                             <DockPanel Margin="0,0,0,4">
                                 <TextBlock Text="Altura das Barras" Width="110"/>
                                 <ComboBox x:Name="UC_ComboBox_BarHeight" SelectionChanged="ComboBox_SelectionChanged" Tag="BarHeight" SelectedIndex="2"
-                              ItemsSource="{Binding Source={StaticResource GetBarcodeHeights}}"/>
+                                          ItemsSource="{Binding Source={StaticResource GetBarcodeHeights}}"
+                                          SelectedItem="{Binding Path=SelectEtiqueta.BarCode.BarcodeHeight, RelativeSource={RelativeSource  AncestorType=local:UC}}"/>
                             </DockPanel>
                             <DockPanel Margin="0,0,0,4">
                                 <TextBlock Text="Mostra Texto" Width="110" />

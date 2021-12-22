@@ -39,7 +39,7 @@ namespace MeioMundo.Ferramentas.Network
             }
             catch (Exception ex)
             {
-                return ReadFileCredencials(path, ServerPath, username, password);
+                fs = ReadFileCredencials(path, ServerPath, username, password);
             }
             return fs;
         }

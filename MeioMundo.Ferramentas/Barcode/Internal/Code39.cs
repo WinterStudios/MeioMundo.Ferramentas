@@ -22,8 +22,10 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
         public string Code 
         {
             get { return m_code; }
-            set { m_code = CheckCode(value.ToUpper()); Draw(); OnPropertyChanged(); }
+            set { m_code = CheckCode(value.ToUpper()); Draw(); OnCodeChanged(); OnPropertyChanged(); }
         }
+
+
         public DisplayCodeType DisplayCodeType
         {
             get { return m_displayCodeType; }
@@ -91,6 +93,10 @@ namespace MeioMundo.Ferramentas.Barcode.Internal
             Draw();
         }
 
+        private void OnCodeChanged()
+        {
+            //throw new NotImplementedException();
+        }
         private float GetCharHeight(float customRatio = 1)
         {
             switch (BarcodeHeight)

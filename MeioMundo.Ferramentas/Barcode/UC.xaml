@@ -69,15 +69,15 @@
                     <ComboBox x:Name="Tip"/>
                 </GroupBox>
 
-                <DataGrid Grid.Row="2" AutoGenerateColumns="False" CanUserAddRows="False"
+                <DataGrid x:Name="UC_BarCodeList" Grid.Row="2" AutoGenerateColumns="False" CanUserAddRows="False"
                           ItemsSource="{Binding Path=Etiquetas, RelativeSource={RelativeSource AncestorType=local:UC}, Mode=TwoWay}"
                           SelectedValue="{Binding Path=SelectEtiqueta, RelativeSource={RelativeSource AncestorType=local:UC}}" >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Tipo Etiqueta" Width="*" Binding="{Binding IEtiquetaType.Name}"/>
+                        <DataGridTextColumn Header="Tipo Etiqueta" Width="*" Binding="{Binding IEtiquetaType.Name}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Nome" Width="*" Binding="{Binding Path=Produto}"/>
                         <DataGridTextColumn Header="Codigo Barra" Width="*" Binding="{Binding Path=CodigoBarras}" />
                         <DataGridComboBoxColumn Header="Tipo de Codigo" Width="*" ItemsSource="{Binding Source={StaticResource GetBarcodeTypes}}" SelectedItemBinding="{Binding BarCode.BarType, Mode=OneWay}"/>
-                        <DataGridTextColumn Header="Preço" Width="*" Binding="{Binding Path=Preco}"/>
+                        <DataGridTextColumn Header="Preço" Width="*" Binding="{Binding Path=Preco, StringFormat={}{0:C2}, ConverterCulture=PT-pt, Mode=TwoWay}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
@@ -122,11 +122,11 @@
                                 </DockPanel>
                                 <DockPanel Margin="0,2">
                                     <TextBlock Text="Preço:" Width="110" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="Preco" Height="24" VerticalContentAlignment="Center" Tag="Preco" Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=SelectEtiqueta.Preco, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox x:Name="Preco" Height="24" VerticalContentAlignment="Center" Tag="Preco" Text="{Binding Path=SelectEtiqueta.Preco, RelativeSource={RelativeSource AncestorType=local:UC}, StringFormat={}{0:C2}, ConverterCulture=PT-pt, UpdateSourceTrigger=LostFocus}" />
                                 </DockPanel>
                                 <DockPanel Margin="0,2">
                                     <TextBlock Text="IVA" Width="110" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="TaxaIVA" VerticalAlignment="Center" Tag="TaxaIVA" Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=SelectEtiqueta.Taxa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:P0}}" />
+                                    <TextBox x:Name="TaxaIVA" VerticalAlignment="Center" Tag="TaxaIVA" Text="{Binding RelativeSource={RelativeSource AncestorType=local:UC}, Path=SelectEtiqueta.Taxa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </DockPanel>
 
                             </StackPanel>

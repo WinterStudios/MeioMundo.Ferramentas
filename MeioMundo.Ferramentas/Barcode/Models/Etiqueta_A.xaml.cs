@@ -39,7 +39,7 @@ namespace MeioMundo.Ferramentas.Barcode.Models
         
         public Etiqueta Etiqueta { get => m_etiqueta; set { m_etiqueta = value; OnPropertyChanged(); } }
         private Etiqueta m_etiqueta;
-        
+
         public Etiqueta_A()
         {
             //BarCode = new Code39();

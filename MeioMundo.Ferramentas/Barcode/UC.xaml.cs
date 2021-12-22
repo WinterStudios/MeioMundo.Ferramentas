@@ -39,10 +39,10 @@ namespace MeioMundo.Ferramentas.Barcode
         }
         #endregion
 
-        public ObservableCollection<Etiqueta> Etiquetas { get => m_etiquetas; set { m_etiquetas = value; OnPropertyChanged(); } }
-        private ObservableCollection<Etiqueta> m_etiquetas;
+        public ObservableCollection<Etiqueta> Etiquetas { get => m_Etiquetas; set { m_Etiquetas = value; OnPropertyChanged(); } }
+        public ObservableCollection<Etiqueta> m_Etiquetas;
 
-        public EtiquetaA4 etiquetaPage { get => m_EtiquetaA4; set { m_EtiquetaA4 = value; OnPropertyChanged(); } }
+        public EtiquetaA4 EtiquetaPage { get => m_EtiquetaA4; set { m_EtiquetaA4 = value; OnPropertyChanged(); } }
         private EtiquetaA4 m_EtiquetaA4;
 
         public int Qtd { get => m_Qtd; set { m_Qtd = value; OnPropertyChanged(); } }
@@ -56,7 +56,8 @@ namespace MeioMundo.Ferramentas.Barcode
 
         private IEtiqueta m_PreviewEtiqueta;
 
-        public Etiqueta SelectEtiqueta { get => m_selectEtiqueta; set { m_selectEtiqueta = value; OnPropertyChanged(); } }
+        public Etiqueta SelectEtiqueta { get => m_selectEtiqueta; set { m_selectEtiqueta = value; CreateEtiquetaPreview(value); OnPropertyChanged(); } }
+
         private Etiqueta m_selectEtiqueta;
 
         public UC()
@@ -66,20 +67,29 @@ namespace MeioMundo.Ferramentas.Barcode
             U_System.UX.MainFrame.RequestMax();
             PreviewEtiqueta = CreateNewEtiqueta();
             UC_VeiwBox_PreviewEtiqueta.Child = (UserControl)PreviewEtiqueta;
-            //Etiquetas.CollectionChanged += Etiquetas_CollectionChanged;
+            
+            
 
             Etiquetas = new ObservableCollection<Etiqueta>();
+            EtiquetaPage = new EtiquetaA4();
+
+
+            previewPage.Child = EtiquetaPage;
+
+            Etiquetas.CollectionChanged += Etiquetas_CollectionChanged;
             Etiquetas.Add(CreateNovaEtiqueta());
             SelectEtiqueta = Etiquetas.First();
 
-            etiquetaPage = new EtiquetaA4();
-            previewPage.Child = etiquetaPage;
+            PreviewEtiqueta.Etiqueta = SelectEtiqueta;
+
+            
 
         }
 
         private Etiqueta CreateNovaEtiqueta()
         {
             Etiqueta m_etiqueta = new Etiqueta();
+            m_etiqueta.IEtiquetaType = Type.GetType(typeof(Etiqueta_A).FullName);
             m_etiqueta.Preco = 0;
             m_etiqueta.Produto = string.Empty;
             m_etiqueta.SKU = string.Empty;
@@ -87,6 +97,12 @@ namespace MeioMundo.Ferramentas.Barcode
             m_etiqueta.BarCode.BarcodeImageResolution = BarcodeImageResolution.Medium;
             m_etiqueta.BarCode.BarcodeHeight = BarcodeHeight.Normal;
             m_etiqueta.BarCode.DisplayCodeType = DisplayCodeType.Center;
+
+            m_etiqueta.BarCodeChanged += (sender, args) =>
+            {
+                //m_etiqueta.BarCode.CodeImage = m_etiqueta.BarCode.GetCodeImage();
+            };
+
             return m_etiqueta;
         }
         private IEtiqueta CreateNewEtiqueta()
@@ -111,7 +127,7 @@ namespace MeioMundo.Ferramentas.Barcode
 
         private void Etiquetas_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            etiquetaPage.UpdateList();  
+            EtiquetaPage.UpdateList(Etiquetas.ToList());  
         }
 
         private void Code_TextChanged(object sender, TextChangedEventArgs e)
@@ -190,6 +206,12 @@ namespace MeioMundo.Ferramentas.Barcode
                 info_1.Text = string.Format("W:{0}px - H:{1}px", PreviewEtiqueta.Etiqueta.BarCode.CodeImage.PixelWidth, PreviewEtiqueta.Etiqueta.BarCode.CodeImage.PixelHeight);
         }
 
+        private void CreateEtiquetaPreview(Etiqueta value)
+        {
+            Dispatcher.Invoke(() => PreviewEtiqueta.Etiqueta = value);
+        }
+
+
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             string tag = ((Button)sender).Tag.ToString();
@@ -202,6 +224,7 @@ namespace MeioMundo.Ferramentas.Barcode
                     etiqueta.Preco = PreviewEtiqueta.Etiqueta.Preco;
                     etiqueta.Produto = PreviewEtiqueta.Etiqueta.Produto;
                     etiqueta.SKU = PreviewEtiqueta.Etiqueta.SKU;
+                    etiqueta.IEtiquetaType = PreviewEtiqueta.Etiqueta.IEtiquetaType;
                     etiqueta.BarCode = (IBarCode)Activator.CreateInstance(PreviewEtiqueta.Etiqueta.BarCode.GetType());
                     etiqueta.CodigoBarras = PreviewEtiqueta.Etiqueta.CodigoBarras;
                     etiqueta.BarCode.Code = PreviewEtiqueta.Etiqueta.BarCode.Code;
@@ -240,7 +263,7 @@ namespace MeioMundo.Ferramentas.Barcode
                 //etiquetaPage = new EtiquetaA4(Etiquetas.ToArray());
                 //PreviewEtiqueta = CreateNewEtiqueta();
                 //etiquetaPage.LoadEtiquetas(Etiquetas.ToArray());
-                etiquetaPage.Dispatcher.Invoke(() => etiquetaPage.UpdateLayout());
+                EtiquetaPage.Dispatcher.Invoke(() => EtiquetaPage.UpdateLayout());
                 
             }
             if (tag == "SearchProduct")
@@ -252,7 +275,7 @@ namespace MeioMundo.Ferramentas.Barcode
                 if(w.ShowDialog() == true && list.OUT_Produto != null)
                 {
                     SelectEtiqueta.Produto = list.OUT_Produto.Nome;
-                    SelectEtiqueta.Preco = list.OUT_Produto.Preco_cIVA;
+                    SelectEtiqueta.Preco = (float)list.OUT_Produto.Preco_cIVA;
                     SelectEtiqueta.CodigoBarras = list.OUT_Produto.REF;
                     SelectEtiqueta.BarCode.Code = list.OUT_Produto.REF;
                     SelectEtiqueta.Taxa = list.OUT_Produto.TaxaIVA;
@@ -267,7 +290,7 @@ namespace MeioMundo.Ferramentas.Barcode
 
                 if (printDialog.ShowDialog() == true)
                 {
-                    printDialog.PrintVisual(etiquetaPage, "My First Print Job");
+                    printDialog.PrintVisual(EtiquetaPage, "My First Print Job");
                 }
             }
         }
@@ -282,7 +305,7 @@ namespace MeioMundo.Ferramentas.Barcode
             if (tag == "CodigoBarras")
                 PreviewEtiqueta.Etiqueta.CodigoBarras = text;
             if (tag == "Preco" && float.TryParse(text, out float price))
-                PreviewEtiqueta.Etiqueta.Preco = price;
+                PreviewEtiqueta.Etiqueta.Preco = (float)price;
 
             //Image_BarCode.Source = EtiquetaPreview.BarCode.CodeImage;
         }

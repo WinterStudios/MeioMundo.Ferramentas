@@ -45,19 +45,19 @@ namespace MeioMundo.Ferramentas.Barcode.Models
 
         }
 
-        internal void UpdateList()
+        internal void UpdateList(List<Etiqueta> etiquetas)
         {
-            int m_lines = Etiquetas.Count / MaxY + 1;
+            int m_lines = etiquetas.Count / MaxY + 1;
             UC_StackList.Children.Clear();
             for (int i = 0; i < m_lines; i++)
             {
                 StackPanel stackHorizontal = new StackPanel();
                 stackHorizontal.Orientation = Orientation.Horizontal;
-                var m_etiquetasX = Etiquetas.Skip(i * MaxY).Take(MaxY).ToList();
+                var m_etiquetasX = etiquetas.Skip(i * MaxY).Take(MaxY).ToList();
                 for (int x = 0; x < m_etiquetasX.Count; x++)
                 {
-                    Type m_EtiquetaType = m_etiquetasX[x].GetType();
-                    UserControl m_etiqueta = (UserControl)Activator.CreateInstance(m_EtiquetaType, m_etiquetasX[x]);
+                    UserControl m_etiqueta = (UserControl)Activator.CreateInstance(m_etiquetasX[x].IEtiquetaType);
+                    ((IEtiqueta)m_etiqueta).Etiqueta = m_etiquetasX[x];
                     stackHorizontal.Children.Add(m_etiqueta);
                 }
                 UC_StackList.Children.Add(stackHorizontal);

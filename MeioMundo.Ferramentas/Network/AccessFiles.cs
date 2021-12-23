@@ -20,10 +20,12 @@ namespace MeioMundo.Ferramentas.Network
             {
                 if (System.IO.File.Exists(path))
                     json = System.IO.File.ReadAllText(path);
+                else
+                    throw new Exception("Not Found");
             }
             catch (Exception ex)
             {
-                return ReadJsonFileCredencials(path, ServerPath, username, password);
+                json = ReadJsonFileCredencials(path, ServerPath, username, password);
             }
             return json;
         }
@@ -106,10 +108,12 @@ namespace MeioMundo.Ferramentas.Network
 
         private static string ReadJsonFileCredencials(string path, string serverPath, string username, string password)
         {
+            string json = string.Empty;
             using (Network.NetworkShareAccesser.Access(serverPath, username, password))
                 if (System.IO.File.Exists(path))
-                    return System.IO.File.ReadAllText(path);
-                else return "";
+                    json = System.IO.File.ReadAllText(path);
+
+            return json;
         }
 
     }

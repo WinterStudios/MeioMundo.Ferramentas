@@ -29,6 +29,7 @@ namespace MeioMundo.Ferramentas.Voucher
         {
             InitializeComponent();
             this.Loaded += VoucherManager_Loaded;
+            VoucherSystem.Load();
             UC_ComboBox_GiftCard_Value.ItemsSource = new int[]
             {
                 5,10,15,20,25,30,40,50,75

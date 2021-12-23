@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -29,14 +30,14 @@ namespace MeioMundo.Ferramentas.Voucher
         }
         #endregion
     
-        public static List<VoucherData> Vouchers { get => vouchers; set { vouchers = value; } }
-        private static List<VoucherData> vouchers;
+        public static ObservableCollection<VoucherData> Vouchers { get => vouchers; set { vouchers = value; } }
+        private static ObservableCollection<VoucherData> vouchers;
 
         private static string VoucherFileNetworkLocation { get => @"\\Srvmm\USR\MeioMundo_Local\Voucheres.json"; }
 
         public static void Inicialize()
         {
-            Vouchers = new List<VoucherData>();
+            Vouchers = new ObservableCollection<VoucherData>();
             Load();
 
         }
@@ -44,31 +45,10 @@ namespace MeioMundo.Ferramentas.Voucher
         public static void Load()
         {
             string serverPath = @"srvmm";
-
-            try
-            {
-                using (Network.NetworkShareAccesser.Access(serverPath, "meiomundo", "meiomundo"))
-                {
-                    if (File.Exists(VoucherFileNetworkLocation))
-                    {
-                        string json = File.ReadAllText(VoucherFileNetworkLocation);
-                        Vouchers = JsonSerializer.Deserialize<List<VoucherData>>(json);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                using (new Internal.Net.NetworkConnection(@"\\srvmm", new NetworkCredential("meiomundo", "meiomundo")))
-                {
-                    if (File.Exists(VoucherFileNetworkLocation))
-                    {
-                        string json = File.ReadAllText(VoucherFileNetworkLocation);
-                        Vouchers = JsonSerializer.Deserialize<List<VoucherData>>(json);
-                    }
-                    //else
-                        //Save();
-                }
-            }
+            string json = Network.AccessFiles.ReadJsonFile(VoucherFileNetworkLocation, "meiomundo", "meiomundo");
+            if(json != null)
+                Vouchers = new ObservableCollection<VoucherData>(JsonSerializer.Deserialize<VoucherData[]>(json));
+            
         }
 
         internal static int GetLastSerialNumber() 
@@ -86,12 +66,13 @@ namespace MeioMundo.Ferramentas.Voucher
 
             using (new Internal.Net.NetworkConnection(@"\\srvmm", new NetworkCredential("meiomundo", "meiomundo")))
             {
-                FileStream stream = new FileStream(VoucherFileNetworkLocation, FileMode.OpenOrCreate, FileAccess.Write);
-                byte[] jsonByte = Encoding.UTF8.GetBytes(json);
-                byte[] buffer = new byte[1024];
+                File.WriteAllText(VoucherFileNetworkLocation, json);
+                //FileStream stream = new FileStream(VoucherFileNetworkLocation, FileMode.OpenOrCreate, FileAccess.Write);
+                //byte[] jsonByte = Encoding.UTF8.GetBytes(json);
+                //byte[] buffer = new byte[1024];
 
-                stream.Write(jsonByte, 0, json.Length);
-                stream.Close();
+                //stream.Write(jsonByte, 0, json.Length);
+                //stream.Close();
             }    
         }
 

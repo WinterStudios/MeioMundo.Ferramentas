@@ -16,6 +16,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>none</DebugType>
+	<OutputPath>C:\Users\hugo_\GitHub\U-System\U-System\bin\Debug\Plugins\</OutputPath>
     <DebugSymbols>false</DebugSymbols>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
@@ -84,6 +85,10 @@
     <Reference Include="U-System.Core">
       <HintPath>..\lib\U-System.Core.dll</HintPath>
       <Private>false</Private>
+      <CopyLocal>False</CopyLocal>
+    </Reference>
+    <Reference Include="U-System.Debug">
+      <HintPath>..\lib\U-System.Debug.dll</HintPath>
       <CopyLocal>False</CopyLocal>
     </Reference>
     <Reference Include="U-System.External">
@@ -156,6 +161,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Settings\" />
     <Folder Include="Site\Icons\" />
   </ItemGroup>
 

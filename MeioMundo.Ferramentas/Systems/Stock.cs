@@ -1,52 +1,53 @@
-﻿using MeioMundo.Ferramentas.Internal.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MeioMundo.Ferramentas.Internal
+using MeioMundo.Ferramentas.ViewModels;
+
+namespace MeioMundo.Ferramentas.Systems
 {
-    public class ProdutosSage
+    public class Stock
     {
-        public static List<Internal.Models.Produto> Produtos
-        {
-            get { return m_produtos; }
-            set { m_produtos = value; }
-        }
+        public static async Task<List<Produto>> GetProdutosAsync()
+        {            
 
-        private static List<Internal.Models.Produto> m_produtos;
-
-
-        public static async Task<Models.Produto[]> GetProdutosAsync()
-        {
-            if (Produtos == null)
+            List<Produto> produtos = new List<Produto>();
+            string serverPath = @"srvmm";
+            using (Network.NetworkShareAccesser.Access(serverPath, "meiomundo", "meiomundo"))
             {
-
-                Produtos = new List<Produto>();
-
-                string serverPath = @"srvmm";
-
                 string filePath = @"\\Srvmm\USR\MeioMundo_Local\Listagem de Artigos _EUROS_.TXT";
-                FileStream file = Network.AccessFiles.ReadFile(filePath, "meiomundo", "meiomundo");
-
-                if (file == null)
-                    return null;
+                FileStream file = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                MemoryStream ms = new MemoryStream();
+                int b = 0;
+                byte[] buffer = new byte[1024 * 2];
+                while((b = await file.ReadAsync(buffer ,0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, buffer.Length);
+                }
+                file.Close();
+                ms.Position = 0;                    // -> Its requerired to reader start from the start. The position its at the end, so 
+                                                    //    when the streamreader start read it start from the end and return nothing.
 
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                 Encoding encoding = Encoding.GetEncoding(1252);
 
-                StreamReader reader = new StreamReader(file, encoding, true);
+                StreamReader reader = new StreamReader(ms);
 
                 string line = string.Empty;
                 int index = 0;
+
                 //Index Colluns
                 int RefIndex = 0;
                 int NomeIndex = 1;
                 int PvpIndex = 2;
                 int IvaIndex = 5;
                 int StockIndex = 3;
+                int CreationDate = 6;
+                int CodigoBarraExternal = 7;
 
                 while ((line = await reader.ReadLineAsync()) != null)
                 {
@@ -63,29 +64,27 @@ namespace MeioMundo.Ferramentas.Internal
                         }
                         else
                         {
-                            Models.Produto p = new Models.Produto();
-                            p.REF = cols[RefIndex].Replace("\"", "");
+                            Produto p = new Produto();
+                            p.Ref = cols[RefIndex].Replace("\"", "");
                             p.Nome = cols[NomeIndex].Replace("\"", "");
                             float preco = float.NaN;
                             if (float.TryParse(cols[PvpIndex].Replace('.', ','), out preco))
                                 p.Preco_cIVA = preco;
-                            p.TaxaImposto = Produto.SetTaxaImposto(cols[IvaIndex]);
-                            p.Preco_sIVA = p.Preco_cIVA / (1 + p.TaxaIVA);
+                            p.Imposto = TipoImposto.Parse(cols[IvaIndex]);
                             int stockSage = 0;
                             if (int.TryParse(cols[StockIndex], out stockSage))
-                                p.StockSage = stockSage;
+                                p.Stock = stockSage;
 
+                            if (DateTime.TryParse(cols[CreationDate], out _))
+                                p.CreationDate = DateTime.Parse(cols[CreationDate]);
 
-                            Produtos.Add(p);
+                            produtos.Add(p);
                         }
                         index++;
                     }
-
                 }
-
             }
-
-            return Produtos.ToArray();
+            return produtos;
         }
     }
 }

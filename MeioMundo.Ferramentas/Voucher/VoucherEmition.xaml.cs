@@ -23,8 +23,15 @@ namespace MeioMundo.Ferramentas.Voucher
         public VoucherEmition()
         {
             InitializeComponent();
+            VoucherSystem.Load();
             UC_DataGrid_Vouchers.ItemsSource = VoucherSystem.Vouchers;
-            UC_DataGrid_Vouchers.RowEditEnding += UC_DataGrid_Vouchers_RowEditEnding;
+            //UC_DataGrid_Vouchers.RowEditEnding += UC_DataGrid_Vouchers_RowEditEnding;
+            UC_DataGrid_Vouchers.CellEditEnding += UC_DataGrid_Vouchers_CellEditEnding;
+        }
+
+        private void UC_DataGrid_Vouchers_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            VoucherSystem.Save();
         }
 
         private void UC_DataGrid_Vouchers_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)

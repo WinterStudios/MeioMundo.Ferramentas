@@ -116,6 +116,13 @@ namespace MeioMundo.Ferramentas
                 Type = typeof(Internal.ListaFornecedoresLivros).FullName,
                 Path = "Ferramentas>Internal>Fornecedores de Livros",
                 PluginTypeBehavior= PluginTypeBehavior.Tab,
+            }, 
+            new Module()
+            {
+                Name = "Settings",
+                Type = typeof(Settings).FullName,
+                Path = "File>Settings",
+                PluginTypeBehavior = PluginTypeBehavior.Tab
             }
         };
         public bool ShowWelcomePage => true;
@@ -133,17 +140,27 @@ namespace MeioMundo.Ferramentas
 
         public async Task Awake() 
         {
-            Application.Current.Exit += Current_Exit;
+            await SettingsManager.Start();
 
-            AppContext.SetSwitch(@"Switch.System.Windows.Controls.DoNotAugmentWordBreakingUsingSpeller", true);
-            await Task.Run(() =>
+            try
+            {
+                Application.Current.Exit += Current_Exit;
+
+                AppContext.SetSwitch(@"Switch.System.Windows.Controls.DoNotAugmentWordBreakingUsingSpeller", true);
+            }
+            catch { }
+            
+            await Internal.MoradasSystem.Inicialize();
+
+            await Task.Run(async () =>
             {
                 ConnectToServer();
                 Voucher.VoucherSystem.Inicialize();
+                
                 //Internal.Net.MeioMundoServer.Inicialize();
                 try
                 {
-                    Internal.MoradasSystem.Inicialize();
+                    
                 }
                 catch (Exception ex)
                 {

@@ -20,7 +20,7 @@
                 <DataGridTextColumn Header="Data de Venda" Binding="{Binding VoucherClientDate, StringFormat='yyyy/MM/dd'}" Width="150"/>
                 <DataGridCheckBoxColumn Header="Resgatado" Binding="{Binding VoucherUsed}" Width="Auto"/>
                 <DataGridTextColumn Header="Data do Uso" Binding="{Binding VoucherClientDate}" Width="150"/>
-                <DataGridCheckBoxColumn Header="Vencido" Binding="{Binding VoucherVencido, Mode=OneWay}" Width="Auto"/>
+                <DataGridCheckBoxColumn Header="Vencido" Binding="{Binding VoucherVencido, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="Auto"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

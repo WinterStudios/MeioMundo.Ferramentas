@@ -80,10 +80,28 @@ namespace MeioMundo.Ferramentas.Site
             if (webExtension.ToUpper() == ".CSV" && sageExtension.ToUpper() == ".TXT")
             {
                 await LoadWebSiteAsync(webLocation);
-                using (Network.NetworkShareAccesser.Access(serverPath, "meiomundo", "meiomundo"))
+                try
                 {
-                    await Task.Run(() => LoadSageAsync(sageLocation));
+                    using (Network.NetworkShareAccesser.Access(serverPath, "meiomundo", "meiomundo"))
+                    {
+                        await Task.Run(() => LoadSageAsync(sageLocation));
+                    }
                 }
+                catch (Exception ex)
+                {
+                    OpenFileDialog WebDialog = new OpenFileDialog();
+                    WebDialog.Filter = "Website Files|*.csv;*.txt|" +
+                                       "All Files |*.*";
+                    WebDialog.Title = "Carregar ficheiro com os dados do Site";
+
+                    if (WebDialog.ShowDialog() == true)
+                    {
+                        webLocation = WebDialog.FileName;
+                        await LoadSageAsync(webLocation);
+
+                    }
+                }
+                
                 Task task = new Task(() => UpdateStockAsync());
                 task.Start();
             }

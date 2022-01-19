@@ -17,6 +17,7 @@
                 <ResourceDictionary Source="/MeioMundo.Ferramentas;component/ShareResources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <ObjectDataProvider x:Key="GetFornecedores" MethodName="GetFornecedores"  ObjectType="{x:Type internal:MoradasSystem}"/>
+            <ObjectDataProvider x:Key="GetClientes" MethodName="GetClientes"  ObjectType="{x:Type internal:MoradasSystem}"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -29,14 +30,24 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="1" >
-            <DataGrid x:Name="UC_DataGrid_Fornecedores" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding Source={StaticResource GetFornecedores}}" AutoGenerateColumns="False" SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=local:MoradasSelect}, Path=Person}" >
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Width="50" Binding="{Binding ID}"/>
-                    <DataGridTextColumn Header="Nome" Width="*" Binding="{Binding Nome}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </Border>
+        <TabControl Grid.Row="1" Grid.Column="0">
+            <TabItem Header="Fornecedores">
+                <DataGrid x:Name="UC_DataGrid_Fornecedores" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding Source={StaticResource GetFornecedores}}" AutoGenerateColumns="False" SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=local:MoradasSelect}, Path=Person}" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Width="50" Binding="{Binding ID}"/>
+                        <DataGridTextColumn Header="Nome" Width="*" Binding="{Binding Nome}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Clientes">
+                <DataGrid x:Name="UC_DataGrid_Clientes" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding Source={StaticResource GetClientes}}" AutoGenerateColumns="False" SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=local:MoradasSelect}, Path=Person}" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Width="50" Binding="{Binding ID}"/>
+                        <DataGridTextColumn Header="Nome" Width="*" Binding="{Binding Nome}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
 
         <ListView Grid.Column="1" Grid.Row="1" ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=local:MoradasSelect}, Path=Person.Moradas}" HorizontalContentAlignment="Stretch"
                   SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=local:MoradasSelect}, Path=Morada}"

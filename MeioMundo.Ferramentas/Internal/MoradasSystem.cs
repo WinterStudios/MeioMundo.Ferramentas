@@ -32,30 +32,49 @@ namespace MeioMundo.Ferramentas.Internal
             //await Load();
         }
         public static People[] GetFornecedores() => Fornecedores.ToArray();
+        public static People[] GetClientes() => Clientes.ToArray();
         public static async Task LoadJson()
         {
             string fileLocation = @"\\srvmm\USR\MeioMundo_Local\Moradas.json";
-            string moradasJson = Network.AccessFiles.ReadJsonFile(fileLocation, "meiomundo", "meiomundo");
+            try
+            {
+                string moradasJson = Network.AccessFiles.ReadJsonFile(fileLocation, "meiomundo", "meiomundo");
 
-            if (!string.IsNullOrEmpty(moradasJson))
-            {
-                Moradas = JsonSerializer.Deserialize<Moradas>(moradasJson);
+                if (!string.IsNullOrEmpty(moradasJson))
+                {
+                    Moradas = JsonSerializer.Deserialize<Moradas>(moradasJson);
+                }
+                else
+                {
+                    Moradas = new Moradas();
+                    Clientes = await LoadClientes();
+                    Fornecedores = await LoadFornecedores();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Moradas = new Moradas();
-                Clientes = await LoadClientes();
-                Fornecedores = await LoadFornecedores();
+                U_System.Debug.Log.LogMessage(ex.Message, typeof(MoradasSystem), U_System.Debug.LogMessageType.Error);
             }
         }
         public static async Task<IEnumerable<People>> LoadClientes()
         {
-            return null;
+            string clientesMoradasFileLocation = @"\\srvmm\USR\MeioMundo_Local\Clientes Moradas.txt";
+            string username = SettingsManager.Settings.First(x => x.Name == "NETWORK_CREDECIAL_USERNAME").Value;
+            string password = SettingsManager.Settings.First(x => x.Name == "NETWORK_CREDECIAL_PASSWORD").Value;
+            using (FileStream fileStream = Network.AccessFiles.ReadFile(clientesMoradasFileLocation, username, password))
+            {
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                Encoding encoding = Encoding.GetEncoding(1252);
+                StreamReader streamReader = new StreamReader(fileStream, encoding);
+                return await ReadClientesMoradasAsync(streamReader);
+            }
         }
         public static async Task<IEnumerable<People>> LoadFornecedores()
         {
-            string fornecedoresMoradasFileLocation = @"\\srvmm\USR\MeioMundo_Local\Fornecedores - Moradas.txt";            
-            using (FileStream fileStream = Network.AccessFiles.ReadFile(fornecedoresMoradasFileLocation, "meiomundo", "meiomundo"))
+            string fornecedoresMoradasFileLocation = @"\\srvmm\USR\MeioMundo_Local\Fornecedores - Moradas.txt";
+            string username = SettingsManager.Settings.First(x => x.Name == "NETWORK_CREDECIAL_USERNAME").Value;
+            string password = SettingsManager.Settings.First(x => x.Name == "NETWORK_CREDECIAL_PASSWORD").Value;
+            using (FileStream fileStream = Network.AccessFiles.ReadFile(fornecedoresMoradasFileLocation, username, password))
             {
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                 Encoding encoding = Encoding.GetEncoding(1252);
@@ -63,82 +82,74 @@ namespace MeioMundo.Ferramentas.Internal
                 return await ReadFornecedorMoradasAsync(streamReader);
             }
         }
-        //public static async Task LoadFromFile()
-        //{
-        //    string peopleFileOutput = string.Empty;
-        //    string moradasFileOutput = string.Empty;
-        //    OpenFileDialog peopleDialog = new OpenFileDialog();
-        //    OpenFileDialog moradasDialog = new OpenFileDialog();
-        //    bool loadFornecedore = false;
-        //    if (peopleDialog.ShowDialog() == true)
-        //    {
-        //        peopleFileOutput = peopleDialog.FileName;
-        //        loadFornecedore = true;
-        //    }
-        //    if (loadFornecedore && moradasDialog.ShowDialog() == true)
-        //    {
-        //        moradasFileOutput = moradasDialog.FileName;
-        //    }
-        //    else return;
+        private static async Task<IEnumerable<People>> ReadClientesMoradasAsync(StreamReader streamReader)
+        {
+            List<People> clientes = new List<People>();
 
+            uint INDEX = 0;
+            uint INDEX_NOME_CLIENTE = 1;
+            uint INDEX_CLIENTE_MORADA_TIPO = 4;
+            uint INDEX_CLIENTE_RUA = 5;
+            uint INDEX_CLIENTE_LOCALIDADE = 6;
+            uint INDEX_CLIENTE_ZIPCODE = 7;
+            uint INDEX_CLIENTE_CONCELHO = 8;
+            uint INDEX_CLIENTE_DISTRITO = 9;
+            uint INDEX_CLIENTE_COUNTRY = 10;
 
-        //    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-        //    Encoding encoding = Encoding.GetEncoding(1252);
+            string _null = "#NULL#";
 
-        //    StreamReader fornecedorReader = new StreamReader(fornedorFileOutput, encoding, true);
-        //    StreamReader moradasReader = new StreamReader(moradasFileOutput, encoding, true);
+            Regex Spliter = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
+            string line = string.Empty;
+            TextInfo textInfo = new CultureInfo("pt-PT", false).TextInfo;
 
-        //    Morada[] moradas = await ReadFornecedorMoradasAsync(moradasReader);
-        //    await ReadFornecedorAsync(fornecedorReader, moradas);
-        //    await Save();
-        //}
-        //private static async Task ReadFornecedorAsync(StreamReader reader, Morada[] moradas)
-        //{
+            while ((line = await streamReader.ReadLineAsync()) != null)
+            {
+                if (!string.IsNullOrWhiteSpace(line))
+                {
+                    string[] values = Spliter.Split(line);
+                    for (int i = 0; i < values.Length; i++)
+                    {
+                        values[i] = values[i].Replace("\"", "");
+                    }
+                    Morada morada = new Morada();
+                    string nomeCliente = string.Empty;
+                    if (values[INDEX_NOME_CLIENTE] != _null)
+                        nomeCliente = textInfo.ToTitleCase(values[INDEX_NOME_CLIENTE].ToLower());
+                    if (values[INDEX_CLIENTE_RUA] != _null)
+                        morada.Rua = values[INDEX_CLIENTE_RUA];
+                    if (values[INDEX_CLIENTE_LOCALIDADE] != _null)
+                        morada.Localidade = values[INDEX_CLIENTE_LOCALIDADE];
+                    if (values[INDEX_CLIENTE_ZIPCODE] != _null)
+                        morada.ZipCode = values[INDEX_CLIENTE_ZIPCODE];
+                        string tipo = values[INDEX_CLIENTE_MORADA_TIPO];
 
-        //    int Index = 1;
-        //    int _INDEX_ID = 0;
-        //    int _INDEX_FORNECEDOR_NOME = 1;
-        //    int _INDEX_MORADA = 2;
-        //    int _INDEX_LOCALIDADE = 3;
-        //    int _INDEX_CONSELHO = 4;
-        //    int _INDEX_DISTRITO = 5;
-        //    int _INDEX_PAIS = 6;
-        //    int _INDEX_CODIGO_POSTAL = 7;
-        //    int _INDEX_CONTRIBUINTE = 8;
+                    switch (tipo)
+                    {
+                        case "Devoluções":
+                            morada.TipoMorada = TipoMorada.Devoluções;
+                            break;
+                        default:
+                            morada.TipoMorada = TipoMorada.Normal;
+                            break;
+                    }
 
-        //    string line = string.Empty;
-        //    Regex Spliter = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
+                    People cliente = Clientes.FirstOrDefault(x=> x.Nome == nomeCliente);
+                    if(cliente == null)
+                    {
+                        cliente = new People();
+                        clientes.Add(cliente);
+                        if (values[INDEX] != "#NULL#")
+                            cliente.ID = int.Parse(values[INDEX]);
+                        cliente.Nome = nomeCliente;
+                        cliente.Moradas = new List<Morada>();
+                    }
+                    cliente.Moradas.Add(morada);
 
-        //    TextInfo textInfo = new CultureInfo("pt-PT", false).TextInfo;
-        //    while ((line = await reader.ReadLineAsync()) != null)
-        //    {
-        //        if (!string.IsNullOrEmpty(line))
-        //        {
-        //            People fornecedor = new People();
-        //            string[] _values = Spliter.Split(line);
+                }
+            }
 
-        //            if (Index < 1)
-        //            {
-
-        //            }
-        //            else
-        //            {
-        //                fornecedor.ID = int.Parse(_values[_INDEX_ID]);
-        //                fornecedor.Nome = textInfo.ToTitleCase(_values[_INDEX_FORNECEDOR_NOME].Replace("\"", "").ToLower());
-        //                fornecedor.Contribuinte = _values[_INDEX_CONTRIBUINTE].Replace("\"", "");
-        //                fornecedor.Moradas = moradas.Where(x => x.FornecedorID == fornecedor.ID).ToArray();
-        //                for (int i = 0; i < fornecedor.Moradas.Length; i++)
-        //                {
-        //                    fornecedor.Moradas[i].FornecedorNome = fornecedor.Nome;
-        //                }
-        //            }
-
-        //            People.Add(fornecedor);
-        //            Index++;
-        //        }
-        //    }
-        //    People = People.OrderBy(x => x.ID).ToList();
-        //}
+            return Clientes;
+        }
         private static async Task<IEnumerable<People>> ReadFornecedorMoradasAsync(StreamReader reader)
         {
             List<People> fornecedores = new List<People>();

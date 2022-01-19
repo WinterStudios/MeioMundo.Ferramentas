@@ -12,12 +12,16 @@ namespace MeioMundo.Ferramentas.Voucher
     {
         #region Notification Changed
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        private void NotifyPropertyChangedByName(string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
-    
+
         public int VoucherSerialNumber { get => vouvherSerialNumber; set { vouvherSerialNumber = value; NotifyPropertyChanged(); } }
         private int vouvherSerialNumber;
         public int VoucherPrice { get => voucherPrice; set { voucherPrice = value; NotifyPropertyChanged(); } }
@@ -42,11 +46,13 @@ namespace MeioMundo.Ferramentas.Voucher
         public DateTime VoucherUsedDate
         {
             get { return voucherUsedDate; }
-            set { voucherUsedDate = value;  NotifyPropertyChanged(); }
+            set { voucherUsedDate = value;  NotifyPropertyChanged(); NotifyPropertyChangedByName("VoucherVencido"); }
         }
         public bool VoucherVencido { get {
                 if ((DateTime.Today - VoucherClientDate).TotalDays > 90 && VoucherClient)
                     return true;
+                if (VoucherUsedDate.Year == 1)
+                    return false;
                 else
                     return false;
             } }

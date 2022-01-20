@@ -27,7 +27,7 @@ namespace MeioMundo.Ferramentas.Internal
         public static async Task Inicialize()
         {
             await LoadJson();
-            Clientes = new List<People>();
+            //Clientes = new List<People>();
             //Fornecedores = new List<People>();
             //await Load();
         }
@@ -47,8 +47,8 @@ namespace MeioMundo.Ferramentas.Internal
                 else
                 {
                     Moradas = new Moradas();
-                    Clientes = await LoadClientes();
                     Fornecedores = await LoadFornecedores();
+                    Clientes = await LoadClientes();
                 }
             }
             catch (Exception ex)
@@ -59,8 +59,8 @@ namespace MeioMundo.Ferramentas.Internal
         public static async Task<IEnumerable<People>> LoadClientes()
         {
             string clientesMoradasFileLocation = @"\\srvmm\USR\MeioMundo_Local\Clientes Moradas.txt";
-            string username = SettingsManager.Settings.First(x => x.Name == "NETWORK_CREDECIAL_USERNAME").Value;
-            string password = SettingsManager.Settings.First(x => x.Name == "NETWORK_CREDECIAL_PASSWORD").Value;
+            string username = SettingsManager.Settings.First(x => x.Name == "NETWORK_CREDENTIAL_USERNAME").Value;
+            string password = SettingsManager.Settings.First(x => x.Name == "NETWORK_CREDENTIAL_PASSWORD").Value;
             using (FileStream fileStream = Network.AccessFiles.ReadFile(clientesMoradasFileLocation, username, password))
             {
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -72,8 +72,8 @@ namespace MeioMundo.Ferramentas.Internal
         public static async Task<IEnumerable<People>> LoadFornecedores()
         {
             string fornecedoresMoradasFileLocation = @"\\srvmm\USR\MeioMundo_Local\Fornecedores - Moradas.txt";
-            string username = SettingsManager.Settings.First(x => x.Name == "NETWORK_CREDECIAL_USERNAME").Value;
-            string password = SettingsManager.Settings.First(x => x.Name == "NETWORK_CREDECIAL_PASSWORD").Value;
+            string username = SettingsManager.Settings.First(x => x.Name == "NETWORK_CREDENTIAL_USERNAME").Value;
+            string password = SettingsManager.Settings.First(x => x.Name == "NETWORK_CREDENTIAL_PASSWORD").Value;
             using (FileStream fileStream = Network.AccessFiles.ReadFile(fornecedoresMoradasFileLocation, username, password))
             {
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -133,7 +133,7 @@ namespace MeioMundo.Ferramentas.Internal
                             break;
                     }
 
-                    People cliente = Clientes.FirstOrDefault(x=> x.Nome == nomeCliente);
+                    People cliente = clientes.FirstOrDefault(x=> x.Nome == nomeCliente);
                     if(cliente == null)
                     {
                         cliente = new People();
@@ -148,7 +148,7 @@ namespace MeioMundo.Ferramentas.Internal
                 }
             }
 
-            return Clientes;
+            return clientes;
         }
         private static async Task<IEnumerable<People>> ReadFornecedorMoradasAsync(StreamReader reader)
         {

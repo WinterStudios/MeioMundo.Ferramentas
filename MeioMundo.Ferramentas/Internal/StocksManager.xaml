@@ -23,7 +23,9 @@
                     </TabItem.Tag>
                     <mvc:SageStock/>
                 </TabItem>
-                <TabItem/>
+                <TabItem Header="D">
+                    <mvc:WebStock />
+                </TabItem>
                 <TabItem/>
                 <TabItem/>
                 <TabItem Header="Web">

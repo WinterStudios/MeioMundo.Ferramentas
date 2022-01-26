@@ -211,7 +211,8 @@ namespace MeioMundo.Ferramentas.Network
 
             if (result != NO_ERROR)
             {
-                throw new Win32Exception(result);
+                U_System.Debug.Log.LogMessage(new Win32Exception(result).Message, this.GetType(), U_System.Debug.LogMessageType.Error);
+                //throw new Win32Exception(result);
             }
         }
 
@@ -220,7 +221,8 @@ namespace MeioMundo.Ferramentas.Network
             int result = WNetCancelConnection2(remoteUnc, CONNECT_UPDATE_PROFILE, false);
             if (result != NO_ERROR)
             {
-                throw new Win32Exception(result);
+                U_System.Debug.Log.LogMessage(new Win32Exception(result).Message, this.GetType(), U_System.Debug.LogMessageType.Error);
+                //throw new Win32Exception(result);
             }
         }
 

@@ -14,7 +14,13 @@
     <Grid>
         <DataGrid x:Name="ListSettings" AutoGenerateColumns="False" CanUserAddRows="False" Style="{DynamicResource DataGrid.Settings}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True"/>
+                <DataGridTemplateColumn IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Value" Binding="{Binding Value}"/>
             </DataGrid.Columns>
             <DataGrid.GroupStyle>

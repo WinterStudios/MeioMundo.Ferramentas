@@ -16,7 +16,7 @@ namespace MeioMundo.Ferramentas.ViewModels
         public float Preco_sIVA { get => m_preco_sIVA; set { m_preco_sIVA = value; UpdatePrecoCIva(value); OnPropertyChanged(); } }
         public int Stock { get => m_stock; set { m_stock = value; OnPropertyChanged(); } }
         public TipoImposto Imposto { get => m_imposto; set { m_imposto = value; OnPropertyChanged(); } }
-        public DateTime CreationDate { get => m_creationDate; set { m_creationDate = value; OnPropertyChanged(); } }
+        public DateTime? CreationDate { get => m_creationDate; set { m_creationDate = value; OnPropertyChanged(); } }
 
         private string m_ref;
         private string m_nome;
@@ -24,7 +24,7 @@ namespace MeioMundo.Ferramentas.ViewModels
         private float m_preco_sIVA;
         private int m_stock;
         private TipoImposto m_imposto;
-        private DateTime m_creationDate;
+        private DateTime? m_creationDate;
 
 
         private void UpdatePrecoCIva(float value)

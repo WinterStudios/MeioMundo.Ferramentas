@@ -30,13 +30,11 @@ namespace MeioMundo.Ferramentas.Site.MVC
     public partial class SageStock : UserControl
     {
         public ObservableCollection<Produto> Produtos { get; set; }
-        public CollectionList<Produto> _List { get; set; }
+
         public SageStock()
         {
-            this.Loaded += SageStock_Loaded;
+            //this.Loaded += SageStock_Loaded;
             InitializeComponent();
-            _List = new CollectionList<Produto>();
-            _List[0] = new Produto();
         }
         
         private async void SageStock_Loaded(object sender, RoutedEventArgs e)
@@ -44,7 +42,7 @@ namespace MeioMundo.Ferramentas.Site.MVC
             var data = await Stock.GetProdutosAsync();
             Produtos = new ObservableCollection<Produto>();
             //UC_List_Produtos.ItemsSource = _List;
-            _List.AddRange(data.ToArray());
+            //_List.AddRange(data.ToArray());
             
           
         }

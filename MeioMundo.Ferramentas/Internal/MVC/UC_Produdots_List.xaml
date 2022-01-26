@@ -6,7 +6,11 @@
              xmlns:local="clr-namespace:MeioMundo.Ferramentas.Internal.MVC"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             Language="pt-PT">
+             Language="pt-PT"
+             Background="{DynamicResource Theme.Background}">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/MeioMundo.Ferramentas;component/ShareResources.xaml"/>
+    </UserControl.Resources>
     <Border>
         <Grid>
             <Grid.RowDefinitions>

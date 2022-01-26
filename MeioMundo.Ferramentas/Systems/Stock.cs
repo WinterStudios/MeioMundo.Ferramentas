@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -6,7 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 using MeioMundo.Ferramentas.ViewModels;
+using System.Text.RegularExpressions;
 
 namespace MeioMundo.Ferramentas.Systems
 {
@@ -86,5 +90,93 @@ namespace MeioMundo.Ferramentas.Systems
             }
             return produtos;
         }
+
+        public static IEnumerable<Produto> GetProdutosWebSiteAsync()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                return ReadWebFile(openFileDialog.FileName);
+            }
+            else return new Produto[0];
+        }
+        private static IEnumerable<Produto> ReadWebFile(string path)
+        {
+            using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read))
+            {
+                StreamReader reader = new StreamReader(stream);
+
+                List<Produto> produtos = new List<Produto>();
+
+                string line = string.Empty;
+                int index = 0;
+
+                //Index Colluns
+                int RefIndex = 0;
+                int NomeIndex = 1;
+                int PvpIndex = 2;
+                int IvaIndex = 5;
+                int StockIndex = 3;
+
+                while ((line = reader.ReadLine()) != null)
+                {
+                    //Define pattern
+                    Regex CSVParser = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
+
+                    //Separating columns to array
+                    string[] cols = CSVParser.Split(line);
+
+                    if(index == 0)
+                    {
+                        var headers = cols.ToList();
+                        RefIndex = headers.FindIndex(x => x == "REF");
+                        NomeIndex = headers.FindIndex(x => x == "Nome");
+                        IvaIndex = headers.FindIndex(x => x == "\"Classe de imposto\"");
+                        StockIndex = headers.FindIndex(x => x == "Stock");
+                        PvpIndex = headers.FindIndex(x => x == "\"Preço normal\"");
+
+                        index++;
+                        continue;
+                    }
+
+                    Produto produto = new Produto();
+                    produto.Ref = cols[RefIndex];
+                    produto.Nome = cols[NomeIndex].Replace("\"","");
+
+                    produto.Stock = cols[StockIndex].TryParseToInt();
+                    produto.Preco_cIVA = cols[PvpIndex].TryParseToFloat();
+
+                    produto.Imposto = TipoImposto.TryParse(cols[IvaIndex]);
+                   
+                    
+                    
+                    
+
+                    produtos.Add(produto);
+                    index++;
+                }
+                return produtos;
+            }
+        }
     }
+    public static class Extensions
+    {
+        public static float TryParseToFloat(this string s)
+        {
+            float f = 0;
+            bool b = float.TryParse(s, out f);
+            if (!b)
+                U_System.Debug.Log.LogMessage($"Convert Fail to int:{s} ", typeof(Extensions), U_System.Debug.LogMessageType.Warning);
+            return 0f;
+        }       
+        public static int TryParseToInt(this string s)
+        {
+            int i = 0;
+            bool b = int.TryParse(s, out i);
+            if (!b)
+                U_System.Debug.Log.LogMessage($"Convert Fail to int:{s} ", typeof(Extensions) ,U_System.Debug.LogMessageType.Warning);
+            return i;
+        }
+    }
+    
 }

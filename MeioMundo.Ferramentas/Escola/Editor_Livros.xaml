@@ -30,7 +30,7 @@
             <RowDefinition MinHeight="30" Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <DataGrid x:Name="UC_DataGrid_Livros" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="True" Style="{DynamicResource DataGrid_TypeA}"
+        <DataGrid x:Name="UC_DataGrid_Livros" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="True"
                   ItemsSource="{Binding Source={x:Static local:ManuaisSystem.Livros}}" 
                   SelectedItem="{Binding Livro, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}"
                   SelectionChanged="UC_DataGrid_Livros_SelectionChanged" >

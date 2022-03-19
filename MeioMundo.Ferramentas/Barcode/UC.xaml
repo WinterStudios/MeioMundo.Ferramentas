@@ -181,7 +181,15 @@
                 </StackPanel>
             </xamlControls:CustomScrollViewer>
             
-            <Button Grid.Row="1" Content="Adicionar" Margin="0,5" Click="Button_Click" Tag="AddCode"/>
+            
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="Adicionar" Margin="0,5" Click="Button_Click" Tag="AddCode"/>
+                <Button Grid.Column="1" Content="+" Margin="0,5" Padding="12,6" Click="Button_Click" Tag="CreateCode"/>
+            </Grid>
             <GroupBox Grid.Row="2" Header="Preview" Style="{DynamicResource GroupStyle_TypeA}">
                 <Border Background="White" VerticalAlignment="Stretch" Padding="5">
                     <Viewbox x:Name="UC_VeiwBox_PreviewEtiqueta"/>

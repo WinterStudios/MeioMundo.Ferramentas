@@ -122,7 +122,7 @@ namespace MeioMundo.Ferramentas.Site
 
             while ((line = await reader.ReadLineAsync()) != null)
             {
-                Regex CSVParser = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
+                Regex CSVParser = new Regex(@"\s*(?:""(?<val>[^""]*(""""[^""]*)*)""\s*|(?<val>[^,]*))(?:,|$)");
 
                 //Separating columns to array
                 string newLine = line.Replace(@"\", "");

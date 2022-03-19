@@ -46,7 +46,7 @@ namespace MeioMundo.Ferramentas.Barcode
         private EtiquetaA4 m_EtiquetaA4;
 
         public int Qtd { get => m_Qtd; set { m_Qtd = value; OnPropertyChanged(); } }
-        private int m_Qtd;
+        private int m_Qtd = 1;
 
         public IEtiqueta PreviewEtiqueta
         {
@@ -77,8 +77,9 @@ namespace MeioMundo.Ferramentas.Barcode
             previewPage.Child = EtiquetaPage;
 
             Etiquetas.CollectionChanged += Etiquetas_CollectionChanged;
-            Etiquetas.Add(CreateNovaEtiqueta());
-            SelectEtiqueta = Etiquetas.First();
+            //Etiquetas.Add(CreateNovaEtiqueta());
+
+            SelectEtiqueta = CreateNovaEtiqueta();
 
             PreviewEtiqueta.Etiqueta = SelectEtiqueta;
 
@@ -216,53 +217,16 @@ namespace MeioMundo.Ferramentas.Barcode
         {
             string tag = ((Button)sender).Tag.ToString();
 
+            if (tag == "CreateCode")
+                SelectEtiqueta = CreateNovaEtiqueta();
+
             if (tag == "AddCode")
             {
                 for (int i = 0; i < Qtd; i++)
-                {
-                    Etiqueta etiqueta = new Etiqueta();
-                    etiqueta.Preco = PreviewEtiqueta.Etiqueta.Preco;
-                    etiqueta.Produto = PreviewEtiqueta.Etiqueta.Produto;
-                    etiqueta.SKU = PreviewEtiqueta.Etiqueta.SKU;
-                    etiqueta.IEtiquetaType = PreviewEtiqueta.Etiqueta.IEtiquetaType;
-                    etiqueta.BarCode = (IBarCode)Activator.CreateInstance(PreviewEtiqueta.Etiqueta.BarCode.GetType());
-                    etiqueta.CodigoBarras = PreviewEtiqueta.Etiqueta.CodigoBarras;
-                    etiqueta.BarCode.Code = PreviewEtiqueta.Etiqueta.BarCode.Code;
-                    etiqueta.BarCode.BarcodeImageResolution = PreviewEtiqueta.Etiqueta.BarCode.BarcodeImageResolution;
-                    etiqueta.BarCode.BarcodeHeight = PreviewEtiqueta.Etiqueta.BarCode.BarcodeHeight;
-                    etiqueta.BarCode.DisplayCodeType = PreviewEtiqueta.Etiqueta.BarCode.DisplayCodeType;
-                    etiqueta.MostrarPreco = PreviewEtiqueta.Etiqueta.MostrarPreco;
-                    etiqueta.Taxa = PreviewEtiqueta.Etiqueta.Taxa;
+                    Etiquetas.Add(SelectEtiqueta);
 
-                    Etiquetas.Add(etiqueta);
-
-
-                    //IEtiqueta t_IEtiquetaPreview = (IEtiqueta)Activator.CreateInstance(typeof(Etiqueta_A));
-
-                    //t_IEtiquetaPreview.Etiqueta.Preco = PreviewEtiqueta.Etiqueta.Preco;
-                    //t_IEtiquetaPreview.Etiqueta.Produto = PreviewEtiqueta.Etiqueta.Produto;
-                    //t_IEtiquetaPreview.Etiqueta.SKU = PreviewEtiqueta.Etiqueta.SKU;
-                    //t_IEtiquetaPreview.Etiqueta.BarCode = (IBarCode)Activator.CreateInstance(PreviewEtiqueta.Etiqueta.BarCode.GetType());
-                    //t_IEtiquetaPreview.Etiqueta.CodigoBarras = PreviewEtiqueta.Etiqueta.CodigoBarras;
-                    //t_IEtiquetaPreview.Etiqueta.BarCode.Code = PreviewEtiqueta.Etiqueta.BarCode.Code;
-                    //t_IEtiquetaPreview.Etiqueta.BarCode.BarcodeImageResolution = PreviewEtiqueta.Etiqueta.BarCode.BarcodeImageResolution;
-                    //t_IEtiquetaPreview.Etiqueta.BarCode.BarcodeHeight = PreviewEtiqueta.Etiqueta.BarCode.BarcodeHeight;
-                    //t_IEtiquetaPreview.Etiqueta.BarCode.DisplayCodeType = PreviewEtiqueta.Etiqueta.BarCode.DisplayCodeType;
-                    //t_IEtiquetaPreview.Etiqueta.MostrarPreco = PreviewEtiqueta.Etiqueta.MostrarPreco;
-                    //t_IEtiquetaPreview.Etiqueta.Taxa = PreviewEtiqueta.Etiqueta.Taxa;
-                    //Etiquetas.Add(t_IEtiquetaPreview.Etiqueta);
-                    //PreviewEtiqueta = CreateNewEtiqueta();
-                }
-
-
-                //await this.Dispatcher.InvokeAsync(() =>
-                //{   
-                //    UC_VeiwBox_PreviewEtiqueta.Child = (UserControl)PreviewEtiqueta;
-                //});
-                //etiquetaPage = null;
-                //etiquetaPage = new EtiquetaA4(Etiquetas.ToArray());
-                //PreviewEtiqueta = CreateNewEtiqueta();
-                //etiquetaPage.LoadEtiquetas(Etiquetas.ToArray());
+                var newEtiqueta = CreateNovaEtiqueta();
+                SelectEtiqueta = newEtiqueta;
                 EtiquetaPage.Dispatcher.Invoke(() => EtiquetaPage.UpdateLayout());
                 
             }

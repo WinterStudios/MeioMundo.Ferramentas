@@ -137,6 +137,7 @@ namespace MeioMundo.Ferramentas
         public PluginInfo PluginInformation { get => Info; set => Info = value; }
         public static PluginInfo Info { get; set; }
         public string[] PluginDependicy { get => new string[0]; }
+        public IFooter Footer { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public async Task Awake() 
         {

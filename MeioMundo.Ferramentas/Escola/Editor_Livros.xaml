@@ -46,22 +46,22 @@
         <GroupBox Header="Livro Editor" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
             <StackPanel Orientation="Vertical">
                 <GroupBox Header="Ano">
-                    <ComboBox ItemsSource="{Binding Source={StaticResource Editor_GetAnos}}" DisplayMemberPath="Nome" SelectedValue="{Binding Livro.Ano, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}" SelectedValuePath="ID" />
+                    <ComboBox ItemsSource="{Binding Source={StaticResource Editor_GetAnos}}" DisplayMemberPath="Nome" SelectedValue="{Binding Livro.Ano, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}" SelectedValuePath="ID" LostFocus="TextBox_LostFocus"/>
                 </GroupBox>
                 <GroupBox Header="Disciplina">
-                    <ComboBox ItemsSource="{Binding Source={StaticResource Editor_GetDisciplinas}}" DisplayMemberPath="Nome" SelectedValue="{Binding Livro.Disciplina, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}" SelectedValuePath="ID" />
+                    <ComboBox ItemsSource="{Binding Source={StaticResource Editor_GetDisciplinas}}" DisplayMemberPath="Nome" SelectedValue="{Binding Livro.Disciplina, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}" SelectedValuePath="ID" LostFocus="TextBox_LostFocus" />
                 </GroupBox>
                 <GroupBox Header="ISBN">
-                    <TextBox Text="{Binding Livro.ISBN, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}" />
+                    <TextBox Text="{Binding Livro.ISBN, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}" LostFocus="TextBox_LostFocus" />
                 </GroupBox>
                 <GroupBox Header="Nome">
-                    <TextBox Text="{Binding Livro.Nome, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}" />
+                    <TextBox Text="{Binding Livro.Nome, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}" LostFocus="TextBox_LostFocus" />
                 </GroupBox>
                 <GroupBox Header="Autor">
-                    <TextBox Text="{Binding Livro.Autor, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}"/>
+                    <TextBox Text="{Binding Livro.Autor, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}" LostFocus="TextBox_LostFocus"/>
                 </GroupBox>
                 <GroupBox Header="Editor">
-                    <TextBox Text="{Binding Livro.Editora, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}"/>
+                    <TextBox Text="{Binding Livro.Editora, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}" LostFocus="TextBox_LostFocus"/>
                 </GroupBox>
             </StackPanel>
         </GroupBox>

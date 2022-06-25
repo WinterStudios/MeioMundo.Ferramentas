@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeioMundo.Ferramentas.Escola.Internal;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -62,6 +63,11 @@ namespace MeioMundo.Ferramentas.Escola
         {
             InitializeComponent();
             UC_ListBox_Escolas.ItemsSource = ManuaisSystem.Escolas;
+            Style style = new Style(typeof(ListBoxItem));
+            style.Setters.Add(new Setter(ListBoxItem.AllowDropProperty, true));
+            style.Setters.Add(new EventSetter(ListBoxItem.PreviewMouseLeftButtonDownEvent, new MouseButtonEventHandler(ListBoxItem_MouseLeftDown)));
+            style.Setters.Add(new EventSetter(ListBoxItem.DropEvent, new DragEventHandler(ListBoxItem_Drop)));
+            UC_ListBox_EscolaAnoDisciplinas.ItemContainerStyle = style;
         }
 
 
@@ -175,6 +181,7 @@ namespace MeioMundo.Ferramentas.Escola
             Internal.Disciplina _disciplina = (Internal.Disciplina)UC_Grid_Disciplina_DataGrid_DisciplinaEditor.SelectedItem;
 
             _disciplina.Livro_ISBN = _livro.ISBN;
+            _disciplina.Livro_ID = _livro.ID;
             UC_Grid_Disciplina_DataGrid_DisciplinaEditor.Items.Refresh();
         }
 
@@ -190,6 +197,39 @@ namespace MeioMundo.Ferramentas.Escola
             Internal.Ano _ano = (Internal.Ano)((Button)sender).DataContext;
             Escola.Anos.Remove(_ano);
             UC_ListBox_Escolas_Anos.Items.Refresh();
+        }
+
+        private void ListBoxItem_Drop(object sender, DragEventArgs e)
+        {
+            Disciplina dropData = (Disciplina)e.Data.GetData(typeof(Disciplina));
+            Disciplina target = (Disciplina)((ListBoxItem)sender).DataContext;
+
+            int removedIndex = Ano.Disciplinas.IndexOf(dropData);
+            int targetIndex = Ano.Disciplinas.IndexOf(target);
+
+            if (removedIndex < targetIndex)
+            {
+                Ano.Disciplinas.Insert(targetIndex + 1, dropData);
+                Ano.Disciplinas.RemoveAt(removedIndex);
+            }
+            else
+            {
+                int remIdx = removedIndex + 1;
+                if (Ano.Disciplinas.Count + 1 > remIdx)
+                {
+                    Ano.Disciplinas.Insert(targetIndex, dropData);
+                    Ano.Disciplinas.RemoveAt(remIdx);
+                }
+            }
+        }
+        private void ListBoxItem_MouseLeftDown(object sender, MouseButtonEventArgs e)
+        {
+            if (sender.GetType() == typeof(ListBoxItem))
+            {
+                ListBoxItem draggedItem = (ListBoxItem)sender;
+                DragDrop.DoDragDrop(draggedItem, draggedItem.DataContext, DragDropEffects.Move);
+                draggedItem.IsSelected = true;
+            }
         }
     }
 }

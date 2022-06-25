@@ -173,24 +173,32 @@ namespace MeioMundo.Ferramentas.Escola.Internal
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             long _long = -1;
-            if(long.TryParse(value.ToString(), out _long))
-                if (parameter != null && _long != 0)
-                {
-                    if (parameter.ToString() == "Livro_ISBN")
-                        if (_long != 0)
-                            return _long.ToString("### ### ### ###-#");
-                        else
-                            return "";
-                    if (parameter.ToString() == "Livro_Nome")
-                        return ManuaisSystem.Livros.First(x => x.ISBN == _long).Nome;
-                    if (parameter.ToString() == "Livro_Autor")
-                        return ManuaisSystem.Livros.First(x => x.ISBN == _long).Autor;
-                    if (parameter.ToString() == "Livro_Editora")
-                        return ManuaisSystem.Livros.First(x => x.ISBN == _long).Editora;
-                    if (parameter.ToString() == "Livro_Disc.Geral")
-                        return ManuaisSystem.Livros.First(x => x.ISBN == _long).Disciplina;
-                }
-            return "";
+            try
+            {
+                if (long.TryParse(value.ToString(), out _long))
+                    if (parameter != null && _long != 0)
+                    {
+                        if (parameter.ToString() == "Livro_ISBN")
+                            if (_long != 0)
+                                return _long.ToString("### ### ### ###-#");
+                            else
+                                return "";
+                        if (parameter.ToString() == "Livro_Nome")
+                            return ManuaisSystem.Livros.FirstOrDefault(x => x.ISBN == _long).Nome;
+                        if (parameter.ToString() == "Livro_Autor")
+                            return ManuaisSystem.Livros.FirstOrDefault(x => x.ISBN == _long).Autor;
+                        if (parameter.ToString() == "Livro_Editora")
+                            return ManuaisSystem.Livros.FirstOrDefault(x => x.ISBN == _long).Editora;
+                        if (parameter.ToString() == "Livro_Disc.Geral")
+                            return ManuaisSystem.Livros.First(x => x.ISBN == _long).Disciplina;
+                    }
+                return "";
+            }
+            catch
+            {
+                return "";
+            }
+            
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

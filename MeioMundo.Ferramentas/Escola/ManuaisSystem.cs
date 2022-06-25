@@ -154,6 +154,8 @@ namespace MeioMundo.Ferramentas.Escola
                 Escolas = JsonSerializer.Deserialize<Internal.Escola[]>(json).ToList();
             else
                 Escolas = new List<Internal.Escola>();
+
+
             //using (Network.NetworkShareAccesser.Access(serverPath, "meiomundo", "meiomundo"))
             //{
             //    if (System.IO.File.Exists(escolaFile))
@@ -184,6 +186,8 @@ namespace MeioMundo.Ferramentas.Escola
             {
                 System.IO.File.WriteAllText(escolaFile, json);
             }
+
+            
         }
 
 
@@ -202,6 +206,7 @@ namespace MeioMundo.Ferramentas.Escola
                 Livros = JsonSerializer.Deserialize<Livro[]>(json).ToList();
             else
                 Livros = new List<Livro>();
+
         }
 
         public static void SaveLivros()

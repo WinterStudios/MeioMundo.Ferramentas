@@ -55,5 +55,10 @@ namespace MeioMundo.Ferramentas.Escola
         {
 
         }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            ManuaisSystem.SaveLivros();
+        }
     }
 }

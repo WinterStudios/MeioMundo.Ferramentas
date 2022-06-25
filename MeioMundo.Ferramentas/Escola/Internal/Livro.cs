@@ -8,6 +8,7 @@ namespace MeioMundo.Ferramentas.Escola.Internal
 {
     public class Livro
     {
+        public int ID { get; set; }
         public long ISBN { get; set; }
         public string Nome { get; set; }
         public string Autor { get; set; }

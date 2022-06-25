@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MeioMundo.Ferramentas.Escola.Modelos" 
              xmlns:internal="clr-namespace:MeioMundo.Ferramentas.Escola.Internal"
+             xmlns:xaml="clr-namespace:MeioMundo.Ferramentas.Escola.XAML"
              mc:Ignorable="d" 
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
              Width="21.0cm" Height="29.7cm"
@@ -33,7 +34,7 @@
         </VisualBrush>
         <internal:LongToStringConvert x:Key="LongToStringConvert"/>
         <internal:IntToStringConvert x:Key="IntToStringConvert"/>
-
+        <xaml:GetBookByIDExtension x:Key="GetBookByIDExtension"/>
 
         <Style x:Key="DataGrid_Componetes" TargetType="DataGrid">
             <Setter Property="AutoGenerateColumns" Value="False"/>
@@ -107,7 +108,7 @@
                         
                         <StackPanel Grid.Column="1" HorizontalAlignment="Right" Margin=".25cm,0" Orientation="Horizontal" Visibility="Visible">
                             <TextBlock Text="Ano Letivo " Foreground="Black" FontSize="14pt" VerticalAlignment="Center" FontWeight="Normal"/>
-                            <TextBlock Text="2021/2022" Foreground="Black" FontSize="14pt" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Text="2022/2023" Foreground="Black" FontSize="14pt" VerticalAlignment="Center" FontWeight="Bold"/>
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -117,10 +118,10 @@
                 <DataGrid x:Name="UC_DISC_COMP_GERAL" Style="{DynamicResource DataGrid_Componetes}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Disciplina" Binding="{Binding FullNome}" Width="3cm"/>
-                        <DataGridTextColumn Header="ISBN" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_ISBN}" Width="2.5cm"/>
-                        <DataGridTextColumn Header="Nome do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Nome}" Width="8.48cm" />
-                        <DataGridTextColumn Header="Autor do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Autor}" Width="3cm"/>
-                        <DataGridTextColumn Header="Editora do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Editora}" Width="3cm"/>
+                        <DataGridTextColumn Header="ISBN" Binding="{Binding Livro_ID, Converter={StaticResource GetBookByIDExtension}, ConverterParameter=Livro_ISBN}" Width="2.5cm"/>
+                        <DataGridTextColumn Header="Nome do Livro" Binding="{Binding Livro_ID, Converter={StaticResource GetBookByIDExtension}, ConverterParameter=Livro_Nome}" Width="8.48cm" />
+                        <DataGridTextColumn Header="Autor do Livro" Binding="{Binding Livro_ID, Converter={StaticResource GetBookByIDExtension}, ConverterParameter=Livro_Autor}" Width="3cm"/>
+                        <DataGridTextColumn Header="Editora do Livro" Binding="{Binding Livro_ID, Converter={StaticResource GetBookByIDExtension}, ConverterParameter=Livro_Editora}" Width="3cm"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel x:Name="UC_STACKPANEL_COMP_ESPECIFICA">
@@ -130,10 +131,10 @@
                     <DataGrid x:Name="UC_DISC_COMP_ESPEC" Style="{DynamicResource DataGrid_Componetes}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Disciplina" Binding="{Binding ID, Converter={StaticResource IntToStringConvert}, ConverterParameter=DisciplinaID}" Width="3cm"/>
-                            <DataGridTextColumn Header="ISBN" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_ISBN}" Width="2.5cm"/>
-                            <DataGridTextColumn Header="Nome do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Nome}" Width="8.48cm"/>
-                            <DataGridTextColumn Header="Autor do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Autor}" Width="3cm"/>
-                            <DataGridTextColumn Header="Editora do Livro" Binding="{Binding Livro_ISBN, Converter={StaticResource LongToStringConvert}, ConverterParameter=Livro_Editora}" Width="3cm"/>
+                            <DataGridTextColumn Header="ISBN" Binding="{Binding Livro_ID, Converter={StaticResource GetBookByIDExtension}, ConverterParameter=Livro_ISBN}" Width="2.5cm"/>
+                            <DataGridTextColumn Header="Nome do Livro" Binding="{Binding Livro_ID, Converter={StaticResource GetBookByIDExtension}, ConverterParameter=Livro_Nome}" Width="8.48cm"/>
+                            <DataGridTextColumn Header="Autor do Livro" Binding="{Binding Livro_ID, Converter={StaticResource GetBookByIDExtension}, ConverterParameter=Livro_Autor}" Width="3cm"/>
+                            <DataGridTextColumn Header="Editora do Livro" Binding="{Binding Livro_ID, Converter={StaticResource GetBookByIDExtension}, ConverterParameter=Livro_Editora}" Width="3cm"/>
                         </DataGrid.Columns>
                     </DataGrid>
 

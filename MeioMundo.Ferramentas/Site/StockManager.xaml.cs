@@ -6,6 +6,7 @@ using System.Linq;
 using System.IO;
 using System.Threading;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,6 +22,7 @@ using MeioMundo.Ferramentas.Internal.Models;
 using System.Text.RegularExpressions;
 using System.Windows.Threading;
 using System.ComponentModel;
+using System.Net;
 
 namespace MeioMundo.Ferramentas.Site
 {
@@ -40,6 +42,71 @@ namespace MeioMundo.Ferramentas.Site
             Produtos = new ObservableCollection<Internal.Models.Produto>();
             SageProdutos = new List<Produto>();
             UC_StockManager.ItemsSource = Produtos;
+
+            GetProdutos();
+        }
+
+        private async Task GetProdutos()
+        {
+            string url = "https://www.papelariameiomundo.com/wp-json/wc/v3/products";
+            using (WebClient client = new WebClient())
+            {
+                client.Headers.Add("Authorization", "Basic Y2tfMWFjZTRmMTQ2OTI5MDBlMGFjOGQxZTIyYmNhYmQ1ZTRhOWM5YTBmODpjc18zNmIxYjMwOGJlZTc2NGIyMWIyZjUwNDUwOWJiODdhMDY5MjcxNzRj");
+                int page = 1;
+                string webJson = string.Empty;
+                try
+                {
+
+
+                    while (true)
+                    {
+                        webJson = await client.DownloadStringTaskAsync(new Uri($"{url}?per_page=100&page={page}"));
+
+                        
+                        var list = JsonSerializer.Deserialize<object[]>(webJson, new JsonSerializerOptions(JsonSerializerDefaults.Web));
+
+                        foreach (var item in list)
+                        {
+                            Produto produto = new Produto();
+                            var i = item.GetType().GetProperties();
+                            produto.Nome = (string)item.GetType().GetProperty("name").GetValue(item);
+                            Produtos.Add(produto);
+                        }
+                        page++;
+                        if (list.Length == 0)
+                            return;
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+            string sageLocation = @"\\srvmm\USR\MeioMundo_Local\Listagem de Artigos _EUROS_.TXT";
+            string serverPath = @"srvmm";
+            try
+            {
+                using (Network.NetworkShareAccesser.Access(serverPath, "meiomundo", "meiomundo"))
+                {
+                    await Task.Run(() => LoadSageAsync(sageLocation));
+                }
+            }
+            catch (Exception ex)
+            {
+
+                OpenFileDialog WebDialog = new OpenFileDialog();
+                WebDialog.Filter = "Website Files|*.csv;*.txt|" +
+                                   "All Files |*.*";
+                WebDialog.Title = "Carregar ficheiro com os dados do Site";
+
+                if (WebDialog.ShowDialog() == true)
+                {
+                    await LoadSageAsync(WebDialog.FileName);
+                }
+            }
+
+            Task task = new Task(() => UpdateStockAsync());
+            task.Start();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

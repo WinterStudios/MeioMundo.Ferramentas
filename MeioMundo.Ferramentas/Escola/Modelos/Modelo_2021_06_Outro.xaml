@@ -56,7 +56,7 @@
                         </DockPanel>
                         <StackPanel Grid.Column="1" Margin=".25cm,0" HorizontalAlignment="Right" Orientation="Horizontal" Visibility="Visible">
                             <TextBlock Text="Ano Letivo " Foreground="Black" FontSize="14pt" VerticalAlignment="Center" FontWeight="Normal"/>
-                            <TextBlock Text="2021/2022" Foreground="Black" FontSize="14pt" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Text="2022/2023" Foreground="Black" FontSize="14pt" VerticalAlignment="Center" FontWeight="Bold"/>
                         </StackPanel>
                     </Grid>
                 </Border>

@@ -75,6 +75,8 @@ namespace MeioMundo.Ferramentas.Escola.Internal
                 keys.Add(15, "Italiano");
                 keys.Add(16, "Mandarim");
 
+                keys.Add(24, "Ciências Politicas");
+                keys.Add(25, "Direito");
                 keys.Add(26, "Literatura Portuguesa");
                 keys.Add(27, "Filosofia A");
                 keys.Add(28, "Psicologia B");

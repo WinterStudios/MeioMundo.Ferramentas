@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using U_System.Core.UX.Preferences;
 
@@ -14,6 +15,8 @@ namespace MeioMundo.Ferramentas.Internal.Models
         private string _nome;
         private string _textoBreve;
         private string _textoDescricao;
+        private string _precoRegular;
+        private string _websiteStock;
 
         private bool _stockIsManager;
 
@@ -29,11 +32,13 @@ namespace MeioMundo.Ferramentas.Internal.Models
 
         #region Proprietes >>>> String
 
+        [JsonPropertyName("sku")]
         public string REF
         {
             get { return _ref; }
             set { _ref = value; OnPropertyChanged(); }
         }
+        [JsonPropertyName("name")]
         public string Nome
         {
             get { return _nome; }
@@ -48,6 +53,28 @@ namespace MeioMundo.Ferramentas.Internal.Models
         {
             get { return _textoDescricao; }
             set { _textoDescricao = value; OnPropertyChanged(); }
+        }
+
+        [JsonPropertyName("regular_price")]
+        public string PrecoRegular
+        {
+            get { return _precoRegular; }
+            set {
+                if(float.TryParse(value, out _))
+                    Preco_cIVA = float.Parse(value);
+                _precoRegular = value; 
+                OnPropertyChanged(); 
+            }
+        }
+        
+        public string WebSiteStock
+        {
+            get { return _websiteStock; }
+            set { if (int.TryParse(value, out _))
+                    StockSite = int.Parse(value);
+                _websiteStock = value;
+                OnPropertyChanged();
+            }
         }
 
         public string GetTaxaImposto
@@ -129,6 +156,7 @@ namespace MeioMundo.Ferramentas.Internal.Models
         /// <summary>
         /// Stock do site online
         /// </summary>
+        [JsonPropertyName("stock_quantity")]
         public int StockSite
         {
             get { return _stockSite; }

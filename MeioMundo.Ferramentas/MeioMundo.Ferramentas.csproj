@@ -5,8 +5,7 @@
     <UseWPF>true</UseWPF>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
      <PackageCopyToOutput>true</PackageCopyToOutput>
-    <FileVersion>21.5.13.0</FileVersion>    
-
+    <FileVersion>21.5.13.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

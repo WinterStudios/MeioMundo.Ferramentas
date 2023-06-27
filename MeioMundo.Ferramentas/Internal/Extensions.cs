@@ -20,9 +20,9 @@ namespace MeioMundo.Ferramentas.Internal
             using (MemoryStream s = new MemoryStream())
             {
                 BinaryFormatter f = new BinaryFormatter();
-                f.Serialize(s, from);
+                //f.Serialize(s, from);
                 s.Position = 0;
-                object clone = f.Deserialize(s);
+                object clone = null; //f.Deserialize(s);
 
                 return (T)clone;
             }

@@ -231,5 +231,23 @@ namespace MeioMundo.Ferramentas.Escola
                 draggedItem.IsSelected = true;
             }
         }
+
+    private void UC_Grid_Disciplina_DataGrid_DisciplinaEditor_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+    {
+      if (e.Column.Header.ToString() == "ISBN") //If the column of the cell being edited is "ISBN"
+      {
+        //Get the new value
+        TextBox t = e.EditingElement as TextBox; //Assuming you are using a TextBox for editing
+        string newValue = t.Text;
+
+        if (newValue == "0")
+        {
+          Internal.Disciplina _disciplina = (Internal.Disciplina)UC_Grid_Disciplina_DataGrid_DisciplinaEditor.SelectedItem;
+          _disciplina.Livro_ID = null;
+        }
+
+      }
+      ManuaisSystem.SaveEscola();
     }
+  }
 }

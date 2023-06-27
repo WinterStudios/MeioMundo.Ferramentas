@@ -229,6 +229,7 @@ namespace MeioMundo.Ferramentas.Site
 
             StreamReader reader = new StreamReader(location, encoding, true);
             string line;
+            Regex CSVParser = new Regex("(?:,|\n|^)(\"(?:(?:\"\")*[^\"]*)*\"|[^\",\n]*|(?:\n|$))", RegexOptions.IgnoreCase);
 
             //Index Colluns
             int index = 0;
@@ -238,11 +239,13 @@ namespace MeioMundo.Ferramentas.Site
             int IvaIndex = 5;
             int StockIndex = 3;
 
+            int RegixIndexOffset = 1;
             try
             {
                 while ((line = await reader.ReadLineAsync()) != null)
                 {
-                    string[] cols = line.Split(',');
+                    //string[] cols = line.Split(',');
+                    string[] cols = CSVParser.Split(line);
                     if (cols.Length > 5)
                     {
                         //if (index == 0)
@@ -256,16 +259,20 @@ namespace MeioMundo.Ferramentas.Site
                         //else
                         //{
                         Produto p = new Produto();
-                        p.REF = cols[RefIndex].Replace("\"", "");
-                        p.Nome = cols[NomeIndex].Replace("\"", "");
+                        p.REF = cols[RefIndex + RegixIndexOffset].Replace("\"", "");
+                        p.Nome = cols[NomeIndex + RegixIndexOffset].Replace("\"", "");
                         float preco = float.NaN;
-                        if (float.TryParse(cols[PvpIndex].Replace('.', ','), out preco))
+                        if (float.TryParse(cols[PvpIndex + RegixIndexOffset].Replace('.', ','), out preco))
                             p.Preco_cIVA = preco;
                         //p.IVA = cols[IvaIndex];
                         int stockSage = 0;
-                        if (int.TryParse(cols[StockIndex], out stockSage))
+                        if (int.TryParse(cols[StockIndex + RegixIndexOffset], out stockSage))
                             p.StockSage = stockSage;
 
+                        if(p.REF.ToString() == "8445641017024")
+                        {
+
+                        }
                         SageProdutos.Add(p);
                         //}
                     }

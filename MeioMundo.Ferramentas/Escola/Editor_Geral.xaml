@@ -75,7 +75,8 @@
                     </ComboBox>
                 </GroupBox>
             </StackPanel>
-            <DataGrid x:Name="UC_Grid_Disciplina_DataGrid_DisciplinaEditor" Grid.Row="1" ItemsSource="{Binding Ano.Disciplinas, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" AutoGenerateColumns="False" CanUserAddRows="False" SelectedCellsChanged="UC_Grid_Disciplina_DataGrid_DisciplinaEditor_SelectedCellsChanged" SelectionMode="Single" >
+            <DataGrid x:Name="UC_Grid_Disciplina_DataGrid_DisciplinaEditor" Grid.Row="1" ItemsSource="{Binding Ano.Disciplinas, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" AutoGenerateColumns="False" CanUserAddRows="False" SelectedCellsChanged="UC_Grid_Disciplina_DataGrid_DisciplinaEditor_SelectedCellsChanged" SelectionMode="Single"
+                      CellEditEnding="UC_Grid_Disciplina_DataGrid_DisciplinaEditor_CellEditEnding">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Disciplina" Binding="{Binding ID, Converter={StaticResource IntToStringConvert}, ConverterParameter=DisciplinaID}" Width="180"/>
                     <DataGridTextColumn Header="ISBN" Binding="{Binding Livro_ISBN}" Width="110"/>

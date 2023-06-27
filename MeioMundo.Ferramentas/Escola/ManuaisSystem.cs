@@ -155,6 +155,17 @@ namespace MeioMundo.Ferramentas.Escola
             else
                 Escolas = new List<Internal.Escola>();
 
+      foreach (var escola in Escolas)
+      {
+        foreach (var ano in escola.Anos)
+        {
+          foreach (var disciplina in ano.Disciplinas)
+          {
+            if (disciplina.Livro_ISBN == 0)
+              disciplina.Livro_ID = null;
+          }
+        }
+      }
 
             //using (Network.NetworkShareAccesser.Access(serverPath, "meiomundo", "meiomundo"))
             //{

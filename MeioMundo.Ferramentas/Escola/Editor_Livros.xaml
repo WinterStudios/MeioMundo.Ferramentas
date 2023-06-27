@@ -33,7 +33,9 @@
         <DataGrid x:Name="UC_DataGrid_Livros" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="True"
                   ItemsSource="{Binding Source={x:Static local:ManuaisSystem.Livros}}" 
                   SelectedItem="{Binding Livro, RelativeSource={RelativeSource AncestorType=local:Editor_Livros}}"
-                  SelectionChanged="UC_DataGrid_Livros_SelectionChanged" AddingNewItem="UC_DataGrid_Livros_AddingNewItem" >
+                  SelectionChanged="UC_DataGrid_Livros_SelectionChanged"
+                  AddingNewItem="UC_DataGrid_Livros_AddingNewItem"
+                  CellEditEnding="UC_DataGrid_Livros_CellEditEnding">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ISBN" Width="100" Binding="{Binding ISBN}"/>
                 <DataGridTextColumn Header="Nome" Width="*" Binding="{Binding Nome}"/>

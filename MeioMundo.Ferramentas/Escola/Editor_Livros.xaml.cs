@@ -18,52 +18,57 @@ using System.Windows.Shapes;
 
 namespace MeioMundo.Ferramentas.Escola
 {
-    /// <summary>
-    /// Interaction logic for Editor_Livros.xaml
-    /// </summary>
-    public partial class Editor_Livros : UserControl, INotifyPropertyChanged
+  /// <summary>
+  /// Interaction logic for Editor_Livros.xaml
+  /// </summary>
+  public partial class Editor_Livros : UserControl, INotifyPropertyChanged
+  {
+    #region Notification Changed
+    public event PropertyChangedEventHandler PropertyChanged;
+    private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
     {
-        #region Notification Changed
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
-
-        public Internal.Livro Livro { get => livro; set { livro = value; NotifyPropertyChanged(); } }
-        private Internal.Livro livro;
-        public Editor_Livros()
-        {
-            InitializeComponent();
-            UC_DataGrid_Livros.RowEditEnding += UC_DataGrid_Livros_RowEditEnding;
-            UC_DataGrid_Livros.CellEditEnding += UC_DataGrid_Livros_CellEditEnding;
-        }
-
-        private void UC_DataGrid_Livros_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-            ManuaisSystem.SaveLivros();
-
-        }
-
-        private void UC_DataGrid_Livros_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
-        {
-            ManuaisSystem.SaveLivros();
-        }
-
-        private void UC_DataGrid_Livros_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            ManuaisSystem.SaveLivros();
-        }
-
-        private void UC_DataGrid_Livros_AddingNewItem(object sender, AddingNewItemEventArgs e)
-        {
-
-        }
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+    #endregion
+
+    public Internal.Livro Livro { get => livro; set { livro = value; NotifyPropertyChanged(); } }
+    private Internal.Livro livro;
+    public Editor_Livros()
+    {
+      InitializeComponent();
+      UC_DataGrid_Livros.RowEditEnding += UC_DataGrid_Livros_RowEditEnding;
+      UC_DataGrid_Livros.CellEditEnding += UC_DataGrid_Livros_CellEditEnding;
+    }
+
+    private void UC_DataGrid_Livros_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+    {
+      
+      ManuaisSystem.SaveLivros();
+
+    }
+
+    private void UC_DataGrid_Livros_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+    {
+      ManuaisSystem.SaveLivros();
+    }
+
+    private void UC_DataGrid_Livros_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+
+    }
+
+    private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+    {
+      ManuaisSystem.SaveLivros();
+    }
+
+    private void UC_DataGrid_Livros_AddingNewItem(object sender, AddingNewItemEventArgs e)
+    {
+      int id = ManuaisSystem.Livros.Count + 1;
+      e.NewItem = new Internal.Livro()
+      {
+        ID = id
+      };
+    }
+  }
 }

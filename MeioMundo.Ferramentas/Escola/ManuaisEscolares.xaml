@@ -40,7 +40,8 @@
             </GroupBox>
             <Button Content="Imprimir" Padding="8,4,8,4" Margin="6,6" VerticalAlignment="Bottom" Click="Editores_Button_Click" Tag="__PRINT_SINGLE"/>
             <Button Content="Imprimir Varios" Padding="8,4,8,4" Margin="6,6" VerticalAlignment="Bottom" Click="Editores_Button_Click" Tag="__PRINT_MULTIPLE"/>
-
+            <Button Content="Imprimir Escola" Padding="8,4,8,4" Margin="6,6" VerticalAlignment="Bottom" Click="Editores_Button_Click" Tag="__PRINT_SCHOOL"/>
+            
         </StackPanel>
         <StackPanel Background="#05000000" Grid.Row="1" Orientation="Horizontal">
             <GroupBox Header="Escola">

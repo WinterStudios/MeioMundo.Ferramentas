@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeioMundo.Ferramentas.Escola.Internal;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -125,6 +126,25 @@ namespace MeioMundo.Ferramentas.Escola
                 window.Width = 400;
 
                 window.ShowDialog();
+            }
+            if(tag == "__PRINT_SCHOOL")
+            {
+                var escola = (Internal.Escola)UC_ComboBox_Escolas.SelectedItem;
+                if (UC_ComboBox_Escolas.SelectedItem != null)
+                {
+                    List<PagEncomendasEscolares> paginas = new List<PagEncomendasEscolares>();
+                    foreach (var item in escola.Anos)
+                    {
+                        paginas.Add(new PagEncomendasEscolares() {
+                            Escola = escola,
+                            SelectAno = item,
+                            Copies = 1,
+                            ID = paginas.Count
+                        });
+                    }
+                    ManuaisSystem.PrintModelos(ManuaisSystem.Modelos.v_2021_06, paginas.ToArray());
+                }
+
             }
         }
 

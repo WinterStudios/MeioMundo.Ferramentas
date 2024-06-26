@@ -108,7 +108,7 @@
                         
                         <StackPanel Grid.Column="1" HorizontalAlignment="Right" Margin=".25cm,0" Orientation="Horizontal" Visibility="Visible">
                             <TextBlock Text="Ano Letivo " Foreground="Black" FontSize="14pt" VerticalAlignment="Center" FontWeight="Normal"/>
-                            <TextBlock Text="2023/2024" Foreground="Black" FontSize="14pt" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Text="2024/2025" Foreground="Black" FontSize="14pt" VerticalAlignment="Center" FontWeight="Bold"/>
                         </StackPanel>
                     </Grid>
                 </Border>

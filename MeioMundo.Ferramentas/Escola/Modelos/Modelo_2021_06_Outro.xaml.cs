@@ -37,10 +37,11 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
         }
         public Modelo_2021_06_Outro()
         {
+            this.DataContext = this;
             InitializeComponent();
             string[] disciplinas = Internal.Disciplinas.GetDisciplinas().Values.Where(x => !string.IsNullOrEmpty(x)).ToArray();
             UC_ItemControl_Disciplinas.ItemsSource = disciplinas;
-            
+            UC_TextBox_Escola.Text = Escola;
         }
 
     }

@@ -41,8 +41,12 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
             InitializeComponent();
             string[] disciplinas = Internal.Disciplinas.GetDisciplinas().Values.Where(x => !string.IsNullOrEmpty(x)).ToArray();
             UC_ItemControl_Disciplinas.ItemsSource = disciplinas;
-            UC_TextBox_Escola.Text = Escola;
         }
+
+    public void SetEscola(string escola)
+    {
+      UC_TextBox_Escola.Text = escola;
+    }
 
     }
 }

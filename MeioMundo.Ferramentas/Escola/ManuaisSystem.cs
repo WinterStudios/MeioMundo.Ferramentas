@@ -62,6 +62,7 @@ namespace MeioMundo.Ferramentas.Escola
                 _modelo.Escola = nomeEscola;
                 _modelo.Ano = ano;
                 _modelo.Run();
+                _modelo.SetEscola(nomeEscola);
                 return _modelo;
             }
             if(modelo == Modelos.v_2021_EPTOLIVA)

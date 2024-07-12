@@ -52,11 +52,11 @@
                         <DockPanel Margin=".25cm,0" VerticalAlignment="Center" LastChildFill="True">
                             <TextBlock x:Name="UC_TextBox_Ano" FontSize="14pt" VerticalAlignment="Center" Text="" />
                             <Rectangle VerticalAlignment="Center" Height="1pt" Width="4pt" Fill="Black" Margin="6 0" Visibility="Collapsed"/>
-                            <TextBlock x:Name="UC_TextBox_Escola" FontSize="14pt" VerticalAlignment="Center" FontWeight="Bold" Text="ENCOMENDAS ESCOLARES" />
+                            <TextBlock x:Name="UC_TextBox_Escola" FontSize="14pt" VerticalAlignment="Center" FontWeight="Bold" Text="{Binding Escola}" />
                         </DockPanel>
                         <StackPanel Grid.Column="1" Margin=".25cm,0" HorizontalAlignment="Right" Orientation="Horizontal" Visibility="Visible">
                             <TextBlock Text="Ano Letivo " Foreground="Black" FontSize="14pt" VerticalAlignment="Center" FontWeight="Normal"/>
-                            <TextBlock Text="2023/2024" Foreground="Black" FontSize="14pt" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Text="2024/2025" Foreground="Black" FontSize="14pt" VerticalAlignment="Center" FontWeight="Bold"/>
                         </StackPanel>
                     </Grid>
                 </Border>

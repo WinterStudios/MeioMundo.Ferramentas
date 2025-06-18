@@ -23,7 +23,8 @@ namespace MeioMundo.Ferramentas
 
         private static async Task Load()
         {
-
+          ///
+          await Task.CompletedTask;
         }
 
         private static async Task LoadDefault()

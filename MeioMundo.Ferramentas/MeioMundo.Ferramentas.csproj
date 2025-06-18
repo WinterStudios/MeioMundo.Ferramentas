@@ -9,13 +9,13 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>D:\GitHub\U-System\U-System\bin\Debug\Plugins\</OutputPath>
+    <OutputPath>C:\Users\hugo_\GitHub\U-System\U-System\bin\Debug\Plugins\</OutputPath>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>none</DebugType>
-	<OutputPath>D:\GitHub\U-System\U-System\bin\Debug\Plugins\</OutputPath>
+	<OutputPath>C:\Users\hugo_\GitHub\U-System\U-System\bin\Debug\Plugins\</OutputPath>
     <DebugSymbols>false</DebugSymbols>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>

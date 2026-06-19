@@ -415,16 +415,17 @@
                                         <Run Text="{Binding Ano.ID, RelativeSource={RelativeSource AncestorType=local:Editor_Geral}, Mode=OneWay}"/>
                                     </TextBlock>
                                 </StackPanel>
-                                <ListBox x:Name="UC_ListBox_EscolaAnoDisciplinas" ItemsSource="{Binding Ano.Disciplinas,RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch" AllowDrop="True">
+                                <ListBox x:Name="UC_ListBox_EscolaAnoDisciplinas" ItemsSource="{Binding Ano.Disciplinas,RelativeSource={RelativeSource AncestorType=local:Editor_Geral}}" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch" AllowDrop="False">
                                     <ListBox.ItemTemplate>
-                                        <DataTemplate DataType="{x:Type internal:DisciplinasUX}">
+                                        <DataTemplate DataType="{x:Type internal:Disciplina}">
+                                            <!-- Changed from DisciplinasUX -->
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="30" />
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Border>
+                                                <Border Grid.Column="0">
                                                     <StackPanel Orientation="Horizontal">
                                                         <Border Padding="4,0" Background="#88ffde05">
                                                             <TextBlock VerticalAlignment="Center" Text="{Binding ID, Converter={StaticResource StringToCharConverter},ConverterParameter=0}" FontWeight="Bold"/>
@@ -438,7 +439,7 @@
                                                 <Button Grid.Column="2" Content="-" Click="UC_ListBox_EscolaAnoDisciplinas_Remove_BTN">
                                                     <Button.Style>
                                                         <Style TargetType="Button">
-                                                            <Setter Property="Background" Value="Transparent"/>
+                                                            <Setter Property="Background" Value="White"/>
                                                             <Setter Property="BorderBrush" Value="BlueViolet"/>
                                                             <Setter Property="HorizontalAlignment" Value="Right"/>
                                                             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -451,7 +452,6 @@
                                             </Grid>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
-                                    
                                 </ListBox>
                                 <Rectangle Grid.Column="1" Width="20" />
                                 <ListBox x:Name="UC_ListBox_AllDisciplinas" ItemsSource="{Binding Source={StaticResource Editor_GetDisciplinas}}" Grid.Row="1" Grid.Column="2"  MouseDoubleClick="UC_ListBox_AllDisciplinas_MouseDoubleClick">

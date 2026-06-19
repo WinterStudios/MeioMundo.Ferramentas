@@ -214,13 +214,13 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <!-- ANO -->
+            <!-- CURSO -->
             <StackPanel Grid.Row="0">
                 <Border Margin="0,0.5cm">
                     <StackPanel>
                         <DockPanel Height="0.75cm" Margin="0,0.25cm">
                             <Border Width="2cm" Style="{DynamicResource MODELO.2021.BORDER.FILL}">
-                                <TextBlock Text="ANO" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12pt" Style="{DynamicResource TextHeaderes}"/>
+                                <TextBlock Text="CURSO" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12pt" Style="{DynamicResource TextHeaderes}"/>
                             </Border>
                             <Border Width="7cm" HorizontalAlignment="Left" Style="{DynamicResource Border.Line}" />
                         </DockPanel>
@@ -367,13 +367,13 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <!-- ANO -->
+            <!-- CURSO -->
             <StackPanel Grid.Row="0">
                 <Border Margin="0,0.5cm">
                     <StackPanel>
                         <DockPanel Height="0.75cm" Margin="0,0.25cm">
                             <Border Width="2cm" Style="{DynamicResource MODELO.2021.BORDER.FILL}">
-                                <TextBlock Text="ANO" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12pt" Style="{DynamicResource TextHeaderes}"/>
+                                <TextBlock Text="CURSO" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12pt" Style="{DynamicResource TextHeaderes}"/>
                             </Border>
                             <Border Width="7cm" HorizontalAlignment="Left" Style="{DynamicResource Border.Line}" />
                         </DockPanel>

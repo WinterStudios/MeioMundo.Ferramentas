@@ -56,8 +56,9 @@ namespace MeioMundo.Ferramentas.Escola.Modelos
 
       UC_DISC_COMP_GERAL.ItemsSource = __Disc_CG;
       UC_ItemControl_Disciplinas.ItemsSource = __Disc_CG;
+      UC_ItemControl_Disciplinas_Copy.ItemsSource = __Disc_CG;
 
-        Disciplinas = __Disc_CG.ToArray();
+      Disciplinas = __Disc_CG.ToArray();
     }
     public void SetEscola(string escola)
     {

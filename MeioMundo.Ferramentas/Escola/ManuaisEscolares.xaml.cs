@@ -142,7 +142,7 @@ namespace MeioMundo.Ferramentas.Escola
                             ID = paginas.Count
                         });
                     }
-                    ManuaisSystem.PrintModelos(ManuaisSystem.Modelos.v_2021_06, paginas.ToArray());
+                    ManuaisSystem.PrintModelos((ManuaisSystem.Modelos)UC_ComboBox_Version.SelectedIndex, paginas.ToArray());
                 }
 
             }

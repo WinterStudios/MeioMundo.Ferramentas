@@ -32,7 +32,7 @@ namespace MeioMundo.Ferramentas.Escola
             v_2020_07 = 0,
             v_2021_06 = 1,
             v_2021_06_Outro = 2,
-            v_2021_EPTOLIVA = 3
+            v_2026_07_EPTOLIVA = 3
         }
 
         public static UserControl GetModelo(Modelos modelo, string nomeEscola, Internal.Ano ano)
@@ -65,13 +65,14 @@ namespace MeioMundo.Ferramentas.Escola
                 _modelo.SetEscola(nomeEscola);
                 return _modelo;
             }
-            if(modelo == Modelos.v_2021_EPTOLIVA)
+            if(modelo == Modelos.v_2026_07_EPTOLIVA)
             {
                 GC.Collect();
-                Modelo_2021_Profisional _modelo = new Modelo_2021_Profisional();
+                Modelo_2026_07_Eptoliva _modelo = new Modelo_2026_07_Eptoliva();
                 _modelo.Escola = nomeEscola;
                 _modelo.Ano = ano;
                 _modelo.Run();
+                _modelo.SetEscola(nomeEscola);
                 return _modelo;
             }
             return null;

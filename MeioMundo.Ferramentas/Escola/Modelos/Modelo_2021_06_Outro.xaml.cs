@@ -16,54 +16,37 @@ using System.Windows.Shapes;
 
 namespace MeioMundo.Ferramentas.Escola.Modelos
 {
-  /// <summary>
-  /// Interaction logic for Modelo_2021.xaml
-  /// </summary>
-  public partial class Modelo_2021_06_Outro : UserControl, ModeloInfo
-  {
-
-    public string Version => "v2021.06";
-    public string Escola { get; set; }
-
-    private int _DisciplinasGerais { get; set; } = 10;
-    public Ano Ano { get; set; }
-
-    public UserControl __UserControl => this;
-
-    public Disciplina[] Disciplinas { get; set; }
-
-
-    public void Run()
+    /// <summary>
+    /// Interaction logic for Modelo_2021.xaml
+    /// </summary>
+    public partial class Modelo_2021_06_Outro : UserControl, ModeloInfo
     {
-      LoadDisciplinas();
-    }
-    public Modelo_2021_06_Outro()
-    {
-      this.DataContext = this;
-      InitializeComponent();
-      string[] disciplinas = Internal.Disciplinas.GetDisciplinas().Values.Where(x => !string.IsNullOrEmpty(x)).ToArray();
-      //UC_ItemControl_Disciplinas.ItemsSource = disciplinas;
-      
-    }
+        
+        public string Version => "v2021.06";
+        public string Escola { get; set; }
+        public Ano Ano { get; set; }
 
-    public void LoadDisciplinas()
-    {
-      List<Internal.Disciplina> __Disc_CG = new List<Disciplina>(Ano.Disciplinas.Where(x => x.Disc_Espe == false));
-      for (int i = __Disc_CG.Count; i < _DisciplinasGerais; i++)
-      {
-        __Disc_CG.Add(new Disciplina());
-      }
+        public UserControl __UserControl => this;
 
-      UC_DISC_COMP_GERAL.ItemsSource = __Disc_CG;
-      UC_ItemControl_Disciplinas.ItemsSource = __Disc_CG;
-      UC_ItemControl_Disciplinas_Copy.ItemsSource = __Disc_CG;
+        public Disciplina[] Disciplinas { get;set; }
+        
 
-      Disciplinas = __Disc_CG.ToArray();
-    }
+        public void Run()
+        {
+            
+        }
+        public Modelo_2021_06_Outro()
+        {
+            this.DataContext = this;
+            InitializeComponent();
+            string[] disciplinas = Internal.Disciplinas.GetDisciplinas().Values.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            UC_ItemControl_Disciplinas.ItemsSource = disciplinas;
+        }
+
     public void SetEscola(string escola)
     {
-      //UC_TextBox_Escola.Text = escola;
+      UC_TextBox_Escola.Text = escola;
     }
 
-  }
+    }
 }
